@@ -1,3 +1,5 @@
+/*El index se aplica antes que el App.css, creo que se puede dejar en blanco y usar solo App.css*/
+/* 
 @import 'tailwindcss';
 
 :root {
@@ -67,4 +69,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */

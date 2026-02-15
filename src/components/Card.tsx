@@ -1,0 +1,1 @@
+// Esto es para las tarjetas de los perfumes porque será reutilizable
