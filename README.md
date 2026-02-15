@@ -71,3 +71,5 @@ export default defineConfig([
   },
 ])
 ```
+# Extensiones necesarias de VSC
+[Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
