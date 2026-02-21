@@ -50,7 +50,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost text-xl"><img src="/public/aromaly.png" alt="Logo marca"/></a>
+        <a className="btn btn-ghost text-xl"><img src="/aromaly.png" alt="Logo marca"/></a>
       </div>
       <div className="navbar-end">
         {showSearch && (
