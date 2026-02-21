@@ -1,11 +1,11 @@
 import './App.css'
-import Navbar from './components/Navbar'
+import PerfumePage from './views/perfume/PerfumePage'
 
 function App() {
 
   return (
     <>
-      <Navbar/>
+      <PerfumePage/>
     </>
   )
 }
