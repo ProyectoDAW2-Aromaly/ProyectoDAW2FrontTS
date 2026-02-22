@@ -12,5 +12,21 @@
 }
 
 /* @plugin "daisyui" {
+  themes: caramellatte --default, halloween --prefersdark;
+} */
+
+/* @plugin "daisyui" {
+  themes: garden --default, halloween --prefersdark;
+} */
+
+/* @plugin "daisyui" {
+  themes: retro --default, halloween --prefersdark;
+} */
+
+/* @plugin "daisyui" {
+  themes: caramellatte --default, coffee --prefersdark;
+} */
+
+/* @plugin "daisyui" {
   themes: garden --default, coffee --prefersdark;
 } */
