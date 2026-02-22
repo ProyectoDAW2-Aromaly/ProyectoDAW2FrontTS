@@ -31,10 +31,24 @@ const PerfumePage = () => {
                             It was intended to make a lasting impression on all those who encountered it, just like the sweet music of the lyre.
                         </p>
                         <div className="divider">Info</div>
-                        <h5>Familia olfativa: Poner las chip (oriental, floral, gourdmand)</h5>
-                        <h5>Genero (poner la imagen del género)</h5> {/* https://www.svgrepo.com/ svg gratis */}
+                        <h5>Familia olfativa:
+                            <a href="" className="badge badge-xs badge-soft badge-accent ml-2">Oriental</a>
+                            <a href="" className="badge badge-xs badge-soft badge-accent ml-2">Floral</a>
+                            <a href="" className="badge badge-xs badge-soft badge-accent ml-2">Gourmand</a>
+                        </h5>
+                        <h5 className="flex items-center">
+                            Género 
+                            <figure >
+                                <img 
+                                    src="/perfume-info/icons/genre/female-icon.svg" 
+                                    alt="Icono de género"
+                                    className="w-7 ml-2"
+                                    color="green"
+                                />
+                            </figure>
+                        </h5> {/* https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
                         <h5>Perfumista (a)</h5>
-                        <h5>Fecha de lanzamiento</h5>
+                        <h5>Fecha de lanzamiento: 2011</h5>
 
                         {/* <p>Sus notas base son: Naranja roja, lavanda, bergamota (top). Canela, jazmin, rosa (corazón). Caramelo, almizcle, vainilla (base)</p> */}
 

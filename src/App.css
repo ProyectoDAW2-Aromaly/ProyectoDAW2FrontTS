@@ -7,13 +7,13 @@
   min-height: 100vh;
 }
 
-@plugin "daisyui" {
-  themes: caramellatte --default, luxury --prefersdark;
-}
-
 /* @plugin "daisyui" {
-  themes: caramellatte --default, halloween --prefersdark;
+  themes: caramellatte --default, luxury --prefersdark;
 } */
+
+@plugin "daisyui" {
+  themes: caramellatte --default, halloween --prefersdark;
+}
 
 /* @plugin "daisyui" {
   themes: garden --default, halloween --prefersdark;

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // Es como un selector. Te limita solo a esas Strings, en este caso los temas de Daisy. Dark -> luxury | halloween | cofee . Light: caramellatte | garden | retro
 const THEMES = {
   "light": "caramellatte",
-  "dark": "luxury"
+  "dark": "halloween"
 }
 
 export default function Navbar() {
