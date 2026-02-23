@@ -23,14 +23,14 @@ const PerfumePage = () => {
                             </figure>
                         </button>
                         <div className="divider">Descripción</div>
-                        <p>Lira is a perfume whose every aspect enchants, from its deliciously tempting scent to its poetic origin story. 
+                        <p> Lira is a perfume whose every aspect enchants, from its deliciously tempting scent to its poetic origin story. 
                             Its name derives from the Italian word for lyre, the ancient musical instrument which holds great significance in mythology.
                             <br/>
                             <br/>
                             Lira is based on a perfume originally released by Casamorati in the late 1800s that was created to help a beautiful, aspiring actress realise her dreams. 
                             It was intended to make a lasting impression on all those who encountered it, just like the sweet music of the lyre.
                         </p>
-                        <div className="divider">Información general</div>\
+                        <div className="divider">Información general</div>
                         <h5>Familia olfativa:
                             <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">Oriental</a>
                             <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">Floral</a>
