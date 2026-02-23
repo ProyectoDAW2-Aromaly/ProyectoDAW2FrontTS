@@ -46,12 +46,13 @@ const PerfumePage = () => {
                                 />
                             </figure>
                         </h5> {/* https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
-                        <h5>Perfumista (a)</h5>
+                        <h5>Perfumista: <a href="">Chris Maurice</a></h5>
                         <h5>Fecha de lanzamiento: 2011</h5>
 
                         {/* <p>Sus notas base son: Naranja roja, lavanda, bergamota (top). Canela, jazmin, rosa (corazón). Caramelo, almizcle, vainilla (base)</p> */}
                     </div>
                 </div>
+                
             </div>
         </div>
     )

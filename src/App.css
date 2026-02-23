@@ -30,6 +30,10 @@
   --color-neutral: oklch(90% 0.076 70.697);
 }
 
+html {
+  font-size: 18px;
+}
+
 /* @plugin "daisyui" {
   themes: garden --default, halloween --prefersdark;
 } */
