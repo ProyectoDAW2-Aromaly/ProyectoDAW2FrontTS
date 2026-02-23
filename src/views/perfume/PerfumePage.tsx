@@ -30,7 +30,7 @@ const PerfumePage = () => {
                             Lira is based on a perfume originally released by Casamorati in the late 1800s that was created to help a beautiful, aspiring actress realise her dreams. 
                             It was intended to make a lasting impression on all those who encountered it, just like the sweet music of the lyre.
                         </p>
-                        <div className="divider">Información general</div>
+                        <div className="divider">Información general</div>\
                         <h5>Familia olfativa:
                             <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">Oriental</a>
                             <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">Floral</a>
@@ -52,7 +52,7 @@ const PerfumePage = () => {
                         {/* <p>Sus notas base son: Naranja roja, lavanda, bergamota (top). Canela, jazmin, rosa (corazón). Caramelo, almizcle, vainilla (base)</p> */}
                     </div>
                 </div>
-                
+
             </div>
         </div>
     )
