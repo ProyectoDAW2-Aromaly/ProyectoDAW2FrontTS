@@ -149,23 +149,37 @@ const PerfumePage = () => {
                     </div>
                 </div>
 
-                <h1 className="text-2xl text-center mb-10 mt-10">VOTACIONES</h1>
+                <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
                 {/* <div className="card card-border bg-base-100 w-96"> */}
                 <div className="card card-border bg-base-100 w-auto">
                     <div className="flex">
-                        <div className="card-body">
-                            <h2 className="card-title">Mis votaciones</h2>
-                            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+                        <div className="card-body w-1/2">
+                            <h2 className="card-title">Tu valoración</h2>
+                            <div className="flex w-40">
+                                <img 
+                                    src="/perfume-info/icons/rating/calendar-logo.svg" 
+                                    alt="Logo época del año calendario" 
+                                    className="w-4 icon-theme-aware mr-2"
+                                    />
+                                    <p>Época del año</p>
+                            </div>
                             <div className="card-actions justify-end">
-                                <p>Votaciones</p>
+                                <p>aaaaaaa</p>
                             </div>
                         </div>
                         <div className="divider divider-horizontal mt-5 mb-5"></div>
-                        <div className="card-body">
-                            <h2 className="card-title">Votaciones generales</h2>
-                            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+                        <div className="card-body w-1/2">
+                            <h2 className="card-title">Valoración media</h2>
+                            <div className="flex w-40">
+                                <img 
+                                    src="/perfume-info/icons/rating/calendar-logo.svg" 
+                                    alt="Logo época del año calendario" 
+                                    className="w-4 icon-theme-aware mr-2"
+                                    />
+                                    <p>Época del año</p>
+                            </div>
                             <div className="card-actions justify-end">
-                                <p>Votaciones</p>
+                                <p>aaaaaaa</p>
                             </div>
                         </div>
                     </div>
