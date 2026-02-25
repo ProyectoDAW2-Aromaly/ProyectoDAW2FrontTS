@@ -42,7 +42,7 @@ const PerfumePage = () => {
                                 <img
                                     src="/perfume-info/icons/genre/female-icon.svg"
                                     alt="Icono de género"
-                                    className="w-4 ml-2 icon-theme-aware"
+                                    className="w-5 ml-2 icon-theme-aware"
                                 />
                             </figure>
                         </h5> {/* https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
@@ -150,19 +150,75 @@ const PerfumePage = () => {
                 </div>
 
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
-                {/* <div className="card card-border bg-base-100 w-96"> */}
                 <div className="card card-border bg-base-100 w-auto">
                     <div className="flex">
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
                             <div className="flex w-40">
                                 <img 
-                                    src="/perfume-info/icons/rating/calendar-logo.svg" 
+                                    src="/perfume-info/icons/rating/calendar-icon.svg" 
                                     alt="Logo época del año calendario" 
                                     className="w-4 icon-theme-aware mr-2"
-                                    />
-                                    <p>Época del año</p>
+                                />
+                                <p>Época del año</p>
                             </div>
+
+                            <div className="flex gap-4">
+
+                                <label className="flex w-40 cursor-pointer gap-2">
+                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
+                                    <img className="w-5" src="/perfume-info/icons/season/autumn-icon.svg" alt="Icono de otoño" />
+                                    <span>Otoño</span>
+                                </label>
+
+                                <label className="flex w-40 cursor-pointer gap-2">
+                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
+                                    <img className="w-5" src="/perfume-info/icons/season/winter-icon.svg" alt="Icono de invierno" />
+                                    <span>Invierno</span>
+                                </label>
+
+                                <label className="flex w-40 cursor-pointer gap-2">
+                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
+                                    <img className="w-5" src="/perfume-info/icons/season/spring-icon.svg" alt="Icono de primavera" />
+                                    <span>Primavera</span>
+                                </label>
+
+                                <label className="flex w-40 cursor-pointer gap-2">
+                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
+                                    <img className="w-5" src="/perfume-info/icons/season/summer-icon.svg" alt="Icono de verano" />
+                                    <span>Verano</span>
+                                </label>
+
+                            </div>
+
+                            <div className="flex w-40">
+                                <img 
+                                    src="/perfume-info/icons/rating/time-icon.svg" 
+                                    alt="Logo época del año calendario" 
+                                    className="w-4 icon-theme-aware mr-2"
+                                />
+                                <p>Duración</p>
+                            </div>
+
+                            <div className="w-full max-w-xs">
+                                <input type="range" min={0} max="100" value="25" className="range" step="25" />
+                                <div className="flex justify-between px-2.5 mt-2 text-xs">
+                                    <span>|</span>
+                                    <span>|</span>
+                                    <span>|</span>
+                                    <span>|</span>
+                                    <span>|</span>
+                                </div>
+                                <div className="flex justify-between px-2.5 mt-2 text-xs">
+                                    <span>1</span>
+                                    <span>2</span>
+                                    <span>3</span>
+                                    <span>4</span>
+                                    <span>5</span>
+                                </div>
+                            </div>
+                            
+                            
                             <div className="card-actions justify-end">
                                 <p>aaaaaaa</p>
                             </div>
@@ -172,10 +228,10 @@ const PerfumePage = () => {
                             <h2 className="card-title">Valoración media</h2>
                             <div className="flex w-40">
                                 <img 
-                                    src="/perfume-info/icons/rating/calendar-logo.svg" 
+                                    src="/perfume-info/icons/rating/calendar-icon.svg" 
                                     alt="Logo época del año calendario" 
                                     className="w-4 icon-theme-aware mr-2"
-                                    />
+                                />
                                     <p>Época del año</p>
                             </div>
                             <div className="card-actions justify-end">
