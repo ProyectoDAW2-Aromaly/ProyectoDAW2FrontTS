@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 // Es como un selector. Te limita solo a esas Strings, en este caso los temas de Daisy. Dark -> luxury | halloween | cofee . Light: caramellatte | garden | retro
 const THEMES = {
@@ -34,12 +35,13 @@ export default function Navbar() {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
           </div>
           <ul className="menu dropdown-content bg-base-200 rounded-box w-56">
-            <li><a>Inicio</a></li>
+            <li><Link to="/">Inicio</Link></li>
             <li>
               <details open>
                 <summary>Perfumes</summary>
                 <ul>
-                  <li><a>Populares</a></li>
+                  {/* Probando el router */}
+                  <li><Link to="/perfumes">Populares (prueba router)</Link></li>
                   <li><a>Por notas</a></li>
                   <li><a>Marca</a></li>
                 </ul>

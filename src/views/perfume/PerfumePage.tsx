@@ -1,6 +1,9 @@
 import Navbar from "../../components/Navbar";
+import { usePerfumeViewModel } from "./usePerfumeViewModel";
 
 const PerfumePage = () => {
+    usePerfumeViewModel()
+
     return (
         <div>
             <Navbar />
