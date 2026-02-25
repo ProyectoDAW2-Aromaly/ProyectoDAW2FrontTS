@@ -62,7 +62,7 @@ const PerfumePage = () => {
                 <h1 className="text-2xl text-center mb-10 mt-10">PIRÁMIDE OLFATIVA</h1>
                 <div className="flex flex-wrap gap-12" >
                     {selectedPerfume.pyramids.map(pyramid =>
-                        <div className="card card-border bg-base-100 w-96" key={pyramid.category}>
+                        <div className="card bg-base-100 shadow-sm w-96" key={pyramid.category}>
                             <div className="card-body">
                                 <h2 className="card-title">{pyramid.category}</h2>
 
@@ -90,7 +90,7 @@ const PerfumePage = () => {
                 </div>
 
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
-                <div className="card card-border bg-base-100 w-auto">
+                <div className="card bg-base-100 shadow-sm w-auto">
                     <div className="flex">
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
