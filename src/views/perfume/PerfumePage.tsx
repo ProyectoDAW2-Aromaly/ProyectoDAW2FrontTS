@@ -2,7 +2,9 @@ import Navbar from "../../components/Navbar";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 
 const PerfumePage = () => {
-    usePerfumeViewModel()
+    const { selectedPerfume } = usePerfumeViewModel()
+
+    if (selectedPerfume === undefined) return null
 
     return (
         <div>
@@ -11,145 +13,80 @@ const PerfumePage = () => {
                 <div className="card card-side bg-base-100 shadow-sm">
                     <figure className="w-4xl h-auto">
                         <img
-                            src="/perfume-info/xerjoff-lira.jpg"
-                            alt="Lira Xerjoff"
+                            src={selectedPerfume.image.src}
+                            alt={selectedPerfume.image.alt}
                         />
                     </figure>
                     <div className="card-body items-start">
-                        <h1 className="card-title ml-2">LIRA</h1>
+                        <h1 className="card-title ml-2">{selectedPerfume.name}</h1>
                         <button className="btn btn-ghost bg-[#FFF7ED] rounded-2xl self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
                             <figure className="w-auto h-5">
                                 <img
-                                    src="/perfume-info/xerjoff-logo.png"
-                                    alt="Logo de la marca"
+                                    src={selectedPerfume.logo.src}
+                                    alt={selectedPerfume.logo.alt}
                                 />
                             </figure>
                         </button>
                         <div className="divider">Descripción</div>
-                        <p> Lira is a perfume whose every aspect enchants, from its deliciously tempting scent to its poetic origin story.
-                            Its name derives from the Italian word for lyre, the ancient musical instrument which holds great significance in mythology.
-                            <br />
-                            <br />
-                            Lira is based on a perfume originally released by Casamorati in the late 1800s that was created to help a beautiful, aspiring actress realise her dreams.
-                            It was intended to make a lasting impression on all those who encountered it, just like the sweet music of the lyre.
+                        <p>{selectedPerfume.description.map(description =>
+                            <span key={description}>
+                                {description}
+                                <br />
+                                <br />
+                            </span>
+                        )}
                         </p>
                         <div className="divider">Información general</div>
                         <h5>Familia olfativa:
-                            <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">Oriental</a>
-                            <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">Floral</a>
-                            <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">Gourmand</a>
+                            {selectedPerfume.families.map(family =>
+                                <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">{family}</a>
+                            )}
                         </h5>
                         <h5 className="flex items-center">
                             Género
                             <figure >
                                 <img
-                                    src="/perfume-info/icons/genre/female-icon.svg"
+                                    src={selectedPerfume.genderIcon}
                                     alt="Icono de género"
                                     className="w-5 ml-2 icon-theme-aware"
                                 />
                             </figure>
                         </h5> {/* https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
-                        <h5>Perfumista: <a href="">Chris Maurice</a></h5>
-                        <h5>Fecha de lanzamiento: 2011</h5>
+                        <h5>Perfumista: <a href={`/perfumer/?id=${selectedPerfume.perfumer.id}`}>{selectedPerfume.perfumer.name}</a></h5>
+                        <h5>Fecha de lanzamiento: {selectedPerfume.releaseDate}</h5>
 
                         {/* <p>Sus notas base son: Naranja roja, lavanda, bergamota (top). Canela, jazmin, rosa (corazón). Caramelo, almizcle, vainilla (base)</p> */}
                     </div>
                 </div>
 
                 <h1 className="text-2xl text-center mb-10 mt-10">PIRÁMIDE OLFATIVA</h1>
-                <div className="flex flex-wrap gap-12">
-                    <div className="card card-border bg-base-100 w-96">
-                        <div className="card-body">
-                            <h2 className="card-title">Notas de salida</h2>
+                <div className="flex flex-wrap gap-12" >
+                    {selectedPerfume.pyramids.map(pyramid =>
+                        <div className="card card-border bg-base-100 w-96" key={pyramid.category}>
+                            <div className="card-body">
+                                <h2 className="card-title">{pyramid.category}</h2>
 
-                            <div className="flex flex-wrap gap-6 mb-4">
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/naranja-roja.jpg" />
-                                    </div>
+                                <div className="flex flex-wrap gap-6 mb-4">
+                                    {pyramid.notes.map(note =>
+                                        note.imageSrc ?
+                                            <div className="avatar" key={note.name}>
+                                                <div className="w-14 rounded-full">
+                                                    <img src={note.imageSrc} />
+                                                </div>
+                                            </div>
+                                            : null
+                                    )}
                                 </div>
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/lavanda.jpg" />
-                                    </div>
+
+                                <div className="flex flex-wrap gap-2">
+                                    {pyramid.notes.map(note =>
+                                        <a key={note.name} href="" className="badge badge-s badge-soft badge-neutral">{note.name}</a>
+                                    )}
                                 </div>
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/bergamota.jpg" />
-                                    </div>
-                                </div>
+
                             </div>
-
-                            <div className="flex flex-wrap gap-2">
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Naranja roja</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Lavanda</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Bergamota</a>
-                            </div>
-
                         </div>
-                    </div>
-                    <div className="card card-border bg-base-100 w-96">
-                        <div className="card-body">
-                            <h2 className="card-title">Notas de salida</h2>
-
-                            <div className="flex flex-wrap gap-6 mb-4">
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/canela.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/jazmin.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/rosa.jpg" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-wrap gap-2">
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Canela</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Jazmín</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Rosa</a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="card card-border bg-base-100 w-96">
-                        <div className="card-body">
-                            <h2 className="card-title">Notas de salida</h2>
-
-                            <div className="flex flex-wrap gap-6 mb-4">
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/caramelo.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/almizcle.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/perfume-info/notas/vainilla.jpeg" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="flex flex-wrap gap-2">
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Caramelo</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Almizcle</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Vainilla</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Prueba</a>
-                                <a href="" className="badge badge-s badge-soft badge-neutral">Prueba</a>
-                            </div>
-
-                        </div>
-                    </div>
+                    )}
                 </div>
 
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
@@ -158,9 +95,9 @@ const PerfumePage = () => {
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
                             <div className="flex w-40">
-                                <img 
-                                    src="/perfume-info/icons/rating/calendar-icon.svg" 
-                                    alt="Logo época del año calendario" 
+                                <img
+                                    src="/perfume-info/icons/rating/calendar-icon.svg"
+                                    alt="Logo época del año calendario"
                                     className="w-4 icon-theme-aware mr-2"
                                 />
                                 <p>Época del año</p>
@@ -195,9 +132,9 @@ const PerfumePage = () => {
                             </div>
 
                             <div className="flex w-40">
-                                <img 
-                                    src="/perfume-info/icons/rating/time-icon.svg" 
-                                    alt="Logo época del año calendario" 
+                                <img
+                                    src="/perfume-info/icons/rating/time-icon.svg"
+                                    alt="Logo época del año calendario"
                                     className="w-4 icon-theme-aware mr-2"
                                 />
                                 <p>Duración</p>
@@ -220,8 +157,8 @@ const PerfumePage = () => {
                                     <span>5</span>
                                 </div>
                             </div>
-                            
-                            
+
+
                             <div className="card-actions justify-end">
                                 <p>aaaaaaa</p>
                             </div>
@@ -230,12 +167,12 @@ const PerfumePage = () => {
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Valoración media</h2>
                             <div className="flex w-40">
-                                <img 
-                                    src="/perfume-info/icons/rating/calendar-icon.svg" 
-                                    alt="Logo época del año calendario" 
+                                <img
+                                    src="/perfume-info/icons/rating/calendar-icon.svg"
+                                    alt="Logo época del año calendario"
                                     className="w-4 icon-theme-aware mr-2"
                                 />
-                                    <p>Época del año</p>
+                                <p>Época del año</p>
                             </div>
                             <div className="card-actions justify-end">
                                 <p>aaaaaaa</p>

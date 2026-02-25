@@ -41,7 +41,7 @@ export default function Navbar() {
                 <summary>Perfumes</summary>
                 <ul>
                   {/* Probando el router */}
-                  <li><Link to="/perfumes">Populares (prueba router)</Link></li>
+                  <li><Link to="/perfume?id=1">Populares (prueba router)</Link></li>
                   <li><a>Por notas</a></li>
                   <li><a>Marca</a></li>
                 </ul>
