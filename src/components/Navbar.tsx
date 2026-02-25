@@ -82,7 +82,7 @@ export default function Navbar() {
         </div>
       </div>
       <ul
-        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-1 w-30 p-2 shadow">
+        className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-30 p-2 shadow">
         <li><a>Perfil</a></li>
         <li><a>Ajustes</a></li>
         <li><a>Cerrar sesión</a></li>

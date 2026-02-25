@@ -42,7 +42,7 @@ const PerfumePage = () => {
                                 <img
                                     src="/perfume-info/icons/genre/female-icon.svg"
                                     alt="Icono de género"
-                                    className="w-7 ml-2 icon-theme-aware"
+                                    className="w-4 ml-2 icon-theme-aware"
                                 />
                             </figure>
                         </h5> {/* https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
