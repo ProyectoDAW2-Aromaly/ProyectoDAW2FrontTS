@@ -208,24 +208,44 @@ const PerfumePage = () => {
                             </div>
 
 
-                            <div className="card-actions justify-end mt-2">
-                                <p>aaaaaaa</p>
+                            <div className="flex w-40 mt-5">
+                                <img
+                                    src="/perfume-info/icons/rating/star-icon.svg"
+                                    alt="Logo época del año calendario"
+                                    className="w-5 icon-theme-aware mr-2"
+                                />
+                                <p>Puntuación general</p>
                             </div>
+
+                            <div className="w-full relative">
+                                <div className="rating">
+                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
+                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
+                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
+                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
+                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+                                </div>
+                            </div>
+
                         </div>
                         <div className="divider divider-horizontal mt-5 mb-5"></div>
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Valoración media</h2>
-                            <div className="flex w-40">
+                            
+                            <div className="flex w-40 mt-5 mb-2">
                                 <img
                                     src="/perfume-info/icons/rating/calendar-icon.svg"
                                     alt="Logo época del año calendario"
-                                    className="w-4 icon-theme-aware mr-2"
+                                    className="w-5 icon-theme-aware mr-2"
                                 />
                                 <p>Época del año</p>
                             </div>
-                            <div className="card-actions justify-end">
-                                <p>aaaaaaa</p>
+
+                            <div className="radial-progress"
+                                style={{ "--value": "70", "--size": "3rem", "--thickness": "2px" } as React.CSSProperties }
+                                aria-valuenow={70} role="progressbar">70%
                             </div>
+
                         </div>
                     </div>
 
