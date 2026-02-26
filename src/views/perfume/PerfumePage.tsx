@@ -12,7 +12,8 @@ const seasons = [
 const PerfumePage = () => {
     const { selectedPerfume } = usePerfumeViewModel()
 
-    const [value, setValue] = useState(0);
+    const [valueDuration, setValueDuration] = useState(0);
+    const [valuePrice, setValuePrice] = useState(0);
 
     if (selectedPerfume === undefined) return null
 
@@ -112,11 +113,11 @@ const PerfumePage = () => {
                     <div className="flex">
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
-                            <div className="flex w-40 mb-2">
+                            <div className="flex w-40 mt-5 mb-2">
                                 <img
                                     src="/perfume-info/icons/rating/calendar-icon.svg"
                                     alt="Logo época del año calendario"
-                                    className="w-4 icon-theme-aware mr-2"
+                                    className="w-5 icon-theme-aware mr-2"
                                 />
                                 <p>Época del año</p>
                             </div>
@@ -142,11 +143,11 @@ const PerfumePage = () => {
 
                             </div>
                             
-                            <div className="flex w-40">
+                            <div className="flex w-40 mt-5">
                                 <img
                                     src="/perfume-info/icons/rating/time-icon.svg"
                                     alt="Logo época del año calendario"
-                                    className="w-4 icon-theme-aware mr-2"
+                                    className="w-5 icon-theme-aware mr-2"
                                 />
                                 <p>Duración</p>
                             </div>
@@ -157,12 +158,12 @@ const PerfumePage = () => {
                                     min={0}
                                     max={3}
                                     step={1}
-                                    value={value}
-                                    onChange={(e) => setValue(Number(e.target.value))}
-                                    className="range w-full"
+                                    value={valueDuration}
+                                    onChange={(e) => setValueDuration(Number(e.target.value))}
+                                    className="range range-xs w-full [--range-fill:0]"
                                 />
 
-                                {/* <div className="flex justify-between px-2.5 mt-2 text-xs">
+                                {/* <div className="flex justify-between px-2.5 text-xs">
                                     <span>|</span>
                                     <span>|</span>
                                     <span>|</span>
@@ -174,6 +175,35 @@ const PerfumePage = () => {
                                     <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Poca (3-6h)</span>
                                     <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Buena (5-12h)</span>
                                     <span className="absolute right-0 text-xs">Excelente (+12h)</span>
+                                </div>
+                            </div>
+
+                                    
+                            <div className="flex w-40 mt-5">
+                                <img
+                                    src="/perfume-info/icons/rating/coin-icon.svg"
+                                    alt="Logo época del año calendario"
+                                    className="w-5 icon-theme-aware mr-2"
+                                />
+                                <p>Precio</p>
+                            </div>
+
+                            <div className="w-full relative">
+                                <input
+                                    type="range"
+                                    min={0}
+                                    max={3}
+                                    step={1}
+                                    value={valuePrice}
+                                    onChange={(e) => setValuePrice(Number(e.target.value))}
+                                    className="range range-xs w-full [--range-fill:0]"
+                                />
+
+                                <div className="relative w-full h-4 mt-2">
+                                    <span className="absolute left-0 text-xs">Económico</span>
+                                    <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Moderado</span>
+                                    <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Caro</span>
+                                    <span className="absolute right-0 text-xs">Muy caro</span>
                                 </div>
                             </div>
 
