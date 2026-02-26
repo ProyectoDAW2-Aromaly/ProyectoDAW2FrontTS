@@ -1,6 +1,13 @@
 import Navbar from "../../components/Navbar";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 
+const seasons = [
+    { name: "Otoño", icon: "/perfume-info/icons/season/autumn-icon.svg" },
+    { name: "Invierno", icon: "/perfume-info/icons/season/winter-icon.svg" },
+    { name: "Primavera", icon: "/perfume-info/icons/season/spring-icon.svg" },
+    { name: "Verano", icon: "/perfume-info/icons/season/summer-icon.svg" },
+];
+
 const PerfumePage = () => {
     const { selectedPerfume } = usePerfumeViewModel()
 
@@ -57,15 +64,12 @@ const PerfumePage = () => {
                             Perfumista:
                             {selectedPerfume.perfumer.map((perfumer) => (
                                 <span key={perfumer.id}>
-                                    {" "}
-                                    <a href={`/perfumer/?id=${perfumer.id}`}>
+                                    <a className="badge badge-xs badge-soft badge-neutral ml-2" href={`/perfumer/?id=${perfumer.id}`}>
                                         {perfumer.name}
                                     </a>
                                 </span>
                             ))}
                         </h5>
-
-                        {/* <h5>Perfumista: <a href={`/perfumer/?id=${selectedPerfume.perfumer.id}`}>{selectedPerfume.perfumer.name}</a></h5> */}
                         <h5>Fecha de lanzamiento: {selectedPerfume.releaseDate}</h5>
                     </div>
                 </div>
@@ -105,7 +109,7 @@ const PerfumePage = () => {
                     <div className="flex">
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
-                            <div className="flex w-40">
+                            <div className="flex w-40 mb-2">
                                 <img
                                     src="/perfume-info/icons/rating/calendar-icon.svg"
                                     alt="Logo época del año calendario"
@@ -114,34 +118,27 @@ const PerfumePage = () => {
                                 <p>Época del año</p>
                             </div>
 
-                            <div className="flex gap-4">
+                            <div className="flex gap-4 mb-2">
+                                {/* peer: Afecta al elemento hermano, es para poner efectos*/}
+                                {seasons.map((season) => {
+                                    const iconClases = `
+                                        w-5 filter grayscale
+                                        peer-checked:grayscale-0 peer-checked:grayscale peer-checked:scale-110
+                                        hover:-translate-y-1 hover:scale-110 
+                                        transition-all duration-200 ease-in-out 
+                                    `;
 
-                                <label className="flex w-40 cursor-pointer gap-2">
-                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
-                                    <img className="w-5" src="/perfume-info/icons/season/autumn-icon.svg" alt="Icono de otoño" />
-                                    <span>Otoño</span>
-                                </label>
-
-                                <label className="flex w-40 cursor-pointer gap-2">
-                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
-                                    <img className="w-5" src="/perfume-info/icons/season/winter-icon.svg" alt="Icono de invierno" />
-                                    <span>Invierno</span>
-                                </label>
-
-                                <label className="flex w-40 cursor-pointer gap-2">
-                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
-                                    <img className="w-5" src="/perfume-info/icons/season/spring-icon.svg" alt="Icono de primavera" />
-                                    <span>Primavera</span>
-                                </label>
-
-                                <label className="flex w-40 cursor-pointer gap-2">
-                                    <input type="checkbox" className="checkbox checkbox-sm hidden" />
-                                    <img className="w-5" src="/perfume-info/icons/season/summer-icon.svg" alt="Icono de verano" />
-                                    <span>Verano</span>
-                                </label>
+                                    return(
+                                        <label key={season.name} className="flex w-40 cursor-pointer gap-2">
+                                            <input type="checkbox" className="peer hidden" />
+                                            <img src={season.icon} alt={`Icono de ${season.name}`} className={iconClases} />
+                                            <span>{season.name}</span>
+                                        </label>
+                                    )
+                                })}
 
                             </div>
-
+                            
                             <div className="flex w-40">
                                 <img
                                     src="/perfume-info/icons/rating/time-icon.svg"
@@ -152,7 +149,7 @@ const PerfumePage = () => {
                             </div>
 
                             <div className="w-full max-w-xs">
-                                <input type="range" min={0} max="100" value="25" className="range" step="25" />
+                                <input type="range" min={0} max="100" className="range" step="25" />
                                 <div className="flex justify-between px-2.5 mt-2 text-xs">
                                     <span>|</span>
                                     <span>|</span>
