@@ -4,16 +4,18 @@ interface INote {
     imageSrc?: string
 }
 
+export interface IPerfumer {
+    id: string;
+    name: string;
+}
+
 // Interfaz para representar perfume por ahora
 export interface IPerfume {
     id: string,
     name: string,
     description: string[],
     genderIcon: string,
-    perfumer: {
-        id: string,
-        name: string
-    },
+    perfumer: IPerfumer[],
     releaseDate: string,
     image: {
         src: string,

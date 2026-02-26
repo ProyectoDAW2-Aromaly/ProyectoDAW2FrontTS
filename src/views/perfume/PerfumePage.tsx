@@ -52,10 +52,21 @@ const PerfumePage = () => {
                                 />
                             </figure>
                         </h5> {/* https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
-                        <h5>Perfumista: <a href={`/perfumer/?id=${selectedPerfume.perfumer.id}`}>{selectedPerfume.perfumer.name}</a></h5>
-                        <h5>Fecha de lanzamiento: {selectedPerfume.releaseDate}</h5>
+                        
+                        <h5>
+                            Perfumista:
+                            {selectedPerfume.perfumer.map((perfumer) => (
+                                <span key={perfumer.id}>
+                                    {" "}
+                                    <a href={`/perfumer/?id=${perfumer.id}`}>
+                                        {perfumer.name}
+                                    </a>
+                                </span>
+                            ))}
+                        </h5>
 
-                        {/* <p>Sus notas base son: Naranja roja, lavanda, bergamota (top). Canela, jazmin, rosa (corazón). Caramelo, almizcle, vainilla (base)</p> */}
+                        {/* <h5>Perfumista: <a href={`/perfumer/?id=${selectedPerfume.perfumer.id}`}>{selectedPerfume.perfumer.name}</a></h5> */}
+                        <h5>Fecha de lanzamiento: {selectedPerfume.releaseDate}</h5>
                     </div>
                 </div>
 
