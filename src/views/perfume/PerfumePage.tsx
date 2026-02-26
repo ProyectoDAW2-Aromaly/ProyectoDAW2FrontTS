@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 
@@ -10,6 +11,8 @@ const seasons = [
 
 const PerfumePage = () => {
     const { selectedPerfume } = usePerfumeViewModel()
+
+    const [value, setValue] = useState(0);
 
     if (selectedPerfume === undefined) return null
 
@@ -148,26 +151,34 @@ const PerfumePage = () => {
                                 <p>Duración</p>
                             </div>
 
-                            <div className="w-full max-w-xs">
-                                <input type="range" min={0} max="100" className="range" step="25" />
-                                <div className="flex justify-between px-2.5 mt-2 text-xs">
+                            <div className="w-full relative">
+                                <input
+                                    type="range"
+                                    min={0}
+                                    max={3}
+                                    step={1}
+                                    value={value}
+                                    onChange={(e) => setValue(Number(e.target.value))}
+                                    className="range w-full"
+                                />
+
+                                {/* <div className="flex justify-between px-2.5 mt-2 text-xs">
                                     <span>|</span>
                                     <span>|</span>
                                     <span>|</span>
                                     <span>|</span>
-                                    <span>|</span>
-                                </div>
-                                <div className="flex justify-between px-2.5 mt-2 text-xs">
-                                    <span>1</span>
-                                    <span>2</span>
-                                    <span>3</span>
-                                    <span>4</span>
-                                    <span>5</span>
+                                </div> */}
+
+                                <div className="relative w-full h-4 mt-2">
+                                    <span className="absolute left-0 text-xs">Escasa (0-2h)</span>
+                                    <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Poca (3-6h)</span>
+                                    <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Buena (5-12h)</span>
+                                    <span className="absolute right-0 text-xs">Excelente (+12h)</span>
                                 </div>
                             </div>
 
 
-                            <div className="card-actions justify-end">
+                            <div className="card-actions justify-end mt-2">
                                 <p>aaaaaaa</p>
                             </div>
                         </div>
