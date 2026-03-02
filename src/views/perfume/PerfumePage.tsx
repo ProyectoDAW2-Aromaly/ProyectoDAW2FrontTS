@@ -241,10 +241,22 @@ const PerfumePage = () => {
                                 <p>Época del año</p>
                             </div>
 
-                            <div className="radial-progress"
-                                style={{ "--value": "70", "--size": "3rem", "--thickness": "2px" } as React.CSSProperties }
-                                aria-valuenow={70} role="progressbar">70%
+                            <div className="flex gap-6">
+                                {seasons.map((season) => {
+                                    const value = 70;
+                                    return (
+                                        <div className="flex flex-col items-center">
+                                            <div className="radial-progress flex"
+                                                style={{ "--value": value, "--size": "2.5rem" } as React.CSSProperties}
+                                                aria-valuenow={70} role="progressbar">
+                                                <img src={season.icon} alt={`Icono de ${season.name}`} className="w-5" />
+                                            </div>
+                                            <span className="text-xs font-medium">{value}%</span>
+                                        </div>
+                                    )
+                                })}
                             </div>
+                            
 
                         </div>
                     </div>
