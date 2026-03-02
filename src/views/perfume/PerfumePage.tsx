@@ -9,6 +9,10 @@ const seasons = [
     { name: "Verano", icon: "/perfume-info/icons/season/summer-icon.svg" },
 ];
 
+const labelsDuration = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
+const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
+
+
 const PerfumePage = () => {
     const { selectedPerfume } = usePerfumeViewModel()
 
@@ -170,11 +174,24 @@ const PerfumePage = () => {
                                     <span>|</span>
                                 </div> */}
 
-                                <div className="relative w-full h-4 mt-2">
+                                {/* <div className="relative w-full h-4 mt-2">
                                     <span className="absolute left-0 text-xs">Escasa (0-2h)</span>
                                     <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Poca (3-6h)</span>
                                     <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Buena (5-12h)</span>
                                     <span className="absolute right-0 text-xs">Excelente (+12h)</span>
+                                </div> */}
+                                <div className="relative w-full mt-3 flex justify-between">
+                                    {labelsDuration.map((label, index) => (
+                                        <span
+                                            key={label} 
+                                            className={`text-xs transition-all duration-200 ${valueDuration === index
+                                                    ? "font-bold text-primary scale-110"
+                                                    : "text-base-content/60"
+                                                }`}
+                                        >
+                                            {label}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
 
@@ -188,7 +205,7 @@ const PerfumePage = () => {
                                 <p>Precio</p>
                             </div>
 
-                            <div className="w-full relative">
+                            {/* <div className="w-full relative">
                                 <input
                                     type="range"
                                     min={0}
@@ -204,6 +221,33 @@ const PerfumePage = () => {
                                     <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Moderado</span>
                                     <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Caro</span>
                                     <span className="absolute right-0 text-xs">Muy caro</span>
+                                </div>
+                            </div> */}
+
+
+                            <div className="w-full relative">
+                                <input
+                                    type="range"
+                                    min={0}
+                                    max={3}
+                                    step={1}
+                                    value={valuePrice}
+                                    onChange={(e) => setValuePrice(Number(e.target.value))}
+                                    className="range range-xs w-full [--range-fill:0]"
+                                />
+
+                                <div className="relative w-full mt-3 flex justify-between">
+                                    {labelsPrice.map((label, index) => (
+                                        <span
+                                            key={label} 
+                                            className={`text-xs transition-all duration-200 ${valuePrice === index
+                                                    ? "font-bold text-primary scale-110"
+                                                    : "text-base-content/60"
+                                                }`}
+                                        >
+                                            {label}
+                                        </span>
+                                    ))}
                                 </div>
                             </div>
 
