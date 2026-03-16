@@ -117,95 +117,103 @@ const PerfumePage = () => {
                     <div className="flex">
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
-                            <div className="flex w-40 mt-5 mb-2">
-                                <img
-                                    src="/perfume-info/icons/rating/calendar-icon.svg"
-                                    alt="Logo época del año calendario"
-                                    className="w-5 icon-theme-aware mr-2"
-                                />
-                                <p>Época del año</p>
-                            </div>
+                            {/* div de época del año votación*/}
+                            <div className="h-25">
+                                <div className="flex w-40 mt-5 mb-2">
+                                    <img
+                                        src="/perfume-info/icons/rating/calendar-icon.svg"
+                                        alt="Logo época del año calendario"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Época del año</p>
+                                </div>
 
-                            <div className="flex gap-4 mb-2">
-                                {/* peer: Afecta al elemento hermano, es para poner efectos*/}
-                                {seasons.map((season) => {
-                                    const iconClases = `
+                                <div className="flex gap-4 mb-2 mt-5">
+                                    {/* peer: Afecta al elemento hermano, es para poner efectos*/}
+                                    {seasons.map((season) => {
+                                        const iconClases = `
                                         w-5 filter grayscale
                                         peer-checked:grayscale-0 peer-checked:grayscale peer-checked:scale-110
                                         hover:-translate-y-1 hover:scale-110 
                                         transition-all duration-200 ease-in-out 
                                     `;
 
-                                    return(
-                                        <label key={season.name} className="flex w-40 cursor-pointer gap-2">
-                                            <input type="checkbox" className="peer hidden" />
-                                            <img src={season.icon} alt={`Icono de ${season.name}`} className={iconClases} />
-                                            <span>{season.name}</span>
-                                        </label>
-                                    )
-                                })}
+                                        return (
+                                            <label key={season.name} className="flex w-40 cursor-pointer gap-2">
+                                                <input type="checkbox" className="peer hidden" />
+                                                <img src={season.icon} alt={`Icono de ${season.name}`} className={iconClases} />
+                                                <span>{season.name}</span>
+                                            </label>
+                                        )
+                                    })}
+
+                                </div>
 
                             </div>
                             
-                            <div className="flex w-40 mt-5">
-                                <img
-                                    src="/perfume-info/icons/rating/time-icon.svg"
-                                    alt="Logo época del año calendario"
-                                    className="w-5 icon-theme-aware mr-2"
-                                />
-                                <p>Duración</p>
-                            </div>
+                            {/* div de duración votación*/}
+                            <div className="h-25">
+                                <div className="flex w-40 mt-5 mb-2">
+                                    <img
+                                        src="/perfume-info/icons/rating/time-icon.svg"
+                                        alt="Logo duración reloj de arena"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Duración</p>
+                                </div>
 
-                            <div className="w-full relative">
-                                <input
-                                    type="range"
-                                    min={0}
-                                    max={3}
-                                    step={1}
-                                    value={valueDuration}
-                                    onChange={(e) => setValueDuration(Number(e.target.value))}
-                                    className="range range-xs w-full [--range-fill:0]"
-                                />
+                                <div className="w-full relative">
+                                    <input
+                                        type="range"
+                                        min={0}
+                                        max={3}
+                                        step={1}
+                                        value={valueDuration}
+                                        onChange={(e) => setValueDuration(Number(e.target.value))}
+                                        className="range range-xs w-full [--range-fill:0]"
+                                    />
 
-                                {/* <div className="flex justify-between px-2.5 text-xs">
+                                    {/* <div className="flex justify-between px-2.5 text-xs">
                                     <span>|</span>
                                     <span>|</span>
                                     <span>|</span>
                                     <span>|</span>
                                 </div> */}
 
-                                {/* <div className="relative w-full h-4 mt-2">
+                                    {/* <div className="relative w-full h-4 mt-2">
                                     <span className="absolute left-0 text-xs">Escasa (0-2h)</span>
                                     <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Poca (3-6h)</span>
                                     <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Buena (5-12h)</span>
                                     <span className="absolute right-0 text-xs">Excelente (+12h)</span>
                                 </div> */}
-                                <div className="relative w-full mt-3 flex justify-between">
-                                    {labelsDuration.map((label, index) => (
-                                        <span
-                                            key={label} 
-                                            className={`text-xs transition-all duration-200 ${valueDuration === index
+                                    <div className="relative w-full mt-3 flex justify-between">
+                                        {labelsDuration.map((label, index) => (
+                                            <span
+                                                key={label}
+                                                className={`text-xs transition-all duration-200 ${valueDuration === index
                                                     ? "font-bold text-primary scale-110"
                                                     : "text-base-content/60"
-                                                }`}
-                                        >
-                                            {label}
-                                        </span>
-                                    ))}
+                                                    }`}
+                                            >
+                                                {label}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 
-                                    
-                            <div className="flex w-40 mt-5">
-                                <img
-                                    src="/perfume-info/icons/rating/coin-icon.svg"
-                                    alt="Logo época del año calendario"
-                                    className="w-5 icon-theme-aware mr-2"
-                                />
-                                <p>Precio</p>
-                            </div>
+                            {/* div de precio votación*/}
+                            <div className="h-25">
+                                <div className="flex w-40 mt-5 mb-2">
+                                    <img
+                                        src="/perfume-info/icons/rating/coin-icon.svg"
+                                        alt="Logo precio moneda de dólar"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Precio</p>
+                                </div>
 
-                            {/* <div className="w-full relative">
+                                {/* <div className="w-full relative">
                                 <input
                                     type="range"
                                     min={0}
@@ -225,82 +233,137 @@ const PerfumePage = () => {
                             </div> */}
 
 
-                            <div className="w-full relative">
-                                <input
-                                    type="range"
-                                    min={0}
-                                    max={3}
-                                    step={1}
-                                    value={valuePrice}
-                                    onChange={(e) => setValuePrice(Number(e.target.value))}
-                                    className="range range-xs w-full [--range-fill:0]"
-                                />
+                                <div className="w-full relative">
+                                    <input
+                                        type="range"
+                                        min={0}
+                                        max={3}
+                                        step={1}
+                                        value={valuePrice}
+                                        onChange={(e) => setValuePrice(Number(e.target.value))}
+                                        className="range range-xs w-full [--range-fill:0]"
+                                    />
 
-                                <div className="relative w-full mt-3 flex justify-between">
-                                    {labelsPrice.map((label, index) => (
-                                        <span
-                                            key={label} 
-                                            className={`text-xs transition-all duration-200 ${valuePrice === index
+                                    <div className="relative w-full mt-3 flex justify-between">
+                                        {labelsPrice.map((label, index) => (
+                                            <span
+                                                key={label}
+                                                className={`text-xs transition-all duration-200 ${valuePrice === index
                                                     ? "font-bold text-primary scale-110"
                                                     : "text-base-content/60"
-                                                }`}
-                                        >
-                                            {label}
-                                        </span>
-                                    ))}
+                                                    }`}
+                                            >
+                                                {label}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
+                            
+                            {/* div de puntuación general votación*/}
+                            {/* TODO: Había que poner animación cuando pasas el ratón por encima */}
+                            <div className="h-25">
+                                <div className="flex w-40 mt-5 mb-2">
+                                    <img
+                                        src="/perfume-info/icons/rating/star-icon.svg"
+                                        alt="Logo puntuación general estrella"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Puntuación general</p>
+                                </div>
 
-
-                            <div className="flex w-40 mt-5">
-                                <img
-                                    src="/perfume-info/icons/rating/star-icon.svg"
-                                    alt="Logo época del año calendario"
-                                    className="w-5 icon-theme-aware mr-2"
-                                />
-                                <p>Puntuación general</p>
-                            </div>
-
-                            <div className="w-full relative">
-                                <div className="rating">
-                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
-                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
-                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
-                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
-                                    <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+                                <div className="w-full relative">
+                                    <div className="rating">
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
+                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
+
                         <div className="divider divider-horizontal mt-5 mb-5"></div>
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Valoración media</h2>
+
+                            {/* Época del año resultado */}
+                            <div className="h-25">
+                                <div className="flex w-40 mt-5 mb-2">
+                                    <img
+                                        src="/perfume-info/icons/rating/calendar-icon.svg"
+                                        alt="Logo época del año calendario"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Época del año</p>
+                                </div>
+
+                                <div className="flex gap-6">
+                                    {seasons.map((season) => {
+                                        const value = 70;
+                                        return (
+                                            <div className="flex flex-col items-center">
+                                                <div className="radial-progress flex"
+                                                    style={{ "--value": value, "--size": "2.5rem" } as React.CSSProperties}
+                                                    aria-valuenow={70} role="progressbar">
+                                                    <img src={season.icon} alt={`Icono de ${season.name}`} className="w-5" />
+                                                </div>
+                                                <span className="text-xs font-medium">{value}%</span>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
                             
-                            <div className="flex w-40 mt-5 mb-2">
-                                <img
-                                    src="/perfume-info/icons/rating/calendar-icon.svg"
-                                    alt="Logo época del año calendario"
-                                    className="w-5 icon-theme-aware mr-2"
-                                />
-                                <p>Época del año</p>
+                            {/* Duración resultado */}
+                            <div className="h25">
+                                <div className="flex w-40 mt-5 mb-4">
+                                    <img
+                                        src="/perfume-info/icons/rating/time-icon.svg"
+                                        alt="Logo duración reloj de arena"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Duración</p>
+                                </div>
+                                <div className="badge badge-s badge-soft badge-neutral">Buena</div>
+                            </div>
+                            
+                            {/* Precio */}
+                            <div className="h25">
+                                <div className="flex w-40 mt-8 mb-4">
+                                    <img
+                                        src="/perfume-info/icons/rating/coin-icon.svg"
+                                        alt="Logo precio moneda de dólar"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Precio</p>
+                                </div>
+                                <div className="badge badge-s badge-soft badge-neutral">Muy caro</div>
                             </div>
 
-                            <div className="flex gap-6">
-                                {seasons.map((season) => {
-                                    const value = 70;
-                                    return (
-                                        <div className="flex flex-col items-center">
-                                            <div className="radial-progress flex"
-                                                style={{ "--value": value, "--size": "2.5rem" } as React.CSSProperties}
-                                                aria-valuenow={70} role="progressbar">
-                                                <img src={season.icon} alt={`Icono de ${season.name}`} className="w-5" />
-                                            </div>
-                                            <span className="text-xs font-medium">{value}%</span>
-                                        </div>
-                                    )
-                                })}
+                            {/* Puntuación general */}
+                            <div className="h25">
+                                <div className="flex w-40 mt-8 mb-4">
+                                    <img
+                                        src="/perfume-info/icons/rating/star-icon.svg"
+                                        alt="Logo puntuación general estrella"
+                                        className="w-5 icon-theme-aware mr-2"
+                                    />
+                                    <p>Puntuación general</p>
+                                </div>
+
+                                <div className="w-full relative">
+                                    <div className="rating">
+                                        <div className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
+                                        <div className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
+                                        <div className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
+                                        <div className="mask mask-star-2 bg-orange-400" aria-label="4 star" aria-current="true" />
+                                        <div className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+                                    </div>
+                                </div>
                             </div>
-                            
+
 
                         </div>
                     </div>
