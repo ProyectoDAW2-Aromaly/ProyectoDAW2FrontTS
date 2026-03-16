@@ -3,9 +3,6 @@ import { useSearchParams } from "react-router"
 import type { IPerfume } from "./IPerfume";
 import { PERFUMES } from "./Perfumes";
 
-
-
-
 export const usePerfumeViewModel = () => {
     const [searchParams] = useSearchParams();
     const [selectedPerfume, setSelectedPerfume] = useState<IPerfume>()

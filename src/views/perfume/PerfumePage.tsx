@@ -26,13 +26,13 @@ const PerfumePage = () => {
             <Navbar />
             <div className="mx-auto max-w-7xl px-4 mt-5">
                 <div className="card card-side bg-base-100 shadow-sm">
-                    <figure className="w-4xl h-auto">
+                    <figure className="w-4xl h-auto flex-3">
                         <img
                             src={selectedPerfume.image.src}
                             alt={selectedPerfume.image.alt}
                         />
                     </figure>
-                    <div className="card-body items-start">
+                    <div className="card-body items-start flex-5">
                         <h1 className="card-title ml-2">{selectedPerfume.name}</h1>
                         <button className="btn btn-ghost bg-[#FFF7ED] rounded-2xl self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
                             <figure className="w-auto h-5">
