@@ -12,6 +12,7 @@ const seasons = [
 const labelsDuration = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
 const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
 
+{/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
 
 const PerfumePage = () => {
     const { selectedPerfume } = usePerfumeViewModel()
@@ -66,8 +67,7 @@ const PerfumePage = () => {
                                     className="w-5 ml-2 icon-theme-aware"
                                 />
                             </figure>
-                        </h5> {/* https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
-                        
+                        </h5>
                         <h5>
                             Perfumista:
                             {selectedPerfume.perfumer.map((perfumer) => (
@@ -384,70 +384,175 @@ const PerfumePage = () => {
                     <div className="card bg-base-100 shadow-sm w-96">
                         <div className="card-body">
 
-                            <div className="flex flex-wrap gap-6 mb-4">
-                                <div className="avatar">
+                            {/* <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
+                                <button className="btn btn-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </button>
+                            </div> */}
+
+                            <div className="flex flex-wrap gap-6 mb-4 items-center">
+                                <div className="avatar w-14 shrink-0">
                                     <div className="w-14 rounded-full">
-                                        <img src="public\perfume-info\perfume\lira\xerjoff-lira.jpg" />
+                                        <img src="/user/profile-pic/profile1.jpg" alt="Perfil" />
                                     </div>
                                 </div>
-                                <h2 className="card-title">Mis perfumes de verano</h2>
-                                {/* <button className="btn btn-primary">Guardar lista</button> */}
+
+                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
+                                <img src="/user/icons/crown-1.svg" alt="Icono premium cororna" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22"/>
+
+                                <div className="flex flex-col">
+                                    <h2 className="card-title">Axel Ähman</h2>
+                                    <a href="" className="badge badge-s badge-soft badge-neutral mt-2">Guardar lista</a>
+                                </div>
                             </div>
 
-                            <div className="divider"></div>
-                            <div className="divider divider-neutral"></div>
+
+                            <div className="divider m-0"></div>
+                            <h2>PERFUMES NICHO</h2>
+                            <div className="divider m-0"></div>
 
                             <div className="avatar-group flex justify-center -space-x-2">
                                 <div className="avatar">
                                     <div className="w-12">
-                                        <img src="https://img.daisyui.com/images/profile/demo/batperson@192.webp" />
+                                        <img src="/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg" />
                                     </div>
                                 </div>
                                 <div className="avatar">
                                     <div className="w-12">
-                                        <img src="https://img.daisyui.com/images/profile/demo/spiderperson@192.webp" />
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
                                     </div>
                                 </div>
                                 <div className="avatar">
                                     <div className="w-12">
-                                        <img src="https://img.daisyui.com/images/profile/demo/averagebulk@192.webp" />
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
                                     </div>
                                 </div>
                                 <div className="avatar avatar-placeholder">
                                     <div className="bg-neutral text-neutral-content w-12">
-                                        <span>+99</span>
+                                        <span>+5</span>
                                     </div>
                                 </div>
                             </div>
-                            <button className="btn btn-neutral">Ver lista</button>
+                            <button className="btn">Ver lista completa</button>
 
                         </div>
                     </div>
                     <div className="card bg-base-100 shadow-sm w-96">
                         <div className="card-body">
 
-                            <div className="flex flex-wrap gap-6 mb-4">
-                                <div className="avatar">
+                            <div className="flex flex-wrap gap-6 mb-4 items-center">
+                                <div className="avatar w-14 shrink-0">
                                     <div className="w-14 rounded-full">
-                                        <img src="public\perfume-info\perfume\lira\xerjoff-lira.jpg" />
+                                        <img src="/user/profile-pic/profile2.jpg" alt="Perfil" />
                                     </div>
                                 </div>
-                                <h2 className="card-title">Mejores perfumes nicho</h2>
+
+                                <div className="flex flex-col">
+                                    <h2 className="card-title mb-2">Jakob</h2>
+                                    <button className="btn btn-xs">Guardar lista</button>
+                                </div>
                             </div>
+
+                            <div className="divider divider-neutral m-0"></div>
+                            <h2>Mis favoritos unisex</h2>
+                            <div className="divider divider-neutral m-0"></div>
+
+                            <div className="avatar-group flex justify-center -space-x-2">
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar avatar-placeholder">
+                                    <div className="bg-neutral text-neutral-content w-12">
+                                        <span>+20</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button className="btn">Ver lista completa</button>
+
 
                         </div>
                     </div>
                     <div className="card bg-base-100 shadow-sm w-96">
                         <div className="card-body">
+                            <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
+                                <button className="btn btn-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            {/* <button className="btn absolute top-2 right-2">
+                                Guardar
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]"><path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                            </button> */}
 
-                            <div className="flex flex-wrap gap-6 mb-4">
-                                <div className="avatar">
+                            <div className="flex flex-wrap gap-6 mb-4 items-center">
+                                <div className="avatar w-14 shrink-0">
                                     <div className="w-14 rounded-full">
-                                        <img src="public\perfume-info\perfume\lira\xerjoff-lira.jpg" />
+                                        <img src="/user/profile-pic/profile3.png" alt="Perfil" />
                                     </div>
                                 </div>
-                                <h2 className="card-title">Mis favoritos unisex</h2>
+
+                                <div className="flex">
+                                    <h2 className="card-title mb-2">Kevin</h2>
+                                </div>
                             </div>
+
+                            <div className="divider font-semibold mt-0">CALIDAD PRECIO</div>
+
+                            <div className="avatar-group flex justify-center -space-x-2">
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                <div className="avatar">
+                                    <div className="w-12">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                    </div>
+                                </div>
+                                {/* <div className="avatar avatar-placeholder">
+                                    <div className="bg-neutral text-neutral-content w-12">
+                                        <span>+10</span>
+                                    </div>
+                                </div> */}
+                            </div>
+                            <button className="btn">Ver lista completa</button>
 
                         </div>
                     </div>
