@@ -607,32 +607,71 @@ const PerfumePage = () => {
 
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES SIMILARES</h1>
                 <div className="flex flex-wrap gap-12" >
-                    {selectedPerfume.pyramids.map(pyramid =>
-                        <div className="card bg-base-100 shadow-sm w-96" key={pyramid.category}>
-                            <div className="card-body">
-                                <h2 className="card-title">{pyramid.category}</h2>
 
-                                <div className="flex flex-wrap gap-6 mb-4">
-                                    {pyramid.notes.map(note =>
-                                        note.imageSrc ?
-                                            <div className="avatar" key={note.name}>
-                                                <div className="w-14 rounded-full">
-                                                    <img src={note.imageSrc} />
-                                                </div>
-                                            </div>
-                                            : null
-                                    )}
+                    <div className="card bg-base-100 shadow-sm w-96">
+                        <div className="card-body">
+                            <h2 className="card-title">PERFUME 1</h2>
+
+                            <div className="flex flex-wrap gap-6 mb-4">
+                                <div className="avatar">
+                                    <div className="w-14 rounded-full">
+                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" alt="Imagen perfume recomendado" />
+                                    </div>
                                 </div>
+                            </div>
 
+                            <div className="flex flex-wrap gap-2">
+                                <a href="" className="badge badge-s badge-soft badge-neutral">Oriental</a>
+                                <a href="" className="badge badge-s badge-soft badge-neutral">floral</a>
+                                <a href="" className="badge badge-s badge-soft badge-neutral">gourmand</a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className="card bg-base-100 w-96 shadow-sm">
+                        <figure>
+                            <img
+                                src="/perfume-info/perfume/lira/xerjoff-lira.jpg"
+                                alt="Perfume recomendado lira" />
+                        </figure>
+                        <div className="card-body flex flex-col gap-5 items-center ">
+                            <h2 className="card-title">LIRA</h2>
+                            <a href=""><img className="h-4" src="/perfume-info/perfume/lira/xerjoff-logo.png" alt="Logo Xerjoff" /></a>
+                            <div className="card-actions justify-center">
                                 <div className="flex flex-wrap gap-2">
-                                    {pyramid.notes.map(note =>
-                                        <a key={note.name} href="" className="badge badge-s badge-soft badge-neutral">{note.name}</a>
-                                    )}
+                                    <a href="" className="badge badge-s badge-soft badge-neutral">Oriental</a>
+                                    <a href="" className="badge badge-s badge-soft badge-neutral">floral</a>
+                                    <a href="" className="badge badge-s badge-soft badge-neutral">gourmand</a>
+                                </div>
+                                <button className="btn btn-primary mt-5">Ver perfume</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="card bg-base-100 shadow-sm w-96">
+                        <div className="card-body">
+                            <h2 className="card-title">pihdfas</h2>
+
+                            <div className="flex flex-wrap gap-6 mb-4">
+
+                                <div className="avatar">
+                                    <div className="w-14 rounded-full">
+                                        <img />
+                                    </div>
                                 </div>
 
                             </div>
+
+                            <div className="flex flex-wrap gap-2">
+
+                                <a href="" className="badge badge-s badge-soft badge-neutral">patata</a>
+
+                            </div>
+
                         </div>
-                    )}
+                    </div>
+
                 </div>
 
                 {/* COMENTARIOS */}
