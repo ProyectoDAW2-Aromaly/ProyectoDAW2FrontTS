@@ -392,6 +392,7 @@ const PerfumePage = () => {
                                 </button>
                             </div>
 
+
                             {/* <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
                                 <button className="btn btn-circle">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
@@ -456,7 +457,7 @@ const PerfumePage = () => {
                     <div className="card bg-base-100 shadow-sm w-96">
                         <div className="card-body flex flex-col justify-between">
 
-                            <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
+                            <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista" >
                                 <button className="btn btn-circle">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
@@ -527,23 +528,13 @@ const PerfumePage = () => {
 
                     <div className="card bg-base-100 shadow-sm w-96">
                         <div className="card-body flex flex-col justify-between">
-
-                            {/* FIXME: NO FUNCIONA EN EL MODO OSCURO */}
-                            <div className="tooltip absolute top-2 right-2 tooltip-primary" data-tip="Guardar lista" style={{ "--tooltip-color": "#1f2937", "--tooltip-text-color": "#f9fafb", } as React.CSSProperties}>
+                            <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista" >
                                 <button className="btn btn-circle">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                     </svg>
                                 </button>
                             </div>
-
-                            {/* <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
-                                <button className="btn btn-circle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                    </svg>
-                                </button>
-                            </div> */}
 
                             <div className="flex flex-wrap gap-6 mb-2 items-center">
                                 <div className="avatar w-14 shrink-0">
@@ -579,7 +570,7 @@ const PerfumePage = () => {
                                 </div>
                                 <div className="avatar">
                                     <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
+                                        <img src="/perfume-info/perfume/ELDO/eldo-perfume.webp" />
                                     </div>
                                 </div>
                                 <div className="avatar">
@@ -589,7 +580,6 @@ const PerfumePage = () => {
                                 </div>
                                 <div className="avatar avatar-placeholder">
                                     <div className="bg-neutral text-neutral-content w-12">
-                                        {/* FIXME: ESTO NO FUNCIONA EN EL MODO OSCURO */}
                                         <span>+5</span>
                                     </div>
                                 </div>
