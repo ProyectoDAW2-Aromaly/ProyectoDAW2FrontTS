@@ -409,7 +409,7 @@ const PerfumePage = () => {
                                 </div>
 
                                 {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium cororna" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
+                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
 
                                 <div className="flex flex-col">
                                     <h2 className="card-title">Axel</h2>
@@ -531,7 +531,9 @@ const PerfumePage = () => {
                             <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista" >
                                 <button className="btn btn-circle">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" 
+                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                                        />
                                     </svg>
                                 </button>
                             </div>
@@ -544,7 +546,7 @@ const PerfumePage = () => {
                                 </div>
 
                                 {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/coffee-cup.svg" alt="Icono buy me a coffee" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
+                                <img src="/user/icons/coffee-cup.svg" alt="Icono buy me a coffee" className="absolute top-0 left-4 w-9 h-9 -rotate-22" />
 
                                 <div className="flex flex-col">
                                     <h2 className="card-title">Kevin</h2>

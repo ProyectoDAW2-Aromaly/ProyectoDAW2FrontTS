@@ -41,13 +41,13 @@ export default function Navbar() {
                 <summary>Perfumes</summary>
                 <ul>
                   {/* Probando el router */}
-                  <li><Link to="/perfume?id=1">Populares (prueba router)</Link></li>
-                  <li><a>Por notas</a></li>
-                  <li><a>Marca</a></li>
+                  <li><Link to="/perfume?id=1">Prueba router</Link></li>
+                  <li><a>Notas</a></li>
+                  <li><a>Marcas</a></li>
                 </ul>
               </details>
             </li>
-            <li><a>Perfumista</a></li>
+            <li><a>Listas de perfumes</a></li>
           </ul>
         </div>
       </div>
