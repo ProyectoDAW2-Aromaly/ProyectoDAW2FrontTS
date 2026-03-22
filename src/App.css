@@ -41,6 +41,11 @@ html {
 .tooltip::before {
   background-color: var(--color-neutral);
   color: var(--color-base-100);
+
+}
+.tooltip.save::before {
+  background-color: var(--color-secondary-content);
+  color: var(--color-secondary);
 }
 
 .avatar-placeholder span {
