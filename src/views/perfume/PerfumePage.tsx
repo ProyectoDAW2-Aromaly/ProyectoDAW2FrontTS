@@ -12,7 +12,7 @@ const seasons = [
 const labelsDuration = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
 const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
 
-{/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */}
+{/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */ }
 
 const PerfumePage = () => {
     const { selectedPerfume } = usePerfumeViewModel()
@@ -83,7 +83,7 @@ const PerfumePage = () => {
                 </div>
 
                 {/* PIRÁMIDE OLFATIVA */}
-
+                {/* FIXME: Faltan animaciones en los badges */}
                 <h1 className="text-2xl text-center mb-10 mt-10">PIRÁMIDE OLFATIVA</h1>
                 <div className="flex flex-wrap gap-12" >
                     {selectedPerfume.pyramids.map(pyramid =>
@@ -115,7 +115,7 @@ const PerfumePage = () => {
                 </div>
 
                 {/* VALORACIONES */}
-
+                {/* FIXME: Faltan animaciones */}
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
                 <div className="card bg-base-100 shadow-sm w-auto">
                     <div className="flex">
@@ -154,7 +154,7 @@ const PerfumePage = () => {
                                 </div>
 
                             </div>
-                            
+
                             {/* div de duración votación*/}
                             <div className="h-25">
                                 <div className="flex w-40 mt-5 mb-2">
@@ -263,7 +263,7 @@ const PerfumePage = () => {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             {/* div de puntuación general votación*/}
                             {/* TODO: Había que poner animación cuando pasas el ratón por encima */}
                             <div className="h-25">
@@ -319,7 +319,7 @@ const PerfumePage = () => {
                                     })}
                                 </div>
                             </div>
-                            
+
                             {/* Duración resultado */}
                             <div className="h25">
                                 <div className="flex w-40 mt-5 mb-4">
@@ -332,7 +332,7 @@ const PerfumePage = () => {
                                 </div>
                                 <div className="badge badge-s badge-soft badge-neutral">Buena</div>
                             </div>
-                            
+
                             {/* Precio */}
                             <div className="h25">
                                 <div className="flex w-40 mt-8 mb-4">
@@ -377,7 +377,7 @@ const PerfumePage = () => {
                 {/* LISTAS DESTACADAS */}
 
                 {/* Necesitamos nombre de usuario + icono, seguir la lista, título de la lista, iconos con los perfumes, y ¿época del año o mejor quitarla? y ver lista completa */}
-
+                {/* FIXME: Arreglar el data-tip */}
                 <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
                 <div className="flex flex-wrap gap-12" >
 
@@ -403,15 +403,15 @@ const PerfumePage = () => {
                             <div className="flex flex-wrap gap-6 mb-2 items-center">
                                 <div className="avatar w-14 shrink-0">
                                     <div className="w-14 rounded-full">
-                                        <img src="/user/profile-pic/profile1.jpg" alt="Perfil" />
+                                        <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
                                     </div>
                                 </div>
 
                                 {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium cororna" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22"/>
+                                <img src="/user/icons/crown-1.svg" alt="Icono premium cororna" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
 
                                 <div className="flex flex-col">
-                                    <h2 className="card-title">Axel Ähman</h2>
+                                    <h2 className="card-title">Axel</h2>
                                     {/* <a href="" className="badge badge-s badge-soft badge-neutral mt-2">Guardar lista</a> */}
                                 </div>
                             </div>
@@ -452,7 +452,7 @@ const PerfumePage = () => {
 
                         </div>
                     </div>
-                    
+
                     <div className="card bg-base-100 shadow-sm w-96">
                         <div className="card-body flex flex-col justify-between">
 
@@ -483,7 +483,7 @@ const PerfumePage = () => {
                                 {/* <img src="/user/icons/crown-1.svg" alt="Icono premium cororna" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22"/> */}
 
                                 <div className="flex flex-col">
-                                    <h2 className="card-title">Axel Ähman</h2>
+                                    <h2 className="card-title">Jakob</h2>
                                     {/* <a href="" className="badge badge-s badge-soft badge-neutral mt-2">Guardar lista</a> */}
                                 </div>
                             </div>
@@ -529,7 +529,7 @@ const PerfumePage = () => {
                         <div className="card-body flex flex-col justify-between">
 
                             {/* FIXME: NO FUNCIONA EN EL MODO OSCURO */}
-                            <div className="tooltip absolute top-2 right-2 tooltip-primary" data-tip="Guardar lista" style={{"--tooltip-color": "#1f2937", "--tooltip-text-color": "#f9fafb",} as React.CSSProperties}>
+                            <div className="tooltip absolute top-2 right-2 tooltip-primary" data-tip="Guardar lista" style={{ "--tooltip-color": "#1f2937", "--tooltip-text-color": "#f9fafb", } as React.CSSProperties}>
                                 <button className="btn btn-circle">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
@@ -553,7 +553,7 @@ const PerfumePage = () => {
                                 </div>
 
                                 {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/coffee-cup.svg" alt="Icono buy me a coffee" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22"/>
+                                <img src="/user/icons/coffee-cup.svg" alt="Icono buy me a coffee" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
 
                                 <div className="flex flex-col">
                                     <h2 className="card-title">Kevin</h2>
@@ -695,24 +695,69 @@ const PerfumePage = () => {
                 {/* FIXME: Esto fue una prueba, como idea, obviamente no está terminado */}
 
                 <h1 className="text-2xl text-center mb-10 mt-10">COMENTARIOS</h1>
-                <div className="card bg-base-100 shadow-sm w-auto" >
-                    <li className="flex list-row list-none">
-                        <div><img className="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/1@94.webp" /></div>
-                        <div>
-                            <div>Dio Lupa</div>
-                            <div className="text-xs uppercase font-semibold opacity-60">Remaining Reason</div>
+                <div className="flex flex-col gap-2" >
+
+                    {/* COMENTARIO 1 */}
+                    <div className="card bg-base-100 shadow-sm w-auto">
+                        <div className="card-body flex flex-col justify-between">
+                            <div className="tooltip absolute top-2 right-2" data-tip="Me gusta">
+                                <button className="btn btn-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div className="flex gap-6 mb-2 items-center">
+                                <div className="avatar w-14 shrink-0">
+                                    <div className="w-14 rounded-full">
+                                        <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
+                                    </div>
+                                </div>
+
+                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
+                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
+
+                                <div>
+                                    <h2 className="card-title">Axel</h2>
+                                    <p>Comentario random de este perfume. No sé si debería poner las estrellas que este usuario ha puesto o dejarlo sin estrellas, ya que el usuario puede haber votado o no, y simplemente haber comentado sin haber votado</p>
+                                </div>
+                            </div>
                         </div>
-                        <p className="list-col-wrap text-xs">
-                            "Remaining Reason" became an instant hit, praised for its haunting sound and emotional depth. A viral performance brought it widespread recognition, making it one of Dio Lupa’s most iconic tracks.
-                        </p>
-                        <button className="btn btn-square btn-ghost">
-                            <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M6 3L20 12 6 21 6 3z"></path></g></svg>
-                        </button>
-                        <button className="btn btn-square btn-ghost">
-                            <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></g></svg>
-                        </button>
-                    </li>
+
+                    </div>
+
+                    {/* COMENTARIO 2 */}
+                    <div className="card bg-base-100 shadow-sm w-auto">
+                        <div className="card-body flex flex-col justify-between">
+                            <div className="tooltip absolute top-2 right-2" data-tip="Me gusta">
+                                <button className="btn btn-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div className="flex gap-6 mb-2 items-center">
+                                <div className="avatar w-14 shrink-0">
+                                    <div className="w-14 rounded-full">
+                                        <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
+                                    </div>
+                                </div>
+
+                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
+                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
+
+                                <div>
+                                    <h2 className="card-title">Axel</h2>
+                                    <p>Comentario random de este perfume. No sé si debería poner las estrellas que este usuario ha puesto o dejarlo sin estrellas, ya que el usuario puede haber votado o no, y simplemente haber comentado sin haber votado</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+
 
             </div>
             {/* Cuando exista */}
