@@ -43,10 +43,6 @@ html {
   color: var(--color-base-100);
 
 }
-.tooltip.save::before {
-  background-color: var(--color-secondary-content);
-  color: var(--color-secondary);
-}
 
 .avatar-placeholder span {
   color: var(--color-base-100);  

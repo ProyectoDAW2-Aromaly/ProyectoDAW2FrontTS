@@ -43,6 +43,31 @@ const PerfumePage = () => {
                                 />
                             </figure>
                         </button>
+
+                        {/* FIXME: NECESITO BOTÓN DE EDITAR, NO ME HA DADO TIEMPO */}
+                        {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
+                        <div className="tooltip save absolute top-2 right-14 z-50" data-tip="Guardar en favoritos">
+                            <button className="btn btn-circle">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.6em]">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div className="tooltip save absolute top-2 right-2 z-50" data-tip="Guardar en lista">
+                            <button className="btn btn-circle">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2.5"
+                                    stroke="currentColor"
+                                    className="size-[1.6em]"
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                </svg>
+                            </button>
+                        </div>
                         <div className="divider">Descripción</div>
                         <p>{selectedPerfume.description.map(description =>
                             <span key={description}>
@@ -367,8 +392,6 @@ const PerfumePage = () => {
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -602,30 +625,6 @@ const PerfumePage = () => {
 
                     <div className="card bg-base-100 w-96 shadow-sm rounded-2xl relative group">
 
-                        {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
-                        <div className="tooltip save absolute top-2 right-14 z-50" data-tip="Guardar en favoritos">
-                            <button className="btn btn-circle btn-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.6em]">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                </svg>
-                            </button>
-                        </div>
-
-                        <div className="tooltip save absolute top-2 right-2 z-50" data-tip="Guardar en lista">
-                            <button className="btn btn-circle btn-accent">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2.5"
-                                    stroke="currentColor"
-                                    className="size-[1.6em]"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                </svg>
-                            </button>
-                        </div>
-
                         <div className="relative rounded-2xl overflow-hidden">
                             <img
                             className="w-full h-80 object-cover"
@@ -633,7 +632,6 @@ const PerfumePage = () => {
                             alt="Perfume recomendado Born in Roma Intense Donna"
                         />
                         </div>
-                        
 
                         <div className="absolute bottom-0 w-full rounded-b-2xl h-28 bg-black/70 transition-all duration-300 group-hover:h-3/4">
 
@@ -777,9 +775,43 @@ const PerfumePage = () => {
 
                     </div>
                 </div>
+                {/* TODO: Poner comentario disabled si el usuario no está loggueado con un "Necesitas iniciar sesión o registrarte" */}
+                <div className="divider">Añade un comentario</div>
+                <div className="flex flex-col">
+                    <div className="card bg-base-100 shadow-sm w-full">
+                        <div className="card-body">
 
+                            <div className="flex gap-6 mb-2 items-start w-full">
+                                <div className="flex flex-col items-center">
+                                    <div className="avatar w-14 shrink-0">
+                                    <div className="w-14 rounded-full">
+                                        <img src="/user/profile-pic/profile2.jpg" alt="Foto de perfil de Jakob" />
+                                    </div>
+                                </div>
+                                <p>Jakob</p>
+                                </div>
+                                
 
+                                <div className="w-full">
+                                    <div className="flex flex-col gap-2 w-full">
+
+                                        <textarea
+                                            className="textarea textarea-md w-full h-32"
+                                            placeholder="Escribe aquí tu comentario..."
+                                        ></textarea>
+
+                                        {/* <textarea className="textarea" placeholder="Registro o login" disabled></textarea> */}
+
+                                        <button className="btn self-end">Comentar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
             {/* Cuando exista */}
             {/* <Footer /> */}
         </div>
