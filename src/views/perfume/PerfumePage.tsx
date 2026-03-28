@@ -12,7 +12,7 @@ const seasons = [
 const labelsDuration = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
 const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
 
-{/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis */ }
+{/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
 
 const PerfumePage = () => {
     const { selectedPerfume } = usePerfumeViewModel()
