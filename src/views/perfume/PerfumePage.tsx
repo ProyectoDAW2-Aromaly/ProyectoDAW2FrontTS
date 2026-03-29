@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { ListCard, type IListCard } from "../../components/ListCard";
+import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
 
 interface IUser {
     userName: string,
@@ -89,6 +90,40 @@ const mockedLists: IListCard[] = [
     }
 ]
 
+const mockedPerfumes: ICardPerfume[] = [
+    {
+        id: "ValentinoID",
+        name: "Born in Roma Intense Donna",
+        brand: "Valentino",
+        image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        olfactoryFamilies: [
+            "Oriental",
+            "floral",
+            "Gourmand"
+        ]
+    },
+    {
+        id: "EldoID",
+        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        brand: "Etat Libre D'Orange",
+        image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+        olfactoryFamilies: [
+            "Amaderado",
+            "floral",
+        ]
+    },
+    {
+        id: "LiraId",
+        name: "Lira",
+        brand: "Xerjoff",
+        image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
+        olfactoryFamilies: [
+            "Oriental",
+            "floral",
+            "Gourmand"
+        ]
+    },
+]
 
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
 
@@ -237,7 +272,6 @@ const PerfumePage = () => {
                 </div>
 
                 {/* VALORACIONES */}
-                {/* FIXME: Faltan quitar votación en la estrella */}
                 {/* TODO: Igual en vez de un range, mejor un radio, range es raro */}
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
                 <div className="card bg-base-100 shadow-sm w-auto">
@@ -485,90 +519,12 @@ const PerfumePage = () => {
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES SIMILARES</h1>
                 <div className="flex flex-wrap gap-12" >
 
-                    <div className="card bg-base-100 w-96 shadow-sm rounded-2xl relative group">
-
-                        <div className="relative rounded-2xl overflow-hidden">
-                            <img
-                                className="w-full h-80 object-cover"
-                                src="/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg"
-                                alt="Perfume recomendado Born in Roma Intense Donna"
-                            />
-                        </div>
-
-                        <div className="absolute bottom-0 w-full rounded-b-2xl h-28 bg-black/70 transition-all duration-300 group-hover:h-3/4">
-
-                            <div className="flex flex-col justify-center items-center p-4 text-white">
-                                <h2 className="text-lg font-bold">BORN IN ROMA INTENSE DONNA</h2>
-                                <a href="" className="link no-underline hover:font-bold">Valentino</a>
-                            </div>
-
-                            <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
-                                <div className="flex flex-wrap justify-center gap-2">
-                                    <div className="badge badge-soft">Oriental</div>
-                                    <div className="badge badge-soft">Floral</div>
-                                    <div className="badge badge-soft">Gourmand</div>
-                                </div>
-                                <button className="btn btn-primary mt-2 hover:btn-neutral hover:text-primary-content">Ver perfume</button>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div className="card bg-base-100 w-96 shadow-sm rounded-2xl overflow-hidden group">
-                        <img
-                            className="w-full h-80 object-cover"
-                            src="/perfume-info/perfume/lira/xerjoff-lira.jpg"
-                            alt="Perfume recomendado lira"
-                        />
-
-                        <div className="absolute bottom-0 w-full h-28 bg-black/70 transition-all duration-300 group-hover:h-3/4">
-
-                            <div className="flex flex-col justify-center items-center p-4 text-white">
-                                <h2 className="text-lg font-bold">LIRA</h2>
-                                <a href="" className="link no-underline hover:font-bold">Xerjoff</a>
-                            </div>
-
-                            <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
-                                <div className="flex flex-wrap justify-center gap-2">
-                                    <div className="badge badge-soft">Oriental</div>
-                                    <div className="badge badge-soft">Floral</div>
-                                    <div className="badge badge-soft">Gourmand</div>
-                                </div>
-                                <button className="btn btn-primary mt-2 hover:btn-neutral hover:text-primary-content">Ver perfume</button>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div className="card bg-base-100 w-96 shadow-sm rounded-2xl overflow-hidden group">
-                        <img
-                            className="w-full h-80 object-cover"
-                            src="/perfume-info/perfume/ELDO/eldo-perfume.webp"
-                            alt="Perfume recomendado eldo"
-                        />
-
-                        <div className="absolute bottom-0 w-full h-28 bg-black/70 transition-all duration-300 group-hover:h-3/4">
-
-                            <div className="flex flex-col justify-center items-center p-4 text-white">
-                                <h2 className="text-lg font-bold">ATTAQUER LE SOLEIL - MARQUIS DE SADE</h2>
-                                <a href="" className="link no-underline hover:font-bold">Etat Libre D'Orange</a>
-                            </div>
-
-                            <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
-                                <div className="flex flex-wrap justify-center gap-2">
-                                    <div className="badge badge-soft">Oriental</div>
-                                    <div className="badge badge-soft">Floral</div>
-                                    <div className="badge badge-soft">Gourmand</div>
-                                </div>
-                                <button className="btn btn-primary mt-2 hover:btn-neutral hover:text-primary-content">Ver perfume</button>
-                            </div>
-
-                        </div>
-                    </div>
+                    {mockedPerfumes.map(list =>
+                        <CardPerfume data={list} key={list.id}/>
+                    )}
 
                 </div>
-
-                {/* FIXME: Arreglar poner "Si hay usuario X, si no lo hay Y" */}
+                {/* * COMENTARIOS */}
                 <h1 className="text-2xl text-center mb-10 mt-10">COMENTARIOS</h1>
                 <div className="divider mt-10">Añade un comentario</div>
                 <div className="flex flex-col">
@@ -667,7 +623,6 @@ const PerfumePage = () => {
                 </div>
 
             </div>
-
 
             {/* Cuando exista */}
             {/* <Footer /> */}

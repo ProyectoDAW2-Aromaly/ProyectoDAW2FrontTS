@@ -26,7 +26,7 @@ export const usePerfumeViewModel = () => {
     }, [searchParams])
 
     /**
-     * Función genérica que permite cambiar cualquiera de los atributos de rating y los muestra a la hora de utilizar la función.
+     * * Función genérica que permite cambiar cualquiera de los atributos de rating y los muestra a la hora de utilizar la función.
      * @param attr Es la propiedad de rating que se va a modificar
      * @param value Es el valor que se va a poner en esa propiedad
      * @example handleRatingChange("general", undefined)
