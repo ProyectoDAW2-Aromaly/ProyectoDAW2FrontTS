@@ -18,7 +18,7 @@ export const PERFUMES: IPerfume[] = [
                 name: "Chris Maurice"
             }
         ],
-            
+        colection: "Casamorati 1888",
         releaseDate: "2011",
         image: {
             src: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
@@ -117,6 +117,7 @@ export const PERFUMES: IPerfume[] = [
                 name: "Honorine Blanc"
             }
         ],
+        colection: "Born in Roma",
         releaseDate: "2023",
         image: {
             src: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",

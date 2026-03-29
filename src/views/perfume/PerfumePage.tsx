@@ -12,6 +12,7 @@ const seasons = [
 const labelsDuration = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
 const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
 
+
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
 
 const PerfumePage = () => {
@@ -26,6 +27,7 @@ const PerfumePage = () => {
         <div>
             <Navbar />
             <div className="mx-auto max-w-7xl px-4 mt-5">
+                {/* INFORMACIÓN GENERAL DEL PERFUME */}
                 <div className="card card-side bg-base-100 shadow-sm">
                     <figure className="w-4xl h-auto flex-3">
                         <img
@@ -93,7 +95,7 @@ const PerfumePage = () => {
                         <div className="divider">Información general</div>
                         <h5>Familia olfativa:
                             {selectedPerfume.families.map(family =>
-                                <a href="" className="badge badge-sm badge-soft badge-neutral ml-2">{family}</a>
+                                <div className="badge badge-sm badge-soft badge-neutral ml-2">{family}</div>
                             )}
                         </h5>
                         <h5 className="flex items-center">
@@ -110,18 +112,18 @@ const PerfumePage = () => {
                             Perfumista:
                             {selectedPerfume.perfumer.map((perfumer) => (
                                 <span key={perfumer.id}>
-                                    <a className="badge badge-sm badge-soft badge-neutral ml-2" href={`/perfumer/?id=${perfumer.id}`}>
+                                    <a className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" href={`/perfumer/?id=${perfumer.id}`}>
                                         {perfumer.name}
                                     </a>
                                 </span>
                             ))}
                         </h5>
                         <h5>Fecha de lanzamiento: {selectedPerfume.releaseDate}</h5>
+                        <h5>Colección: <a href="" className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent">{selectedPerfume.colection}</a></h5>
                     </div>
                 </div>
 
                 {/* PIRÁMIDE OLFATIVA */}
-                {/* FIXME: Faltan animaciones en los badges */}
                 <h1 className="text-2xl text-center mb-10 mt-10">PIRÁMIDE OLFATIVA</h1>
                 <div className="flex flex-wrap gap-12" >
                     {selectedPerfume.pyramids.map(pyramid =>
@@ -143,7 +145,7 @@ const PerfumePage = () => {
 
                                 <div className="flex flex-wrap gap-2">
                                     {pyramid.notes.map(note =>
-                                        <a key={note.name} href="" className="badge badge-s badge-soft badge-neutral">{note.name}</a>
+                                        <a key={note.name} href="" className="badge badge-s badge-soft badge-neutral hover:badge-accent">{note.name}</a>
                                     )}
                                 </div>
 
@@ -153,13 +155,14 @@ const PerfumePage = () => {
                 </div>
 
                 {/* VALORACIONES */}
-                {/* FIXME: Faltan animaciones */}
+                {/* FIXME: Faltan quitar votación en la estrella */}
+                {/* TODO: Igual en vez de un range, mejor un radio, range es raro */}
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
                 <div className="card bg-base-100 shadow-sm w-auto">
                     <div className="flex">
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
-                            {/* div de época del año votación*/}
+                            {/* ÉPOCA */}
                             <div className="h-25">
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img
@@ -193,7 +196,7 @@ const PerfumePage = () => {
 
                             </div>
 
-                            {/* div de duración votación*/}
+                            {/* DURACIÓN*/}
                             <div className="h-25">
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img
@@ -214,20 +217,6 @@ const PerfumePage = () => {
                                         onChange={(e) => setValueDuration(Number(e.target.value))}
                                         className="range range-xs w-full [--range-fill:0]"
                                     />
-
-                                    {/* <div className="flex justify-between px-2.5 text-xs">
-                                    <span>|</span>
-                                    <span>|</span>
-                                    <span>|</span>
-                                    <span>|</span>
-                                </div> */}
-
-                                    {/* <div className="relative w-full h-4 mt-2">
-                                    <span className="absolute left-0 text-xs">Escasa (0-2h)</span>
-                                    <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Poca (3-6h)</span>
-                                    <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Buena (5-12h)</span>
-                                    <span className="absolute right-0 text-xs">Excelente (+12h)</span>
-                                </div> */}
                                     <div className="relative w-full mt-3 flex justify-between">
                                         {labelsDuration.map((label, index) => (
                                             <span
@@ -244,7 +233,7 @@ const PerfumePage = () => {
                                 </div>
                             </div>
 
-                            {/* div de precio votación*/}
+                            {/* PRECIO */}
                             <div className="h-25">
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img
@@ -254,27 +243,6 @@ const PerfumePage = () => {
                                     />
                                     <p>Precio</p>
                                 </div>
-
-                                {/* <div className="w-full relative">
-                                <input
-                                    type="range"
-                                    min={0}
-                                    max={3}
-                                    step={1}
-                                    value={valuePrice}
-                                    onChange={(e) => setValuePrice(Number(e.target.value))}
-                                    className="range range-xs w-full [--range-fill:0]"
-                                />
-
-                                <div className="relative w-full h-4 mt-2">
-                                    <span className="absolute left-0 text-xs">Económico</span>
-                                    <span className="absolute left-[33.333%] transform -translate-x-1/2 text-xs">Moderado</span>
-                                    <span className="absolute left-[66.666%] transform -translate-x-1/2 text-xs">Caro</span>
-                                    <span className="absolute right-0 text-xs">Muy caro</span>
-                                </div>
-                            </div> */}
-
-
                                 <div className="w-full relative">
                                     <input
                                         type="range"
@@ -302,8 +270,7 @@ const PerfumePage = () => {
                                 </div>
                             </div>
 
-                            {/* div de puntuación general votación*/}
-                            {/* TODO: Había que poner animación cuando pasas el ratón por encima */}
+                            {/* FIXME: PUNTUACIÓN GENERAL */}
                             <div className="h-25">
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img
@@ -316,17 +283,22 @@ const PerfumePage = () => {
 
                                 <div className="w-full relative">
                                     <div className="rating">
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
-                                        <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+                                        {[1, 2, 3, 4, 5].map((i) => (
+                                            <input
+                                                key={i}
+                                                type="radio"
+                                                name="rating-2"
+                                                className="mask mask-star-2 bg-orange-400 hover:scale-125 transition-transform duration-200"
+                                                aria-label={`${i} star`}
+                                            />
+                                        ))}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div className="divider divider-horizontal mt-5 mb-5"></div>
+                        {/* VALORACIÓN MEDIA/RESULTADOS */}
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Valoración media</h2>
 
@@ -411,7 +383,6 @@ const PerfumePage = () => {
                 </div>
 
                 {/* LISTAS DESTACADAS */}
-
                 <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
                 <div className="flex flex-wrap gap-12" >
 
@@ -426,15 +397,6 @@ const PerfumePage = () => {
                                 </button>
                             </div>
 
-
-                            {/* <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
-                                <button className="btn btn-circle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                    </svg>
-                                </button>
-                            </div> */}
-
                             <div className="flex flex-wrap gap-6 mb-2 items-center">
                                 <div className="avatar w-14 shrink-0">
                                     <div className="w-14 rounded-full">
@@ -442,15 +404,12 @@ const PerfumePage = () => {
                                     </div>
                                 </div>
 
-                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
-
                                 <div className="flex flex-col">
                                     <h2 className="card-title">Axel</h2>
-                                    {/* <a href="" className="badge badge-s badge-soft badge-neutral mt-2">Guardar lista</a> */}
                                 </div>
                             </div>
 
+                            <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
 
                             <div className="divider h-1 my-0"></div>
                             <h2 className="font-semibold">PERFUMES NICHO</h2>
@@ -483,7 +442,7 @@ const PerfumePage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="btn">Ver lista completa</button>
+                            <button className="btn hover:btn-neutral hover:text-primary-content">Ver lista completa</button>
 
                         </div>
                     </div>
@@ -499,14 +458,6 @@ const PerfumePage = () => {
                                 </button>
                             </div>
 
-                            {/* <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
-                                <button className="btn btn-circle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                    </svg>
-                                </button>
-                            </div> */}
-
                             <div className="flex flex-wrap gap-6 mb-2 items-center">
                                 <div className="avatar w-14 shrink-0">
                                     <div className="w-14 rounded-full">
@@ -514,12 +465,8 @@ const PerfumePage = () => {
                                     </div>
                                 </div>
 
-                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                {/* <img src="/user/icons/crown-1.svg" alt="Icono premium cororna" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22"/> */}
-
                                 <div className="flex flex-col">
                                     <h2 className="card-title">Jakob</h2>
-                                    {/* <a href="" className="badge badge-s badge-soft badge-neutral mt-2">Guardar lista</a> */}
                                 </div>
                             </div>
 
@@ -555,7 +502,7 @@ const PerfumePage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="btn">Ver lista completa</button>
+                            <button className="btn hover:btn-neutral hover:text-primary-content">Ver lista completa</button>
 
                         </div>
                     </div>
@@ -584,7 +531,6 @@ const PerfumePage = () => {
 
                                 <div className="flex flex-col">
                                     <h2 className="card-title">Kevin</h2>
-                                    {/* <a href="" className="badge badge-s badge-soft badge-neutral mt-2">Guardar lista</a> */}
                                 </div>
                             </div>
 
@@ -620,7 +566,7 @@ const PerfumePage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className="btn">Ver lista completa</button>
+                            <button className="btn hover:btn-neutral hover:text-primary-content">Ver lista completa</button>
 
                         </div>
                     </div>
@@ -628,9 +574,6 @@ const PerfumePage = () => {
                 </div>
 
                 {/* PERFUMES SIMILARES */}
-
-                {/* Card con imagen del perfume, logo + nombre, género, notas base y ¿época del año? + botón de ver perfume */}
-
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES SIMILARES</h1>
                 <div className="flex flex-wrap gap-12" >
 
@@ -648,16 +591,16 @@ const PerfumePage = () => {
 
                             <div className="flex flex-col justify-center items-center p-4 text-white">
                                 <h2 className="text-lg font-bold">BORN IN ROMA INTENSE DONNA</h2>
-                                <a href="">Valentino</a>
+                                <a href="" className="link no-underline hover:font-bold">Valentino</a>
                             </div>
 
                             <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
                                 <div className="flex flex-wrap justify-center gap-2">
-                                    <a href="" className="badge badge-soft">Oriental</a>
-                                    <a href="" className="badge badge-soft">Floral</a>
-                                    <a href="" className="badge badge-soft">Gourmand</a>
+                                    <div className="badge badge-soft">Oriental</div>
+                                    <div className="badge badge-soft">Floral</div>
+                                    <div className="badge badge-soft">Gourmand</div>
                                 </div>
-                                <button className="btn btn-primary mt-2">Ver perfume</button>
+                                <button className="btn btn-primary mt-2 hover:btn-neutral hover:text-primary-content">Ver perfume</button>
                             </div>
 
                         </div>
@@ -674,16 +617,16 @@ const PerfumePage = () => {
 
                             <div className="flex flex-col justify-center items-center p-4 text-white">
                                 <h2 className="text-lg font-bold">LIRA</h2>
-                                <a href="">Xerjoff</a>
+                                <a href="" className="link no-underline hover:font-bold">Xerjoff</a>
                             </div>
 
                             <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
                                 <div className="flex flex-wrap justify-center gap-2">
-                                    <a href="" className="badge badge-soft">Oriental</a>
-                                    <a href="" className="badge badge-soft">Floral</a>
-                                    <a href="" className="badge badge-soft">Gourmand</a>
+                                    <div className="badge badge-soft">Oriental</div>
+                                    <div className="badge badge-soft">Floral</div>
+                                    <div className="badge badge-soft">Gourmand</div>
                                 </div>
-                                <button className="btn btn-primary mt-2">Ver perfume</button>
+                                <button className="btn btn-primary mt-2 hover:btn-neutral hover:text-primary-content">Ver perfume</button>
                             </div>
 
                         </div>
@@ -700,16 +643,16 @@ const PerfumePage = () => {
 
                             <div className="flex flex-col justify-center items-center p-4 text-white">
                                 <h2 className="text-lg font-bold">ATTAQUER LE SOLEIL - MARQUIS DE SADE</h2>
-                                <a href="">Etat Libre D'Orange</a>
+                                <a href="" className="link no-underline hover:font-bold">Etat Libre D'Orange</a>
                             </div>
 
                             <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6">
                                 <div className="flex flex-wrap justify-center gap-2">
-                                    <a href="" className="badge badge-soft">Oriental</a>
-                                    <a href="" className="badge badge-soft">Floral</a>
-                                    <a href="" className="badge badge-soft">Gourmand</a>
+                                    <div className="badge badge-soft">Oriental</div>
+                                    <div className="badge badge-soft">Floral</div>
+                                    <div className="badge badge-soft">Gourmand</div>
                                 </div>
-                                <button className="btn btn-primary mt-2">Ver perfume</button>
+                                <button className="btn btn-primary mt-2 hover:btn-neutral hover:text-primary-content">Ver perfume</button>
                             </div>
 
                         </div>
@@ -718,11 +661,6 @@ const PerfumePage = () => {
                 </div>
 
                 {/* COMENTARIOS */}
-
-                {/* Necesito iconos varios + foto de perfil + nombre + descripción del perfume + ranking estrellas si lo hay + botón de responder */}
-
-                {/* FIXME: Esto fue una prueba, como idea, obviamente no está terminado */}
-
                 <h1 className="text-2xl text-center mb-10 mt-10">COMENTARIOS</h1>
                 <div className="flex flex-col gap-2" >
 
@@ -770,10 +708,11 @@ const PerfumePage = () => {
 
                     </div>
                 </div>
-                {/* TODO: Poner comentario disabled si el usuario no está loggueado con un "Necesitas iniciar sesión o registrarte" */}
+                {/* FIXME: Arreglar poner "Si hay usuario X, si no lo hay Y" */}
                 <div className="divider">Añade un comentario</div>
                 <div className="flex flex-col">
                     <div className="card bg-base-100 shadow-sm w-full">
+                        {/* TODO: SI HAY USUARIO */}
                         <div className="card-body">
 
                             <div className="flex gap-6 mb-2 items-start w-full">
@@ -783,7 +722,7 @@ const PerfumePage = () => {
                                         <img src="/user/profile-pic/profile2.jpg" alt="Foto de perfil de Jakob" />
                                     </div>
                                 </div>
-                                <p>Jakob</p>
+                                <p className="mt-2 font-semibold">Jakob</p>
                                 </div>
                                 
 
@@ -791,17 +730,21 @@ const PerfumePage = () => {
                                     <div className="flex flex-col gap-2 w-full">
 
                                         <textarea
-                                            className="textarea textarea-md w-full h-32"
+                                            className="textarea textarea-md w-full h-22"
                                             placeholder="Escribe aquí tu comentario..."
                                         ></textarea>
-
-                                        {/* <textarea className="textarea" placeholder="Registro o login" disabled></textarea> */}
 
                                         <button className="btn self-end">Comentar</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {/* TODO: SI NO HAY USUARIO */}
+                        {/* <div className="card-body">
+                            <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
+                                <p className="text-center">Debes <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Registrarte</a> o <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Iniciar sesión</a> para dejar un comentario</p>
+                            </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
