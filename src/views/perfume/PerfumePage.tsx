@@ -93,7 +93,7 @@ const PerfumePage = () => {
                         <div className="divider">Información general</div>
                         <h5>Familia olfativa:
                             {selectedPerfume.families.map(family =>
-                                <a href="" className="badge badge-xs badge-soft badge-neutral ml-2">{family}</a>
+                                <a href="" className="badge badge-sm badge-soft badge-neutral ml-2">{family}</a>
                             )}
                         </h5>
                         <h5 className="flex items-center">
@@ -110,7 +110,7 @@ const PerfumePage = () => {
                             Perfumista:
                             {selectedPerfume.perfumer.map((perfumer) => (
                                 <span key={perfumer.id}>
-                                    <a className="badge badge-xs badge-soft badge-neutral ml-2" href={`/perfumer/?id=${perfumer.id}`}>
+                                    <a className="badge badge-sm badge-soft badge-neutral ml-2" href={`/perfumer/?id=${perfumer.id}`}>
                                         {perfumer.name}
                                     </a>
                                 </span>
@@ -412,8 +412,6 @@ const PerfumePage = () => {
 
                 {/* LISTAS DESTACADAS */}
 
-                {/* Necesitamos nombre de usuario + icono, seguir la lista, título de la lista, iconos con los perfumes, y ¿época del año o mejor quitarla? y ver lista completa */}
-                {/* FIXME: Arreglar el data-tip */}
                 <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
                 <div className="flex flex-wrap gap-12" >
 
