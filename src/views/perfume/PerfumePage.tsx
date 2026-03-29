@@ -10,6 +10,8 @@ interface IUser {
     pfp: string
 }
 
+const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
+
 const seasons = [
     { name: "Otoño", icon: "/perfume-info/icons/season/autumn-icon.svg" },
     { name: "Invierno", icon: "/perfume-info/icons/season/winter-icon.svg" },
@@ -137,6 +139,8 @@ const PerfumePage = () => {
 
     const [valueDuration, setValueDuration] = useState(0);
     const [valuePrice, setValuePrice] = useState(0);
+    const [liked, setLiked] = useState(false);
+    // const [isListDropdownOpen, setIsListDropdownOpen] = useState(false);
 
     if (selectedPerfume === undefined) return null
 
@@ -164,18 +168,35 @@ const PerfumePage = () => {
                         </button>
 
                         {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
-                        {/* TODO: PARA TODOS LOS USUARIOS */}
-                        <div className="tooltip save absolute top-2 right-2 z-50" data-tip="Guardar en favoritos">
-                            <button className="btn btn-circle">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-[1.6em]">
+                        {/* TOOLTIPS */}
+                        {/* TODO: PARA TODOS LOS USUARIOS LOGGUEADOS */}
+                        <div 
+                            className="tooltip save absolute top-2 right-2 z-50"
+                            data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
+                        >
+                            <button className="btn btn-circle" onClick={() => setLiked(!liked)}>
+                                <svg 
+                                    xmlns="http://www.w3.org/2000/svg" 
+                                    fill={liked ? "currentColor" : "none"}
+                                    viewBox="0 0 24 24" 
+                                    strokeWidth="2" 
+                                    stroke={liked ? "currentColor" : "currentColor"}
+                                    className="size-[1.6em]"
+                                >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
                             </button>
                         </div>
 
                         {/* TODO: SOLO SI ES PREMIUM */}
-                        <div className="tooltip save absolute top-2 right-14 z-50" data-tip="Guardar en lista">
-                            <button className="btn btn-circle">
+                        <div 
+                            className="dropdown dropdown-end tooltip save absolute top-2 right-14 z-50" 
+                            data-tip="Guardar en lista"
+                        >
+                            <label
+                                tabIndex={0}
+                                className="btn btn-circle"
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -186,7 +207,14 @@ const PerfumePage = () => {
                                 >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
-                            </button>
+                            </label>
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2">
+                            {userLists.map((list, index) => (
+                                <li key={index}>
+                                    <a href="">{list}</a>
+                                </li>
+                            ))}
+                            </ul>
                         </div>
 
                         {/* TODO: SOLO SI ES ADMIN */}
@@ -276,6 +304,7 @@ const PerfumePage = () => {
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
                 <div className="card bg-base-100 shadow-sm w-auto">
                     <div className="flex">
+                        {/* FORMULARIO VALORACIÓN */}
                         <div className="card-body w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
                             {/* ÉPOCA */}
@@ -386,7 +415,6 @@ const PerfumePage = () => {
                                 </div>
                             </div>
 
-                            {/* FIXME: PUNTUACIÓN GENERAL */}
                             <div className="h-25">
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img
