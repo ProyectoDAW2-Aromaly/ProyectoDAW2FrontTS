@@ -1,6 +1,13 @@
 import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
+import { ListCard, type IListCard } from "../../components/ListCard";
+
+interface IUser {
+    userName: string,
+    // Profile picture
+    pfp: string
+}
 
 const seasons = [
     { name: "Otoño", icon: "/perfume-info/icons/season/autumn-icon.svg" },
@@ -12,10 +19,78 @@ const seasons = [
 const labelsDuration = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
 const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
 
+const mockedLists: IListCard[] = [
+    {
+        id: "AxelID",
+        username: "Axel",
+        title: "Perfumes nicho",
+        pfp: "/user/profile-pic/profile1.jpg",
+        premium: true,
+        coffee: false,
+        perfumes: [
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        ]
+    },
+    {
+        id: "JakobID",
+        username: "Jakob",
+        title: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
+        pfp: "/user/profile-pic/profile2.jpg",
+        premium: false,
+        coffee: true,
+        perfumes: [
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        ]
+    },
+    {
+        id: "KevinID",
+        username: "Kevin",
+        title: "Perfumes verano",
+        pfp: "/user/profile-pic/profile3.png",
+        premium: false,
+        coffee: false,
+        perfumes: [
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        ]
+    }
+]
+
 
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
 
 const PerfumePage = () => {
+    const [user, setUser] = useState<IUser>();
     const {
         selectedPerfume,
         rating,
@@ -397,190 +472,9 @@ const PerfumePage = () => {
                 <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
                 <div className="flex flex-wrap gap-12" >
 
-                    <div className="card bg-base-100 shadow-sm w-96">
-                        <div className="card-body flex flex-col justify-between">
-
-                            <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista">
-                                <button className="btn btn-circle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div className="flex flex-wrap gap-6 mb-2 items-center">
-                                <div className="avatar w-14 shrink-0">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col">
-                                    <h2 className="card-title">Axel</h2>
-                                </div>
-                            </div>
-
-                            <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
-
-                            <div className="divider h-1 my-0"></div>
-                            <h2 className="font-semibold">PERFUMES NICHO</h2>
-                            <div className="divider h-1 my-0"></div>
-
-                            <div className="avatar-group flex justify-center -space-x-2">
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar avatar-placeholder">
-                                    <div className="bg-neutral text-neutral-content w-12">
-                                        <span>+5</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button className="btn hover:btn-neutral hover:text-primary-content">Ver lista completa</button>
-
-                        </div>
-                    </div>
-
-                    <div className="card bg-base-100 shadow-sm w-96">
-                        <div className="card-body flex flex-col justify-between">
-
-                            <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista" >
-                                <button className="btn btn-circle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div className="flex flex-wrap gap-6 mb-2 items-center">
-                                <div className="avatar w-14 shrink-0">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/user/profile-pic/profile2.jpg" alt="Perfil" />
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col">
-                                    <h2 className="card-title">Jakob</h2>
-                                </div>
-                            </div>
-
-
-                            <div className="divider h-1 my-0"></div>
-                            <h2 className="font-semibold">HAGO UN TÍTULO LARGO PARA VER COMO QUEDA ASÍ</h2>
-                            <div className="divider h-1 my-0"></div>
-
-                            <div className="avatar-group flex justify-center -space-x-2">
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar avatar-placeholder">
-                                    <div className="bg-neutral text-neutral-content w-12">
-                                        <span>+5</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button className="btn hover:btn-neutral hover:text-primary-content">Ver lista completa</button>
-
-                        </div>
-                    </div>
-
-                    <div className="card bg-base-100 shadow-sm w-96">
-                        <div className="card-body flex flex-col justify-between">
-                            <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista" >
-                                <button className="btn btn-circle">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round"
-                                            d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <div className="flex flex-wrap gap-6 mb-2 items-center">
-                                <div className="avatar w-14 shrink-0">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/user/profile-pic/profile3.png" alt="Perfil" />
-                                    </div>
-                                </div>
-
-                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/coffee-cup.svg" alt="Icono buy me a coffee" className="absolute top-0 left-4 w-9 h-9 -rotate-22" />
-
-                                <div className="flex flex-col">
-                                    <h2 className="card-title">Kevin</h2>
-                                </div>
-                            </div>
-
-
-                            <div className="divider h-1 my-0"></div>
-                            <h2 className="font-semibold">PERFUMES VERANO</h2>
-                            <div className="divider h-1 my-0"></div>
-
-                            <div className="avatar-group flex justify-center -space-x-2">
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/ELDO/eldo-perfume.webp" />
-                                    </div>
-                                </div>
-                                <div className="avatar">
-                                    <div className="w-12">
-                                        <img src="/perfume-info/perfume/lira/xerjoff-lira.jpg" />
-                                    </div>
-                                </div>
-                                <div className="avatar avatar-placeholder">
-                                    <div className="bg-neutral text-neutral-content w-12">
-                                        <span>+5</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <button className="btn hover:btn-neutral hover:text-primary-content">Ver lista completa</button>
-
-                        </div>
-                    </div>
+                    {mockedLists.map(list => 
+                        <ListCard data={list} key={list.id}/>
+                    )}
 
                 </div>
 
@@ -671,12 +565,57 @@ const PerfumePage = () => {
 
                 </div>
 
-                {/* COMENTARIOS */}
+                {/* FIXME: Arreglar poner "Si hay usuario X, si no lo hay Y" */}
                 <h1 className="text-2xl text-center mb-10 mt-10">COMENTARIOS</h1>
+                <div className="divider mt-10">Añade un comentario</div>
+                <div className="flex flex-col">
+                    <div className="card bg-base-100 w-full">
+                        {/* TODO: SI HAY USUARIO */}
+                        <button onClick={() => setUser({ userName: "a", pfp: "b" })}>Poner usuario</button>
+                        {user ?
+                            <div className="card-body">
+
+                                <div className="flex gap-6 mb-2 items-start w-full">
+                                    <div className="flex flex-col items-center">
+                                        <div className="avatar w-14 shrink-0">
+                                            <div className="w-14 rounded-full">
+                                                <img src="/user/profile-pic/profile2.jpg" alt="Foto de perfil de Jakob" />
+                                            </div>
+                                        </div>
+                                        <p className="mt-2 font-semibold">Jakob</p>
+                                    </div>
+
+
+                                    <div className="w-full">
+                                        <div className="flex flex-col gap-2 w-full">
+
+                                            <textarea
+                                                className="textarea textarea-md w-full h-22"
+                                                placeholder="Escribe aquí tu comentario..."
+                                            ></textarea>
+
+                                            <button className="btn self-end">Comentar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            : <div className="card-body">
+                                <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
+                                    <p className="text-center">Debes <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Registrarte</a> o <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Iniciar sesión</a> para dejar un comentario</p>
+                                </div>
+                            </div>}
+
+                        {/* TODO: SI NO HAY USUARIO */}
+
+                    </div>
+                </div>
+
+                {/* COMENTARIOS */}
+                <div className="divider mt-5"></div>
                 <div className="flex flex-col gap-2" >
 
                     {/* COMENTARIO 1 */}
-                    <div className="card bg-base-100 shadow-sm w-auto">
+                    <div className="card bg-base-100 w-auto">
                         <div className="card-body flex flex-col justify-between">
                             <div className="flex gap-6 mb-2 items-center">
                                 <div className="avatar w-14 shrink-0">
@@ -698,7 +637,7 @@ const PerfumePage = () => {
                     </div>
 
                     {/* COMENTARIO 2 */}
-                    <div className="card bg-base-100 shadow-sm w-auto">
+                    <div className="card bg-base-100 w-auto">
                         <div className="card-body flex flex-col justify-between">
                             <div className="flex gap-6 mb-2 items-center">
                                 <div className="avatar w-14 shrink-0">
@@ -719,45 +658,7 @@ const PerfumePage = () => {
 
                     </div>
                 </div>
-                {/* FIXME: Arreglar poner "Si hay usuario X, si no lo hay Y" */}
-                <div className="divider">Añade un comentario</div>
-                <div className="flex flex-col">
-                    <div className="card bg-base-100 shadow-sm w-full">
-                        {/* TODO: SI HAY USUARIO */}
-                        <div className="card-body">
 
-                            <div className="flex gap-6 mb-2 items-start w-full">
-                                <div className="flex flex-col items-center">
-                                    <div className="avatar w-14 shrink-0">
-                                        <div className="w-14 rounded-full">
-                                            <img src="/user/profile-pic/profile2.jpg" alt="Foto de perfil de Jakob" />
-                                        </div>
-                                    </div>
-                                    <p className="mt-2 font-semibold">Jakob</p>
-                                </div>
-
-
-                                <div className="w-full">
-                                    <div className="flex flex-col gap-2 w-full">
-
-                                        <textarea
-                                            className="textarea textarea-md w-full h-22"
-                                            placeholder="Escribe aquí tu comentario..."
-                                        ></textarea>
-
-                                        <button className="btn self-end">Comentar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {/* TODO: SI NO HAY USUARIO */}
-                        {/* <div className="card-body">
-                            <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
-                                <p className="text-center">Debes <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Registrarte</a> o <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Iniciar sesión</a> para dejar un comentario</p>
-                            </div>
-                        </div> */}
-                    </div>
-                </div>
             </div>
 
 
