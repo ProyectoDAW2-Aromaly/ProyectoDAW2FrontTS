@@ -28,14 +28,14 @@ const mockedLists: IListCard[] = [
         premium: true,
         coffee: false,
         perfumes: [
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
         ]
     },
     {
@@ -46,30 +46,30 @@ const mockedLists: IListCard[] = [
         premium: false,
         coffee: true,
         perfumes: [
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
         ]
     },
     {
@@ -80,8 +80,11 @@ const mockedLists: IListCard[] = [
         premium: false,
         coffee: false,
         perfumes: [
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-            "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
         ]
     }
 ]
@@ -601,7 +604,11 @@ const PerfumePage = () => {
                             </div>
                             : <div className="card-body">
                                 <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
-                                    <p className="text-center">Debes <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Registrarte</a> o <a className="link hover:link-accent hover:no-underline hover:font-semibold" href="">Iniciar sesión</a> para dejar un comentario</p>
+                                    <h1 className="text-center text-lg">Debes <a className="link hover:link-accent hover:no-underline" href="">Registrarte</a>
+                                        &nbsp;o&nbsp;
+                                        <a className="link hover:link-accent hover:no-underline" href="">Iniciar sesión</a> 
+                                        &nbsp;para dejar un comentario
+                                    </h1>
                                 </div>
                             </div>}
 
