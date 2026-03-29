@@ -16,7 +16,11 @@ const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
 
 const PerfumePage = () => {
-    const { selectedPerfume } = usePerfumeViewModel()
+    const {
+        selectedPerfume,
+        rating,
+        handleRatingChange
+    } = usePerfumeViewModel()
 
     const [valueDuration, setValueDuration] = useState(0);
     const [valuePrice, setValuePrice] = useState(0);
@@ -283,13 +287,20 @@ const PerfumePage = () => {
 
                                 <div className="w-full relative">
                                     <div className="rating">
-                                        {[1, 2, 3, 4, 5].map((i) => (
+                                        {[1, 2, 3, 4, 5].map((star) => (
                                             <input
-                                                key={i}
+                                                key={star}
                                                 type="radio"
                                                 name="rating-2"
                                                 className="mask mask-star-2 bg-orange-400 hover:scale-125 transition-transform duration-200"
-                                                aria-label={`${i} star`}
+                                                aria-label={`${star} star`}
+                                                checked={star === rating?.general}
+                                                onClick={() => {
+                                                    if (rating?.general === star)
+                                                        handleRatingChange("general", undefined)
+                                                    else
+                                                        handleRatingChange("general", star)
+                                                }}
                                             />
                                         ))}
                                     </div>
@@ -512,7 +523,7 @@ const PerfumePage = () => {
                             <div className="tooltip absolute top-2 right-2" data-tip="Guardar lista" >
                                 <button className="btn btn-circle">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="size-[1.2em]">
-                                        <path strokeLinecap="round" strokeLinejoin="round" 
+                                        <path strokeLinecap="round" strokeLinejoin="round"
                                             d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
                                         />
                                     </svg>
@@ -581,10 +592,10 @@ const PerfumePage = () => {
 
                         <div className="relative rounded-2xl overflow-hidden">
                             <img
-                            className="w-full h-80 object-cover"
-                            src="/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg"
-                            alt="Perfume recomendado Born in Roma Intense Donna"
-                        />
+                                className="w-full h-80 object-cover"
+                                src="/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg"
+                                alt="Perfume recomendado Born in Roma Intense Donna"
+                            />
                         </div>
 
                         <div className="absolute bottom-0 w-full rounded-b-2xl h-28 bg-black/70 transition-all duration-300 group-hover:h-3/4">
@@ -718,13 +729,13 @@ const PerfumePage = () => {
                             <div className="flex gap-6 mb-2 items-start w-full">
                                 <div className="flex flex-col items-center">
                                     <div className="avatar w-14 shrink-0">
-                                    <div className="w-14 rounded-full">
-                                        <img src="/user/profile-pic/profile2.jpg" alt="Foto de perfil de Jakob" />
+                                        <div className="w-14 rounded-full">
+                                            <img src="/user/profile-pic/profile2.jpg" alt="Foto de perfil de Jakob" />
+                                        </div>
                                     </div>
+                                    <p className="mt-2 font-semibold">Jakob</p>
                                 </div>
-                                <p className="mt-2 font-semibold">Jakob</p>
-                                </div>
-                                
+
 
                                 <div className="w-full">
                                     <div className="flex flex-col gap-2 w-full">
