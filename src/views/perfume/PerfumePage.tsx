@@ -131,7 +131,7 @@ const mockedPerfumes: ICardPerfume[] = [
 const tempUser: IUser = {
     userName: "Jakob",
     pfp:"/user/profile-pic/profile2.jpg",
-    rol: "admin"
+    rol: "premium"
 }
 
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
@@ -193,7 +193,7 @@ const PerfumePage = () => {
 
                         {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
                         {/* TOOLTIPS */}
-                        {/* TODO: PARA TODOS LOS USUARIOS LOGGUEADOS */}
+                        {/* Para todos los usuarios */}
                         {user? <div 
                             className="tooltip save absolute top-2 right-2 z-50"
                             data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
@@ -212,8 +212,7 @@ const PerfumePage = () => {
                             </button>
                         </div> : null}
 
-                        {/* FIXME: Poner un checkbox */}
-                        {/* TODO: SOLO SI ES PREMIUM */}
+                        {/* Solo lo ve el usuario premium y el admin */}
                         {(user?.rol === "premium" || user?.rol === "admin") ? <div className="dropdown dropdown-end tooltip save absolute top-2 right-14 z-50" data-tip="Guardar en lista">
                             <label tabIndex={0} className="btn btn-circle">
                                 <svg
@@ -237,7 +236,7 @@ const PerfumePage = () => {
                             </ul>
                         </div> : null}
 
-                        {/* TODO: SOLO SI ES ADMIN */}
+                        {/* Solo lo ve el admin */}
                         {user?.rol === "admin" ? <div className="tooltip save absolute top-2 right-26 z-50" data-tip="Editar perfume">
                             <button className="btn btn-circle">
 
@@ -566,7 +565,7 @@ const PerfumePage = () => {
                 <div className="flex flex-wrap gap-12" >
 
                     {mockedLists.map(list => 
-                        <ListCard data={list} key={list.id}/>
+                        <ListCard data={list} user={user} key={list.id}/>
                     )}
 
                 </div>
