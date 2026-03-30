@@ -140,7 +140,6 @@ const PerfumePage = () => {
     const [valueDuration, setValueDuration] = useState(0);
     const [valuePrice, setValuePrice] = useState(0);
     const [liked, setLiked] = useState(false);
-    // const [isListDropdownOpen, setIsListDropdownOpen] = useState(false);
 
     if (selectedPerfume === undefined) return null
 
@@ -149,6 +148,7 @@ const PerfumePage = () => {
             <Navbar />
             <div className="mx-auto max-w-7xl px-4 mt-5">
                 {/* INFORMACIÓN GENERAL DEL PERFUME */}
+                {/* FIXME: No me termina de convencer como queda el logo */}
                 <div className="card card-side bg-base-100 shadow-sm">
                     <figure className="w-4xl h-auto flex-3">
                         <img
@@ -158,11 +158,17 @@ const PerfumePage = () => {
                     </figure>
                     <div className="card-body items-start flex-5">
                         <h1 className="card-title ml-2">{selectedPerfume.name}</h1>
-                        <button className="btn btn-ghost bg-[#FFF7ED] rounded-2xl self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
-                            <figure className="w-auto h-5">
+                        <button className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
+                            <figure className="flex items-center justify-center rounded-none">
                                 <img
                                     src={selectedPerfume.logo.src}
                                     alt={selectedPerfume.logo.alt}
+                                    style={{
+                                        width: '80px',
+                                        height: 'auto',
+                                        maxHeight: '60px'
+                                    }}
+                                    className="object-contain"
                                 />
                             </figure>
                         </button>
@@ -188,15 +194,10 @@ const PerfumePage = () => {
                             </button>
                         </div>
 
+                        {/* FIXME: Poner un checkbox */}
                         {/* TODO: SOLO SI ES PREMIUM */}
-                        <div 
-                            className="dropdown dropdown-end tooltip save absolute top-2 right-14 z-50" 
-                            data-tip="Guardar en lista"
-                        >
-                            <label
-                                tabIndex={0}
-                                className="btn btn-circle"
-                            >
+                        <div className="dropdown dropdown-end tooltip save absolute top-2 right-14 z-50" data-tip="Guardar en lista">
+                            <label tabIndex={0} className="btn btn-circle">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -208,10 +209,11 @@ const PerfumePage = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
                             </label>
-                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2">
+                            <ul tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2 space-y-2 max-h-40 overflow-y-auto">
                             {userLists.map((list, index) => (
-                                <li key={index}>
-                                    <a href="">{list}</a>
+                                <li className="flex flex-row" key={index}>
+                                    <p>{list}</p>
+                                    <input type="checkbox" className="checkbox checkbox-primary" />
                                 </li>
                             ))}
                             </ul>
@@ -264,7 +266,15 @@ const PerfumePage = () => {
                             ))}
                         </h5>
                         <h5>Fecha de lanzamiento: {selectedPerfume.releaseDate}</h5>
-                        <h5>Colección: <a href="" className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent">{selectedPerfume.colection}</a></h5>
+                        {selectedPerfume.colection && (
+                            <h5>
+                                Colección:
+                                <a href="" className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent">
+                                    {selectedPerfume.colection}
+                                </a>
+                            </h5>
+                        )}
+                        
                     </div>
                 </div>
 
