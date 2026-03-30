@@ -7,7 +7,8 @@ import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
 interface IUser {
     userName: string,
     // Profile picture
-    pfp: string
+    pfp: string,
+    rol: string
 }
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
@@ -127,10 +128,16 @@ const mockedPerfumes: ICardPerfume[] = [
     },
 ]
 
+const tempUser: IUser = {
+    userName: "Jakob",
+    pfp:"/user/profile-pic/profile2.jpg",
+    rol: "admin"
+}
+
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
 
 const PerfumePage = () => {
-    const [user, setUser] = useState<IUser>();
+    const [user, setUser] = useState<IUser | null>(null);
     const {
         selectedPerfume,
         rating,
@@ -146,6 +153,17 @@ const PerfumePage = () => {
     return (
         <div>
             <Navbar />
+            <div className="relative">
+                {/* Botones de prueba */}
+                <div className="absolute top-2 left-2 flex gap-2 z-50">
+                    <button onClick={() => setUser(tempUser)} className="btn btn-xs">
+                        Usuario
+                    </button>
+                    <button onClick={() => setUser(null)} className="btn btn-xs">
+                        No usuario
+                    </button>
+                </div>
+            </div>
             <div className="mx-auto max-w-7xl px-4 mt-5">
                 {/* INFORMACIÓN GENERAL DEL PERFUME */}
                 {/* FIXME: No me termina de convencer como queda el logo */}
@@ -176,7 +194,7 @@ const PerfumePage = () => {
                         {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
                         {/* TOOLTIPS */}
                         {/* TODO: PARA TODOS LOS USUARIOS LOGGUEADOS */}
-                        <div 
+                        {user? <div 
                             className="tooltip save absolute top-2 right-2 z-50"
                             data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
                         >
@@ -192,11 +210,11 @@ const PerfumePage = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
                             </button>
-                        </div>
+                        </div> : null}
 
                         {/* FIXME: Poner un checkbox */}
                         {/* TODO: SOLO SI ES PREMIUM */}
-                        <div className="dropdown dropdown-end tooltip save absolute top-2 right-14 z-50" data-tip="Guardar en lista">
+                        {(user?.rol === "premium" || user?.rol === "admin") ? <div className="dropdown dropdown-end tooltip save absolute top-2 right-14 z-50" data-tip="Guardar en lista">
                             <label tabIndex={0} className="btn btn-circle">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -217,10 +235,10 @@ const PerfumePage = () => {
                                 </li>
                             ))}
                             </ul>
-                        </div>
+                        </div> : null}
 
                         {/* TODO: SOLO SI ES ADMIN */}
-                        <div className="tooltip save absolute top-2 right-26 z-50" data-tip="Editar perfume">
+                        {user?.rol === "admin" ? <div className="tooltip save absolute top-2 right-26 z-50" data-tip="Editar perfume">
                             <button className="btn btn-circle">
 
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-6">
@@ -228,7 +246,7 @@ const PerfumePage = () => {
                                 </svg>
 
                             </button>
-                        </div>
+                        </div> : null}
 
                         <div className="divider">Descripción</div>
                         <p>{selectedPerfume.description.map(description =>
@@ -567,21 +585,17 @@ const PerfumePage = () => {
                 <div className="divider mt-10">Añade un comentario</div>
                 <div className="flex flex-col">
                     <div className="card bg-base-100 w-full">
-                        {/* TODO: SI HAY USUARIO */}
-                        <button onClick={() => setUser({ userName: "a", pfp: "b" })}>Poner usuario</button>
                         {user ?
                             <div className="card-body">
-
                                 <div className="flex gap-6 mb-2 items-start w-full">
                                     <div className="flex flex-col items-center">
                                         <div className="avatar w-14 shrink-0">
                                             <div className="w-14 rounded-full">
-                                                <img src="/user/profile-pic/profile2.jpg" alt="Foto de perfil de Jakob" />
+                                                <img src={user.pfp} alt={`Foto de perfil de ${user.userName}`} />
                                             </div>
                                         </div>
-                                        <p className="mt-2 font-semibold">Jakob</p>
+                                        <p className="mt-2 font-semibold">{user.userName}</p>
                                     </div>
-
 
                                     <div className="w-full">
                                         <div className="flex flex-col gap-2 w-full">
@@ -600,14 +614,12 @@ const PerfumePage = () => {
                                 <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
                                     <h1 className="text-center text-lg">Debes <a className="link hover:link-accent hover:no-underline" href="">Registrarte</a>
                                         &nbsp;o&nbsp;
-                                        <a className="link hover:link-accent hover:no-underline" href="">Iniciar sesión</a> 
+                                        <a className="link hover:link-accent hover:no-underline" href="">Iniciar sesión</a>
                                         &nbsp;para dejar un comentario
                                     </h1>
                                 </div>
-                            </div>}
-
-                        {/* TODO: SI NO HAY USUARIO */}
-
+                            </div>
+                        }
                     </div>
                 </div>
 
@@ -626,8 +638,6 @@ const PerfumePage = () => {
                                     {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
                                 <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
-
-                                
 
                                 <div>
                                     <h2 className="card-title">Axel</h2>
@@ -649,8 +659,6 @@ const PerfumePage = () => {
                                     {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
                                 <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
-
-                                
 
                                 <div>
                                     <h2 className="card-title">Axel</h2>
