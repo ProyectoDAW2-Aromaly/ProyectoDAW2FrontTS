@@ -619,14 +619,15 @@ const PerfumePage = () => {
                     <div className="card bg-base-100 w-auto">
                         <div className="card-body flex flex-col justify-between">
                             <div className="flex gap-6 mb-2 items-center">
-                                <div className="avatar w-14 shrink-0">
+                                <div className="avatar w-14 shrink-0 relative">
                                     <div className="w-14 rounded-full">
                                         <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
                                     </div>
+                                    {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
+                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
 
-                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
+                                
 
                                 <div>
                                     <h2 className="card-title">Axel</h2>
@@ -641,14 +642,15 @@ const PerfumePage = () => {
                     <div className="card bg-base-100 w-auto">
                         <div className="card-body flex flex-col justify-between">
                             <div className="flex gap-6 mb-2 items-center">
-                                <div className="avatar w-14 shrink-0">
+                                <div className="avatar w-14 shrink-0 relative">
                                     <div className="w-14 rounded-full">
                                         <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
                                     </div>
+                                    {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
+                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
 
-                                {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />
+                                
 
                                 <div>
                                     <h2 className="card-title">Axel</h2>
