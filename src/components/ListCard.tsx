@@ -22,15 +22,14 @@ interface ListCardProps {
     user: IUser | null;
 }
 
-// ! MODIFICAR ESTO
-
 /**
  * Componente para la card de listas de perfumes.
  * @param data Los datos de la lista que se va a mostrar (están así por comodidad).
  * Al colocar el param de esta forma, evitas pasar cada propiedad del objeto por separado.
  * Al poner {data}, evitas tener que sacarlo de otra variable. Ejemplo: data.data.username -> data.username
+ * @param user Se le envían los datos del usuario con la sesión iniciada
  * @returns El componente -> Card de la lista de perfumes.
- * @example <ListCard data={list}/>
+ * @example <ListCard data={list} user={user}/>
  */
 export const ListCard = ({ data, user }: ListCardProps ) => {
 
