@@ -1,15 +1,10 @@
-import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { ListCard, type IListCard } from "../../components/ListCard";
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
+import type { IUser } from "../../App";
 
-interface IUser {
-    userName: string,
-    // Profile picture
-    pfp: string,
-    rol: string
-}
+
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
 
@@ -128,38 +123,42 @@ const mockedPerfumes: ICardPerfume[] = [
     },
 ]
 
+
 const tempUser: IUser = {
-    userName: "Jakob",
-    pfp:"/user/profile-pic/profile2.jpg",
-    rol: "premium"
+  userName: "Jakob",
+  pfp: "/user/profile-pic/profile2.jpg",
+  rol: "premium"
 }
 
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
 
-const PerfumePage = () => {
-    const [user, setUser] = useState<IUser | null>(null);
+interface IPerfumePage {
+    user?: IUser,
+    // * Definimos que se le pasará una función que reciba un usuario. Devuelve void
+    setUser: (val?: IUser) => void
+}
+
+const PerfumePage = ({user, setUser}: IPerfumePage) => {
     const {
         selectedPerfume,
         rating,
-        handleRatingChange
+        handleRatingChange,
+        liked,
+        setLiked
     } = usePerfumeViewModel()
 
-    const [valueDuration, setValueDuration] = useState(0);
-    const [valuePrice, setValuePrice] = useState(0);
-    const [liked, setLiked] = useState(false);
 
     if (selectedPerfume === undefined) return null
 
     return (
         <div>
-            <Navbar />
             <div className="relative">
                 {/* Botones de prueba */}
                 <div className="absolute top-2 left-2 flex gap-2 z-50">
                     <button onClick={() => setUser(tempUser)} className="btn btn-xs">
                         Usuario
                     </button>
-                    <button onClick={() => setUser(null)} className="btn btn-xs">
+                    <button onClick={() => setUser(undefined)} className="btn btn-xs">
                         No usuario
                     </button>
                 </div>
@@ -194,16 +193,16 @@ const PerfumePage = () => {
                         {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
                         {/* TOOLTIPS */}
                         {/* Para todos los usuarios */}
-                        {user? <div 
+                        {user ? <div
                             className="tooltip save absolute top-2 right-2 z-50"
                             data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
                         >
                             <button className="btn btn-circle" onClick={() => setLiked(!liked)}>
-                                <svg 
-                                    xmlns="http://www.w3.org/2000/svg" 
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
                                     fill={liked ? "currentColor" : "none"}
-                                    viewBox="0 0 24 24" 
-                                    strokeWidth="2" 
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2"
                                     stroke={liked ? "currentColor" : "currentColor"}
                                     className="size-[1.6em]"
                                 >
@@ -227,12 +226,12 @@ const PerfumePage = () => {
                                 </svg>
                             </label>
                             <ul tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2 space-y-2 max-h-40 overflow-y-auto">
-                            {userLists.map((list, index) => (
-                                <li className="flex flex-row" key={index}>
-                                    <p>{list}</p>
-                                    <input type="checkbox" className="checkbox checkbox-primary" />
-                                </li>
-                            ))}
+                                {userLists.map((list, index) => (
+                                    <li className="flex flex-row" key={index}>
+                                        <p>{list}</p>
+                                        <input type="checkbox" className="checkbox checkbox-primary" />
+                                    </li>
+                                ))}
                             </ul>
                         </div> : null}
 
@@ -291,7 +290,7 @@ const PerfumePage = () => {
                                 </a>
                             </h5>
                         )}
-                        
+
                     </div>
                 </div>
 
@@ -385,15 +384,15 @@ const PerfumePage = () => {
                                         min={0}
                                         max={3}
                                         step={1}
-                                        value={valueDuration}
-                                        onChange={(e) => setValueDuration(Number(e.target.value))}
+                                        value={rating?.duration}
+                                        onChange={(e) => handleRatingChange("duration", Number(e.target.value))}
                                         className="range range-xs w-full [--range-fill:0]"
                                     />
                                     <div className="relative w-full mt-3 flex justify-between">
                                         {labelsDuration.map((label, index) => (
                                             <span
                                                 key={label}
-                                                className={`text-xs transition-all duration-200 ${valueDuration === index
+                                                className={`text-xs transition-all duration-200 ${rating?.duration === index
                                                     ? "font-bold text-primary scale-110"
                                                     : "text-base-content/60"
                                                     }`}
@@ -421,8 +420,8 @@ const PerfumePage = () => {
                                         min={0}
                                         max={3}
                                         step={1}
-                                        value={valuePrice}
-                                        onChange={(e) => setValuePrice(Number(e.target.value))}
+                                        value={rating?.price}
+                                        onChange={(e) => handleRatingChange("price" ,Number(e.target.value))}
                                         className="range range-xs w-full [--range-fill:0]"
                                     />
 
@@ -430,7 +429,7 @@ const PerfumePage = () => {
                                         {labelsPrice.map((label, index) => (
                                             <span
                                                 key={label}
-                                                className={`text-xs transition-all duration-200 ${valuePrice === index
+                                                className={`text-xs transition-all duration-200 ${rating?.price === index
                                                     ? "font-bold text-primary scale-110"
                                                     : "text-base-content/60"
                                                     }`}
@@ -564,8 +563,8 @@ const PerfumePage = () => {
                 <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
                 <div className="flex flex-wrap gap-12" >
 
-                    {mockedLists.map(list => 
-                        <ListCard data={list} user={user} key={list.id}/>
+                    {mockedLists.map(list =>
+                        <ListCard data={list} user={user} key={list.id} />
                     )}
 
                 </div>
@@ -575,7 +574,7 @@ const PerfumePage = () => {
                 <div className="flex flex-wrap gap-12" >
 
                     {mockedPerfumes.map(list =>
-                        <CardPerfume data={list} key={list.id}/>
+                        <CardPerfume data={list} key={list.id} />
                     )}
 
                 </div>
@@ -635,7 +634,7 @@ const PerfumePage = () => {
                                         <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
                                     </div>
                                     {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
+                                    <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
 
                                 <div>
@@ -656,7 +655,7 @@ const PerfumePage = () => {
                                         <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
                                     </div>
                                     {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
+                                    <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
 
                                 <div>

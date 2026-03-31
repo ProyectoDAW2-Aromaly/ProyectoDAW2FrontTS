@@ -1,3 +1,7 @@
+// * El ViewModel es un hook de React (por eso empieza con use) que se utiliza para contener toda la lógica de una pantalla.
+// * Normalmente se le llama hook a una función cuyo nombre empieza por use y dentro usa hooks nativos de React, ejemplo: useState, useEffect
+// * https://react.dev/reference/react/hooks
+
 import { useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import type { IPerfume } from "./IPerfume";
@@ -6,7 +10,9 @@ import { PERFUMES } from "./Perfumes";
 interface IRating {
     general?: number,
     autumn?: boolean,
-    summer?: boolean
+    summer?: boolean,
+    price?: number,
+    duration?: number
 }
 
 export const usePerfumeViewModel = () => {
@@ -14,6 +20,8 @@ export const usePerfumeViewModel = () => {
     const [searchParams] = useSearchParams();
     const [selectedPerfume, setSelectedPerfume] = useState<IPerfume>()
     const [rating, setRating] = useState<IRating>() // Aquí en vez de number, sería rating (por la base de datos) y modificas la propiedad
+    const [liked, setLiked] = useState(false);
+
     useEffect(() => {
         const search = searchParams.get("id")
         if (search) {
@@ -38,6 +46,8 @@ export const usePerfumeViewModel = () => {
     return {
         selectedPerfume,
         rating,
-        handleRatingChange
+        handleRatingChange,
+        liked,
+        setLiked
     }
 }
