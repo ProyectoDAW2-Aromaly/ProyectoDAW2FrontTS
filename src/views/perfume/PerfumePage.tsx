@@ -1,10 +1,7 @@
-import Navbar from "../../components/Navbar";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { ListCard, type IListCard } from "../../components/ListCard";
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
 import type { IUser } from "../../App";
-
-
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
 
@@ -127,7 +124,7 @@ const mockedPerfumes: ICardPerfume[] = [
 const tempUser: IUser = {
   userName: "Jakob",
   pfp: "/user/profile-pic/profile2.jpg",
-  rol: "premium"
+  rol: "normal"
 }
 
 {/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
@@ -152,7 +149,7 @@ const PerfumePage = ({user, setUser}: IPerfumePage) => {
 
     return (
         <div>
-            <div className="relative">
+            <div className="relative mt-15">
                 {/* Botones de prueba */}
                 <div className="absolute top-2 left-2 flex gap-2 z-50">
                     <button onClick={() => setUser(tempUser)} className="btn btn-xs">
@@ -163,7 +160,7 @@ const PerfumePage = ({user, setUser}: IPerfumePage) => {
                     </button>
                 </div>
             </div>
-            <div className="mx-auto max-w-7xl px-4 mt-5">
+            <div className="mx-auto max-w-7xl px-4 mt-20">
                 {/* INFORMACIÓN GENERAL DEL PERFUME */}
                 {/* FIXME: No me termina de convencer como queda el logo */}
                 <div className="card card-side bg-base-100 shadow-sm">
