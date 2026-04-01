@@ -19,7 +19,7 @@ interface IUser {
 
 interface ListCardProps {
     data: IListCard;
-    user: IUser | null;
+    user?: IUser;
 }
 
 /**
