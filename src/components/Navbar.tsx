@@ -36,7 +36,7 @@ export default function Navbar({ user }: INavbar) {
     localStorage.setItem("theme", theme)
   }, [theme])
 
-  const [showSearch, setShowSearch] = useState(false);
+  // const [showSearch, setShowSearch] = useState(false);
 
   return (
     <div className="navbar bg-base-100 fixed top-0 left-0 w-full z-50 shadow-sm h-auto min-h-24 md:min-h-auto">
@@ -71,28 +71,71 @@ export default function Navbar({ user }: INavbar) {
         </a>
       </div>
       <div className="navbar-end">
-        {showSearch && (
-          <input
-            type="text"
-            placeholder="Buscar..."
-            autoFocus
-            className="input input-bordered ml-2 mr-2 w-48 transition-all duration-500 ease-out ${show}"
-          />
-        )}
-        <button
-          className="btn btn-ghost btn-circle mr-3"
-          // ^ Si showSearch es false, !showSearch es true, y del revés. Cambia el estado al valor opuesto.
-          onClick={() => setShowSearch(!showSearch)}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /> </svg>
-        </button>
+        <div className="navbar-end">
+          {/* Icono lupa */}
+          <button
+            className="btn btn-ghost btn-circle mr-3"
+            onClick={() => (document.getElementById("search_modal") as HTMLDialogElement).showModal()}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
+
+          {/* Modal */}
+          <dialog id="search_modal" className="modal modal-top">
+            <div className="modal-box relative">
+              <label className="input flex items-center gap-2 w-full">
+                <svg
+                  className="h-[1em] opacity-50"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <g
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                    strokeWidth="2.5"
+                    fill="none"
+                    stroke="currentColor"
+                  >
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.3-4.3"></path>
+                  </g>
+                </svg>
+
+                <input
+                  type="search"
+                  required
+                  placeholder="Search"
+                  className="grow"
+                />
+              </label>
+            </div>
+            <form method="dialog" className="modal-backdrop">
+                <button>
+                  close
+                </button>
+              </form>
+          </dialog>
+        </div>
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
             <div className="w-10 rounded-full">
               {user ? (
                 <img
                   alt="avatar"
-                  src={user.pfp} 
+                  src={user.pfp}
                 />
               ) : (
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" className="w-full h-full">
