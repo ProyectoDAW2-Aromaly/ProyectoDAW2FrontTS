@@ -4,6 +4,7 @@ import PerfumePage from './views/perfume/PerfumePage'
 import Home from './views/home/Home'
 import Navbar from './components/Navbar'
 import { useState } from 'react'
+import PerfumeForm from './views/perfume_form/PerfumeForm'
 
 export interface IUser {
   userName: string,
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/perfume' element={<PerfumePage user={user} setUser={setUser} />} />
+          <Route path='/perfume/form' element={<PerfumeForm />} />
         </Routes>
 
       </BrowserRouter>
