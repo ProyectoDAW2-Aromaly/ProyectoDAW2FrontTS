@@ -53,7 +53,7 @@ export default function Navbar({ user }: INavbar) {
                 <ul>
                   {/* Probando el router */}
                   <li><Link to="/perfume?id=1">Prueba router</Link></li>
-                  <li><a>Notas</a></li>
+                  <li><a>Todos</a></li>
                   <li><a>Marcas</a></li>
                 </ul>
               </details>
@@ -94,8 +94,8 @@ export default function Navbar({ user }: INavbar) {
           </button>
 
           {/* Modal */}
-          <dialog id="search_modal" className="modal modal-top">
-            <div className="modal-box relative">
+          <dialog id="search_modal" className="modal items-start">
+            <div className="modal-box relative mt-20 p-3 w-11/12 max-w-6xl">
               <label className="input flex items-center gap-2 w-full">
                 <svg
                   className="h-[1em] opacity-50"
@@ -128,6 +128,7 @@ export default function Navbar({ user }: INavbar) {
                 </button>
               </form>
           </dialog>
+          {/* Fin dialog */}
         </div>
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
