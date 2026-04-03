@@ -189,58 +189,63 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
 
                         {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
                         {/* TOOLTIPS */}
-                        {/* Para todos los usuarios */}
-                        {user ? <div className="tooltip save absolute top-2 right-5 z-40"
-                            data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
-                        >
-                            <button className="btn btn-circle" onClick={() => setLiked(!liked)}>
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill={liked ? "currentColor" : "none"}
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                    stroke={liked ? "currentColor" : "currentColor"}
-                                    className="size-[1.6em]"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                </svg>
-                            </button>
-                        </div> : null}
+                        <div className="absolute top-2 right-2 flex gap-2 z-40">
 
-                        {/* Solo lo ve el usuario premium y el admin */}
-                        {(user?.rol === "premium" || user?.rol === "admin") ? <div className="dropdown dropdown-end tooltip save absolute top-2 right-18 z-40" data-tip="Guardar en lista">
-                            <label tabIndex={0} className="btn btn-circle">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                    stroke="currentColor"
-                                    className="size-[1.6em]"
-                                >
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                </svg>
-                            </label>
-                            <ul tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2 space-y-2 max-h-40 overflow-y-auto">
-                                {userLists.map((list, index) => (
-                                    <li className="flex flex-row" key={index}>
-                                        <p>{list}</p>
-                                        <input type="checkbox" className="checkbox checkbox-primary" />
-                                    </li>
-                                ))}
-                            </ul>
-                        </div> : null}
+                            {/* EDITAR PERFUME -> ADMIN*/}
+                            {user?.rol === "admin" ? <div className="tooltip save" data-tip="Editar perfume">
+                                <button className="btn btn-circle">
 
-                        {/* Solo lo ve el admin */}
-                        {user?.rol === "admin" ? <div className="tooltip save absolute top-2 right-31 z-40" data-tip="Editar perfume">
-                            <button className="btn btn-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                    </svg>
 
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-6">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                </svg>
+                                </button>
+                            </div> : null}
 
-                            </button>
-                        </div> : null}
+                            {/* GUARDAR EN LISTA X -> ADMIN + PREMIUM */}
+                            {(user?.rol === "premium" || user?.rol === "admin") ? <div className="dropdown dropdown-end tooltip save" data-tip="Guardar en lista">
+                                <label tabIndex={0} className="btn btn-circle">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        stroke="currentColor"
+                                        className="size-[1.6em]"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                    </svg>
+                                </label>
+                                <ul tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2 space-y-2 max-h-40 overflow-y-auto">
+                                    {userLists.map((list, index) => (
+                                        <li className="flex flex-row" key={index}>
+                                            <p>{list}</p>
+                                            <input type="checkbox" className="checkbox checkbox-primary" />
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div> : null}
+
+                            {/* GUARDAR EN FAVORITOS -> TODOS */}
+                            {user ? <div className="tooltip save"
+                                data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
+                            >
+                                <button className="btn btn-circle" onClick={() => setLiked(!liked)}>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill={liked ? "currentColor" : "none"}
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        stroke={liked ? "currentColor" : "currentColor"}
+                                        className="size-[1.6em]"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                    </svg>
+                                </button>
+                            </div> : null}
+
+                        </div>
+
 
                         <div className="divider">Descripción</div>
                         <p>{selectedPerfume.description.map(description =>
@@ -332,7 +337,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             {user ? (
                                 <>
                                     {/* ÉPOCA */}
-                                    <div className="h-25">
+                                    <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
                                                 src="/perfume-info/icons/rating/calendar-icon.svg"
@@ -345,12 +350,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                         <div className="flex gap-4 mb-2 mt-5">
                                             {/* peer: Afecta al elemento hermano, es para poner efectos*/}
                                             {seasons.map((season) => {
-                                                const iconClases = `
-                                        w-5 filter grayscale
-                                        peer-checked:grayscale-0 peer-checked:grayscale peer-checked:scale-110
-                                        hover:-translate-y-1 hover:scale-110 
-                                        transition-all duration-200 ease-in-out 
-                                    `;
+                                                const iconClases = `w-5 grayscale peer-checked:grayscale-0 hover:scale-115 transition-transform duration-150 ease-out`;
 
                                                 return (
                                                     <label key={season.name} className="flex w-40 cursor-pointer gap-2">
@@ -365,7 +365,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     </div>
 
                                     {/* DURACIÓN*/}
-                                    <div className="h-25">
+                                    <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
                                                 src="/perfume-info/icons/rating/time-icon.svg"
@@ -375,30 +375,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                             <p>Duración</p>
                                         </div>
 
-                                        {/* <div className="w-full relative">
-                                    <input
-                                        type="range"
-                                        min={0}
-                                        max={3}
-                                        step={1}
-                                        value={rating?.duration}
-                                        onChange={(e) => handleRatingChange("duration", Number(e.target.value))}
-                                        className="range range-xs w-full [--range-fill:0]"
-                                    />
-                                    <div className="relative w-full mt-3 flex justify-between">
-                                        {labelsDuration.map((label, index) => (
-                                            <span
-                                                key={label}
-                                                className={`text-xs transition-all duration-200 ${rating?.duration === index
-                                                    ? "font-bold text-primary scale-110"
-                                                    : "text-base-content/60"
-                                                    }`}
-                                            >
-                                                {label}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div> */}
                                         <div className="w-full flex justify-between items-center mt-5">
                                             {labelsDuration.map((label, index) => (
                                                 <label key={label} className="flex items-center gap-2 cursor-pointer">
@@ -408,7 +384,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                                         else
                                                             handleRatingChange("duration", index)
                                                     }} />
-                                                    <span className={`text-sm transition-all ${rating?.duration === index ? "font-bold text-primary" : "text-base-content/60"}`}>{label}</span>
+                                                    <span className={`text-sm transition-colors ${rating?.duration === index ? "text-primary" : "text-base-content/60"} hover:text-primary`}>{label}</span>
                                                 </label>
                                             ))}
 
@@ -416,7 +392,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     </div>
 
                                     {/* PRECIO */}
-                                    <div className="h-25">
+                                    <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
                                                 src="/perfume-info/icons/rating/coin-icon.svg"
@@ -425,31 +401,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                             />
                                             <p>Precio</p>
                                         </div>
-                                        {/* <div className="w-full relative">
-                                    <input
-                                        type="range"
-                                        min={0}
-                                        max={3}
-                                        step={1}
-                                        value={rating?.price}
-                                        onChange={(e) => handleRatingChange("price" ,Number(e.target.value))}
-                                        className="range range-xs w-full [--range-fill:0]"
-                                    />
 
-                                    <div className="relative w-full mt-3 flex justify-between">
-                                        {labelsPrice.map((label, index) => (
-                                            <span
-                                                key={label}
-                                                className={`text-xs transition-all duration-200 ${rating?.price === index
-                                                    ? "font-bold text-primary scale-110"
-                                                    : "text-base-content/60"
-                                                    }`}
-                                            >
-                                                {label}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div> */}
                                         <div className="w-full flex justify-between items-center mt-5">
                                             {labelsPrice.map((label, index) => (
                                                 <label key={label} className="flex items-center gap-2 cursor-pointer">
@@ -459,7 +411,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                                         else
                                                             handleRatingChange("price", index)
                                                     }} />
-                                                    <span className={`text-sm transition-all ${rating?.price === index ? "font-bold text-primary" : "text-base-content/60"}`}>{label}</span>
+                                                    <span className={`text-sm transition-all ${rating?.price === index ? "text-primary" : "text-base-content/60"} hover:text-primary`}>{label}</span>
                                                 </label>
                                             ))}
 
@@ -468,7 +420,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     </div>
 
                                     {/* PUNTUACIÓN GENERAL */}
-                                    <div className="h-25">
+                                    <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
                                                 src="/perfume-info/icons/rating/star-icon.svg"
@@ -479,7 +431,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                         </div>
 
                                         <div className="w-full relative">
-                                            <div className="rating">
+                                            <div className="rating flex gap-0.5">
                                                 {[1, 2, 3, 4, 5].map((star) => (
                                                     <input
                                                         key={star}
@@ -500,17 +452,17 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                         </div>
                                     </div>
                                 </>
-                            ) : 
-                            <div className="card-body">
-                                <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
-                                    <h1 className="text-center text-lg">Debes <a className="link hover:link-accent hover:no-underline" href="">Registrarte</a>
-                                        &nbsp;o&nbsp;
-                                        <a className="link hover:link-accent hover:no-underline" href="">Iniciar sesión</a>
-                                        &nbsp;para votar en un perfume
-                                    </h1>
+                            ) :
+                                <div className="card-body">
+                                    <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
+                                        <h1 className="text-center text-lg">Debes <a className="link hover:link-accent hover:no-underline" href="">Registrarte</a>
+                                            &nbsp;o&nbsp;
+                                            <a className="link hover:link-accent hover:no-underline" href="">Iniciar sesión</a>
+                                            &nbsp;para votar en un perfume
+                                        </h1>
+                                    </div>
                                 </div>
-                            </div>
-                        }
+                            }
                         </div>
 
                         <div className="divider md:divider-horizontal mt-5 mb-5"></div>
@@ -519,7 +471,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             <h2 className="card-title">Valoración media</h2>
 
                             {/* Época del año resultado */}
-                            <div className="h-25">
+                            <div>
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img
                                         src="/perfume-info/icons/rating/calendar-icon.svg"
@@ -529,15 +481,15 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     <p>Época del año</p>
                                 </div>
 
-                                <div className="flex gap-6">
+                                <div className="flex gap-10">
                                     {seasons.map((season) => {
                                         const value = 70;
                                         return (
                                             <div className="flex flex-col items-center">
                                                 <div className="radial-progress flex"
-                                                    style={{ "--value": value, "--size": "2.5rem" } as React.CSSProperties}
+                                                    style={{ "--value": value, "--size": "2.3rem" } as React.CSSProperties}
                                                     aria-valuenow={70} role="progressbar">
-                                                    <img src={season.icon} alt={`Icono de ${season.name}`} className="w-5" />
+                                                    <img src={season.icon} alt={`Icono de ${season.name}`} className="w-4.5" />
                                                 </div>
                                                 <span className="text-xs font-medium">{value}%</span>
                                             </div>
@@ -547,8 +499,8 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             </div>
 
                             {/* Duración resultado */}
-                            <div className="h25">
-                                <div className="flex w-40 mt-5 mb-4">
+                            <div>
+                                <div className="flex w-40 mt-3 mb-4">
                                     <img
                                         src="/perfume-info/icons/rating/time-icon.svg"
                                         alt="Logo duración reloj de arena"
@@ -560,8 +512,8 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             </div>
 
                             {/* Precio */}
-                            <div className="h25">
-                                <div className="flex w-40 mt-8 mb-4">
+                            <div>
+                                <div className="flex w-40 mt-3 mb-4">
                                     <img
                                         src="/perfume-info/icons/rating/coin-icon.svg"
                                         alt="Logo precio moneda de dólar"
@@ -573,8 +525,8 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             </div>
 
                             {/* Puntuación general */}
-                            <div className="h25">
-                                <div className="flex w-40 mt-8 mb-4">
+                            <div>
+                                <div className="flex w-40 mt-3 mb-4">
                                     <img
                                         src="/perfume-info/icons/rating/star-icon.svg"
                                         alt="Logo puntuación general estrella"
@@ -584,7 +536,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 </div>
 
                                 <div className="w-full relative">
-                                    <div className="rating">
+                                    <div className="rating flex gap-0.5">
                                         <div className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
                                         <div className="mask mask-star-2 bg-orange-400" aria-label="2 star" />
                                         <div className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
