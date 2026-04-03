@@ -322,7 +322,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 </div>
 
                 {/* VALORACIONES */}
-                {/* TODO: Igual en vez de un range, mejor un radio, range es raro */}
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
                 <div className="card bg-base-100 shadow-sm w-auto">
                     {/* md: Pantalla mediana o mayor */}
