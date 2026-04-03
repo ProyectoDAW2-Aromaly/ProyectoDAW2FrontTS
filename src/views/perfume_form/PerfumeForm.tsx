@@ -9,6 +9,7 @@ const availanbleOlfatoryFamily = [
   'Cítrico', 'Oriental', 'Floral', 'Gourmand', 'Amaderado'
 ];
 
+
 export default function PerfumeForm() {
   const [selectedNotes, setSelectedNotes] = useState<string[]>([]);
   const [selectedFamilies, setSelectedFamilies] = useState<string[]>([]);
@@ -17,17 +18,20 @@ export default function PerfumeForm() {
     if (selectedNotes.includes(note)) {
         // Quita del array la nota que acabamos de deseleccionar
         // "item" es cada nota del array, si no es la que queremos quitar, se queda
-        setSelectedNotes(selectedNotes.filter(item => item !== note));
+        const newSelectedNotes = selectedNotes.filter(item => item !== note);
+        setSelectedNotes(newSelectedNotes);
     } else {
         setSelectedNotes([...selectedNotes, note]);
     }
   };
 
   const toggleFamily = (family: string) => {
-    if (selectedNotes.includes(family)) {
+    if (selectedFamilies.includes(family)) {
         // Quita del array la familia que acabamos de deseleccionar
-        // "item" es cada familia del array, si no es la que queremos quitar, se queda
-        setSelectedFamilies(selectedFamilies.filter(item => item !== family));
+        // El filtro recibe una función que ejecuta por cada elemento del array (item) y si es true/false, mete el objeto en un nuevo array newSelectedFamilies
+        // item -> Cada item de la lista.
+        const newSelectedFamilies = selectedFamilies.filter(item => item !== family);
+        setSelectedFamilies(newSelectedFamilies);
     } else {
         setSelectedFamilies([...selectedFamilies, family]);
     }
@@ -59,12 +63,14 @@ export default function PerfumeForm() {
             {/* Notas */}
             <label className="label text-neutral">Notas</label>
             <div className="dropdown mb-4">
-              <label tabIndex={0} className="btn btn-outline w-full justify-between">
-                {selectedNotes.length > 0
+              <label tabIndex={0} className="btn btn-outline w-full justify-start h-auto py-2">
+                <div className="flex flex-wrap gap-2">
+                  {selectedNotes.length > 0
                   ? selectedNotes.map(note => (
                       <span key={note} className="badge badge-primary mr-1">{note}</span>
                     ))
                   : "Selecciona notas"}
+                </div>
               </label>
               <ul
                 tabIndex={0}
@@ -89,12 +95,15 @@ export default function PerfumeForm() {
             {/* Familias olfativas */}
             <label className="label text-neutral">Familias olfativas</label>
             <div className="dropdown mb-4">
-              <label tabIndex={0} className="btn btn-outline w-full justify-between">
-                {selectedFamilies.length > 0
+              <label tabIndex={0} className="btn btn-outline w-full justify-start h-auto py-2">
+                <div className="flex flex-wrap gap-2">
+                  {selectedFamilies.length > 0
                   ? selectedFamilies.map(family => (
                       <span key={family} className="badge badge-secondary mr-1">{family}</span>
                     ))
                   : "Selecciona familias"}
+                </div>
+                
               </label>
               <ul
                 tabIndex={0}
