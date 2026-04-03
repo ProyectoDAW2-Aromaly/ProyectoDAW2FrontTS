@@ -2,6 +2,7 @@ import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { ListCard, type IListCard } from "../../components/ListCard";
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
 import type { IUser } from "../../App";
+import { useNavigate } from "react-router";
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
 
@@ -136,6 +137,12 @@ interface IPerfumePage {
 }
 
 const PerfumePage = ({ user, setUser }: IPerfumePage) => {
+    const navigate = useNavigate();
+
+    const goToEditPerfume = (perfumeId) => {
+        navigate(`/perfume/form?edit=${perfumeId}`);
+    }
+
     const {
         selectedPerfume,
         rating,
@@ -193,7 +200,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
 
                             {/* EDITAR PERFUME -> ADMIN*/}
                             {user?.rol === "admin" ? <div className="tooltip save" data-tip="Editar perfume">
-                                <button className="btn btn-circle">
+                                <button className="btn btn-circle" onClick={() => goToEditPerfume(selectedPerfume.id)}>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
@@ -245,7 +252,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             </div> : null}
 
                         </div>
-
 
                         <div className="divider">Descripción</div>
                         <p>{selectedPerfume.description.map(description =>
