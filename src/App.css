@@ -20,8 +20,9 @@
 
 @plugin "daisyui/theme" {
   name: "halloween";
-  /* --color-accent: oklch(97% 0.013 17.38); */
-  --color-accent: oklch(93% 0.0841 89.59);
+  /* --color-accent: oklch(97% 0.013 17.38); AZUL */
+  --color-accent: oklch(0.8008 0.1512 65.88);
+  /* --color-accent: oklch(0.8136 0.1487 69.62); */
   --color-base-content: oklch(90% 0.076 70.697);
   --color-neutral: oklch(90% 0.076 70.697);
 }

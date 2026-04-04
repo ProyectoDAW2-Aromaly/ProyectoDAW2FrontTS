@@ -362,7 +362,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                                     <label key={season.name} className="flex w-40 cursor-pointer gap-2">
                                                         <input type="checkbox" className="peer hidden" />
                                                         <img src={season.icon} alt={`Icono de ${season.name}`} className={iconClases} />
-                                                        <span className="transition-all peer-checked:font-bold">{season.name}</span>
+                                                        <span className="transition-all peer-checked:text-primary">{season.name}</span>
                                                     </label>
                                                 )
                                             })}
