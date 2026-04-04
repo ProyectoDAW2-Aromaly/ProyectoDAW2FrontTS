@@ -5,7 +5,7 @@ const THEMES = {
   dark: "halloween",
 };
 
-export default function Login() {
+export default function Register() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") ?? THEMES.light);
 
   const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +69,14 @@ export default function Login() {
         
         <div className="mb-4">
           <input
+            type="text"
+            placeholder="Nombre completo"
+            className="w-full px-5 py-3 rounded-full bg-base-100/50 shadow-md outline-none placeholder:text-base-content/50 transition-colors duration-500"
+          />
+        </div>
+
+        <div className="mb-4">
+          <input
             type="email"
             placeholder="Email"
             className="w-full px-5 py-3 rounded-full bg-base-100/50 shadow-md outline-none placeholder:text-base-content/50 transition-colors duration-500"
@@ -78,17 +86,17 @@ export default function Login() {
         <div className="mb-4">
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             className="w-full px-5 py-3 rounded-full bg-base-100/50 shadow-md outline-none placeholder:text-base-content/50 transition-colors duration-500"
           />
         </div>
 
-        <div className="flex justify-between text-xs text-base-content mb-6">
-          <label className="flex items-center gap-1">
-            <input type="checkbox" className="checkbox checkbox-xs" />
-            Recuérdame
-          </label>
-          <span className="cursor-pointer">¿Has olvidado la contraseña?</span>
+        <div className="mb-4">
+          <input
+            type="password"
+            placeholder="Confirmar contraseña"
+            className="w-full px-5 py-3 rounded-full bg-base-100/50 shadow-md outline-none placeholder:text-base-content/50 transition-colors duration-500"
+          />
         </div>
 
         <button
@@ -96,7 +104,7 @@ export default function Login() {
             ${theme === THEMES.light ? "bg-yellow-400 text-black" : "bg-base-content text-black"}
           `}
         >
-          Iniciar sesión
+          Registrarse
         </button>
 
         <div className="flex items-center my-6">
@@ -106,7 +114,7 @@ export default function Login() {
         </div>
 
         <p className="text-center text-xs mt-6 text-base-content/80">
-          ¿No tienes cuenta? <a href="/registro" className="text-accent">Regístrate aquí.</a>
+          ¿Ya tienes cuenta? <a href="/login" className="text-accent">Inicia sesión</a>
         </p>
       </div>
     </div>
