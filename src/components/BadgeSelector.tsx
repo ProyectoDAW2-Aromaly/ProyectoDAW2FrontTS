@@ -20,7 +20,7 @@ export const BadgeSelector = ({ items, label }: Props) => {
     };
 
     return (
-        <div className="dropdown mb-4">
+        <div className="dropdown">
             <label tabIndex={0} className="w-full flex flex-wrap gap-2 justify-start h-auto rounded-field cursor-pointer py-2 bg-transparent border-2 border-neutral/20 pl-2">
                 <div className="flex flex-wrap gap-2">
                     {selectedItems.length > 0

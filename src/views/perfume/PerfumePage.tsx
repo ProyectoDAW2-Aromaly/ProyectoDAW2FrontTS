@@ -139,7 +139,7 @@ interface IPerfumePage {
 const PerfumePage = ({ user, setUser }: IPerfumePage) => {
     const navigate = useNavigate();
 
-    const goToEditPerfume = (perfumeId) => {
+    const goToEditPerfume = (perfumeId: string) => {
         navigate(`/perfume/form?edit=${perfumeId}`);
     }
 
