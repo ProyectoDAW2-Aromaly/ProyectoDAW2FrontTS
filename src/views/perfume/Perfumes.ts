@@ -18,7 +18,7 @@ export const PERFUMES: IPerfume[] = [
                 name: "Chris Maurice"
             }
         ],
-            
+        colection: "",
         releaseDate: "2011",
         image: {
             src: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
@@ -117,6 +117,7 @@ export const PERFUMES: IPerfume[] = [
                 name: "Honorine Blanc"
             }
         ],
+        colection: "Born in Roma",
         releaseDate: "2023",
         image: {
             src: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
@@ -159,6 +160,65 @@ export const PERFUMES: IPerfume[] = [
                     {
                         name: "Benjuí",
                         imageSrc: "/perfume-info/notas/benjui.jpg"
+                    }
+                ]
+            }
+        ]
+
+    },
+    {
+        id: "3",
+        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        description: [
+            `Es una combinación perfecta, o quizás infernal. Este tratamiento único, con un rendimiento muy bajo, ofrece la nota de jara más potente, combinando los beneficios del aceite esencial y el absoluto.`,
+            `Atacar al sol, expulsarlo del universo, crear oscuridad perpetua: ¡qué propuesta tan descabellada! Pero Donatien Alphonse François, marqués de Sade, era un hombre descabellado.`
+        ],
+        genderIcon: "/perfume-info/icons/genre/unisex-icon.svg",
+        perfumer: [
+            {
+                id: "perfumerId",
+                name: "Quentin Bisch"
+            }
+        ],
+        colection: "",
+        releaseDate: "2016",
+        image: {
+            src: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+            alt: "Eldo perfume"
+        },
+        logo: {
+            src: "/perfume-info/perfume/ELDO/ELDO-logo.png",
+            alt: "Logo de la marca"
+        },
+        families: [
+            "Amaderado",
+            "Floral"
+        ],
+        pyramids: [
+            {
+                category: "Notas de salida",
+                notes: [
+                    {
+                        name: "Ládano",
+                        imageSrc: "/perfume-info/notas/ladano.jpg"
+                    }
+                ]
+            },
+            {
+                category: "Notas de corazón",
+                notes: [
+                    {
+                        name: "Ládano",
+                        imageSrc: "/perfume-info/notas/ladano.jpg"
+                    }
+                ]
+            },
+            {
+                category: "Notas base",
+                notes: [
+                    {
+                        name: "Ládano",
+                        imageSrc: "/perfume-info/notas/ladano.jpg"
                     }
                 ]
             }

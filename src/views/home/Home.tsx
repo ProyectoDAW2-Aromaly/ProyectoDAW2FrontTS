@@ -57,6 +57,7 @@ export default function Home() {
               Obtener Premium
             </button>
           </div>
+
         </div>
       </div>
 

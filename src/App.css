@@ -7,10 +7,6 @@
   min-height: 100vh;
 }
 
-/* @plugin "daisyui" {
-  themes: caramellatte --default, luxury --prefersdark;
-} */
-
 @plugin "daisyui" {
   themes: caramellatte --default, halloween --prefersdark;
 }
@@ -24,8 +20,9 @@
 
 @plugin "daisyui/theme" {
   name: "halloween";
-  /* --color-accent: oklch(87% 0.01 258.338); */
-  --color-accent: oklch(97% 0.013 17.38);
+  /* --color-accent: oklch(97% 0.013 17.38); AZUL */
+  --color-accent: oklch(0.8008 0.1512 65.88);
+  /* --color-accent: oklch(0.8136 0.1487 69.62); */
   --color-base-content: oklch(90% 0.076 70.697);
   --color-neutral: oklch(90% 0.076 70.697);
 }
@@ -34,26 +31,21 @@ html {
   font-size: 18px;
 }
 
-/* @plugin "daisyui" {
-  themes: garden --default, halloween --prefersdark;
-} */
-
-/* @plugin "daisyui" {
-  themes: retro --default, halloween --prefersdark;
-} */
-
-/* @plugin "daisyui" {
-  themes: caramellatte --default, coffee --prefersdark;
-} */
-
-/* @plugin "daisyui" {
-  themes: garden --default, coffee --prefersdark;
-} */
-
 [data-theme="halloween"] .icon-theme-aware {
   filter: brightness(0) invert(1);
 }
 
 [data-theme="caramellatte"] .icon-theme-aware {
   filter: brightness(0) invert(0);
+}
+
+/* Para el modo oscuro y claro, si no no va bien */
+.tooltip::before {
+  background-color: var(--color-neutral);
+  color: var(--color-base-100);
+
+}
+
+.avatar-placeholder span {
+  color: var(--color-base-100);  
 }

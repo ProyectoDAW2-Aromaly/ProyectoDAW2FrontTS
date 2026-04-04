@@ -17,6 +17,7 @@ export interface IPerfume {
     genderIcon: string,
     perfumer: IPerfumer[],
     releaseDate: string,
+    colection: string,
     image: {
         src: string,
         alt: string
