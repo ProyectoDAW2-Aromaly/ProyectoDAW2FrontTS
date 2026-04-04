@@ -132,7 +132,7 @@ export default function PerfumeForm() {
             <button className="btn btn-neutral flex-2 mt-2 hover:btn-accent text-primary-content">
               Guardar
             </button>
-            <button className="btn btn-neutral flex-2 mt-2 hover:btn-accent text-primary-content">
+            <button className="btn btn-neutral flex-2 mt-2 hover:hover:btn-accent text-primary-content">
               Cancelar
             </button>
           </div>

@@ -91,7 +91,7 @@ export const ListCard = ({ data, user }: ListCardProps ) => {
                     </div>
                 </div>}
             </div>
-            <button className="btn hover:btn-neutral hover:text-primary-content">Ver lista completa</button>
+            <button className="btn btn-neutral hover:hover:btn-accent text-primary-content">Ver lista completa</button>
 
         </div>
     </div>
