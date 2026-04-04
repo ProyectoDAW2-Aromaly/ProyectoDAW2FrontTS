@@ -49,7 +49,7 @@ export default function PerfumeForm() {
 
               <div className="space-y-1 flex flex-col">
                 <label className="label text-neutral font-semibold">Fecha de lanzamiento</label>
-                <input type="number" className="input w-full" placeholder="Año de lanzamiento" min={1800} max={new Date().getFullYear()} />
+                <input type="number" className="input w-full focus:outline-none" placeholder="Año de lanzamiento" min={1800} max={new Date().getFullYear()} />
               </div>
             </div>
 
@@ -69,7 +69,7 @@ export default function PerfumeForm() {
               </select>
 
               <div className="space-y-1 flex flex-col">
-                <label className="label text-neutral font-semibold">Perfumista</label>
+                <label className="label text-neutral font-semibold focus:outline-none">Perfumista</label>
                 <BadgeSelector
                   items={availablePerfumer}
                   label="Selecciona los perfumistas"
@@ -104,7 +104,7 @@ export default function PerfumeForm() {
 
           {/* DESCRIPCIÓN */}
           <label className="label text-neutral font-semibold">Descripción</label>
-          <textarea className="textarea w-full" placeholder="Descripción"></textarea>
+          <textarea className="textarea w-full focus:outline-none" placeholder="Descripción"></textarea>
 
 
           {/* Notas */}
