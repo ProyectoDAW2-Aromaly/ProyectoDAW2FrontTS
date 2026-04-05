@@ -3,6 +3,8 @@ import { ListCard, type IListCard } from "../../components/ListCard";
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
 import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
+import Footer from "../../components/Footer";
+import { Link } from "react-router";
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
 
@@ -461,10 +463,10 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             ) :
                                 <div className="card-body">
                                     <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
-                                        <h1 className="text-center text-lg">Debes <a className="link hover:link-accent hover:no-underline" href="">Registrarte</a>
+                                        <h1 className="text-center text-lg">Debes <Link className="link hover:link-accent hover:no-underline" to="/registro">registrarte</Link>
                                             &nbsp;o&nbsp;
-                                            <a className="link hover:link-accent hover:no-underline" href="">Iniciar sesión</a>
-                                            &nbsp;para votar en un perfume
+                                            <Link className="link hover:link-accent hover:no-underline" to="/login">iniciar sesión</Link>
+                                            &nbsp;para votar en un perfume.
                                         </h1>
                                     </div>
                                 </div>
@@ -607,10 +609,10 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             </div>
                             : <div className="card-body">
                                 <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
-                                    <h1 className="text-center text-lg">Debes <a className="link hover:link-accent hover:no-underline" href="">Registrarte</a>
+                                    <h1 className="text-center text-lg">Debes <Link className="link hover:link-accent hover:no-underline" to="/registro">registrarte</Link>
                                         &nbsp;o&nbsp;
-                                        <a className="link hover:link-accent hover:no-underline" href="">Iniciar sesión</a>
-                                        &nbsp;para dejar un comentario
+                                        <Link className="link hover:link-accent hover:no-underline" to="/login">iniciar sesión</Link>
+                                        &nbsp;para dejar un comentario.
                                     </h1>
                                 </div>
                             </div>
@@ -618,7 +620,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                     </div>
                 </div>
 
-                {/* COMENTARIOS */}
                 <div className="divider mt-5"></div>
                 <div className="flex flex-col gap-2" >
 
@@ -666,8 +667,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 </div>
 
             </div>
-
-            {/* Cuando exista */}
             {/* <Footer /> */}
         </div>
     )

@@ -25,7 +25,7 @@ export default function PerfumeForm() {
   
   return (
     // ! py -> Padding vertical. px -> Padding horizontal. Lo mismo con mx y my pero con margin.
-    <div className="min-h-screen bg-base-200 flex justify-center items-start py-20 px-4">
+    <div className="min-h-screen bg-base-200/30 flex justify-center items-start py-20 px-4">
       <div className="w-full max-w-4xl bg-base-100 shadow-lg rounded-2xl p-6">
         <div className="card-body">
 

@@ -1,7 +1,7 @@
 export default function Login() {
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center bg-base-100 transition-colors duration-500">
+    <div className="min-h-screen relative flex items-center justify-center bg-base-200/30 transition-colors duration-500">
       <div className="w-sm bg-base-100 shadow-lg rounded-2xl p-6">
         <div className="card-body">
 

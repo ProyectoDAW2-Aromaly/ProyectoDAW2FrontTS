@@ -25,7 +25,7 @@ export default function Footer(){
                 <p>
                 © 2026 –Aromaly
                 <br />
-                Proyecto académico | No venta de perfumes
+                Proyecto académico | Sitio web informativo. No vendemos perfumes.
                 </p>
             </aside>
             <nav className="md:place-self-center md:justify-self-end">

@@ -58,17 +58,17 @@ export default function Navbar({ user }: INavbar) {
                 </ul>
               </details>
             </li>
-            <li><a>Listas de perfumes</a></li>
+            <li><a>Listas de usuarios</a></li>
           </ul>
         </div>
       </div>
       <div className="navbar-center">
-        <a href="" className="text-xl">
+        <Link to="/" className="text-xl">
           <img
             src={theme === THEMES.dark ? "/aromaly-logo-dark.png" : "/aromaly-logo-light.png"}
             alt="Logo Aromaly"
           />
-        </a>
+        </Link>
       </div>
       <div className="navbar-end">
         <div className="navbar-end">
@@ -131,44 +131,40 @@ export default function Navbar({ user }: INavbar) {
           {/* Fin dialog */}
         </div>
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
-            <div className="w-10 rounded-full">
-              {user ? (
-                <img
-                  alt="avatar"
-                  src={user.pfp}
-                />
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" className="w-full h-full">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-              )}
-            </div>
-          </div>
-          <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-30 p-2 shadow">
-            {user ? (
-              <>
+          {user ? (
+            <>
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
+                <div className="w-10 rounded-full">
+                  <img alt="avatar" src={user.pfp} />
+                </div>
+              </div>
+              <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-30 p-2 shadow">
+
                 <li><a>Perfil</a></li>
                 <li><a>Ajustes</a></li>
                 <li><a>Cerrar sesión</a></li>
 
-                {user.rol === "free" ?
+                {user.rol === "free" && (
                   <>
                     <div className="divider"></div>
                     <li><button className="btn btn-xs btn-accent">PREMIUM</button></li>
                   </>
-                  : null
-                }
-              </>
+                )}
+              </ul>
+            </>
+          ) : (
+            <div className="btn btn-ghost btn-circle avatar mr-3">
+              <div className="w-10 rounded-full">
+                <Link to="/login">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" className="w-full h-full">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          )}
 
-            ) : (
-              <>
-                <li><a>Iniciar sesión</a></li>
-                <li><a>Registrase</a></li>
-              </>
-            )}
-          </ul>
-        </div>
+          </div>
 
         <label className="toggle text-base-content mr-5">
           <input type="checkbox" onChange={handleToggle} checked={theme === THEMES.dark} className="theme-controller" />
