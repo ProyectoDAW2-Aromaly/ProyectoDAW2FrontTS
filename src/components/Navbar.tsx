@@ -36,8 +36,6 @@ export default function Navbar({ user }: INavbar) {
     localStorage.setItem("theme", theme)
   }, [theme])
 
-  // const [showSearch, setShowSearch] = useState(false);
-
   return (
     <div className="navbar bg-base-100 fixed top-0 left-0 w-full z-50 shadow-sm h-auto min-h-24 md:min-h-auto">
       <div className="navbar-start">

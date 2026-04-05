@@ -3,7 +3,6 @@ import { ListCard, type IListCard } from "../../components/ListCard";
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
 import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
-import Footer from "../../components/Footer";
 import { Link } from "react-router";
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
