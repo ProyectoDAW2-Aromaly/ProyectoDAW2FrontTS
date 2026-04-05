@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import { useState } from 'react'
 import PerfumeForm from './views/perfume_form/PerfumeForm'
 import Footer from './components/Footer'
+import PerfumerPage from './views/perfumer/PerfumerPage'
 
 export interface IUser {
   userName: string,
@@ -31,6 +32,7 @@ function App() {
 
           <Route path='/' element={<Home />} />
           <Route path='/perfume' element={<PerfumePage user={user} setUser={setUser} />} />
+          <Route path="/perfumer" element={<PerfumerPage />} />
           <Route path='/perfume/form' element={<PerfumeForm />} />
 
         </Routes>

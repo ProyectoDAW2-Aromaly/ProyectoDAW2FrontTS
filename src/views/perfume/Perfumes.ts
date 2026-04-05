@@ -110,7 +110,7 @@ export const PERFUMES: IPerfume[] = [
         perfumer: [
             {
                 id: "perfumerId",
-                name: "Amadine Clerc-Marie"
+                name: "Amandine Clerc-Marie"
             },
             {
                 id: "perfumerId",

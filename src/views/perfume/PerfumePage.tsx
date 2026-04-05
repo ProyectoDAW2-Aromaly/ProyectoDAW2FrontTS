@@ -283,9 +283,9 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             Perfumista:
                             {selectedPerfume.perfumer.map((perfumer) => (
                                 <span key={perfumer.id}>
-                                    <a className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" href={`/perfumer/?id=${perfumer.id}`}>
+                                    <Link className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" to={`/perfumer/?id=1`}>
                                         {perfumer.name}
-                                    </a>
+                                    </Link>
                                 </span>
                             ))}
                         </h5>

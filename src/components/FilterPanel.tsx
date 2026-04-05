@@ -18,9 +18,9 @@ const genres = [
     'Female', 'Male', "Unisex"
 ]
 
-const perfumers = [
-    'Chris Maurice', 'Honorine Blanc', 'Amadine Clerc-Marie', 'Quentin Bisch'
-]
+// const perfumers = [
+//     'Chris Maurice', 'Honorine Blanc', 'Amadine Clerc-Marie', 'Quentin Bisch'
+// ]
 
 // const collecctions = [
 //     'Sin colección', 'Born in Roma', 'Coleccion 1', 'Colección 2'
@@ -31,11 +31,11 @@ export const FilterPanel = () => {
     const [selectedNote, setSelectedNote] = useState<string>();
     const [selectedOlfactoryFamily, setSelectedOlfactoryFamily] = useState<string>();
     const [selectedGenre, setSelectedGenre] = useState<string>();
-    const [selectedPerfumer, setSelectedPerfumer] = useState<string>();
+    // const [selectedPerfumer, setSelectedPerfumer] = useState<string>();
     // const [selectedCollection, setSelectedCollection] = useState<string>();
 
     return (
-        <div className="card bg-base-100 shadow-sm w-full mt-3 p-4 flex flex-row flex-wrap gap-4 justify-evenly">
+        <div className="card bg-base-100 shadow-sm w-full mt-10 p-4 flex flex-row flex-wrap gap-4 justify-evenly">
 
             {/* Marca */}
             <SelectFilter
@@ -46,12 +46,12 @@ export const FilterPanel = () => {
             />
 
             {/* Perfumista */}
-            <SelectFilter
+            {/* <SelectFilter
                 label="Selecciona un/a perfumista"
                 items={perfumers}
                 value={selectedPerfumer}
                 onChange={setSelectedPerfumer}
-            />
+            /> */}
 
             {/* Género */}
             <SelectFilter
@@ -85,7 +85,11 @@ export const FilterPanel = () => {
                 onChange={setSelectedNote}
             />
 
-            <button className="btn btn-neutral hover:hover:btn-accent text-primary-content">Buscar</button>
+            <div className="flex flex-col">
+                <button className="btn btn-neutral btn-sm hover:hover:btn-accent text-primary-content">Buscar</button>
+                <a className="link link-accent text-xs mt-2">Resetear filtro</a>
+            </div>
+            
         </div>
     );
 };

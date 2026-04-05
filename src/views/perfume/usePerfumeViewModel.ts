@@ -16,7 +16,7 @@ interface IRating {
 }
 
 export const usePerfumeViewModel = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const [selectedPerfume, setSelectedPerfume] = useState<IPerfume>()
     const [rating, setRating] = useState<IRating>() // Aquí en vez de number, sería rating (por la base de datos) y modificas la propiedad

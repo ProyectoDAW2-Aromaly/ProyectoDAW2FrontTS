@@ -1,12 +1,9 @@
+import type { IPerfumer } from "../perfumer/IPerfumer"
+
 // Modelo que utiliza la página para organizar sus datos
 interface INote {
     name: string,
     imageSrc?: string
-}
-
-export interface IPerfumer {
-    id: string;
-    name: string;
 }
 
 // Interfaz para representar perfume por ahora
