@@ -56,7 +56,7 @@ export default function Navbar({ user }: INavbar) {
                 </ul>
               </details>
             </li>
-            <li><a>Listas de usuarios</a></li>
+            <li><Link to="/lists">Listas de usuarios</Link></li>
           </ul>
         </div>
       </div>

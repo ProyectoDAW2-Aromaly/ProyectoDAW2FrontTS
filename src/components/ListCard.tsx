@@ -1,14 +1,5 @@
 import { useState } from "react";
-
-export interface IListCard {
-    id: string,
-    username: string,
-    premium: boolean,
-    coffee: boolean,
-    pfp: string,
-    title: string,
-    perfumes: string[]
-}
+import { IList } from "../views/list/IList";
 
 interface IUser {
     userName: string,
@@ -18,7 +9,7 @@ interface IUser {
 }
 
 interface ListCardProps {
-    data: IListCard;
+    data: IList;
     user?: IUser;
 }
 
