@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import Navbar from "../../components/Navbar";
 
 export default function Home() {
@@ -24,9 +25,9 @@ export default function Home() {
             <p className="mb-5">
               Descubre, vota y comparte tus perfumes favoritos
             </p>
-            <button className="btn btn-primary">
+            <Link to="/premium" className="btn btn-primary">
               Obtener Premium
-            </button>
+            </Link>
           </div>
 
         </div>

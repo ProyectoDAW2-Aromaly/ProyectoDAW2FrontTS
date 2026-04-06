@@ -13,6 +13,7 @@ import PerfumerForm from './views/perfumer_form/PerfumerForm'
 import BrandsList from './views/brand/brandlist/BrandsList'
 import BrandPage from './views/brand/singlebrand/BrandPage'
 import UserLists from './views/list/userlists/UserLists'
+import Premium from './views/premium/Premium'
 
 export interface IUser {
   userName: string,
@@ -45,6 +46,7 @@ function App() {
           <Route path='/brand' element={<BrandPage />} />
           {/* Listado de las listas de usuarios */}
           <Route path='/lists' element={<UserLists />} />
+          <Route path='/premium' element={<Premium />} />
 
         </Routes>
         <Footer />
