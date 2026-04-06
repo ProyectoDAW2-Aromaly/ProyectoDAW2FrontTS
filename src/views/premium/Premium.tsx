@@ -33,8 +33,9 @@ const Premium = () => {
                         </li>
                     </ul>
                     <div className="mt-6 flex flex-col items-center">
+                        {/* Redirigir a Stripe para realizar el pago */}
                         <button className="btn btn-primary btn-block">Suscríbete ya</button>
-                        <Link to="/" className="link text-xs mt-2" href="">Seguir con la cuenta gratuita</Link>
+                        <Link to="/" className="link text-xs mt-2">Seguir con la cuenta gratuita</Link>
                     </div>
                 </div>
             </div>
