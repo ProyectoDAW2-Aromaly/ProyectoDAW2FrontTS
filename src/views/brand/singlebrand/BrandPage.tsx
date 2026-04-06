@@ -141,13 +141,15 @@ const BrandPage = () => {
     return (
         <>
             <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
-
-                <figure className="w-60 h-60 flex items-center justify-center">
-                    <img
-                        src={selectedBrand?.image?.src}
-                        alt={selectedBrand?.image?.alt}
-                    />
-                </figure>
+                <div className="w-full h-60 dark:bg-[#FFF7ED] flex items-center justify-center rounded-lg">
+                    <figure className="w-60 h-60 flex items-center justify-center rounded-lg">
+                        <img
+                            src={selectedBrand?.image?.src}
+                            alt={selectedBrand?.image?.alt}
+                        />
+                    </figure>
+                </div>
+                
 
                 <FilterPanel/>
 

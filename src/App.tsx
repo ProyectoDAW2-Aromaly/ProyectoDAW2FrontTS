@@ -14,6 +14,7 @@ import BrandsList from './views/brand/brandlist/BrandsList'
 import BrandPage from './views/brand/singlebrand/BrandPage'
 import UserLists from './views/list/userlists/UserLists'
 import Premium from './views/premium/Premium'
+import BuyMeACoffee from './components/BuyMeACoffee'
 
 export interface IUser {
   userName: string,
@@ -49,6 +50,7 @@ function App() {
           <Route path='/premium' element={<Premium />} />
 
         </Routes>
+        <BuyMeACoffee/>
         <Footer />
 
       </BrowserRouter>
