@@ -100,6 +100,38 @@ const mockedPerfumes: ICardPerfume[] = [
             "Gourmand"
         ]
     },
+    {
+        id: "ValentinoID",
+        name: "Born in Roma Intense Donna",
+        brand: "Valentino",
+        image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        olfactoryFamilies: [
+            "Oriental",
+            "floral",
+            "Gourmand"
+        ]
+    },
+    {
+        id: "EldoID",
+        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        brand: "Etat Libre D'Orange",
+        image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+        olfactoryFamilies: [
+            "Amaderado",
+            "floral",
+        ]
+    },
+    {
+        id: "LiraId",
+        name: "Lira",
+        brand: "Xerjoff",
+        image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
+        olfactoryFamilies: [
+            "Oriental",
+            "floral",
+            "Gourmand"
+        ]
+    },
 ]
 
 const PerfumerPage = () => {
@@ -143,7 +175,7 @@ const PerfumerPage = () => {
                 )}
 
             </div>
-            <Pagination/>
+            <Pagination currentPage={1} itemsPerPage={12} totalItems={500} handlePageChange={() => null}/>
         </div>
     )
 }
