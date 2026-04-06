@@ -18,7 +18,6 @@ const BrandCard = ({ data }: { data: IBrand }) => {
 
                 </div>
 
-                {/* TODO: */}
                 <Link to="/brand?name=xerjoff" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content mb-3">Ver perfumes</Link>
             </div>
 

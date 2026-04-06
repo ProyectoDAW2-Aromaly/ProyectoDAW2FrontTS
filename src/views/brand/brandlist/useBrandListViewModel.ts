@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BRAND } from "../BrandData.ts";
-import { IBrand } from "../IBrand";
+import { IBrand } from "../IBrand.ts";
 
 export const useBrandListViewModel = () => {
 

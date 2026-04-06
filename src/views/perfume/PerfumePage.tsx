@@ -181,7 +181,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                     <div className="card-body items-start flex-5">
                         <h1 className="card-title ml-2">{selectedPerfume.name}</h1>
                         {/* TODO: LINK A MARCA */}
-                        <button className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
+                        <Link to="/brand?name=xerjoff" className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
                             <figure className="flex items-center justify-center rounded-none">
                                 <img
                                     src={selectedPerfume.logo.src}
@@ -194,7 +194,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     className="object-contain"
                                 />
                             </figure>
-                        </button>
+                        </Link>
 
                         {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
                         {/* TOOLTIPS */}

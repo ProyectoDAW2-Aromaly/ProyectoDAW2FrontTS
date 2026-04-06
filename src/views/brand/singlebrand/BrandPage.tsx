@@ -1,15 +1,9 @@
 import Pagination from "../../../components/Pagination"
-import BrandCard from "../../../components/BrandCard";
 import { useBrandViewModel } from "./useBrandViewModel";
 import { CardPerfume, ICardPerfume } from "../../../components/CardPerfume";
 import { FilterPanel } from "../../../components/FilterPanel";
 
 const BrandPage = () => {
-    // const navigate = useNavigate();
-
-    // const goToBrand = (brandName: string) => {
-    //     navigate(`/brands?name=${brandName}`);
-    // }
 
     const mockedPerfumes: ICardPerfume[] = [
         {
@@ -146,7 +140,6 @@ const BrandPage = () => {
 
     return (
         <>
-
             <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
 
                 <figure className="w-60 h-60 flex items-center justify-center">

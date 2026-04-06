@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { BRAND } from "../BrandData.ts";
-import { IBrand } from "../IBrand";
+import { IBrand } from "../IBrand.ts";
 
 export const useBrandViewModel = () => {
 

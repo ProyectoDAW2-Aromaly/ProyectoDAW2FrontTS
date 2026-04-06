@@ -25,7 +25,7 @@ export const PERFUMES: IPerfume[] = [
             alt: "Lira Xerjoff"
         },
         logo: {
-            src: "/perfume-info/perfume/lira/xerjoff-logo.png",
+            src: "/brand/xerjoff-logo.png",
             alt: "Logo de la marca"
         },
         families: [
@@ -124,7 +124,7 @@ export const PERFUMES: IPerfume[] = [
             alt: "Valentino Born in Roma Intense Donna"
         },
         logo: {
-            src: "/perfume-info/perfume/born-in-roma/valentino-logo.png",
+            src: "/brand/valentino-logo.png",
             alt: "Logo de la marca"
         },
         families: [
@@ -187,7 +187,7 @@ export const PERFUMES: IPerfume[] = [
             alt: "Eldo perfume"
         },
         logo: {
-            src: "/perfume-info/perfume/ELDO/ELDO-logo.png",
+            src: "/brand/ELDO-logo.png",
             alt: "Logo de la marca"
         },
         families: [
