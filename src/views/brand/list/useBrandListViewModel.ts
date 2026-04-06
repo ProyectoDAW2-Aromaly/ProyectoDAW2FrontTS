@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router";
 import { BRAND } from "../BrandData.ts";
 import { IBrand } from "../IBrand";
 

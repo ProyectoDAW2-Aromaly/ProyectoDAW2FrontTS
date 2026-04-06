@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import PerfumerPage from './views/perfumer/PerfumerPage'
 import PerfumerForm from './views/perfumer_form/PerfumerForm'
 import BrandsList from './views/brand/list/BrandsList'
+import BrandPage from './views/brand/single/BrandPage'
 
 export interface IUser {
   userName: string,
@@ -40,7 +41,7 @@ function App() {
           {/* Lista de marcas */}
           <Route path='/brands' element={<BrandsList />} />
           {/* Se filtra por marca */}
-          {/* <Route path='/brand' element={<Brand />} /> */}
+          <Route path='/brand' element={<BrandPage />} />
 
         </Routes>
         <Footer />

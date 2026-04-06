@@ -16,7 +16,7 @@ export const BRAND: IBrand[] = [
         } 
     },
     {
-        name: "ETAT LIBRE D'ORANGE",
+        name: "ELDO",
         image: {
             src: "/brand/ELDO-logo.png",
             alt: "ELDO"
