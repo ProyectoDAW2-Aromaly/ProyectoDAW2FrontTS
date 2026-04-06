@@ -7,19 +7,27 @@ interface IPagination {
     handlePageChange: (page: number) => void
 }
 
-export default function Pagination({ totalItems, itemsPerPage, handlePageChange }: IPagination) {
+export default function Pagination({ totalItems, itemsPerPage, currentPage, handlePageChange }: IPagination) {
     const pages = Math.ceil(totalItems / itemsPerPage);
-    return (
-        <div className="join flex justify-center mb-10">
-            <button className="join-item btn">1</button>
-            <button className="join-item btn">2</button>
-            {pages > 5 && <>
-                <button className="join-item btn btn-disabled">...</button>
-                <button className="join-item btn">{pages - 1}</button>
-                <button className="join-item btn">{pages}</button>
-            </>}
-        </div>
-    )
+
+    return <div className="join flex justify-center mb-10">
+        <button
+            className={`join-item btn ${currentPage === 1 && "btn-disabled"}`}
+            onClick={() => handlePageChange(1)}>«</button>
+        <button
+            className={`join-item btn ${currentPage === 1 && "btn-disabled"}`}
+            onClick={() => handlePageChange(currentPage - 1)}>-</button>
+        <button className="join-item btn btn-neutral"
+        >{currentPage}</button>
+        <button
+            className={`join-item btn ${currentPage === pages && "btn-disabled"}`}
+            onClick={() => handlePageChange(currentPage + 1)}
+        >+</button>
+        <button
+            className={`join-item btn ${currentPage === pages && "btn-disabled"}`}
+            onClick={() => handlePageChange(pages)}
+        >»</button>
+    </div>
 }
 
 /**

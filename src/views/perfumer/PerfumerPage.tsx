@@ -175,7 +175,7 @@ const PerfumerPage = () => {
                 )}
 
             </div>
-            <Pagination currentPage={1} itemsPerPage={12} totalItems={500} handlePageChange={() => null}/>
+            <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log}/>
         </div>
     )
 }
