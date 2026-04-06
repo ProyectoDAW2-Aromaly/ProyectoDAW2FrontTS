@@ -150,7 +150,6 @@ const BrandPage = () => {
                     </figure>
                 </div>
                 
-
                 <FilterPanel/>
 
                 <div className="flex flex-wrap gap-12 mb-20" >
