@@ -1,3 +1,5 @@
+import { Link } from "react-router"
+
 export interface ICardPerfume {
     id: string,
     name: string,
@@ -29,7 +31,7 @@ export const CardPerfume = ({ data } : { data: ICardPerfume}) => {
                         <div key={olfactoryFamily} className="badge badge-soft">{olfactoryFamily}</div>
                     )}
                 </div>
-                <button className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</button>
+                <Link to="/perfume?id=1" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</Link>
             </div>
 
         </div>

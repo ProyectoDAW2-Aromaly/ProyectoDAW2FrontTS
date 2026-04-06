@@ -161,7 +161,7 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
 
     return (
         <>
-        {/* Botones de prueba */}
+            {/* Botones de prueba */}
             <div className="relative mt-15">
                 <div className="absolute top-2 left-2 flex gap-2 z-30">
                     <button onClick={() => setUser(tempUser)} className="btn btn-xs">
@@ -172,18 +172,18 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
                     </button>
                 </div>
             </div>
-        <div className="mx-auto max-w-7xl px-4 mt-25">
-            <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row mt-30">
-                <figure className="w-full md:w-96 h-96 overflow-hidden shrink-0">
-                    <img
-                        src={selectedPerfumer.image?.src}
-                        alt={selectedPerfumer.image?.alt}
-                    />
-                </figure>
-                <div className="card-body items-start flex-5">
-                    <h1 className="card-title ml-2">{selectedPerfumer.name}</h1>
+            <div className="mx-auto max-w-7xl px-4 mt-25">
+                <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row mt-30">
+                    <figure className="w-full md:w-96 h-96 overflow-hidden shrink-0">
+                        <img
+                            src={selectedPerfumer.image?.src}
+                            alt={selectedPerfumer.image?.alt}
+                        />
+                    </figure>
+                    <div className="card-body items-start flex-5">
+                        <h1 className="card-title ml-2">{selectedPerfumer.name}</h1>
 
-                    {/* TOOLTIPS */}
+                        {/* TOOLTIPS */}
                         <div className="absolute top-2 right-2 flex gap-2 z-40">
 
                             {/* EDITAR PERFUME -> ADMIN*/}
@@ -199,32 +199,32 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
 
                         </div>
 
-                    <div className="divider">Descripción</div>
-                    <p>{selectedPerfumer.description?.map(description =>
-                        <span key={description}>
-                            {description}
-                            <br />
-                            <br />
-                        </span>
+                        <div className="divider">Descripción</div>
+                        <p>{selectedPerfumer.description?.map(description =>
+                            <span key={description}>
+                                {description}
+                                <br />
+                                <br />
+                            </span>
+                        )}
+                        </p>
+
+                    </div>
+                </div>
+
+                <FilterPanel />
+
+                <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {selectedPerfumer.name.toUpperCase()}</h1>
+                <div className="flex flex-wrap gap-12 mb-20" >
+
+                    {mockedPerfumes.map(list =>
+                        <CardPerfume data={list} key={list.id} />
                     )}
-                    </p>
 
                 </div>
+                {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
+                <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log} />
             </div>
-
-            <FilterPanel />
-
-            <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {selectedPerfumer.name.toUpperCase()}</h1>
-            <div className="flex flex-wrap gap-12 mb-20" >
-
-                {mockedPerfumes.map(list =>
-                    <CardPerfume data={list} key={list.id} />
-                )}
-
-            </div>
-            {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-            <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log}/>
-        </div>
         </>
     )
 }

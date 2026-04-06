@@ -52,7 +52,7 @@ export default function Navbar({ user }: INavbar) {
                   {/* Probando el router */}
                   <li><Link to="/perfume?id=1">Prueba router</Link></li>
                   <li><a>Todos</a></li>
-                  <li><a>Marcas</a></li>
+                  <li><Link to="/brands">Listado de marcas</Link></li>
                 </ul>
               </details>
             </li>

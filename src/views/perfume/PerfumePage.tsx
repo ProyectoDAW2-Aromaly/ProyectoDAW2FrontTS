@@ -180,6 +180,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                     </figure>
                     <div className="card-body items-start flex-5">
                         <h1 className="card-title ml-2">{selectedPerfume.name}</h1>
+                        {/* TODO: LINK A MARCA */}
                         <button className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
                             <figure className="flex items-center justify-center rounded-none">
                                 <img
@@ -279,8 +280,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 />
                             </figure>
                         </h5>
-                        <h5>
-                            Perfumista:
+                        <h5>Perfumista:
                             {selectedPerfume.perfumer.map((perfumer) => (
                                 <span key={perfumer.id}>
                                     <Link className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" to={`/perfumer/?id=1`}>
@@ -601,7 +601,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                                 placeholder="Escribe aquí tu comentario..."
                                             ></textarea>
 
-                                            <button className="btn self-end">Comentar</button>
+                                            <button className="btn btn-neutral hover:btn-accent text-primary-content self-end">Comentar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -619,7 +619,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                     </div>
                 </div>
 
-                <div className="divider mt-5"></div>
+                <div className="divider mt-4"></div>
                 <div className="flex flex-col gap-2" >
 
                     {/* COMENTARIO 1 */}

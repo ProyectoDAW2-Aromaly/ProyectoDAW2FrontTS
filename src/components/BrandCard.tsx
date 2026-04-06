@@ -1,0 +1,30 @@
+import { Link } from "react-router"
+import { IBrand } from "../views/brand/IBrand";
+
+const BrandCard = ({ data }: { data: IBrand }) => {
+
+    return (
+        <div className="mx-auto max-w-sm px-4 mt-6">
+            <div className="card bg-base-100 shadow-sm flex flex-col items-center h-64 w-70">
+                <figure className="w-32 h-32 flex items-center justify-center">
+                    <img
+                        src={data.image?.src}
+                        alt={`Imagen de la marca ${data.name}`}
+                        className="max-h-full max-w-full object-contain"
+                    />
+                </figure>
+                <div className="card-body items-start flex-1 flex flex-col justify-center text-center">
+                    <h1 className="card-title">{data.name.toUpperCase()}</h1>
+
+                </div>
+
+                {/* TODO: */}
+                {/* <Link to="/brands?name=xerjoff" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</Link> */}
+                <button className="btn btn-neutral hover:btn-accent text-primary-content mb-3">Ver perfumes</button>
+            </div>
+
+        </div>
+    )
+}
+
+export default BrandCard;
