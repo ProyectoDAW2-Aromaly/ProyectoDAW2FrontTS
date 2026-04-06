@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router"
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume"
 import { FilterPanel } from "../../components/FilterPanel"
 import Pagination from "../../components/Pagination"
 import { usePerfumerViewModel } from "./usePerfumerViewModel"
+import type { IUser } from "../../App"
 
 const mockedPerfumes: ICardPerfume[] = [
     {
@@ -134,13 +136,42 @@ const mockedPerfumes: ICardPerfume[] = [
     },
 ]
 
-const PerfumerPage = () => {
+const tempUser: IUser = {
+    userName: "Jakob",
+    pfp: "/user/profile-pic/profile2.jpg",
+    rol: "admin"
+}
+
+interface IPerfumerPage {
+    user?: IUser,
+    // * Definimos que se le pasará una función que reciba un usuario. Devuelve void
+    setUser: (val?: IUser) => void
+}
+
+const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
+    const navigate = useNavigate();
+
+    const goToEditPerfumer = (perfumerId: string) => {
+        navigate(`/perfumer/form?edit=${perfumerId}`);
+    }
 
     const selectedPerfumer = usePerfumerViewModel()
 
     if (selectedPerfumer === undefined) return null
 
     return (
+        <>
+        {/* Botones de prueba */}
+            <div className="relative mt-15">
+                <div className="absolute top-2 left-2 flex gap-2 z-30">
+                    <button onClick={() => setUser(tempUser)} className="btn btn-xs">
+                        Usuario
+                    </button>
+                    <button onClick={() => setUser(undefined)} className="btn btn-xs">
+                        No usuario
+                    </button>
+                </div>
+            </div>
         <div className="mx-auto max-w-7xl px-4 mt-25">
             <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row mt-30">
                 <figure className="w-full md:w-96 h-96 overflow-hidden shrink-0">
@@ -151,6 +182,22 @@ const PerfumerPage = () => {
                 </figure>
                 <div className="card-body items-start flex-5">
                     <h1 className="card-title ml-2">{selectedPerfumer.name}</h1>
+
+                    {/* TOOLTIPS */}
+                        <div className="absolute top-2 right-2 flex gap-2 z-40">
+
+                            {/* EDITAR PERFUME -> ADMIN*/}
+                            {user?.rol === "admin" ? <div className="tooltip save" data-tip="Editar perfume">
+                                <button className="btn btn-circle" onClick={() => goToEditPerfumer(selectedPerfumer.id)}>
+
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                    </svg>
+
+                                </button>
+                            </div> : null}
+
+                        </div>
 
                     <div className="divider">Descripción</div>
                     <p>{selectedPerfumer.description?.map(description =>
@@ -178,6 +225,7 @@ const PerfumerPage = () => {
             {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
             <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log}/>
         </div>
+        </>
     )
 }
 
