@@ -26,7 +26,7 @@ export const CardPerfume = ({ data } : { data: ICardPerfume}) => {
             <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 p-6">
                 <div className="flex flex-wrap justify-center gap-2">
                     {data.olfactoryFamilies.map(olfactoryFamily => 
-                        <div className="badge badge-soft">{olfactoryFamily}</div>
+                        <div key={olfactoryFamily} className="badge badge-soft">{olfactoryFamily}</div>
                     )}
                 </div>
                 <button className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</button>

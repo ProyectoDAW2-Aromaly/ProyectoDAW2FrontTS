@@ -37,7 +37,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "ValentinoID",
+        id: "ValentinoID1",
         name: "Born in Roma Intense Donna",
         brand: "Valentino",
         image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
@@ -48,7 +48,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "EldoID",
+        id: "EldoID1",
         name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
         brand: "Etat Libre D'Orange",
         image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -58,7 +58,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "LiraId",
+        id: "LiraId1",
         name: "Lira",
         brand: "Xerjoff",
         image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
@@ -69,7 +69,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "ValentinoID",
+        id: "ValentinoID2",
         name: "Born in Roma Intense Donna",
         brand: "Valentino",
         image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
@@ -80,7 +80,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "EldoID",
+        id: "EldoID2",
         name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
         brand: "Etat Libre D'Orange",
         image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -90,7 +90,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "LiraId",
+        id: "LiraId2",
         name: "Lira",
         brand: "Xerjoff",
         image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
@@ -101,7 +101,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "ValentinoID",
+        id: "ValentinoID3",
         name: "Born in Roma Intense Donna",
         brand: "Valentino",
         image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
@@ -112,7 +112,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "EldoID",
+        id: "EldoID3",
         name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
         brand: "Etat Libre D'Orange",
         image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -122,7 +122,7 @@ const mockedPerfumes: ICardPerfume[] = [
         ]
     },
     {
-        id: "LiraId",
+        id: "LiraId3",
         name: "Lira",
         brand: "Xerjoff",
         image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
@@ -175,6 +175,7 @@ const PerfumerPage = () => {
                 )}
 
             </div>
+            {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
             <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log}/>
         </div>
     )
