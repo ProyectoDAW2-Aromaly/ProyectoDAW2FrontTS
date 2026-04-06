@@ -67,7 +67,8 @@ export const LIST: IList[] = [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
         ]
-    },{
+    },
+    {
         id: "AxelID",
         username: "Axel",
         title: "Perfumes nicho",

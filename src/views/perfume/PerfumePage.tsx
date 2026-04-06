@@ -1,9 +1,10 @@
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
-import { ListCard, type IListCard } from "../../components/ListCard";
+import { ListCard } from "../../components/ListCard";
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
 import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import { LIST } from "../list/ListData";
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
 
@@ -16,76 +17,6 @@ const seasons = [
 
 const labelsDuration = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
 const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
-
-const mockedLists: IListCard[] = [
-    {
-        id: "AxelID",
-        username: "Axel",
-        title: "Perfumes nicho",
-        pfp: "/user/profile-pic/profile1.jpg",
-        premium: true,
-        coffee: false,
-        perfumes: [
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        ]
-    },
-    {
-        id: "JakobID",
-        username: "Jakob",
-        title: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
-        pfp: "/user/profile-pic/profile2.jpg",
-        premium: false,
-        coffee: true,
-        perfumes: [
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        ]
-    },
-    {
-        id: "KevinID",
-        username: "Kevin",
-        title: "Perfumes verano",
-        pfp: "/user/profile-pic/profile3.png",
-        premium: false,
-        coffee: false,
-        perfumes: [
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-            "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        ]
-    }
-]
 
 const mockedPerfumes: ICardPerfume[] = [
     {
@@ -267,7 +198,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                         <div className="divider">Información general</div>
                         <h5>Familia olfativa:
                             {selectedPerfume.families.map(family =>
-                                <div className="badge badge-sm badge-soft badge-neutral ml-2">{family}</div>
+                                <div key={family} className="badge badge-sm badge-soft badge-neutral ml-2">{family}</div>
                             )}
                         </h5>
                         <h5 className="flex items-center">
@@ -561,7 +492,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
                 <div className="flex flex-wrap gap-12" >
 
-                    {mockedLists.map(list =>
+                    {LIST.slice(0, 3).map(list =>
                         <ListCard data={list} user={user} key={list.id} />
                     )}
 
