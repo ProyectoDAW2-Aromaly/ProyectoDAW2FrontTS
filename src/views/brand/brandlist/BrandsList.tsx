@@ -1,6 +1,7 @@
 import Pagination from "../../../components/Pagination"
 import BrandCard from "../../../components/BrandCard";
 import { useBrandListViewModel } from "./useBrandListViewModel";
+import { FilterPanel } from "../../../components/FilterPanel";
 
 const BrandsList = () => {
     // const navigate = useNavigate();
@@ -17,7 +18,8 @@ const BrandsList = () => {
             <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
                 <h1 className="text-4xl mb-5">LISTADO DE MARCAS</h1>
 
-                <div className="divider mb-10"></div>
+                {/* <div className="divider mb-10"></div> */}
+                <FilterPanel/>
 
                 <div className="flex flex-wrap gap-12 mb-20" >
 
