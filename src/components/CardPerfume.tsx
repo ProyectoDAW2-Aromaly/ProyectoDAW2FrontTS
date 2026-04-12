@@ -31,7 +31,7 @@ export const CardPerfume = ({ data } : { data: ICardPerfume}) => {
                         <div key={olfactoryFamily} className="badge badge-soft">{olfactoryFamily}</div>
                     )}
                 </div>
-                <Link to="/perfume?id=1" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</Link>
+                <Link to={`/perfume/${data.id}`} className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</Link>
             </div>
 
         </div>

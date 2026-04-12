@@ -1,21 +1,21 @@
-import type { IPerfumer } from "../perfumer/IPerfumer"
+import type { IPerfumista } from "../perfumista/IPerfumista"
 
 // Modelo que utiliza la página para organizar sus datos
-interface INote {
-    name: string,
-    imageSrc?: string
+interface INota {
+    nombre: string,
+    imagenSrc?: string
 }
 
 // Interfaz para representar perfume por ahora
 export interface IPerfume {
     id: string,
-    name: string,
-    description: string[],
-    genderIcon: string,
-    perfumer: IPerfumer[],
-    releaseDate: string,
-    colection: string,
-    image: {
+    nombre: string,
+    descripcion: string[],
+    genero: string,
+    perfumista: IPerfumista[],
+    yearSalida: string,
+    coleccion: string,
+    imagen: {
         src: string,
         alt: string
     },
@@ -23,9 +23,9 @@ export interface IPerfume {
         src: string,
         alt: string
     },
-    families: string[],
-    pyramids: {
-        category: string,
-        notes: INote[]
+    familias: string[],
+    piramide: {
+        categoria: string,
+        notas: INota[]
     }[]
 }

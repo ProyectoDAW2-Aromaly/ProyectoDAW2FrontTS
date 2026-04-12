@@ -8,7 +8,7 @@ import Navbar from './components/Navbar'
 import { useState } from 'react'
 import PerfumeForm from './views/perfume_form/PerfumeForm'
 import Footer from './components/Footer'
-import PerfumerPage from './views/perfumer/PerfumerPage'
+import PerfumerPage from './views/perfumista/PerfumerPage'
 import PerfumerForm from './views/perfumer_form/PerfumerForm'
 import BrandsList from './views/brand/brandlist/BrandsList'
 import BrandPage from './views/brand/singlebrand/BrandPage'
@@ -39,7 +39,7 @@ function App() {
 
           <Route path='/' element={<Home />} />
           <Route path='/perfumes' element={<ListPerfumes />} />
-          <Route path='/perfume' element={<PerfumePage user={user} setUser={setUser} />} />
+          <Route path='/perfume/:id' element={<PerfumePage user={user} setUser={setUser} />} />
           <Route path='/perfume/form' element={<PerfumeForm />} />
           <Route path="/perfumer" element={<PerfumerPage user={user} setUser={setUser} />} />
           <Route path='/perfumer/form' element={<PerfumerForm />} />

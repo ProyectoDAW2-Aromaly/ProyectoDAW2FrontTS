@@ -3,9 +3,9 @@
 // * https://react.dev/reference/react/hooks
 
 import { useEffect, useState } from "react"
-import { useNavigate, useSearchParams } from "react-router"
+import { useNavigate, useParams, useSearchParams } from "react-router"
 import type { IPerfume } from "./IPerfume";
-import { PERFUMES } from "./PerfumesData";
+import { getPerfumeById } from "../../peticiones";
 
 interface IRating {
     general?: number,
@@ -15,23 +15,127 @@ interface IRating {
     duration?: number
 }
 
+interface IFamiliaData {
+    nombre: string;
+}
+
+const getGeneroImagen = (val: string) => {
+    switch (val) {
+        case "Hombre":
+            return "/perfume-info/icons/gender/male-icon.svg";
+        case "Mujer":
+            return "/perfume-info/icons/gender/female-icon.svg";
+        case "Unisex":
+            return "/perfume-info/icons/gender/unisex-icon.svg";
+        default:
+            return "";
+    }
+
+}
+
+interface INotaBackend {
+    nombre: string
+    foto: string
+}
+
+interface IPerfumeBackend {
+    id: string
+    nombre: string
+    descripcion: string
+    genero: string
+    fechaLanzamiento: string
+    coleccion: string
+    foto: string
+    marca?: {
+        nombre: string
+        foto: string
+    }
+    perfumistas?: {
+        id: string
+        nombre: string
+    }[]
+    familiasOlfativas?: {
+        nombre: string
+    }[]
+    notas?: {
+        salida: INotaBackend[]
+        corazon: INotaBackend[]
+        base: INotaBackend[]
+    }
+}
+
 export const usePerfumeViewModel = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
+
+    // const [selectedPerfume, setSelectedPerfume] = useState<IPerfume>()
     const [selectedPerfume, setSelectedPerfume] = useState<IPerfume>()
+    const [loading, setLoading] = useState(true)
     const [rating, setRating] = useState<IRating>() // Aquí en vez de number, sería rating (por la base de datos) y modificas la propiedad
     const [liked, setLiked] = useState(false);
 
+    const { id } = useParams();
+
     useEffect(() => {
-        const search = searchParams.get("id")
-        if (search) {
-            // Prueba búsqueda de perfume. Aquí va la consulta a backend
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setSelectedPerfume(PERFUMES.find(perfume => perfume.id === search))
+        // const id = searchParams.get("id")
+        if (id) {
+            getPerfumeById(id)
+                .then((p: IPerfumeBackend) => {
+                    const datoFormateado: IPerfume = {
+                        id: p.id,
+                        nombre: p.nombre,
+                        descripcion: Array.isArray(p.descripcion)
+                            ? p.descripcion
+                            : [p.descripcion],
+                        // TODO QUITAR PLACEHOLDERS
+                        imagen: { src: "/default.jpg", alt: p.nombre },
+                        logo: {
+                            src: "/default-brand.png",
+                            alt: "Marca"
+                        },
+                        familias: p.familiasOlfativas?.map(f => f.nombre) ?? [],
+                        genero: getGeneroImagen(p.genero),
+                        perfumista: p.perfumistas?.map(pf => ({
+                            id: pf.id,
+                            nombre: pf.nombre
+                        })) ?? [],
+                        yearSalida: p.fechaLanzamiento ?? "-",
+                        coleccion: p.coleccion,
+                        piramide: [
+                            {
+                                categoria: "Notas de Salida",
+                                notas: p.notas?.salida?.map(n => ({
+                                    nombre: n.nombre,
+                                    imagenSrc: n.foto
+                                })) ?? []
+                            },
+                            {
+                                categoria: "Notas de Corazón",
+                                notas: p.notas?.corazon?.map(n => ({
+                                    nombre: n.nombre,
+                                    imagenSrc: n.foto
+                                })) ?? []
+                            },
+                            {
+                                categoria: "Notas de Fondo",
+                                notas: p.notas?.base?.map(n => ({
+                                    nombre: n.nombre,
+                                    imagenSrc: n.foto
+                                })) ?? []
+                            }
+                        ]
+                    };
+                    setSelectedPerfume(datoFormateado);
+                    setLoading(false);
+                }).catch(error => {
+                    console.error(error);
+                    setLoading(false);
+                    navigate("/not-found");
+                });
         } else {
             navigate("/not-found") //Para no tener la pantalla en blanco o que no se rompa la página entera
         }
-    }, [searchParams])
+    }, [searchParams, navigate])
 
     /**
      * * Función genérica que permite cambiar cualquiera de los atributos de rating y los muestra a la hora de utilizar la función.

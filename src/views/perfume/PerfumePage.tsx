@@ -105,12 +105,12 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row">
                     <figure className="w-full md:w-4xl h-auto flex-3">
                         <img
-                            src={selectedPerfume.image.src}
-                            alt={selectedPerfume.image.alt}
+                            src={selectedPerfume.imagen.src}
+                            alt={selectedPerfume.imagen.alt}
                         />
                     </figure>
                     <div className="card-body items-start flex-5">
-                        <h1 className="card-title ml-2">{selectedPerfume.name}</h1>
+                        <h1 className="card-title ml-2">{selectedPerfume.nombre}</h1>
                         {/* TODO: LINK A MARCA */}
                         <Link to="/brand?name=xerjoff" className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
                             <figure className="flex items-center justify-center rounded-none">
@@ -187,9 +187,9 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                         </div>
 
                         <div className="divider">Descripción</div>
-                        <p>{selectedPerfume.description.map(description =>
-                            <span key={description}>
-                                {description}
+                        <p>{selectedPerfume.descripcion.map(des =>
+                            <span key={des}>
+                                {des}
                                 <br />
                                 <br />
                             </span>
@@ -197,35 +197,35 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                         </p>
                         <div className="divider">Información general</div>
                         <h5>Familia olfativa:
-                            {selectedPerfume.families.map(family =>
-                                <div key={family} className="badge badge-sm badge-soft badge-neutral ml-2">{family}</div>
+                            {selectedPerfume.familias.map(familia =>
+                                <div key={familia} className="badge badge-sm badge-soft badge-neutral ml-2">{familia}</div>
                             )}
                         </h5>
                         <h5 className="flex items-center">
                             Género
                             <figure >
                                 <img
-                                    src={selectedPerfume.genderIcon}
+                                    src={selectedPerfume.genero}
                                     alt="Icono de género"
                                     className="w-5 ml-2 icon-theme-aware"
                                 />
                             </figure>
                         </h5>
                         <h5>Perfumista:
-                            {selectedPerfume.perfumer.map((perfumer) => (
+                            {selectedPerfume.perfumista.map((perfumer) => (
                                 <span key={perfumer.id}>
                                     <Link className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" to={`/perfumer/?id=1`}>
-                                        {perfumer.name}
+                                        {perfumer.nombre}
                                     </Link>
                                 </span>
                             ))}
                         </h5>
-                        <h5>Fecha de lanzamiento: {selectedPerfume.releaseDate}</h5>
-                        {selectedPerfume.colection && (
+                        <h5>Fecha de lanzamiento: {selectedPerfume.yearSalida}</h5>
+                        {selectedPerfume.coleccion && (
                             <h5>
                                 Colección:
                                 <a href="" className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent">
-                                    {selectedPerfume.colection}
+                                    {selectedPerfume.coleccion}
                                 </a>
                             </h5>
                         )}
@@ -236,17 +236,17 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 {/* PIRÁMIDE OLFATIVA */}
                 <h1 className="text-2xl text-center mb-10 mt-10">PIRÁMIDE OLFATIVA</h1>
                 <div className="flex flex-wrap gap-12" >
-                    {selectedPerfume.pyramids.map(pyramid =>
-                        <div className="card bg-base-100 shadow-sm w-96" key={pyramid.category}>
+                    {selectedPerfume.piramide.map(p =>
+                        <div className="card bg-base-100 shadow-sm w-96" key={p.categoria}>
                             <div className="card-body">
-                                <h2 className="card-title">{pyramid.category}</h2>
+                                <h2 className="card-title">{p.categoria}</h2>
 
                                 <div className="flex flex-wrap gap-6 mb-4">
-                                    {pyramid.notes.map(note =>
-                                        note.imageSrc ?
-                                            <div className="avatar" key={note.name}>
+                                    {p.notas.slice(0, 3).map(nota =>
+                                        nota.imagenSrc ?
+                                            <div className="avatar" key={nota.nombre}>
                                                 <div className="w-14 rounded-full">
-                                                    <img src={note.imageSrc} />
+                                                    <img src={nota.imagenSrc} />
                                                 </div>
                                             </div>
                                             : null
@@ -254,8 +254,8 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 </div>
 
                                 <div className="flex flex-wrap gap-2">
-                                    {pyramid.notes.map(note =>
-                                        <a key={note.name} href="" className="badge badge-s badge-soft badge-neutral hover:badge-accent">{note.name}</a>
+                                    {p.notas.map(note =>
+                                        <a key={note.nombre} href="" className="badge badge-s badge-soft badge-neutral hover:badge-accent">{note.nombre}</a>
                                     )}
                                 </div>
 

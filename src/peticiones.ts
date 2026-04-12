@@ -19,13 +19,20 @@ const URL_SERVER = `http://localhost:8080/`;
 // }
 
 export function getAllPerfumes() {
-    return fetch(`${URL_SERVER}perfumes`)
+    return fetch(`${URL_SERVER}perfume`)
         .then(res => {
             if (!res.ok) throw new Error("Error de conexión.");
             return res.json();
         })
 }
 
+export function getPerfumeById(id_perfume: string | number) {
+    return fetch(`${URL_SERVER}perfume/${id_perfume}`,)
+        .then(res => {
+            if (!res.ok) throw new Error("Error al obtener el perfume.");
+            return res.json();
+        })
+}
 
 // export function registro(usuario) {
 //     return fetch(`${URL_SERVER}usuarios`, {
@@ -38,21 +45,6 @@ export function getAllPerfumes() {
 //     })
 // }
 
-// export function obtenerLibrosDisponibles() {
-//     return fetch(`${URL_SERVER}libros?id_prestamo=0`,)
-//         .then(res => {
-//             if (!res.ok) throw new Error("Error al obtener los libros disponibles.");
-//             return res.json();
-//         })
-// }
-
-// export function obtenerLibrosPorUsuario(id_user) {
-//     return fetch(`${URL_SERVER}libros?id_prestamo=${id_user}`)
-//         .then(res => {
-//             if (!res.ok) throw new Error("Error al obtener los libros del usuario.");
-//             return res.json();
-//         })
-// }
 
 // export function prestarLibro(id_user, id_libro) {
 //     return fetch(`${URL_SERVER}libros/${id_libro}`, {
