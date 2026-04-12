@@ -14,7 +14,7 @@ export const CardPerfume = ({ data } : { data: ICardPerfume}) => {
         <img
             className="w-full h-80 object-cover"
             src={data.image}
-            alt={`Perfume recomendado ${data.name}`}
+            alt={`Perfume ${data.name}`}
         />
 
         {/* Hover para el pc y focus para el móvil */}
