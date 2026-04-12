@@ -5,7 +5,7 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import type { IPerfume } from "./IPerfume";
-import { PERFUMES } from "./Perfumes";
+import { PERFUMES } from "./PerfumesData";
 
 interface IRating {
     general?: number,

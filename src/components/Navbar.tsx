@@ -50,9 +50,9 @@ export default function Navbar({ user }: INavbar) {
                 <summary>Perfumes</summary>
                 <ul>
                   {/* Probando el router */}
-                  <li><Link to="/perfume?id=1">Prueba router</Link></li>
-                  <li><a>Todos</a></li>
-                  <li><Link to="/brands">Listado de marcas</Link></li>
+                  {/* <li><Link to="/perfume?id=1">Prueba router</Link></li> */}
+                  <li><Link to="/perfumes">Todos</Link></li>
+                  <li><Link to="/brands">Marcas</Link></li>
                 </ul>
               </details>
             </li>
