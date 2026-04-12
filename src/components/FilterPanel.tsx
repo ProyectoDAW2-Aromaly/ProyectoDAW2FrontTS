@@ -16,7 +16,7 @@ const olfactoryFamilies = [
 ];
 
 const genres = [
-    'Female', 'Male', "Unisex"
+    'Mujer', 'Hombre', "Unisex"
 ]
 
 export const FilterPanel = () => {

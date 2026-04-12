@@ -10,7 +10,7 @@ const availableOlfatoryFamily = [
 ];
 
 const genre = [
-  'Female', 'Male', "Unisex"
+  'Mujer', 'Hombre', "Unisex"
 ]
 
 const availablePerfumer = [

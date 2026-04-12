@@ -22,7 +22,7 @@ export const CardPerfume = ({ data } : { data: ICardPerfume}) => {
 
             <div className="flex flex-col justify-center items-center p-4 text-white">
                 <h2 className="text-lg font-bold">{data.name}</h2>
-                <a href="" className="link no-underline hover:font-bold">{data.brand}</a>
+                <a href="" className="link hover:font-bold hover:no-underline">{data.brand}</a>
             </div>
 
             <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 p-6">
