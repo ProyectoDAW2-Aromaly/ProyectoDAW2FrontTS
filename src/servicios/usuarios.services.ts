@@ -1,0 +1,91 @@
+const API = `${import.meta.env.VITE_APP_API}/usuarios/`;
+
+export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
+
+export interface IUser {
+  userName: string;
+  pfp: string;
+  rol: UserRol;
+}
+
+export interface IRegisterUser {
+  username: string;
+  email: string;
+  password: string;
+  descripcion?: string;
+  foto?: string;
+  rol: UserRol;
+}
+
+export interface ILoginUser {
+  username: string;
+  password: string;
+}
+
+const getUser = (): IUser | null => {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
+};
+
+const saveUser = async (user: IRegisterUser) => {
+  const url = `${API}registro`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    const data = await response.json();
+    data.status = response.status;
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
+const doLogin = async (user: ILoginUser) => {
+  const url = `${API}login`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+
+    const data = await response.json();
+    data.status = response.status;
+
+    if (data.status === 200) {
+      const mappedUser: IUser = {
+        userName: data.result.user.username,
+        pfp: data.result.user.foto || "/user/profile-pic/profile1.jpg",
+        rol: data.result.user.rol || "BASICO",
+      };
+
+      localStorage.setItem("user", JSON.stringify(mappedUser));
+      localStorage.setItem("token", data.result.token);
+    }
+
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
+const getToken = () => {
+  return localStorage.getItem("token");
+};
+
+const logout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+};
+
+export { getUser, saveUser, doLogin, getToken, logout };
