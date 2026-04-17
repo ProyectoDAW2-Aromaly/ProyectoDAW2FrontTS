@@ -20,12 +20,12 @@ interface IFamiliaData {
 }
 
 const getGeneroImagen = (val: string) => {
-    switch (val) {
-        case "Hombre":
+    switch (val.toLowerCase()) {
+        case "hombre":
             return "/perfume-info/icons/gender/male-icon.svg";
-        case "Mujer":
+        case "mujer":
             return "/perfume-info/icons/gender/female-icon.svg";
-        case "Unisex":
+        case "unisex":
             return "/perfume-info/icons/gender/unisex-icon.svg";
         default:
             return "";
