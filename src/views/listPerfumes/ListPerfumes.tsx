@@ -33,6 +33,7 @@ const ListPerfumes = () => {
         getAllPerfumes()
             // Cuando lleguen los datos del servidor... (datos -> Lista que viene del back)
             .then((datos: IPerfumeBackend[]) => {
+                console.log("Datos recibidos del back:", datos);
                 // Creamos una lista nueva
                 const perfumesFormateados: ICardPerfume[] = datos.map((p) => ({
                     // Convertimos el id en texto para React

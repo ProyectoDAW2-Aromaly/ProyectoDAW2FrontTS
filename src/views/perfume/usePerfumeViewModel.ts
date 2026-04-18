@@ -15,10 +15,6 @@ interface IRating {
     duration?: number
 }
 
-interface IFamiliaData {
-    nombre: string;
-}
-
 const getGeneroImagen = (val: string) => {
     switch (val.toLowerCase()) {
         case "hombre":
@@ -30,7 +26,6 @@ const getGeneroImagen = (val: string) => {
         default:
             return "";
     }
-
 }
 
 interface INotaBackend {
@@ -87,11 +82,11 @@ export const usePerfumeViewModel = () => {
                         descripcion: Array.isArray(p.descripcion)
                             ? p.descripcion
                             : [p.descripcion],
-                        // TODO QUITAR PLACEHOLDERS
-                        imagen: { src: "/default.jpg", alt: p.nombre },
+                        
+                        imagen: { src: p.foto, alt: p.nombre },
                         logo: {
-                            src: "/default-brand.png",
-                            alt: "Marca"
+                            src: p.marca?.foto ?? "/default-marca.png",
+                            alt: p.marca?.nombre ?? "Marca"
                         },
                         familias: p.familiasOlfativas?.map(f => f.nombre) ?? [],
                         genero: getGeneroImagen(p.genero),
