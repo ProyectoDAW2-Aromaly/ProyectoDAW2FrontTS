@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SelectFilter } from "./SelectFilter";
+import { SelectFilter } from "./SelectFiltro";
 import { useLocation } from "react-router";
 import { BadgeSelector } from "./BadgeSelector";
 

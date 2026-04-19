@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router"
-import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume"
-import { FilterPanel } from "../../components/FilterPanel"
-import Pagination from "../../components/Pagination"
+import { CardPerfume, type ICardPerfume } from "../../components/PerfumeCard"
+import { FilterPanel } from "../../components/FiltroPanel"
+import Pagination from "../../components/Paginacion"
 import { usePerfumerViewModel } from "./usePerfumerViewModel"
 import type { IUser } from "../../App"
 
@@ -151,13 +151,13 @@ interface IPerfumerPage {
 const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
     const navigate = useNavigate();
 
-    const goToEditPerfumer = (perfumerId: string) => {
-        navigate(`/perfumer/form?edit=${perfumerId}`);
+    const irEditarPerfumista = (perfumistaId: string) => {
+        navigate(`/perfumista/formulario?editar=${perfumistaId}`);
     }
 
-    const selectedPerfumer = usePerfumerViewModel()
+    const perfumistaSeleccionado = usePerfumerViewModel()
 
-    if (selectedPerfumer === undefined) return null
+    if (perfumistaSeleccionado === undefined) return null
 
     return (
         <>
@@ -176,19 +176,19 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
                 <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row mt-30">
                     <figure className="w-full md:w-96 h-96 overflow-hidden shrink-0">
                         <img
-                            src={selectedPerfumer.image?.src}
-                            alt={selectedPerfumer.image?.alt}
+                            src={perfumistaSeleccionado.imagen?.src}
+                            alt={perfumistaSeleccionado.imagen?.alt}
                         />
                     </figure>
                     <div className="card-body items-start flex-5">
-                        <h1 className="card-title ml-2">{selectedPerfumer.name}</h1>
+                        <h1 className="card-title ml-2">{perfumistaSeleccionado.nombre}</h1>
 
                         {/* TOOLTIPS */}
                         <div className="absolute top-2 right-2 flex gap-2 z-40">
 
                             {/* EDITAR PERFUME -> ADMIN*/}
                             {user?.rol === "admin" ? <div className="tooltip save" data-tip="Editar perfume">
-                                <button className="btn btn-circle" onClick={() => goToEditPerfumer(selectedPerfumer.id)}>
+                                <button className="btn btn-circle" onClick={() => irEditarPerfumista(perfumistaSeleccionado.id)}>
 
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
@@ -200,9 +200,9 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
                         </div>
 
                         <div className="divider">Descripción</div>
-                        <p>{selectedPerfumer.description?.map(description =>
-                            <span key={description}>
-                                {description}
+                        <p>{perfumistaSeleccionado.descripcion?.map(des =>
+                            <span key={des}>
+                                {des}
                                 <br />
                                 <br />
                             </span>
@@ -214,7 +214,7 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
 
                 <FilterPanel />
 
-                <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {selectedPerfumer.name.toUpperCase()}</h1>
+                <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {perfumistaSeleccionado.nombre.toUpperCase()}</h1>
                 <div className="flex flex-wrap gap-12 mb-20" >
 
                     {mockedPerfumes.map(list =>

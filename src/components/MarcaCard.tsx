@@ -1,7 +1,7 @@
 import { Link } from "react-router"
-import { IBrand } from "../views/brand/IBrand";
+import { IMarca } from "../views/marca/IMarca";
 
-const BrandCard = ({ data }: { data: IBrand }) => {
+const MarcaCard = ({ data }: { data: IMarca }) => {
 
     return (
         <div className="mx-auto max-w-sm px-4 mt-6">
@@ -21,11 +21,11 @@ const BrandCard = ({ data }: { data: IBrand }) => {
 
                 </div>
 
-                <Link to="/brand?name=xerjoff" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content mb-3">Ver perfumes</Link>
+                <Link to="/marca?name=xerjoff" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content mb-3">Ver perfumes</Link>
             </div>
 
         </div>
     )
 }
 
-export default BrandCard;
+export default MarcaCard;

@@ -1,7 +1,7 @@
-import Pagination from "../../../components/Pagination"
-import BrandCard from "../../../components/BrandCard";
+import Pagination from "../../../components/Paginacion"
+import BrandCard from "../../../components/MarcaCard";
 import { useBrandListViewModel } from "./useBrandListViewModel";
-import { FilterPanel } from "../../../components/FilterPanel";
+import { FilterPanel } from "../../../components/FiltroPanel";
 
 const BrandsList = () => {
     // const navigate = useNavigate();

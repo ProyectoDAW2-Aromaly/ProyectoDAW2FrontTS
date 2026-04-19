@@ -1,6 +1,6 @@
-import { IBrand } from "./IBrand";
+import { IMarca } from "./IMarca";
 
-export const BRAND: IBrand[] = [
+export const BRAND: IMarca[] = [
     {
         name: "Xerjoff",
         image: {

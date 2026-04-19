@@ -1,7 +1,7 @@
-import Pagination from "../../../components/Pagination"
+import Pagination from "../../../components/Paginacion"
 import { useBrandViewModel } from "./useBrandViewModel";
-import { CardPerfume, ICardPerfume } from "../../../components/CardPerfume";
-import { FilterPanel } from "../../../components/FilterPanel";
+import { CardPerfume, ICardPerfume } from "../../../components/PerfumeCard";
+import { FilterPanel } from "../../../components/FiltroPanel";
 
 const BrandPage = () => {
 

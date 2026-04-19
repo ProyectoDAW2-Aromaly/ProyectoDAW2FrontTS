@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { CardPerfume } from "../../components/CardPerfume";
-import { FilterPanel } from "../../components/FilterPanel";
-import Pagination from "../../components/Pagination";
+import { CardPerfume } from "../../components/PerfumeCard";
+import { FilterPanel } from "../../components/FiltroPanel";
+import Pagination from "../../components/Paginacion";
 import { useListaPerfumesViewModel } from "./useListaPerfumesViewModel";
 
 const ListaPerfumes = () => {

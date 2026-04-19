@@ -1,6 +1,6 @@
-import { FilterPanel } from "../../../components/FilterPanel";
+import { FilterPanel } from "../../../components/FiltroPanel";
 import { ListCard } from "../../../components/ListCard";
-import Pagination from "../../../components/Pagination";
+import Pagination from "../../../components/Paginacion";
 import { useUserListsListViewModel } from "./useUserListsViewModel"
 
 const UserLists = () => {

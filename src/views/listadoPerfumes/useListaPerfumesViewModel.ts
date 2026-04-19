@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllPerfumes } from "../../peticiones";
-import { ICardPerfume } from "../../components/CardPerfume";
+import { ICardPerfume } from "../../components/PerfumeCard";
 
 interface IPerfumeBackend {
     id: string
@@ -10,7 +10,7 @@ interface IPerfumeBackend {
     familiasOlfativas: { nombre: string }[];
 }
 
-export const useListPerfumesViewModel = () => {
+export const useListaPerfumesViewModel = () => {
     const [listaPerfumes, setListaPerfumes] = useState<ICardPerfume[]>([]);
     const [loading, setLoading] = useState(true);
 

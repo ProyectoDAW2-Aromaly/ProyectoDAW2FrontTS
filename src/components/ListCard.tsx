@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IList } from "../views/list/IList";
+import { IList } from "../views/lista/IList";
 
 interface IUser {
     userName: string,

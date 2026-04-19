@@ -1,10 +1,10 @@
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { ListCard } from "../../components/ListCard";
-import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
+import { CardPerfume, type ICardPerfume } from "../../components/PerfumeCard";
 import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
-import { LIST } from "../list/ListData";
+import { LIST } from "../lista/ListData";
 
 const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
 
@@ -120,7 +120,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                     <div className="card-body items-start flex-5">
                         <h1 className="card-title ml-2">{selectedPerfume.nombre}</h1>
                         {/* TODO: LINK A MARCA */}
-                        <Link to="/brand?name=xerjoff" className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
+                        <Link to="/marca?name=xerjoff" className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
                             <figure className="flex items-center justify-center rounded-none">
                                 <img
                                     src={selectedPerfume.logo.src}
@@ -220,10 +220,10 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             </figure>
                         </h5>
                         <h5>Perfumista:
-                            {selectedPerfume.perfumista.map((perfumer) => (
-                                <span key={perfumer.id}>
-                                    <Link className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" to={`/perfumer/?id=1`}>
-                                        {perfumer.nombre}
+                            {selectedPerfume.perfumista.map((perfumista) => (
+                                <span key={perfumista.id}>
+                                    <Link className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" to={`/perfumista/${perfumista.id}`}>
+                                        {perfumista.nombre}
                                     </Link>
                                 </span>
                             ))}

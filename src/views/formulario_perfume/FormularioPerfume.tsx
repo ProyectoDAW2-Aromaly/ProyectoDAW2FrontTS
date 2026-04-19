@@ -1,27 +1,27 @@
 import { BadgeSelector } from "../../components/BadgeSelector";
 
-const availableNotes = [
+const notasDisponibles = [
   'Vainilla', 'Bergamota', 'Sándalo', 'Almizcle', 'Cedro',
   'Rosa', 'Jazmin', 'Naranja roja', 'Lavanda', 'Canela', 'Caramelo'
 ];
 
-const availableOlfatoryFamily = [
+const familiasDisponible = [
   'Cítrico', 'Oriental', 'Floral', 'Gourmand', 'Amaderado'
 ];
 
-const genre = [
+const generos = [
   'Mujer', 'Hombre', "Unisex"
 ]
 
-const availablePerfumer = [
+const perfumistasDisponibles = [
   'Chris Maurice', 'Honorine Blanc', 'Amadine Clerc-Marie', 'Quentin Bisch'
 ]
 
-const availableColecction = [
+const coleccionesDisponibles = [
   'Sin colección', 'Born in Roma', 'Coleccion 1', 'Colección 2'
 ]
 
-export default function PerfumeForm() {
+export default function FormularioPerfume() {
   
   return (
     // ! py -> Padding vertical. px -> Padding horizontal. Lo mismo con mx y my pero con margin.
@@ -61,17 +61,17 @@ export default function PerfumeForm() {
                   Selecciona un género
                 </option>
 
-                {genre.map(g => (
-                  <option key={g} value={g}>
-                    {g}
+                {generos.map(genero => (
+                  <option key={genero} value={genero}>
+                    {genero}
                   </option>
                 ))}
               </select>
 
               <div className="space-y-1 flex flex-col">
-                <label className="label text-neutral font-semibold focus:outline-none">Perfumista</label>
+                <label className="label text-neutral font-semibold focus:outline-none">Perfumista/s</label>
                 <BadgeSelector
-                  items={availablePerfumer}
+                  items={perfumistasDisponibles}
                   label="Selecciona los perfumistas"
                 />
               </div>
@@ -83,9 +83,9 @@ export default function PerfumeForm() {
                     Selecciona una colección
                   </option>
 
-                  {availableColecction.map(colecction => (
-                    <option key={colecction} value={colecction}>
-                      {colecction}
+                  {coleccionesDisponibles.map(coleccion => (
+                    <option key={coleccion} value={coleccion}>
+                      {coleccion}
                     </option>
                   ))}
                 </select>
@@ -97,7 +97,7 @@ export default function PerfumeForm() {
           <div className="space-y-1 flex flex-col">
             <label className="label text-neutral font-semibold">Familia Olfativa</label>
             <BadgeSelector
-              items={availableOlfatoryFamily}
+              items={familiasDisponible}
               label="Selecciona las familias olfativas"
             />
           </div>
@@ -114,19 +114,19 @@ export default function PerfumeForm() {
 
           <label className="label text-neutral font-semibold">Salida</label>
           <BadgeSelector
-            items={availableNotes}
+            items={notasDisponibles}
             label="Selecciona las notas de salida"
           />
 
           <label className="label text-neutral font-semibold">Corazón</label>
           <BadgeSelector
-            items={availableNotes}
+            items={notasDisponibles}
             label="Selecciona las notas corazón"
           />
 
           <label className="label text-neutral font-semibold">Base</label>
           <BadgeSelector
-            items={availableNotes}
+            items={notasDisponibles}
             label="Selecciona las notas base"
           />
 
