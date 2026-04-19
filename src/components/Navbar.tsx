@@ -49,8 +49,6 @@ export default function Navbar({ user }: INavbar) {
               <details open>
                 <summary>Perfumes</summary>
                 <ul>
-                  {/* Probando el router */}
-                  {/* <li><Link to="/perfume?id=1">Prueba router</Link></li> */}
                   <li><Link to="/perfumes">Explorar</Link></li>
                   <li><Link to="/marcas">Marcas</Link></li>
                 </ul>

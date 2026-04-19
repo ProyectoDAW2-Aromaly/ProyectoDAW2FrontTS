@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { BRAND } from "../BrandData.ts";
-import { IBrand } from "../IMarca.ts";
+import { LIST } from "../ListData.ts";
+import { IList } from "../IList.ts";
 
-export const useBrandListViewModel = () => {
 
-    const [brands, setBrands] = useState<IBrand[]>([]);
+export const useListasUsuariosViewModel = () => {
+
+    const [listas, setListas] = useState<IList[]>([]);
 
     useEffect(() => {
         // Aquí se hará la consulta para traer las marcas
         // eslint-disable-next-line react-hooks/set-state-in-effect
-        setBrands(BRAND)
+        setListas(LIST)
     }, [])
 
     return{
-        brands
+        listas
     }
 }

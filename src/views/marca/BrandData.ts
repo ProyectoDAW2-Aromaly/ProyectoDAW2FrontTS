@@ -2,87 +2,88 @@ import { IMarca } from "./IMarca";
 
 export const BRAND: IMarca[] = [
     {
-        name: "Xerjoff",
-        image: {
+        nombre: "Xerjoff",
+        imagen: {
             src: "/brand/xerjoff-logo.png",
             alt: "Xerjoff"
         }
     },
     {
-        name: "Valentino",
-        image: {
+        nombre: "Valentino",
+        imagen: {
             src: "/brand/valentino-logo.png",
             alt: "Valentino"
         } 
     },
     {
-        name: "ELDO",
-        image: {
+        nombre: "ELDO",
+        imagen: {
             src: "/brand/ELDO-logo.png",
             alt: "ELDO"
         }
     },
+    
     {
-        name: "Xerjoff1",
-        image: {
+        nombre: "Xerjoff",
+        imagen: {
             src: "/brand/xerjoff-logo.png",
             alt: "Xerjoff"
         }
     },
     {
-        name: "Valentino1",
-        image: {
+        nombre: "Valentino",
+        imagen: {
             src: "/brand/valentino-logo.png",
             alt: "Valentino"
         } 
     },
     {
-        name: "ETAT LIBRE D'ORANGE1",
-        image: {
+        nombre: "ELDO",
+        imagen: {
             src: "/brand/ELDO-logo.png",
             alt: "ELDO"
         }
     },
     {
-        name: "Xerjoff2",
-        image: {
+        nombre: "Xerjoff",
+        imagen: {
             src: "/brand/xerjoff-logo.png",
             alt: "Xerjoff"
         }
     },
     {
-        name: "Valentino2",
-        image: {
+        nombre: "Valentino",
+        imagen: {
             src: "/brand/valentino-logo.png",
             alt: "Valentino"
         } 
     },
     {
-        name: "ETAT LIBRE D'ORANGE2",
-        image: {
+        nombre: "ELDO",
+        imagen: {
             src: "/brand/ELDO-logo.png",
             alt: "ELDO"
         }
     },
     {
-        name: "Xerjoff12",
-        image: {
+        nombre: "Xerjoff",
+        imagen: {
             src: "/brand/xerjoff-logo.png",
             alt: "Xerjoff"
         }
     },
     {
-        name: "Valentino12",
-        image: {
+        nombre: "Valentino",
+        imagen: {
             src: "/brand/valentino-logo.png",
             alt: "Valentino"
         } 
     },
     {
-        name: "ETAT LIBRE D'ORANGE12",
-        image: {
+        nombre: "ELDO",
+        imagen: {
             src: "/brand/ELDO-logo.png",
             alt: "ELDO"
         }
-    }
+    },
 ]

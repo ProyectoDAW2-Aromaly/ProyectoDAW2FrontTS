@@ -1,17 +1,17 @@
 import { useNavigate } from "react-router"
-import { CardPerfume, type ICardPerfume } from "../../components/PerfumeCard"
-import { FilterPanel } from "../../components/FiltroPanel"
-import Pagination from "../../components/Paginacion"
-import { usePerfumerViewModel } from "./usePerfumerViewModel"
+import { PerfumeCard, type ICardPerfume } from "../../components/PerfumeCard"
+import { FiltroPanel } from "../../components/FiltroPanel"
+import Paginacion from "../../components/Paginacion"
+import { usePerfumistaViewModel } from "./usePerfumistaViewModel"
 import type { IUser } from "../../App"
 
 const mockedPerfumes: ICardPerfume[] = [
     {
         id: "ValentinoID",
-        name: "Born in Roma Intense Donna",
-        brand: "Valentino",
-        image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-        olfactoryFamilies: [
+        nombre: "Born in Roma Intense Donna",
+        marca: "Valentino",
+        foto: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -19,20 +19,20 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "EldoID",
-        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
-        brand: "Etat Libre D'Orange",
-        image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        olfactoryFamilies: [
+        nombre: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        marca: "Etat Libre D'Orange",
+        foto: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+        familiasOlfativas: [
             "Amaderado",
             "floral",
         ]
     },
     {
         id: "LiraId",
-        name: "Lira",
-        brand: "Xerjoff",
-        image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
-        olfactoryFamilies: [
+        nombre: "Lira",
+        marca: "Xerjoff",
+        foto: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -40,10 +40,10 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "ValentinoID1",
-        name: "Born in Roma Intense Donna",
-        brand: "Valentino",
-        image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-        olfactoryFamilies: [
+        nombre: "Born in Roma Intense Donna",
+        marca: "Valentino",
+        foto: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -51,20 +51,20 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "EldoID1",
-        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
-        brand: "Etat Libre D'Orange",
-        image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        olfactoryFamilies: [
+        nombre: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        marca: "Etat Libre D'Orange",
+        foto: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+        familiasOlfativas: [
             "Amaderado",
             "floral",
         ]
     },
     {
         id: "LiraId1",
-        name: "Lira",
-        brand: "Xerjoff",
-        image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
-        olfactoryFamilies: [
+        nombre: "Lira",
+        marca: "Xerjoff",
+        foto: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -72,10 +72,10 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "ValentinoID2",
-        name: "Born in Roma Intense Donna",
-        brand: "Valentino",
-        image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-        olfactoryFamilies: [
+        nombre: "Born in Roma Intense Donna",
+        marca: "Valentino",
+        foto: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -83,20 +83,20 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "EldoID2",
-        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
-        brand: "Etat Libre D'Orange",
-        image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        olfactoryFamilies: [
+        nombre: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        marca: "Etat Libre D'Orange",
+        foto: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+        familiasOlfativas: [
             "Amaderado",
             "floral",
         ]
     },
     {
         id: "LiraId2",
-        name: "Lira",
-        brand: "Xerjoff",
-        image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
-        olfactoryFamilies: [
+        nombre: "Lira",
+        marca: "Xerjoff",
+        foto: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -104,10 +104,10 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "ValentinoID3",
-        name: "Born in Roma Intense Donna",
-        brand: "Valentino",
-        image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-        olfactoryFamilies: [
+        nombre: "Born in Roma Intense Donna",
+        marca: "Valentino",
+        foto: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -115,20 +115,20 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "EldoID3",
-        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
-        brand: "Etat Libre D'Orange",
-        image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        olfactoryFamilies: [
+        nombre: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        marca: "Etat Libre D'Orange",
+        foto: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+        familiasOlfativas: [
             "Amaderado",
             "floral",
         ]
     },
     {
         id: "LiraId3",
-        name: "Lira",
-        brand: "Xerjoff",
-        image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
-        olfactoryFamilies: [
+        nombre: "Lira",
+        marca: "Xerjoff",
+        foto: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -155,7 +155,7 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
         navigate(`/perfumista/formulario?editar=${perfumistaId}`);
     }
 
-    const perfumistaSeleccionado = usePerfumerViewModel()
+    const perfumistaSeleccionado = usePerfumistaViewModel()
 
     if (perfumistaSeleccionado === undefined) return null
 
@@ -212,18 +212,18 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
                     </div>
                 </div>
 
-                <FilterPanel />
+                <FiltroPanel />
 
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {perfumistaSeleccionado.nombre.toUpperCase()}</h1>
                 <div className="flex flex-wrap gap-12 mb-20" >
 
                     {mockedPerfumes.map(list =>
-                        <CardPerfume data={list} key={list.id} />
+                        <PerfumeCard data={list} key={list.id} />
                     )}
 
                 </div>
                 {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-                <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log} />
+                <Paginacion paginaActual={3} itemsPorPagina={12} totalItems={500} handleCambiarPagina={console.log} />
             </div>
         </>
     )

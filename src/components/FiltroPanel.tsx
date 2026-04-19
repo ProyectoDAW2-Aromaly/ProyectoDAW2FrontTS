@@ -3,24 +3,24 @@ import { SelectFilter } from "./SelectFiltro";
 import { useLocation } from "react-router";
 import { BadgeSelector } from "./BadgeSelector";
 
-const brands = [
+const marcas = [
     "Xerjoff", "Valentino", "ELDO"
 ];
 
-const notes = [
+const notas = [
     'Vainilla', 'Bergamota', 'Sándalo', 'Almizcle', 'Cedro',
     'Rosa', 'Jazmin', 'Naranja roja', 'Lavanda', 'Canela', 'Caramelo'
 ];
 
-const olfactoryFamilies = [
+const familiasOlfativas = [
     'Cítrico', 'Oriental', 'Floral', 'Gourmand', 'Amaderado'
 ];
 
-const genres = [
+const generos = [
     'Mujer', 'Hombre', "Unisex"
 ]
 
-export const FilterPanel = () => {
+export const FiltroPanel = () => {
     const location = useLocation();
 
     const [selectedBrand, setSelectedBrand] = useState<string>();
@@ -44,15 +44,15 @@ export const FilterPanel = () => {
                 <input className="w-full" type="search" required placeholder="Buscar" />
             </label>
 
-            {location.pathname !== "/brands" && (
+            {location.pathname !== "/marcas" && (
 
                 <div className=" flex flex-row flex-wrap gap-4 justify-evenly">
 
                     {/* Marca */}
-                    {location.pathname !== "/brand" && (
+                    {location.pathname !== "/marca" && (
                         <SelectFilter
                             label="Selecciona una marca"
-                            items={brands}
+                            items={marcas}
                             value={selectedBrand}
                             onChange={setSelectedBrand}
                         />
@@ -61,7 +61,7 @@ export const FilterPanel = () => {
                     {/* Género */}
                     <SelectFilter
                         label="Selecciona el género"
-                        items={genres}
+                        items={generos}
                         value={selectedGenre}
                         onChange={setSelectedGenre}
                     />
@@ -70,7 +70,7 @@ export const FilterPanel = () => {
                     <div className="flex-1">
                         <BadgeSelector
                             label="Selecciona una familia olfativa"
-                            items={olfactoryFamilies}
+                            items={familiasOlfativas}
                             size="xs"
                         />
                     </div>
@@ -79,7 +79,7 @@ export const FilterPanel = () => {
                     <div className="flex-1">
                         <BadgeSelector
                             label="Selecciona una nota"
-                            items={notes}
+                            items={notas}
                             size="xs"
                         />
                     </div>

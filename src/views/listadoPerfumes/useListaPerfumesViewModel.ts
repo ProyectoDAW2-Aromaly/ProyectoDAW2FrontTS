@@ -24,16 +24,16 @@ export const useListaPerfumesViewModel = () => {
                     // La marca es un objeto?
                     // Sí -> Dame el nombre
                     // No -> Pon el texto que venga o aviso de que no ha llegado bien
-                    brand: typeof p.marca === 'object' && p.marca !== null
+                    marca: typeof p.marca === 'object' && p.marca !== null
                         ? p.marca.nombre
                         : (p.marca || "Sin marca"),
 
-                    name: p.nombre || "Sin nombre",
+                    nombre: p.nombre || "Sin nombre",
 
-                    image: p.foto || "/default.jpg",
+                    foto: p.foto || "/default.jpg",
 
                     // Si viene en una lista...
-                    olfactoryFamilies: Array.isArray(p.familiasOlfativas)
+                    familiasOlfativas: Array.isArray(p.familiasOlfativas)
                         ? p.familiasOlfativas.map((f) => f.nombre) // De cada familia, solo guarda el nombre
                         : [] // Si no hay nada, lista vacía
                 }));

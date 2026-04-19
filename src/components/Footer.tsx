@@ -18,7 +18,7 @@ export default function Footer(){
                 <a className="link link-hover">Aviso legal</a>
             </nav>
             <nav>
-                <h6 className="footer-title">Info</h6>
+                <h6 className="footer-title">Información</h6>
                 <a className="link link-hover">aromaly@business.com</a>
             </nav>
             </footer>

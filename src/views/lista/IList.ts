@@ -1,9 +1,9 @@
 export interface IList {
     id: string,
-    username: string,
+    nombreUsuario: string,
     premium: boolean,
-    coffee: boolean,
+    cafe: boolean,
     pfp: string,
-    title: string,
+    titulo: string,
     perfumes: string[]
 }

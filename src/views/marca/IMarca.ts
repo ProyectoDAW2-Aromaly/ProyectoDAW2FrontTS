@@ -1,6 +1,6 @@
 export interface IMarca {
-    name: string;
-    image?: {
+    nombre: string;
+    imagen?: {
         src: string;
         alt: string;
     }

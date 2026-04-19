@@ -1,6 +1,6 @@
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
-import { ListCard } from "../../components/ListCard";
-import { CardPerfume, type ICardPerfume } from "../../components/PerfumeCard";
+import { ListaCard } from "../../components/ListaCard";
+import { PerfumeCard, type ICardPerfume } from "../../components/PerfumeCard";
 import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
@@ -21,10 +21,10 @@ const labelsPrice = ["Económico", "Moderado", "Caro", "Muy caro"];
 const mockedPerfumes: ICardPerfume[] = [
     {
         id: "ValentinoID",
-        name: "Born in Roma Intense Donna",
-        brand: "Valentino",
-        image: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
-        olfactoryFamilies: [
+        nombre: "Born in Roma Intense Donna",
+        marca: "Valentino",
+        foto: "/perfume-info/perfume/born-in-roma/valentino-born-in-roma-intense-donna.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -32,20 +32,20 @@ const mockedPerfumes: ICardPerfume[] = [
     },
     {
         id: "EldoID",
-        name: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
-        brand: "Etat Libre D'Orange",
-        image: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
-        olfactoryFamilies: [
+        nombre: "ATTAQUER LE SOLEIL - MARQUIS DE SADE",
+        marca: "Etat Libre D'Orange",
+        foto: "/perfume-info/perfume/ELDO/eldo-perfume.webp",
+        familiasOlfativas: [
             "Amaderado",
             "floral",
         ]
     },
     {
         id: "LiraId",
-        name: "Lira",
-        brand: "Xerjoff",
-        image: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
-        olfactoryFamilies: [
+        nombre: "Lira",
+        marca: "Xerjoff",
+        foto: "/perfume-info/perfume/lira/xerjoff-lira.jpg",
+        familiasOlfativas: [
             "Oriental",
             "floral",
             "Gourmand"
@@ -68,7 +68,7 @@ interface IPerfumePage {
     setUser: (val?: IUser) => void
 }
 
-const PerfumePage = ({ user, setUser }: IPerfumePage) => {
+const PaginaPerfume = ({ user, setUser }: IPerfumePage) => {
     const navigate = useNavigate();
 
     const goToEditPerfume = (perfumeId: string) => {
@@ -501,7 +501,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 <div className="flex flex-wrap gap-12" >
 
                     {LIST.slice(0, 3).map(list =>
-                        <ListCard data={list} user={user} key={list.id} />
+                        <ListaCard data={list} user={user} key={list.id} />
                     )}
 
                 </div>
@@ -510,8 +510,8 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES SIMILARES</h1>
                 <div className="flex flex-wrap gap-12" >
 
-                    {mockedPerfumes.map(list =>
-                        <CardPerfume data={list} key={list.id} />
+                    {mockedPerfumes.map(lista =>
+                        <PerfumeCard data={lista} key={lista.id} />
                     )}
 
                 </div>
@@ -610,4 +610,4 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
     )
 }
 
-export default PerfumePage;
+export default PaginaPerfume;

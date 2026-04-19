@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import { BRAND } from "../BrandData.ts";
-import { IBrand } from "../IMarca.ts";
+import { IMarca } from "../IMarca.ts";
 
-export const useBrandViewModel = () => {
+export const useMarcaViewModel = () => {
 
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const [SelectedBrand, setSelectedBrand] = useState<IBrand>()
+    const [marcaSeleccionada, setMarcaSeleccionada] = useState<IMarca>()
 
     useEffect(() => {
-        const search = searchParams.get("name")
-        if (search) {
+        const busqueda = searchParams.get("name")
+        if (busqueda) {
             // Prueba búsqueda de perfume. Aquí va la consulta a backend
             // eslint-disable-next-line react-hooks/set-state-in-effect
-            setSelectedBrand(BRAND.find(brand => brand.name.toLowerCase() === search.toLowerCase()))
+            setMarcaSeleccionada(BRAND.find(marca => marca.nombre.toLowerCase() === busqueda.toLowerCase()))
         } else {
             navigate("/not-found") //Para no tener la pantalla en blanco o que no se rompa la página entera
         }
     }, [searchParams])
 
-    return (SelectedBrand);
+    return (marcaSeleccionada);
 }

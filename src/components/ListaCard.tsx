@@ -22,7 +22,7 @@ interface ListCardProps {
  * @returns El componente -> Card de la lista de perfumes.
  * @example <ListCard data={list} user={user}/>
  */
-export const ListCard = ({ data, user }: ListCardProps ) => {
+export const ListaCard = ({ data, user }: ListCardProps ) => {
 
     const [liked, setLiked] = useState(false);
 
@@ -54,20 +54,20 @@ export const ListCard = ({ data, user }: ListCardProps ) => {
             <div className="flex flex-wrap gap-6 mb-2 items-center">
                 <div className="avatar w-14 shrink-0">
                     <div className="w-14 rounded-full">
-                        <img src={data.pfp} alt={`Foto de perfil de ${data.username}`} />
+                        <img src={data.pfp} alt={`Foto de perfil de ${data.nombreUsuario}`} />
                     </div>
                 </div>
 
                 <div className="flex flex-col">
-                    <h2 className="card-title">{data.username}</h2>
+                    <h2 className="card-title">{data.nombreUsuario}</h2>
                 </div>
             </div>
 
             {data.premium && <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />}
-            {data.coffee && <img src="/user/icons/coffee-cup.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />}
+            {data.cafe && <img src="/user/icons/coffee-cup.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />}
 
             <div className="divider h-1 my-0"></div>
-            <h2 className="font-semibold">{data.title}</h2>
+            <h2 className="font-semibold">{data.titulo}</h2>
             <div className="divider h-1 my-0"></div>
 
             <div className="avatar-group flex justify-center -space-x-2">

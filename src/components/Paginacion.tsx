@@ -1,19 +1,19 @@
-interface IPagination {
+interface IPaginacion {
     // Esto nos lo pasa el back
     totalItems: number,
-    itemsPerPage: number,
-    currentPage: number,
+    itemsPorPagina: number,
+    paginaActual: number,
     // Cuando el usuario cambia de página, esto funciona tanto en back como en front. Lo controla el viewmodel de la página que lo utilice.
-    handlePageChange: (page: number) => void
+    handleCambiarPagina: (pagina: number) => void
 }
 
-export default function Pagination({ totalItems, itemsPerPage, currentPage, handlePageChange }: IPagination) {
-    const pages = Math.ceil(totalItems / itemsPerPage);
+export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, handleCambiarPagina }: IPaginacion) {
+    const paginas = Math.ceil(totalItems / itemsPorPagina);
 
     return <div className="join flex justify-center mb-10">
         <button
-            className={`join-item btn ${currentPage === 1 && "btn-disabled"}`}
-            onClick={() => handlePageChange(1)}>
+            className={`join-item btn ${paginaActual === 1 && "btn-disabled"}`}
+            onClick={() => handleCambiarPagina(1)}>
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                 <title>arrow-skip-back</title>
                 <g id="Layer_2" data-name="Layer 2">
@@ -28,8 +28,8 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, hand
             </svg>
         </button>
         <button
-            className={`join-item btn ${currentPage === 1 && "btn-disabled"}`}
-            onClick={() => handlePageChange(currentPage - 1)}
+            className={`join-item btn ${paginaActual === 1 && "btn-disabled"}`}
+            onClick={() => handleCambiarPagina(paginaActual - 1)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                 <title>arrowhead-left</title>
@@ -44,10 +44,10 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, hand
             </svg>
         </button>
         <button className="join-item btn btn-primary"
-        >{currentPage}</button>
+        >{paginaActual}</button>
         <button
-            className={`join-item btn ${currentPage === pages && "btn-disabled"}`}
-            onClick={() => handlePageChange(currentPage + 1)}
+            className={`join-item btn ${paginaActual === paginas && "btn-disabled"}`}
+            onClick={() => handleCambiarPagina(paginaActual + 1)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                 <title>arrowhead-right</title>
@@ -62,8 +62,8 @@ export default function Pagination({ totalItems, itemsPerPage, currentPage, hand
             </svg>
         </button>
         <button
-            className={`join-item btn ${currentPage === pages && "btn-disabled"}`}
-            onClick={() => handlePageChange(pages)}
+            className={`join-item btn ${paginaActual === paginas && "btn-disabled"}`}
+            onClick={() => handleCambiarPagina(paginas)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                 <title>arrow-skip-forward</title>

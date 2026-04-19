@@ -1,16 +1,16 @@
-import Pagination from "../../../components/Paginacion"
-import BrandCard from "../../../components/MarcaCard";
-import { useBrandListViewModel } from "./useBrandListViewModel";
-import { FilterPanel } from "../../../components/FiltroPanel";
+import Paginacion from "../../../components/Paginacion"
+import MarcaCard from "../../../components/MarcaCard";
+import { useListaMarcasViewModel } from "./useListaMarcasViewModel";
+import { FiltroPanel } from "../../../components/FiltroPanel";
 
-const BrandsList = () => {
+const ListaMarcas = () => {
     // const navigate = useNavigate();
 
     // const goToBrand = (brandName: string) => {
     //     navigate(`/brands?name=${brandName}`);
     // }
 
-    const {brands} = useBrandListViewModel();
+    const { marcas } = useListaMarcasViewModel();
 
     return (
         <>
@@ -19,20 +19,20 @@ const BrandsList = () => {
                 <h1 className="text-4xl mb-5">LISTADO DE MARCAS</h1>
 
                 {/* <div className="divider mb-10"></div> */}
-                <FilterPanel/>
+                <FiltroPanel/>
 
                 <div className="flex flex-wrap gap-12 mb-20" >
 
-                    {brands.map(list =>
-                        <BrandCard data={list} key={list.name} />
+                    {marcas.map(lista =>
+                        <MarcaCard data={lista} key={lista.nombre} />
                     )}
 
                 </div>
                 {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-                <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log} />
+                <Paginacion paginaActual={3} itemsPorPagina={12} totalItems={500} handleCambiarPagina={console.log} />
             </div>
         </>
     )
 }
 
-export default BrandsList;
+export default ListaMarcas;

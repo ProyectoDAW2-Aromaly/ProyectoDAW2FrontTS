@@ -1,4 +1,4 @@
-import { CardPerfume } from "../../components/PerfumeCard";
+import { PerfumeCard } from "../../components/PerfumeCard";
 import { FilterPanel } from "../../components/FiltroPanel";
 import Pagination from "../../components/Paginacion";
 import { useListaPerfumesViewModel } from "./useListaPerfumesViewModel";
@@ -23,13 +23,13 @@ const ListaPerfumes = () => {
 
             <div className="flex flex-wrap gap-12 mb-20" >
 
-                {listaPerfumes.map(list =>
-                    <CardPerfume data={list} key={list.id} />
+                {listaPerfumes.map(lista =>
+                    <PerfumeCard data={lista} key={lista.id} />
                 )}
 
             </div>
             {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-            <Pagination currentPage={1} itemsPerPage={12} totalItems={listaPerfumes.length} handlePageChange={(page) => console.log("Ir a página:", page)} />
+            <Pagination paginaActual={1} itemsPorPagina={12} totalItems={listaPerfumes.length} handleCambiarPagina={(pagina) => console.log("Ir a página:", pagina)} />
         </div>
     )
 }
