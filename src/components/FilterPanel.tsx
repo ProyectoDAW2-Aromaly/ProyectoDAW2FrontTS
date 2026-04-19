@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SelectFilter } from "./SelectFilter";
 import { useLocation } from "react-router";
+import { BadgeSelector } from "./BadgeSelector";
 
 const brands = [
     "Xerjoff", "Valentino", "ELDO"
@@ -23,8 +24,6 @@ export const FilterPanel = () => {
     const location = useLocation();
 
     const [selectedBrand, setSelectedBrand] = useState<string>();
-    const [selectedNote, setSelectedNote] = useState<string>();
-    const [selectedOlfactoryFamily, setSelectedOlfactoryFamily] = useState<string>();
     const [selectedGenre, setSelectedGenre] = useState<string>();
 
     return (
@@ -68,20 +67,22 @@ export const FilterPanel = () => {
                     />
 
                     {/* Familia olfativa */}
-                    <SelectFilter
-                        label="Selecciona una familia olfativa"
-                        items={olfactoryFamilies}
-                        value={selectedOlfactoryFamily}
-                        onChange={setSelectedOlfactoryFamily}
-                    />
+                    <div className="flex-1">
+                        <BadgeSelector
+                            label="Selecciona una familia olfativa"
+                            items={olfactoryFamilies}
+                            size="xs"
+                        />
+                    </div>
 
                     {/* Nota */}
-                    <SelectFilter
-                        label="Selecciona una nota"
-                        items={notes}
-                        value={selectedNote}
-                        onChange={setSelectedNote}
-                    />
+                    <div className="flex-1">
+                        <BadgeSelector
+                            label="Selecciona una nota"
+                            items={notes}
+                            size="xs"
+                        />
+                    </div>
 
                     <div className="flex items-center gap-2">
                         <button className="btn btn-neutral btn-sm hover:hover:btn-accent text-primary-content">Buscar</button>
@@ -95,9 +96,7 @@ export const FilterPanel = () => {
                             </a>
                         </div>
                     </div>
-
                 </div>
-
             )}
 
         </div>

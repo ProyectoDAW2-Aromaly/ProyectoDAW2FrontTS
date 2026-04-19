@@ -3,11 +3,15 @@ import { useState } from "react";
 type Props = {
     items: string[];
     label: string;
+    size?: "xs" | "md";
 };
 
-export const BadgeSelector = ({ items, label }: Props) => {
+export const BadgeSelector = ({ items, label, size = "md" }: Props) => {
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [search, setSearch] = useState("");
+    const sizeContenedor = size === "xs"
+        ? "py-1 text-xs"
+        : "py-2 text-base";
 
     // toggle: Cambio entre estados (on/off, true/false, seleccionado/no seleccionado)
     const toggle = (item: string) => {
@@ -29,8 +33,8 @@ export const BadgeSelector = ({ items, label }: Props) => {
     );
 
     return (
-        <div className="dropdown">
-            <label tabIndex={0} className="w-full flex flex-wrap gap-2 justify-start h-auto rounded-field cursor-pointer py-2 bg-transparent border-2 border-neutral/20 pl-2">
+        <div className="dropdown w-full">
+            <label tabIndex={0} className={`w-full flex flex-wrap gap-2 justify-start h-auto rounded-field cursor-pointer py-2 bg-transparent border-2 border-neutral/20 pl-2 ${sizeContenedor}`}>
                 <div className="flex flex-wrap gap-2">
                     {selectedItems.length > 0
                         ? selectedItems.map(item => (
