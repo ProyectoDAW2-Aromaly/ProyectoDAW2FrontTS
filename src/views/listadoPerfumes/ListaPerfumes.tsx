@@ -1,5 +1,5 @@
 import { PerfumeCard } from "../../components/PerfumeCard";
-import { FilterPanel } from "../../components/FiltroPanel";
+import { FiltroPanel } from "../../components/FiltroPanel";
 import Pagination from "../../components/Paginacion";
 import { useListaPerfumesViewModel } from "./useListaPerfumesViewModel";
 
@@ -19,7 +19,7 @@ const ListaPerfumes = () => {
         <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
             <h1 className="text-4xl mb-5">TODOS LOS PERFUMES</h1>
 
-            <FilterPanel />
+            <FiltroPanel />
 
             <div className="flex flex-wrap gap-12 mb-20" >
 

@@ -1,4 +1,4 @@
-import { FilterPanel } from "../../../components/FiltroPanel";
+import { FiltroPanel } from "../../../components/FiltroPanel";
 import { ListaCard } from "../../../components/ListaCard";
 import Pagination from "../../../components/Paginacion";
 import { useListasUsuariosViewModel } from "./useListasUsuariosViewModel"
@@ -11,7 +11,7 @@ const ListasUsuarios = () => {
         <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
             <h1 className="text-4xl mb-5">LISTAS DE USUARIOS</h1>
 
-            <FilterPanel/>
+            <FiltroPanel/>
 
             <div className="flex flex-wrap gap-12 mb-20" >
 
