@@ -18,7 +18,7 @@ export const useMarcaViewModel = () => {
         } else {
             navigate("/not-found") //Para no tener la pantalla en blanco o que no se rompa la página entera
         }
-    }, [searchParams])
+    }, [navigate, searchParams])
 
     return (marcaSeleccionada);
 }
