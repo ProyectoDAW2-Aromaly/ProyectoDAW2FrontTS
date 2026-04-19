@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function Footer(){
     
     return(
@@ -5,9 +7,9 @@ export default function Footer(){
             <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
             <nav>
                 <h6 className="footer-title">Enlaces</h6>
-                <a className="link link-hover">Inicio</a>
-                <a className="link link-hover">Explorar Perfumes</a>
-                <a className="link link-hover">Premuim</a>
+                <Link className="link link-hover" to="/">Inicio</Link>
+                <Link className="link link-hover" to="/perfumes">Explorar Perfumes</Link>
+                <Link className="link link-hover" to="/premium">Premium</Link>
             </nav>
             <nav>
                 <h6 className="footer-title">Legal</h6>
@@ -23,7 +25,7 @@ export default function Footer(){
             <footer className="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">
             <aside className="grid-flow-col items-center">
                 <p>
-                © 2026 –Aromaly
+                © 2026 – Aromaly
                 <br />
                 Proyecto académico | Sitio web informativo. No vendemos perfumes.
                 </p>

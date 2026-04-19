@@ -224,9 +224,9 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                         {selectedPerfume.coleccion && (
                             <h5>
                                 Colección:
-                                <a href="" className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent">
+                                <div className="badge badge-sm badge-soft badge-neutral ml-2">
                                     {selectedPerfume.coleccion}
-                                </a>
+                                </div>
                             </h5>
                         )}
 
@@ -255,7 +255,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
 
                                 <div className="flex flex-wrap gap-2">
                                     {p.notas.map(note =>
-                                        <a key={note.nombre} href="" className="badge badge-s badge-soft badge-neutral hover:badge-accent">{note.nombre}</a>
+                                        <div key={note.nombre} className="badge badge-s badge-soft badge-neutral">{note.nombre}</div>
                                     )}
                                 </div>
 

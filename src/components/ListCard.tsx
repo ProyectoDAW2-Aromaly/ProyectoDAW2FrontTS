@@ -26,7 +26,7 @@ export const ListCard = ({ data, user }: ListCardProps ) => {
 
     const [liked, setLiked] = useState(false);
 
-    // ! FIXME: ARREGLAR QUE SI EL USUARIO ES EL MISMO DE LA LISTA, UN BOTÓN DE EDITAR EN VEZ DE GUARDAR
+    // ! FIXME ARREGLAR QUE SI EL USUARIO ES EL MISMO DE LA LISTA, UN BOTÓN DE EDITAR EN VEZ DE GUARDAR
 
     return <div className="card bg-base-100 shadow-sm w-96">
         <div className="card-body flex flex-col justify-between">
