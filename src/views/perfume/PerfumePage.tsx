@@ -77,12 +77,20 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
 
     const {
         selectedPerfume,
+        loading,
         rating,
         handleRatingChange,
         liked,
         setLiked
-    } = usePerfumeViewModel()
+    } = usePerfumeViewModel();
 
+    if (loading) {
+        return (
+            <div className="flex h-screen w-full items-center justify-center">
+                <span className="loading loading-spinner loading-lg text-neutral"></span>
+            </div>
+        );
+    }
 
     if (selectedPerfume === undefined) return null
 

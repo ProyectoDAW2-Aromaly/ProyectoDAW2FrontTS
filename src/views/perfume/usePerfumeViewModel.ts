@@ -147,6 +147,7 @@ export const usePerfumeViewModel = () => {
         rating,
         handleRatingChange,
         liked,
-        setLiked
+        setLiked,
+        loading
     }
 }

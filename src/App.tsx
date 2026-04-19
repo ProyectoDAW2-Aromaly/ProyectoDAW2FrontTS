@@ -15,7 +15,7 @@ import BrandPage from './views/brand/singlebrand/BrandPage'
 import UserLists from './views/list/userlists/UserLists'
 import Premium from './views/premium/Premium'
 import BuyMeACoffee from './components/BuyMeACoffee'
-import ListPerfumes from './views/listPerfumes/ListPerfumes'
+import ListaPerfumes from './views/listPerfumes/ListaPerfumes'
 
 export interface IUser {
   userName: string,
@@ -38,7 +38,7 @@ function App() {
           <Route path='/registro' element={<Register/>}></Route>
 
           <Route path='/' element={<Home />} />
-          <Route path='/perfumes' element={<ListPerfumes />} />
+          <Route path='/perfumes' element={<ListaPerfumes />} />
           <Route path='/perfume/:id' element={<PerfumePage user={user} setUser={setUser} />} />
           <Route path='/perfume/form' element={<PerfumeForm />} />
           <Route path="/perfumer" element={<PerfumerPage user={user} setUser={setUser} />} />
