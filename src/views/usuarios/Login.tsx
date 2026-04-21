@@ -1,34 +1,78 @@
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import UserContext from "../../context/UserContext";
+import { doLogin, getUser } from "../../servicios/usuarios.services";
+
 export default function Login() {
+  const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+
+  const [form, setForm] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError("");
+
+    const result = await doLogin(form);
+
+    if (result?.status === 200) {
+      userContext?.setUser(getUser());
+      navigate("/");
+      return;
+    }
+
+    setError(result?.mensaje || "Error al iniciar sesión");
+  };
 
   return (
     <div className="min-h-screen relative flex items-center justify-center bg-base-200/30 transition-colors duration-500">
-      <div className="w-sm bg-base-100 shadow-lg rounded-2xl p-6">
+      <form onSubmit={handleSubmit} className="w-sm bg-base-100 shadow-lg rounded-2xl p-6">
         <div className="card-body">
-
           <h1 className="font-semibold text-lg text-center mb-6">INICIAR SESIÓN</h1>
 
-          <input type="email" className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50" placeholder="Email" />
+          <input
+            name="username"
+            type="text"
+            className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
+            placeholder="Username"
+            value={form.username}
+            onChange={handleChange}
+          />
 
-          <input type="password" className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50" placeholder="Contraseña" />
+          <input
+            name="password"
+            type="password"
+            className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
+            placeholder="Contraseña"
+            value={form.password}
+            onChange={handleChange}
+          />
 
-          <div className="flex justify-between text-xs text-base-content mb-6">
-            <label className="flex items-center gap-1">
-              <input type="checkbox" className="checkbox checkbox-xs" />
-              Recuérdame
-            </label>
-            <a className="link link-hover">¿Has olvidado la contraseña?</a>
-          </div>
-          
+          {error && <p className="text-error text-sm mb-3">{error}</p>}
 
-          <button className="btn btn-neutral hover:btn-accent text-primary-content">Registrarse</button>
+          <button className="btn btn-neutral hover:btn-accent text-primary-content" type="submit">
+            Iniciar sesión
+          </button>
 
           <div className="divider">o</div>
 
           <p className="text-center text-xs text-base-content/80">
-            ¿No tienes cuenta? <a href="/registro" className="text-accent">Regístrate aquí.</a>
+            ¿No tienes cuenta? <Link to="/registro" className="text-accent">Regístrate aquí.</Link>
           </p>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
