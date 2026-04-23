@@ -1,12 +1,17 @@
+import { useEffect, useState } from "react";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { ListCard } from "../../components/ListCard";
 import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
-import type { IUser } from "../../App";
+import type { IUser } from "../../servicios/usuarios.services";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 import { LIST } from "../list/ListData";
-
-const userLists = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
+import {
+    addPerfumeToList,
+    getMyListsForPerfume,
+    removePerfumeFromList,
+    type IListaPerfumeOption,
+} from "../../servicios/listas.services";
 
 const seasons = [
     { name: "Otoño", icon: "/perfume-info/icons/season/autumn-icon.svg" },
@@ -51,29 +56,21 @@ const mockedPerfumes: ICardPerfume[] = [
             "Gourmand"
         ]
     },
-]
-
-
-const tempUser: IUser = {
-    userName: "Jakob",
-    pfp: "/user/profile-pic/profile2.jpg",
-    rol: "admin"
-}
-
-{/* TODO: https://www.svgrepo.com/ https://allsvgicons.com/ svg gratis TODO: Iconos de DaisyUI -> https://heroicons.com/ */ }
+];
 
 interface IPerfumePage {
-    user?: IUser,
-    // * Definimos que se le pasará una función que reciba un usuario. Devuelve void
-    setUser: (val?: IUser) => void
+    user?: IUser;
 }
 
-const PerfumePage = ({ user, setUser }: IPerfumePage) => {
+const PerfumePage = ({ user }: IPerfumePage) => {
     const navigate = useNavigate();
+    const [listasUsuario, setListasUsuario] = useState<IListaPerfumeOption[]>([]);
+    const [listasLoading, setListasLoading] = useState(false);
+    const [listasError, setListasError] = useState("");
 
     const goToEditPerfume = (perfumeId: string) => {
         navigate(`/perfume/form?edit=${perfumeId}`);
-    }
+    };
 
     const {
         selectedPerfume,
@@ -81,27 +78,67 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
         handleRatingChange,
         liked,
         setLiked
-    } = usePerfumeViewModel()
+    } = usePerfumeViewModel();
 
+    useEffect(() => {
+        const loadListas = async () => {
+            if (!user || !selectedPerfume?.id) {
+                setListasUsuario([]);
+                return;
+            }
 
-    if (selectedPerfume === undefined) return null
+            try {
+                setListasLoading(true);
+                setListasError("");
+                const listas = await getMyListsForPerfume(Number(selectedPerfume.id));
+                setListasUsuario(listas);
+            } catch (err) {
+                setListasError(err instanceof Error ? err.message : "No se pudieron cargar las listas");
+            } finally {
+                setListasLoading(false);
+            }
+        };
+
+        loadListas();
+    }, [user, selectedPerfume?.id]);
+
+    const handleTogglePerfumeInList = async (idLista: number, checked: boolean) => {
+        if (!selectedPerfume?.id) return;
+
+        const idPerfume = Number(selectedPerfume.id);
+
+        try {
+            setListasError("");
+
+            if (checked) {
+                await addPerfumeToList(idLista, idPerfume);
+            } else {
+                await removePerfumeFromList(idLista, idPerfume);
+            }
+
+            setListasUsuario((prev) =>
+                prev.map((lista) =>
+                    lista.id === idLista
+                        ? {
+                            ...lista,
+                            contienePerfume: checked,
+                            totalPerfumes: checked
+                                ? lista.totalPerfumes + 1
+                                : Math.max(0, lista.totalPerfumes - 1),
+                        }
+                        : lista
+                )
+            );
+        } catch (err) {
+            setListasError(err instanceof Error ? err.message : "No se pudo actualizar la lista");
+        }
+    };
+
+    if (selectedPerfume === undefined) return null;
 
     return (
         <div>
-            {/* Botones de prueba */}
-            <div className="relative mt-15">
-                <div className="absolute top-2 left-2 flex gap-2 z-30">
-                    <button onClick={() => setUser(tempUser)} className="btn btn-xs">
-                        Usuario
-                    </button>
-                    <button onClick={() => setUser(undefined)} className="btn btn-xs">
-                        No usuario
-                    </button>
-                </div>
-            </div>
             <div className="mx-auto max-w-7xl px-4 mt-25">
-                {/* INFORMACIÓN GENERAL DEL PERFUME */}
-                {/* FIXME: No me termina de convencer como queda el logo */}
                 <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row">
                     <figure className="w-full md:w-4xl h-auto flex-3">
                         <img
@@ -111,79 +148,102 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                     </figure>
                     <div className="card-body items-start flex-5">
                         <h1 className="card-title ml-2">{selectedPerfume.name}</h1>
-                        {/* TODO: LINK A MARCA */}
-                        <Link to="/brand?name=xerjoff" className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0"> {/*Habría que mirar qué hacer cuando es el tema oscuro*/}
+                        <Link to="/brand?name=xerjoff" className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0">
                             <figure className="flex items-center justify-center rounded-none">
                                 <img
                                     src={selectedPerfume.logo.src}
                                     alt={selectedPerfume.logo.alt}
                                     style={{
-                                        width: '80px',
-                                        height: 'auto',
-                                        maxHeight: '60px'
+                                        width: "80px",
+                                        height: "auto",
+                                        maxHeight: "60px"
                                     }}
                                     className="object-contain"
                                 />
                             </figure>
                         </Link>
 
-                        {/* z-50 -> Profundidad. Cuanto + número, + arriba */}
-                        {/* TOOLTIPS */}
                         <div className="absolute top-2 right-2 flex gap-2 z-40">
+                            {user?.rol === "ADMIN" ? (
+                                <div className="tooltip save" data-tip="Editar perfume">
+                                    <button className="btn btn-circle" onClick={() => goToEditPerfume(selectedPerfume.id)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            ) : null}
 
-                            {/* EDITAR PERFUME -> ADMIN*/}
-                            {user?.rol === "admin" ? <div className="tooltip save" data-tip="Editar perfume">
-                                <button className="btn btn-circle" onClick={() => goToEditPerfume(selectedPerfume.id)}>
+                            {user ? (
+                                <div className="dropdown dropdown-end tooltip save" data-tip="Guardar en lista">
+                                    <label tabIndex={0} className="btn btn-circle">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="2"
+                                            stroke="currentColor"
+                                            className="size-[1.6em]"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                    </label>
+                                    <div tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-64 p-3 shadow-sm mt-2">
+                                        <h4 className="font-semibold mb-2">Guardar en lista</h4>
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                                    </svg>
+                                        {listasLoading && <p className="text-sm opacity-70">Cargando listas...</p>}
+                                        {listasError && <p className="text-sm text-error mb-2">{listasError}</p>}
+                                        {!listasLoading && listasUsuario.length === 0 && (
+                                            <p className="text-sm opacity-70">No tienes listas creadas.</p>
+                                        )}
 
-                                </button>
-                            </div> : null}
+                                        <ul className="space-y-2 max-h-52 overflow-y-auto">
+                                            {listasUsuario.map((list) => (
+                                                <li className="flex items-center justify-between gap-3" key={list.id}>
+                                                    <div>
+                                                        <p className="font-medium">{list.nombre}</p>
+                                                        <p className="text-xs opacity-60">
+                                                            {list.totalPerfumes} perfumes
+                                                        </p>
+                                                    </div>
 
-                            {/* GUARDAR EN LISTA X -> ADMIN + PREMIUM */}
-                            {(user?.rol === "premium" || user?.rol === "admin") ? <div className="dropdown dropdown-end tooltip save" data-tip="Guardar en lista">
-                                <label tabIndex={0} className="btn btn-circle">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="2"
-                                        stroke="currentColor"
-                                        className="size-[1.6em]"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                    </svg>
-                                </label>
-                                <ul tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2 space-y-2 max-h-40 overflow-y-auto">
-                                    {userLists.map((list, index) => (
-                                        <li className="flex flex-row" key={index}>
-                                            <p>{list}</p>
-                                            <input type="checkbox" className="checkbox checkbox-primary" />
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div> : null}
+                                                    <input
+                                                        type="checkbox"
+                                                        className="checkbox checkbox-primary"
+                                                        checked={list.contienePerfume}
+                                                        onChange={(e) => handleTogglePerfumeInList(list.id, e.target.checked)}
+                                                    />
+                                                </li>
+                                            ))}
+                                        </ul>
 
-                            {/* GUARDAR EN FAVORITOS -> TODOS */}
-                            {user ? <div className="tooltip save"
-                                data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
-                            >
-                                <button className="btn btn-circle" onClick={() => setLiked(!liked)}>
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill={liked ? "currentColor" : "none"}
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="2"
-                                        stroke={liked ? "currentColor" : "currentColor"}
-                                        className="size-[1.6em]"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                                    </svg>
-                                </button>
-                            </div> : null}
+                                        <div className="divider my-2"></div>
+                                        <Link to="/perfil" className="btn btn-sm btn-neutral w-full">
+                                            Crear o gestionar listas
+                                        </Link>
+                                    </div>
+                                </div>
+                            ) : null}
 
+                            {user ? (
+                                <div
+                                    className="tooltip save"
+                                    data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}
+                                >
+                                    <button className="btn btn-circle" onClick={() => setLiked(!liked)}>
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill={liked ? "currentColor" : "none"}
+                                            viewBox="0 0 24 24"
+                                            strokeWidth="2"
+                                            stroke="currentColor"
+                                            className="size-[1.6em]"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            ) : null}
                         </div>
 
                         <div className="divider">Descripción</div>
@@ -203,7 +263,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                         </h5>
                         <h5 className="flex items-center">
                             Género
-                            <figure >
+                            <figure>
                                 <img
                                     src={selectedPerfume.genderIcon}
                                     alt="Icono de género"
@@ -214,7 +274,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                         <h5>Perfumista:
                             {selectedPerfume.perfumer.map((perfumer) => (
                                 <span key={perfumer.id}>
-                                    <Link className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" to={`/perfumer/?id=1`}>
+                                    <Link className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent" to="/perfumer/?id=1">
                                         {perfumer.name}
                                     </Link>
                                 </span>
@@ -229,13 +289,11 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 </a>
                             </h5>
                         )}
-
                     </div>
                 </div>
 
-                {/* PIRÁMIDE OLFATIVA */}
                 <h1 className="text-2xl text-center mb-10 mt-10">PIRÁMIDE OLFATIVA</h1>
-                <div className="flex flex-wrap gap-12" >
+                <div className="flex flex-wrap gap-12">
                     {selectedPerfume.pyramids.map(pyramid =>
                         <div className="card bg-base-100 shadow-sm w-96" key={pyramid.category}>
                             <div className="card-body">
@@ -243,13 +301,13 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
 
                                 <div className="flex flex-wrap gap-6 mb-4">
                                     {pyramid.notes.map(note =>
-                                        note.imageSrc ?
+                                        note.imageSrc ? (
                                             <div className="avatar" key={note.name}>
                                                 <div className="w-14 rounded-full">
                                                     <img src={note.imageSrc} />
                                                 </div>
                                             </div>
-                                            : null
+                                        ) : null
                                     )}
                                 </div>
 
@@ -258,23 +316,18 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                         <a key={note.name} href="" className="badge badge-s badge-soft badge-neutral hover:badge-accent">{note.name}</a>
                                     )}
                                 </div>
-
                             </div>
                         </div>
                     )}
                 </div>
 
-                {/* VALORACIONES */}
                 <h1 className="text-2xl text-center mb-10 mt-10">VALORACIONES</h1>
                 <div className="card bg-base-100 shadow-sm w-auto">
-                    {/* md: Pantalla mediana o mayor */}
                     <div className="flex flex-col md:flex-row">
-                        {/* FORMULARIO VALORACIÓN */}
                         <div className="card-body w-full md:w-1/2">
                             <h2 className="card-title">Tu valoración</h2>
                             {user ? (
                                 <>
-                                    {/* ÉPOCA */}
                                     <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
@@ -286,9 +339,8 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                         </div>
 
                                         <div className="flex gap-4 mb-2 mt-5">
-                                            {/* peer: Afecta al elemento hermano, es para poner efectos*/}
                                             {seasons.map((season) => {
-                                                const iconClases = `w-5 grayscale peer-checked:grayscale-0 hover:scale-115 transition-transform duration-150 ease-out`;
+                                                const iconClases = "w-5 grayscale peer-checked:grayscale-0 hover:scale-115 transition-transform duration-150 ease-out";
 
                                                 return (
                                                     <label key={season.name} className="flex w-40 cursor-pointer gap-2">
@@ -296,13 +348,11 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                                         <img src={season.icon} alt={`Icono de ${season.name}`} className={iconClases} />
                                                         <span className="transition-all peer-checked:text-primary">{season.name}</span>
                                                     </label>
-                                                )
+                                                );
                                             })}
-
                                         </div>
                                     </div>
 
-                                    {/* DURACIÓN*/}
                                     <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
@@ -317,19 +367,18 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                             {labelsDuration.map((label, index) => (
                                                 <label key={label} className="flex items-center gap-2 cursor-pointer">
                                                     <input type="radio" name="duration" className="radio radio-xs radio-primary" checked={rating?.duration === index} onClick={() => {
-                                                        if (rating?.duration === index)
-                                                            handleRatingChange("duration", undefined)
-                                                        else
-                                                            handleRatingChange("duration", index)
+                                                        if (rating?.duration === index) {
+                                                            handleRatingChange("duration", undefined);
+                                                        } else {
+                                                            handleRatingChange("duration", index);
+                                                        }
                                                     }} />
                                                     <span className={`text-sm transition-colors ${rating?.duration === index ? "text-primary" : "text-base-content/60"} hover:text-primary`}>{label}</span>
                                                 </label>
                                             ))}
-
                                         </div>
                                     </div>
 
-                                    {/* PRECIO */}
                                     <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
@@ -344,20 +393,18 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                             {labelsPrice.map((label, index) => (
                                                 <label key={label} className="flex items-center gap-2 cursor-pointer">
                                                     <input type="radio" name="price" className="radio radio-xs radio-primary" checked={rating?.price === index} onClick={() => {
-                                                        if (rating?.price === index)
-                                                            handleRatingChange("price", undefined)
-                                                        else
-                                                            handleRatingChange("price", index)
+                                                        if (rating?.price === index) {
+                                                            handleRatingChange("price", undefined);
+                                                        } else {
+                                                            handleRatingChange("price", index);
+                                                        }
                                                     }} />
                                                     <span className={`text-sm transition-all ${rating?.price === index ? "text-primary" : "text-base-content/60"} hover:text-primary`}>{label}</span>
                                                 </label>
                                             ))}
-
                                         </div>
-
                                     </div>
 
-                                    {/* PUNTUACIÓN GENERAL */}
                                     <div>
                                         <div className="flex w-40 mt-5 mb-2">
                                             <img
@@ -379,10 +426,11 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                                         aria-label={`${star} star`}
                                                         checked={star === rating?.general}
                                                         onClick={() => {
-                                                            if (rating?.general === star)
-                                                                handleRatingChange("general", undefined)
-                                                            else
-                                                                handleRatingChange("general", star)
+                                                            if (rating?.general === star) {
+                                                                handleRatingChange("general", undefined);
+                                                            } else {
+                                                                handleRatingChange("general", star);
+                                                            }
                                                         }}
                                                     />
                                                 ))}
@@ -390,7 +438,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                         </div>
                                     </div>
                                 </>
-                            ) :
+                            ) : (
                                 <div className="card-body">
                                     <div className="flex gap-6 mb-2 flex-wrap justify-center items-center w-full h-20">
                                         <h1 className="text-center text-lg">Debes <Link className="link hover:link-accent hover:no-underline" to="/registro">registrarte</Link>
@@ -400,15 +448,13 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                         </h1>
                                     </div>
                                 </div>
-                            }
+                            )}
                         </div>
 
                         <div className="divider md:divider-horizontal mt-5 mb-5"></div>
-                        {/* VALORACIÓN MEDIA/RESULTADOS */}
                         <div className="card-body w-full md:w-1/2">
                             <h2 className="card-title">Valoración media</h2>
 
-                            {/* Época del año resultado */}
                             <div>
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img
@@ -423,7 +469,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     {seasons.map((season) => {
                                         const value = 70;
                                         return (
-                                            <div className="flex flex-col items-center">
+                                            <div className="flex flex-col items-center" key={season.name}>
                                                 <div className="radial-progress flex"
                                                     style={{ "--value": value, "--size": "2.3rem" } as React.CSSProperties}
                                                     aria-valuenow={70} role="progressbar">
@@ -431,12 +477,11 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                                 </div>
                                                 <span className="text-xs font-medium">{value}%</span>
                                             </div>
-                                        )
+                                        );
                                     })}
                                 </div>
                             </div>
 
-                            {/* Duración resultado */}
                             <div>
                                 <div className="flex w-40 mt-3 mb-4">
                                     <img
@@ -449,7 +494,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 <div className="badge badge-s badge-soft badge-neutral">Buena</div>
                             </div>
 
-                            {/* Precio */}
                             <div>
                                 <div className="flex w-40 mt-3 mb-4">
                                     <img
@@ -462,7 +506,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 <div className="badge badge-s badge-soft badge-neutral">Muy caro</div>
                             </div>
 
-                            {/* Puntuación general */}
                             <div>
                                 <div className="flex w-40 mt-3 mb-4">
                                     <img
@@ -485,29 +528,22 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-                {/* LISTAS DESTACADAS */}
                 <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
-                <div className="flex flex-wrap gap-12" >
-
+                <div className="flex flex-wrap gap-12">
                     {LIST.slice(0, 3).map(list =>
                         <ListCard data={list} user={user} key={list.id} />
                     )}
-
                 </div>
 
-                {/* PERFUMES SIMILARES */}
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES SIMILARES</h1>
-                <div className="flex flex-wrap gap-12" >
-
+                <div className="flex flex-wrap gap-12">
                     {mockedPerfumes.map(list =>
                         <CardPerfume data={list} key={list.id} />
                     )}
-
                 </div>
-                {/* * COMENTARIOS */}
+
                 <h1 className="text-2xl text-center mb-10 mt-10">COMENTARIOS</h1>
                 <div className="divider mt-10">Añade un comentario</div>
                 <div className="flex flex-col">
@@ -526,7 +562,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
 
                                     <div className="w-full">
                                         <div className="flex flex-col gap-2 w-full">
-
                                             <textarea
                                                 className="textarea textarea-md w-full h-22"
                                                 placeholder="Escribe aquí tu comentario..."
@@ -551,9 +586,7 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                 </div>
 
                 <div className="divider mt-4"></div>
-                <div className="flex flex-col gap-2" >
-
-                    {/* COMENTARIO 1 */}
+                <div className="flex flex-col gap-2">
                     <div className="card bg-base-100 w-auto">
                         <div className="card-body flex flex-col justify-between">
                             <div className="flex gap-6 mb-2 items-center">
@@ -561,7 +594,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     <div className="w-14 rounded-full">
                                         <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
                                     </div>
-                                    {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
                                     <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
 
@@ -571,10 +603,8 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    {/* COMENTARIO 2 */}
                     <div className="card bg-base-100 w-auto">
                         <div className="card-body flex flex-col justify-between">
                             <div className="flex gap-6 mb-2 items-center">
@@ -582,7 +612,6 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                     <div className="w-14 rounded-full">
                                         <img src="/user/profile-pic/profile1.jpg" alt="Foto de perfil de Axel" />
                                     </div>
-                                    {/* TODO: Investigar una forma de mostrar la descripción del icono. Ejemplo: Premium, Cafés donados, etc */}
                                     <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
                                 </div>
 
@@ -592,14 +621,12 @@ const PerfumePage = ({ user, setUser }: IPerfumePage) => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
             </div>
-            {/* <Footer /> */}
         </div>
-    )
-}
+    );
+};
 
 export default PerfumePage;
