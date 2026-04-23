@@ -140,7 +140,7 @@ export default function Navbar() {
               </div>
 
               <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-30 p-2 shadow">
-                <li><a>Perfil</a></li>
+                <li><Link to="/perfil">Perfil</Link></li>
                 <li><a>Ajustes</a></li>
                 <li><button onClick={handleLogout}>Cerrar sesión</button></li>
 
