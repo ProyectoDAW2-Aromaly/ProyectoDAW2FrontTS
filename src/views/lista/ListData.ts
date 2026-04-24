@@ -3,11 +3,11 @@ import { IList } from "./IList";
 export const LIST: IList[] = [
     {
         id: "AxelID",
-        username: "Axel",
-        title: "Perfumes nicho",
+        nombreUsuario: "Axel",
+        titulo: "Perfumes nicho",
         pfp: "/user/profile-pic/profile1.jpg",
         premium: true,
-        coffee: false,
+        cafe: false,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -21,11 +21,11 @@ export const LIST: IList[] = [
     },
     {
         id: "JakobID",
-        username: "Jakob",
-        title: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
+        nombreUsuario: "Jakob",
+        titulo: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
         pfp: "/user/profile-pic/profile2.jpg",
         premium: false,
-        coffee: true,
+        cafe: true,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -55,11 +55,11 @@ export const LIST: IList[] = [
     },
     {
         id: "KevinID",
-        username: "Kevin",
-        title: "Perfumes verano",
+        nombreUsuario: "Kevin",
+        titulo: "Perfumes verano",
         pfp: "/user/profile-pic/profile3.png",
         premium: false,
-        coffee: false,
+        cafe: false,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -70,11 +70,11 @@ export const LIST: IList[] = [
     },
     {
         id: "AxelID",
-        username: "Axel",
-        title: "Perfumes nicho",
+        nombreUsuario: "Axel",
+        titulo: "Perfumes nicho",
         pfp: "/user/profile-pic/profile1.jpg",
         premium: true,
-        coffee: false,
+        cafe: false,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -88,11 +88,11 @@ export const LIST: IList[] = [
     },
     {
         id: "JakobID",
-        username: "Jakob",
-        title: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
+        nombreUsuario: "Jakob",
+        titulo: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
         pfp: "/user/profile-pic/profile2.jpg",
         premium: false,
-        coffee: true,
+        cafe: true,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -122,11 +122,11 @@ export const LIST: IList[] = [
     },
     {
         id: "KevinID",
-        username: "Kevin",
-        title: "Perfumes verano",
+        nombreUsuario: "Kevin",
+        titulo: "Perfumes verano",
         pfp: "/user/profile-pic/profile3.png",
         premium: false,
-        coffee: false,
+        cafe: false,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -137,11 +137,11 @@ export const LIST: IList[] = [
     },
     {
         id: "AxelID",
-        username: "Axel",
-        title: "Perfumes nicho",
+        nombreUsuario: "Axel",
+        titulo: "Perfumes nicho",
         pfp: "/user/profile-pic/profile1.jpg",
         premium: true,
-        coffee: false,
+        cafe: false,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -155,11 +155,11 @@ export const LIST: IList[] = [
     },
     {
         id: "JakobID",
-        username: "Jakob",
-        title: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
+        nombreUsuario: "Jakob",
+        titulo: "TÍTULO SUPER LARGO PARA PROBAR SI ESTO ENCAJA BIEN O NO",
         pfp: "/user/profile-pic/profile2.jpg",
         premium: false,
-        coffee: true,
+        cafe: true,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
@@ -189,11 +189,11 @@ export const LIST: IList[] = [
     },
     {
         id: "KevinID",
-        username: "Kevin",
-        title: "Perfumes verano",
+        nombreUsuario: "Kevin",
+        titulo: "Perfumes verano",
         pfp: "/user/profile-pic/profile3.png",
         premium: false,
-        coffee: false,
+        cafe: false,
         perfumes: [
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
             "/perfume-info/perfume/ELDO/eldo-perfume.webp",
