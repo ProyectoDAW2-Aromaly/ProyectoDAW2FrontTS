@@ -52,7 +52,7 @@ const mapFamilias = (familias: IPerfumeBackend["familiasOlfativas"]): string[] =
 export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
     ...perfume,
     coleccion: perfume.coleccion ?? "",
-    descripcion: Array.isArray(perfume.descripcion) ? perfume.descripcion : [perfume.descripcion],
+    descripcion: perfume.descripcion ?? "",
     genero: getGeneroImagen(perfume.genero),
     yearSalida: perfume.fechaLanzamiento ?? "",
     perfumista: perfume.perfumistas ?? [],
