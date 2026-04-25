@@ -7,7 +7,7 @@ interface IPerfumeBackend {
     nombre: string
     foto: string
     marca: { nombre: string }
-    familiasOlfativas: { nombre: string }[];
+    familiasOlfativas: string[];
 }
 
 export const useListaPerfumesViewModel = () => {
@@ -34,7 +34,7 @@ export const useListaPerfumesViewModel = () => {
 
                     // Si viene en una lista...
                     familiasOlfativas: Array.isArray(p.familiasOlfativas)
-                        ? p.familiasOlfativas.map((f) => f.nombre) // De cada familia, solo guarda el nombre
+                        ? p.familiasOlfativas // De cada familia, solo guarda el nombre
                         : [] // Si no hay nada, lista vacía
                 }));
 

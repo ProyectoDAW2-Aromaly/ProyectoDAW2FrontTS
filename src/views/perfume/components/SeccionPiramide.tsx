@@ -37,7 +37,7 @@ export const SeccionPiramide = ({ notas }: { notas: INota[] }) => {
                             </div>
 
                             <div className="flex flex-wrap gap-2">
-                                {notasTipo.slice(0, 3).map((nota) => (
+                                {notasTipo.map((nota) => (
                                     <div key={nota.nombre} className="badge badge-s badge-soft badge-neutral">
                                         {nota.nombre}
                                     </div>

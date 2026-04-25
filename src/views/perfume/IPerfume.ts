@@ -11,7 +11,7 @@ export interface INota {
 export interface IPerfume {
     id: string,
     nombre: string,
-    descripcion: string[],
+    descripcion: string,
     genero: string,
     perfumista: IPerfumista[],
     yearSalida: string,
@@ -51,7 +51,7 @@ export interface INotaBackend {
 export interface IPerfumeBackend {
     id: string
     nombre: string
-    descripcion: string | string[]
+    descripcion: string
     genero: string
     fechaLanzamiento?: string
     coleccion?: string
