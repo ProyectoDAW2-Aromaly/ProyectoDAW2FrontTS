@@ -1,47 +1,51 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router";
+
+import UserContext from "../context/UserContext";
+import { logout } from "../servicios/usuarios.services";
 
 // ^ Es como un selector. Te limita solo a esas Strings, en este caso los temas de Daisy. Dark -> luxury | halloween | cofee . Light: caramellatte | garden | retro
 const THEMES = {
-  "light": "caramellatte",
-  "dark": "halloween"
-}
+  light: "caramellatte",
+  dark: "halloween",
+};
 
-interface IUser {
-  userName: string,
-  // Profile picture
-  pfp: string,
-  rol: string
-}
+export default function Navbar() {
+  const userContext = useContext(UserContext);
+  const navigate = useNavigate();
+  const user = userContext?.user;
 
-interface INavbar {
-  user?: IUser;
-}
-
-export default function Navbar({ user }: INavbar) {
   // ^ THEMES -> Solo puede ser luxury o caramellatte. theme -> Guarda el tema actual. setTheme -> Cambia el tema.
   const [theme, setTheme] = useState(
     // ^ ?? -> Si el tema guardado en localStorage no es null, se usa el que está puesto, si es null, tema claro por defecto
     localStorage.getItem("theme") ?? THEMES.light
-  )
+  );
 
   const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTheme = e.target.checked ? THEMES.dark : THEMES.light;
-    setTheme(newTheme)
-  }
+    setTheme(newTheme);
+  };
+
+  const handleLogout = () => {
+    logout();
+    userContext?.setUser(null);
+    navigate("/");
+  };
 
   // ^ Ejecuta esto solo cuando el estado theme cambie
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme)
-  }, [theme])
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   return (
     <div className="navbar bg-base-100 fixed top-0 left-0 w-full z-50 shadow-sm h-auto min-h-24 md:min-h-auto">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" /> </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
+            </svg>
           </div>
           <ul className="menu dropdown-content bg-base-200 rounded-box w-56">
             <li><Link to="/">Inicio</Link></li>
@@ -58,6 +62,7 @@ export default function Navbar({ user }: INavbar) {
           </ul>
         </div>
       </div>
+
       <div className="navbar-center">
         <Link to="/" className="text-xl">
           <img
@@ -66,9 +71,9 @@ export default function Navbar({ user }: INavbar) {
           />
         </Link>
       </div>
+
       <div className="navbar-end">
         <div className="navbar-end">
-          {/* Icono lupa */}
           <button
             className="btn btn-ghost btn-circle mr-3"
             onClick={() => (document.getElementById("search_modal") as HTMLDialogElement).showModal()}
@@ -89,7 +94,6 @@ export default function Navbar({ user }: INavbar) {
             </svg>
           </button>
 
-          {/* Modal */}
           <dialog id="search_modal" className="modal items-start">
             <div className="modal-box relative mt-20 p-3 w-11/12 max-w-6xl">
               <label className="input flex items-center gap-2 w-full">
@@ -119,31 +123,35 @@ export default function Navbar({ user }: INavbar) {
               </label>
             </div>
             <form method="dialog" className="modal-backdrop">
-                <button>
-                  close
-                </button>
-              </form>
+              <button>
+                close
+              </button>
+            </form>
           </dialog>
-          {/* Fin dialog */}
         </div>
+
         <div className="dropdown dropdown-end">
           {user ? (
             <>
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
                 <div className="w-10 rounded-full">
-                  <img alt="avatar" src={user.pfp} />
+                  <img alt="avatar" src={user.pfp || "/user/profile-pic/profile1.jpg"} />
                 </div>
               </div>
-              <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-30 p-2 shadow">
 
+              <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-30 p-2 shadow">
                 <li><a>Perfil</a></li>
                 <li><a>Ajustes</a></li>
-                <li><a>Cerrar sesión</a></li>
+                <li><button onClick={handleLogout}>Cerrar sesión</button></li>
 
-                {user.rol === "free" && (
+                {user.rol === "BASICO" && (
                   <>
                     <div className="divider"></div>
-                    <li><button className="btn btn-xs btn-accent">PREMIUM</button></li>
+                    <li>
+                      <Link to="/premium" className="btn btn-xs btn-accent">
+                        PREMIUM
+                      </Link>
+                    </li>
                   </>
                 )}
               </ul>
@@ -159,18 +167,37 @@ export default function Navbar({ user }: INavbar) {
               </div>
             </div>
           )}
-
-          </div>
+        </div>
 
         <label className="toggle text-base-content mr-5">
-          <input type="checkbox" onChange={handleToggle} checked={theme === THEMES.dark} className="theme-controller" />
+          <input
+            type="checkbox"
+            onChange={handleToggle}
+            checked={theme === THEMES.dark}
+            className="theme-controller"
+          />
 
-          <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></g></svg>
+          <svg aria-label="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </g>
+          </svg>
 
-          <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></g></svg>
-
+          <svg aria-label="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </g>
+          </svg>
         </label>
       </div>
     </div>
-  )
+  );
 }
