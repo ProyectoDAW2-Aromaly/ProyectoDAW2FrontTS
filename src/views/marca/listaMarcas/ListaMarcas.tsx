@@ -2,6 +2,7 @@ import Paginacion from "../../../components/Paginacion"
 import MarcaCard from "../../../components/MarcaCard";
 import { useListaMarcasViewModel } from "./useListaMarcasViewModel";
 import { FiltroPanel } from "../../../components/FiltroPanel";
+import { useState } from "react";
 
 const ListaMarcas = () => {
     // const navigate = useNavigate();
@@ -10,7 +11,24 @@ const ListaMarcas = () => {
     //     navigate(`/brands?name=${brandName}`);
     // }
 
-    const { marcas } = useListaMarcasViewModel();
+    const { marcas, loading } = useListaMarcasViewModel();
+
+    const [paginaActual, setPaginaActual] = useState(1);
+    const marcasPorPagina = 12;
+
+    if (loading) {
+        return (
+            <div className="flex h-screen w-full items-center justify-center">
+                <span className="loading loading-spinner loading-lg text-neutral"></span>
+            </div>
+        );
+    }
+
+    // Si paginaActual es 1: (1 * 12) = 12. El slice llega hasta el índice 12 (sin incluirlo).
+    const ultimoItem = paginaActual * marcasPorPagina;
+    // Si paginaActual es 1: (12 - 12) = 0. Empezamos en el índice 0.
+    const primerItem = ultimoItem - marcasPorPagina;
+    const marcasVisibles = marcas.slice(primerItem, ultimoItem);
 
     return (
         <>
@@ -23,13 +41,19 @@ const ListaMarcas = () => {
 
                 <div className="flex flex-wrap gap-12 mb-20" >
 
-                    {marcas.map(lista =>
+                    {marcasVisibles.map(lista =>
                         <MarcaCard data={lista} key={lista.nombre} />
                     )}
 
                 </div>
                 {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-                <Paginacion paginaActual={3} itemsPorPagina={12} totalItems={500} handleCambiarPagina={console.log} />
+                <Paginacion 
+                    paginaActual={paginaActual} 
+                    itemsPorPagina={marcasPorPagina} 
+                    totalItems={marcas.length} 
+                    handleCambiarPagina={(pagina) => 
+                        setPaginaActual(pagina)
+                    } />
             </div>
         </>
     )

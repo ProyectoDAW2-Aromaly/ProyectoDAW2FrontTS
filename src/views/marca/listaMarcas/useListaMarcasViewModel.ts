@@ -1,18 +1,30 @@
 import { useEffect, useState } from "react";
-import { BRAND } from "../BrandData.ts";
-import { IMarca } from "../IMarca.ts";
+import { IMarca, IMarcaBackend } from "../IMarca.ts";
+import { getAllMarcas } from "../../../services/marca.services.ts";
 
 export const useListaMarcasViewModel = () => {
 
     const [marcas, setMarcas] = useState<IMarca[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Aquí se hará la consulta para traer las marcas
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setMarcas(BRAND)
-    }, [])
+        getAllMarcas()
+            .then((datos: IMarcaBackend[]) => {
+                console.log("Datos brutos del backend:", datos);
+                const marcasFormateadas: IMarca[] = datos.map((m) => ({
+                    
+                    nombre: m.nombre ?? "Sin nombre",
+                    isdarklogo: m.isdarklogo ?? false,
+                    foto: m.foto ?? "/default.jpg"
+                }));
+                setMarcas(marcasFormateadas);
+                setLoading(false);
+            });
+    }, []);
 
     return{
-        marcas
+        marcas,
+        loading
     }
 }

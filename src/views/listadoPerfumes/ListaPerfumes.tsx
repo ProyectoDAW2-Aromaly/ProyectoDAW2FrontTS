@@ -29,7 +29,7 @@ const ListaPerfumes = () => {
 
             </div>
             {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-            <Pagination paginaActual={1} itemsPorPagina={12} totalItems={listaPerfumes.length} handleCambiarPagina={(pagina) => console.log("Ir a página:", pagina)} />
+            <Pagination paginaActual={1} itemsPorPagina={12} totalItems={listaPerfumes.length} handleCambiarPagina={(pagina) => console.log("Ir a página: ", pagina)} />
         </div>
     )
 }

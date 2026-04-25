@@ -1,5 +1,4 @@
-// ! Mover esto a otra carpeta
-const URL_SERVER = `http://localhost:8080/`;
+import { URL_SERVER } from './constantes.js';
 
 export function getAllPerfumes() {
     return fetch(`${URL_SERVER}perfume`)
