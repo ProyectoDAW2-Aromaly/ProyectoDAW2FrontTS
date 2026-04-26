@@ -1,21 +1,21 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import './App.css'
-import PerfumePage from './views/perfume/PerfumePage'
-import Home from './views/home/Home'
+import PaginaPerfume from './views/perfume/PaginaPerfume'
+import Inicio from './views/inicio/Inicio'
 import Login from './views/usuarios/Login'
 import Register from './views/usuarios/Register'
 import Navbar from './components/Navbar'
 import { useState } from 'react'
-import PerfumeForm from './views/perfume_form/PerfumeForm'
+import FormularioPerfume from './views/formularioPerfume/FormularioPerfume'
 import Footer from './components/Footer'
-import PerfumerPage from './views/perfumer/PerfumerPage'
-import PerfumerForm from './views/perfumer_form/PerfumerForm'
-import BrandsList from './views/brand/brandlist/BrandsList'
-import BrandPage from './views/brand/singlebrand/BrandPage'
-import UserLists from './views/list/userlists/UserLists'
+import PaginaPerfumista from './views/perfumista/PaginaPerfumista'
+import FormularioPerfumista from './views/formularioPerfumista/FormularioPerfumista'
+import ListaMarcas from './views/marca/listaMarcas/ListaMarcas'
+import PaginaMarca from './views/marca/marcaDetalles/PaginaMarca'
+import ListasUsuarios from './views/lista/listasUsuarios/ListasUsuarios'
 import Premium from './views/premium/Premium'
 import BuyMeACoffee from './components/BuyMeACoffee'
-import ListPerfumes from './views/listPerfumes/ListPerfumes'
+import ListaPerfumes from './views/listadoPerfumes/ListaPerfumes'
 
 export interface IUser {
   userName: string,
@@ -33,22 +33,22 @@ function App() {
         <Navbar user={user} />
         <Routes>
 
-          <Route path='/' element={<Home/>}/>
+          <Route path='/' element={<Inicio/>}/>
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/registro' element={<Register/>}></Route>
 
-          <Route path='/' element={<Home />} />
-          <Route path='/perfumes' element={<ListPerfumes />} />
-          <Route path='/perfume' element={<PerfumePage user={user} setUser={setUser} />} />
-          <Route path='/perfume/form' element={<PerfumeForm />} />
-          <Route path="/perfumer" element={<PerfumerPage user={user} setUser={setUser} />} />
-          <Route path='/perfumer/form' element={<PerfumerForm />} />
+          <Route path='/perfumes' element={<ListaPerfumes />} />
+          <Route path='/perfume/:id' element={<PaginaPerfume user={user} setUser={setUser} />} />
+          <Route path='/perfume/form' element={<FormularioPerfume />} />
+          <Route path='/perfumista/formulario' element={<FormularioPerfumista />} />
+          <Route path="/perfumista/:id" element={<PaginaPerfumista user={user} setUser={setUser} />} />
+          
           {/* Lista de marcas */}
-          <Route path='/brands' element={<BrandsList />} />
+          <Route path='/marcas' element={<ListaMarcas />} />
           {/* Se filtra por marca */}
-          <Route path='/brand' element={<BrandPage />} />
+          <Route path='/marca' element={<PaginaMarca />} />
           {/* Listado de las listas de usuarios */}
-          <Route path='/lists' element={<UserLists />} />
+          <Route path='/listas' element={<ListasUsuarios />} />
           <Route path='/premium' element={<Premium />} />
 
         </Routes>
