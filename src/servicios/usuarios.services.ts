@@ -1,4 +1,4 @@
-const API = `${import.meta.env.VITE_APP_API}/usuarios/`;
+const API = `${import.meta.env.VITE_APP_API}/usuario/`;
 
 export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
 
