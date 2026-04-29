@@ -8,7 +8,7 @@ export interface ICardPerfume {
     olfactoryFamilies: string[]
 }
 
-export const CardPerfume = ({ data } : { data: ICardPerfume}) => {
+export const PerfumeCard = ({ data } : { data: ICardPerfume}) => {
     // & tabIndex = Para que otro elemento normal pueda recibir focus, en este caso, para que funcione en móvil
     return <div className="card bg-base-100 w-96 shadow-sm rounded-2xl overflow-hidden group" tabIndex={0}>
         <img
@@ -31,7 +31,7 @@ export const CardPerfume = ({ data } : { data: ICardPerfume}) => {
                         <div key={olfactoryFamily} className="badge badge-soft">{olfactoryFamily}</div>
                     )}
                 </div>
-                <Link to="/perfume?id=1" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</Link>
+                <Link to={`/perfume?id=${data.id}`} className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</Link>
             </div>
 
         </div>

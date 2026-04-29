@@ -73,7 +73,7 @@ export default function ManageListForm({ lista, loading, onSave, onDelete, onCan
           <button type="button" className="btn btn-error btn-outline" onClick={handleDelete} disabled={loading}>
             Borrar
           </button>
-          <button type="submit" className="btn btn-neutral" disabled={loading}>
+          <button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
             {loading ? "Guardando..." : "Guardar"}
           </button>
         </div>

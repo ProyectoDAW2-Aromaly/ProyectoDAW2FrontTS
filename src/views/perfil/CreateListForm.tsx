@@ -55,7 +55,7 @@ export default function CreateListForm({ loading, onCreate }: ICreateListFormPro
         {error && <p className="text-error text-sm">{error}</p>}
 
         <div className="flex justify-end mt-3">
-          <button type="submit" className="btn btn-neutral" disabled={loading}>
+          <button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
             {loading ? "Creando..." : "Crear lista"}
           </button>
         </div>

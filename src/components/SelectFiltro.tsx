@@ -6,7 +6,7 @@ type Props = {
     overrideSelectClasses?: string 
 };
 
-export const SelectFilter = ({ items, label, value, onChange, overrideSelectClasses = "select select-sm w-60" }: Props) => {
+export const SelectFiltro = ({ items, label, value, onChange, overrideSelectClasses = "select select-sm w-60" }: Props) => {
 
     return (
         <select className={overrideSelectClasses} defaultValue="" value={value} onChange={(e) => onChange(e.target.value)}>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
-import { CardPerfume, type ICardPerfume } from "../../components/CardPerfume";
-import { FilterPanel } from "../../components/FilterPanel";
-import Pagination from "../../components/Pagination";
+import { PerfumeCard, type ICardPerfume } from "../../components/PerfumeCard";
+import { FiltroPanel } from "../../components/FiltroPanel";
+import Paginacion from "../../components/Paginacion";
 import { usePerfumerViewModel } from "./usePerfumerViewModel";
 import type { IUser } from "../../servicios/usuarios.services";
 
@@ -188,15 +188,15 @@ const PerfumerPage = ({ user }: IPerfumerPage) => {
                     </div>
                 </div>
 
-                <FilterPanel />
+                <FiltroPanel />
 
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {selectedPerfumer.name.toUpperCase()}</h1>
                 <div className="flex flex-wrap gap-12 mb-20">
                     {mockedPerfumes.map(list =>
-                        <CardPerfume data={list} key={list.id} />
+                        <PerfumeCard data={list} key={list.id} />
                     )}
                 </div>
-                <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log} />
+                <Paginacion currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log} />
             </div>
         </>
     );

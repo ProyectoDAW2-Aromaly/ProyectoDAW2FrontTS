@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import { ListCard } from "../../components/ListCard";
-import { CardPerfume } from "../../components/CardPerfume";
+import { PerfumeCard } from "../../components/PerfumeCard";
 import UserContext from "../../context/UserContext";
-import { createMyList, deleteMyList, updateMyList } from "../../servicios/listas.services";
 import { getMyProfile, updateMyProfile } from "../../servicios/perfil.services";
-import type { IList } from "../list/IList";
+import { createMyList, deleteMyList, updateMyList } from "../../servicios/listas.services";
+import type { IList } from "../lista/IList";
 import type { IPerfil } from "./IProfile";
 import EditProfileForm from "./EditProfileForm";
 import CreateListForm from "./CreateListForm";
@@ -29,10 +29,7 @@ export default function ProfilePage() {
     coffee: false,
     pfp: perfil?.user.pfp || "/user/profile-pic/profile1.jpg",
     title: lista.nombre,
-    perfumes: Array.from(
-      { length: Math.max(1, Math.min(lista.totalPerfumes, 4)) },
-      () => "/perfume-info/perfume/lira/xerjoff-lira.jpg"
-    ),
+    perfumes: lista.perfumeFotos || [],
   });
 
   const buildFavoritePerfumeCard = (perfume: IPerfil["perfumesFavoritos"][number]) => ({
@@ -47,8 +44,8 @@ export default function ProfilePage() {
     try {
       setLoading(true);
       setError("");
-      const data = await getMyProfile();
-      setPerfil(data);
+      const perfilData = await getMyProfile();
+      setPerfil(perfilData as unknown as IPerfil);
     } catch (err) {
       setError(err instanceof Error ? err.message : "No se pudo cargar el perfil");
     } finally {
@@ -69,14 +66,19 @@ export default function ProfilePage() {
         prev
           ? {
               ...prev,
-              user: updatedUser,
+              user: {
+                ...prev.user,
+                email: updatedUser.email || prev.user.email,
+                descripcion: updatedUser.descripcion || prev.user.descripcion,
+                pfp: updatedUser.pfp || prev.user.pfp,
+              },
             }
           : prev
       );
 
       userContext?.setUser({
-        userName: updatedUser.userName,
-        pfp: updatedUser.pfp,
+        userName: perfil?.user.userName || userContext?.user?.userName || '',
+        pfp: updatedUser.pfp || perfil?.user.pfp || '',
         rol: updatedUser.rol,
       });
 
@@ -175,8 +177,8 @@ export default function ProfilePage() {
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
             <div className="avatar">
               <div className="w-24 rounded-full relative">
-                <img src={perfil.user.pfp} alt={`Foto de ${perfil.user.userName}`} />
-                {perfil.user.rol === "PREMIUM" && (
+                <img src={perfil.user?.pfp || "/user/profile-pic/profile1.jpg"} alt={`Foto de ${perfil.user?.userName || "usuario"}`} />
+                {perfil.user?.rol === "PREMIUM" && (
                   <img
                     src="/user/icons/crown-1.svg"
                     alt="Icono premium corona"
@@ -187,15 +189,15 @@ export default function ProfilePage() {
             </div>
 
             <div className="flex-1">
-              <h1 className="text-3xl font-semibold">{perfil.user.userName}</h1>
-              <p className="text-sm opacity-70">{perfil.user.email}</p>
-              <div className="badge badge-soft badge-neutral mt-2">{perfil.user.rol}</div>
+              <h1 className="text-3xl font-semibold">{perfil.user?.userName}</h1>
+              <p className="text-sm opacity-70">{perfil.user?.email}</p>
+              <div className="badge badge-soft badge-neutral mt-2">{perfil.user?.rol}</div>
               <p className="mt-4 whitespace-pre-line">
-                {perfil.user.descripcion || "Este usuario todavía no ha añadido descripción."}
+                {perfil.user?.descripcion || "Este usuario todavía no ha añadido descripción."}
               </p>
             </div>
 
-            <button className="btn btn-neutral" onClick={() => setShowEdit((prev) => !prev)}>
+            <button className="btn btn-neutral hover:hover:btn-accent text-primary-content" onClick={() => setShowEdit((prev) => !prev)}>
               {showEdit ? "Cerrar editor" : "Editar perfil"}
             </button>
           </div>
@@ -220,16 +222,16 @@ export default function ProfilePage() {
           <div className="card-body">
             <div className="flex items-center justify-between">
               <h2 className="card-title">Mis listas</h2>
-              <span className="text-sm opacity-70">{perfil.listasCreadas.length} listas</span>
+              <span className="text-sm opacity-70">{perfil.listasCreadas?.length || 0} listas</span>
             </div>
 
-            {perfil.listasCreadas.length === 0 ? (
+            {(!perfil.listasCreadas || perfil.listasCreadas.length === 0) ? (
               <p className="opacity-70">Todavía no has creado ninguna lista.</p>
             ) : (
               <div className="flex flex-wrap gap-12">
-                {perfil.listasCreadas.map((lista) => (
+      {perfil.listasCreadas?.map((lista) => (
                   <ListCard
-                    key={lista.id}
+                    key={`list-${lista.id}`}
                     data={buildProfileListCard(lista)}
                     user={userContext.user ?? undefined}
                     isOwner={true}
@@ -245,11 +247,10 @@ export default function ProfilePage() {
       {editingListId !== null && (
         <div className="mt-10">
           <h2 className="text-2xl font-semibold mb-4">Editar lista</h2>
-          {perfil.listasCreadas
-            .filter((lista) => lista.id === editingListId)
+          {perfil.listasCreadas?.filter((lista) => lista.id === editingListId)
             .map((lista) => (
               <ManageListForm
-                key={lista.id}
+                key={`manage-${lista.id}`}
                 lista={lista}
                 loading={managingListId === lista.id}
                 onSave={(data) => handleUpdateList(lista.id, data)}
@@ -262,12 +263,12 @@ export default function ProfilePage() {
 
       <div className="mt-10">
         <h2 className="text-2xl font-semibold mb-4">Perfumes favoritos</h2>
-        {perfil.perfumesFavoritos.length === 0 ? (
+        {(!perfil.perfumesFavoritos || perfil.perfumesFavoritos.length === 0) ? (
           <p className="opacity-70">Todavía no tienes perfumes favoritos guardados.</p>
         ) : (
           <div className="flex flex-wrap gap-12">
-            {perfil.perfumesFavoritos.map((perfume) => (
-              <CardPerfume
+            {perfil.perfumesFavoritos?.map((perfume) => (
+              <PerfumeCard
                 key={perfume.id}
                 data={buildFavoritePerfumeCard(perfume)}
               />

@@ -4,22 +4,24 @@ import { useContext } from 'react'
 
 import UserContext from './context/UserContext'
 
-import PerfumePage from './views/perfume/PerfumePage'
-import Home from './views/home/Home'
+import PaginaPerfume from './views/perfume/PaginaPerfume'
+import Home from './views/inicio/Home'
 import Login from './views/usuarios/Login'
 import Register from './views/usuarios/Register'
 import Navbar from './components/Navbar'
-import PerfumeForm from './views/perfume_form/PerfumeForm'
+import PerfumeForm from './views/formularioPerfume/PerfumeForm'
 import Footer from './components/Footer'
 import PerfumerPage from './views/perfumer/PerfumerPage'
-import PerfumerForm from './views/perfumer_form/PerfumerForm'
+import PerfumerForm from './views/formularioPerfumista/PerfumerForm'
 import BrandsList from './views/brand/brandlist/BrandsList'
 import BrandPage from './views/brand/singlebrand/BrandPage'
-import UserLists from './views/list/userlists/UserLists'
+import UserLists from './views/lista/userlists/UserLists'
+import ListDetailPage from './views/lista/ListDetailPage'
 import Premium from './views/premium/Premium'
 import BuyMeACoffee from './components/BuyMeACoffee'
-import ListPerfumes from './views/listPerfumes/ListPerfumes'
+import ListPerfumes from './views/listadoPerfumes/ListPerfumes'
 import ProfilePage from './views/perfil/ProfilePage'
+import NotFoundPage from './views/not-found/NotFoundPage'
 
 function App() {
   const userContext = useContext(UserContext);
@@ -38,7 +40,7 @@ function App() {
         <Route
           path='/perfume'
           element={
-            <PerfumePage
+            <PaginaPerfume
               user={userContext?.user ?? undefined}
             />
           }
@@ -61,7 +63,9 @@ function App() {
         <Route path='/brands' element={<BrandsList />} />
         <Route path='/brand' element={<BrandPage />} />
         <Route path='/lists' element={<UserLists />} />
+        <Route path='/listas/:idLista' element={<ListDetailPage />} />
         <Route path='/premium' element={<Premium />} />
+        <Route path='/not-found' element={<NotFoundPage />} />
       </Routes>
 
       <BuyMeACoffee />

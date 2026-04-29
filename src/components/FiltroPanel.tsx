@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SelectFilter } from "./SelectFilter";
+import { SelectFiltro } from "./SelectFiltro";
 import { useLocation } from "react-router";
 
 const brands = [
@@ -19,7 +19,7 @@ const genres = [
     'Mujer', 'Hombre', "Unisex"
 ]
 
-export const FilterPanel = () => {
+export const FiltroPanel = () => {
     const location = useLocation();
 
     const [selectedBrand, setSelectedBrand] = useState<string>();
@@ -51,7 +51,7 @@ export const FilterPanel = () => {
 
                     {/* Marca */}
                     {location.pathname !== "/brand" && (
-                        <SelectFilter
+                        <SelectFiltro
                             label="Selecciona una marca"
                             items={brands}
                             value={selectedBrand}
@@ -60,7 +60,7 @@ export const FilterPanel = () => {
                     )}
 
                     {/* Género */}
-                    <SelectFilter
+                    <SelectFiltro
                         label="Selecciona el género"
                         items={genres}
                         value={selectedGenre}
@@ -68,7 +68,7 @@ export const FilterPanel = () => {
                     />
 
                     {/* Familia olfativa */}
-                    <SelectFilter
+                    <SelectFiltro
                         label="Selecciona una familia olfativa"
                         items={olfactoryFamilies}
                         value={selectedOlfactoryFamily}
@@ -76,7 +76,7 @@ export const FilterPanel = () => {
                     />
 
                     {/* Nota */}
-                    <SelectFilter
+                    <SelectFiltro
                         label="Selecciona una nota"
                         items={notes}
                         value={selectedNote}

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { IList } from "../views/list/IList";
+import { Link } from "react-router";
+import { IList } from "../views/lista/IList";
 
 interface IUser {
     userName: string,
@@ -93,7 +94,9 @@ export const ListCard = ({ data, user, isOwner = false, onEdit }: ListCardProps)
                     </div>
                 </div>}
             </div>
-            <button className="btn btn-neutral hover:hover:btn-accent text-primary-content">Ver lista completa</button>
+            <Link to={`/listas/${data.id}`} className="btn btn-neutral hover:hover:btn-accent text-primary-content">
+                Ver lista completa
+            </Link>
 
         </div>
     </div>

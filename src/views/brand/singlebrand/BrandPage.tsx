@@ -1,7 +1,7 @@
-import Pagination from "../../../components/Pagination"
+import Paginacion from "../../../components/Paginacion";
 import { useBrandViewModel } from "./useBrandViewModel";
-import { CardPerfume, ICardPerfume } from "../../../components/CardPerfume";
-import { FilterPanel } from "../../../components/FilterPanel";
+import { PerfumeCard, ICardPerfume } from "../../../components/PerfumeCard";
+import { FiltroPanel } from "../../../components/FiltroPanel";
 
 const BrandPage = () => {
 
@@ -150,17 +150,17 @@ const BrandPage = () => {
                     </figure>
                 </div>
                 
-                <FilterPanel/>
+                <FiltroPanel/>
 
                 <div className="flex flex-wrap gap-12 mb-20" >
 
                     {mockedPerfumes.map(list =>
-                        <CardPerfume data={list} key={list.id} />
+                        <PerfumeCard data={list} key={list.id} />
                     )}
 
                 </div>
                 {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-                <Pagination currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log} />
+                <Paginacion currentPage={3} itemsPerPage={12} totalItems={500} handlePageChange={console.log} />
             </div>
         </>
     )
