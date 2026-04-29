@@ -1,5 +1,8 @@
 import { getToken } from "./usuarios.services";
 import type { IListaPerfil } from "../views/perfil/IProfile";
+import type { ICardPerfume } from "../components/PerfumeCard";
+import type { IList } from "../views/lista/IList";
+import { normalizePerfumeImage } from "../utils/assets";
 
 const API = `${import.meta.env.VITE_APP_API}/listas`;
 
@@ -9,6 +12,41 @@ export interface IListaPerfumeOption {
   esPublica: boolean;
   totalPerfumes: number;
   contienePerfume: boolean;
+}
+
+export interface IListaDetalle {
+  id: number;
+  nombre: string;
+  esPublica: boolean;
+  totalPerfumes: number;
+  creadorUsername: string;
+  creadorFoto?: string;
+  creadorRol?: string;
+  perfumes: ICardPerfume[];
+}
+
+interface IBackendPublicList {
+  id: number;
+  nombre: string;
+  creadorUsername?: string;
+  creadorFoto?: string;
+  creadorRol?: string;
+  perfumeFotos?: string[];
+}
+
+interface IBackendListPerfume {
+  id: number;
+  nombre: string;
+  marca?: string;
+  foto?: string;
+  familiasOlfativas?: string[];
+}
+
+interface IBackendListDetail extends IBackendPublicList {
+  esPublica: boolean;
+  totalPerfumes: number;
+  creadorUsername: string;
+  perfumes?: IBackendListPerfume[];
 }
 
 interface ICreateListPayload {
@@ -65,6 +103,61 @@ const getMyListsForPerfume = async (idPerfume: number): Promise<IListaPerfumeOpt
   }
 
   return data.result.listas || [];
+};
+
+const mapPublicList = (lista: IBackendPublicList): IList => ({
+  id: String(lista.id),
+  nombreUsuario: lista.creadorUsername || "Usuario",
+  premium: lista.creadorRol === "PREMIUM",
+  cafe: false,
+  pfp: lista.creadorFoto || "/user/profile-pic/profile1.jpg",
+  titulo: lista.nombre,
+  perfumes: (lista.perfumeFotos || []).map((foto: string) => normalizePerfumeImage(foto)),
+});
+
+const getPublicLists = async (): Promise<IList[]> => {
+  const response = await fetch(`${API}/publicas`);
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.mensaje || "No se pudieron obtener las listas públicas");
+  }
+
+  return (data.result.listas || []).map(mapPublicList);
+};
+
+const getListDetail = async (idLista: number): Promise<IListaDetalle> => {
+  const token = getToken();
+  const response = await fetch(`${API}/${idLista}`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.mensaje || "No se pudo cargar la lista");
+  }
+
+  const lista = data.result.lista as IBackendListDetail;
+
+  return {
+    id: lista.id,
+    nombre: lista.nombre,
+    esPublica: lista.esPublica,
+    totalPerfumes: lista.totalPerfumes,
+    creadorUsername: lista.creadorUsername,
+    creadorFoto: lista.creadorFoto,
+    creadorRol: lista.creadorRol,
+    perfumes: (lista.perfumes || []).map((perfume) => ({
+      id: String(perfume.id),
+      nombre: perfume.nombre,
+      marca: perfume.marca || "Marca desconocida",
+      foto: normalizePerfumeImage(perfume.foto),
+      familiasOlfativas: perfume.familiasOlfativas || [],
+    })),
+  };
 };
 
 const addPerfumeToList = async (idLista: number, idPerfume: number) => {
@@ -129,14 +222,14 @@ const deleteMyList = async (idLista: number) => {
   return data.result;
 };
 
-
 export {
   createMyList,
   getMyLists,
+  getPublicLists,
+  getListDetail,
   getMyListsForPerfume,
   addPerfumeToList,
   removePerfumeFromList,
   updateMyList,
   deleteMyList,
 };
-

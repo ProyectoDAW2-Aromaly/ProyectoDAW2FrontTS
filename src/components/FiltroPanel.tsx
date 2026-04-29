@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { SelectFilter } from "./SelectFiltro";
+import { SelectFiltro } from "./SelectFiltro";
 import { useLocation } from "react-router";
-import { BadgeSelector } from "./BadgeSelector";
 
 const marcas = [
     "Xerjoff", "Valentino", "ELDO"
@@ -24,6 +23,8 @@ export const FiltroPanel = () => {
     const location = useLocation();
 
     const [selectedBrand, setSelectedBrand] = useState<string>();
+    const [selectedNote, setSelectedNote] = useState<string>();
+    const [selectedOlfactoryFamily, setSelectedOlfactoryFamily] = useState<string>();
     const [selectedGenre, setSelectedGenre] = useState<string>();
 
     return (
@@ -45,12 +46,9 @@ export const FiltroPanel = () => {
             </label>
 
             {location.pathname !== "/marcas" && (
-
-                <div className=" flex flex-row flex-wrap gap-4 justify-evenly">
-
-                    {/* Marca */}
+                <div className="flex flex-row flex-wrap gap-4 justify-evenly">
                     {location.pathname !== "/marca" && (
-                        <SelectFilter
+                        <SelectFiltro
                             label="Selecciona una marca"
                             items={marcas}
                             value={selectedBrand}
@@ -58,31 +56,26 @@ export const FiltroPanel = () => {
                         />
                     )}
 
-                    {/* Género */}
-                    <SelectFilter
+                    <SelectFiltro
                         label="Selecciona el género"
                         items={generos}
                         value={selectedGenre}
                         onChange={setSelectedGenre}
                     />
 
-                    {/* Familia olfativa */}
-                    <div className="flex-1">
-                        <BadgeSelector
-                            label="Selecciona una familia olfativa"
-                            items={familiasOlfativas}
-                            size="xs"
-                        />
-                    </div>
+                    <SelectFiltro
+                        label="Selecciona una familia olfativa"
+                        items={familiasOlfativas}
+                        value={selectedOlfactoryFamily}
+                        onChange={setSelectedOlfactoryFamily}
+                    />
 
-                    {/* Nota */}
-                    <div className="flex-1">
-                        <BadgeSelector
-                            label="Selecciona una nota"
-                            items={notas}
-                            size="xs"
-                        />
-                    </div>
+                    <SelectFiltro
+                        label="Selecciona una nota"
+                        items={notas}
+                        value={selectedNote}
+                        onChange={setSelectedNote}
+                    />
 
                     <div className="flex items-center gap-2">
                         <button className="btn btn-neutral btn-sm hover:hover:btn-accent text-primary-content">Buscar</button>
@@ -98,8 +91,6 @@ export const FiltroPanel = () => {
                     </div>
                 </div>
             )}
-
         </div>
-
     );
 };

@@ -1,5 +1,6 @@
 import { getToken, type UserRol } from "./usuarios.services";
 import type { IPerfil } from "../views/perfil/IProfile";
+import { normalizePerfumeImage } from "../utils/assets";
 
 const API = `${import.meta.env.VITE_APP_API}`;
 
@@ -43,7 +44,7 @@ const mapUser = (user: IBackendUser) => ({
 const mapPerfumeFavorito = (perfume: IBackendPerfumeFavorito) => ({
   id: perfume.id,
   nombre: perfume.nombre || "",
-  foto: perfume.foto || "",
+  foto: normalizePerfumeImage(perfume.foto),
   marca: perfume.marca || "",
   familiasOlfativas: perfume.familiasOlfativas || [],
 });

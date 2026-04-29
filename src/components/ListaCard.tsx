@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import { IList } from "../views/lista/IList";
 
 interface IUser {
@@ -14,14 +15,7 @@ interface ListCardProps {
     onEdit?: () => void;
 }
 
-/**
- * Componente para la card de listas de perfumes.
- * @param data Los datos de la lista que se va a mostrar.
- * @param user Se le envían los datos del usuario con la sesión iniciada.
- * @returns El componente -> Card de la lista de perfumes.
- */
 export const ListaCard = ({ data, user, isOwner = false, onEdit }: ListCardProps ) => {
-
     const [liked, setLiked] = useState(false);
 
     return <div className="card bg-base-100 shadow-sm w-96">
@@ -100,7 +94,9 @@ export const ListaCard = ({ data, user, isOwner = false, onEdit }: ListCardProps
                     </div>
                 </div>}
             </div>
-            <button className="btn btn-neutral hover:hover:btn-accent text-primary-content">Ver lista completa</button>
+            <Link to={`/listas/${data.id}`} className="btn btn-neutral hover:hover:btn-accent text-primary-content">
+                Ver lista completa
+            </Link>
 
         </div>
     </div>

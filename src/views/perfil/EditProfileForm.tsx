@@ -12,7 +12,16 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
   const [email, setEmail] = useState(user.email);
   const [descripcion, setDescripcion] = useState(user.descripcion);
   const [foto, setFoto] = useState(user.pfp);
+  const [previewFoto, setPreviewFoto] = useState(user.pfp);
   const [error, setError] = useState("");
+
+  const handleFotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setFoto(file.name);
+    setPreviewFoto(URL.createObjectURL(file));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,13 +55,19 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
         />
 
         <label className="label text-neutral font-semibold">Foto</label>
-        <input
-          type="text"
-          className="input w-full"
-          value={foto}
-          onChange={(e) => setFoto(e.target.value)}
-          placeholder="/user/profile-pic/profile1.jpg"
-        />
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="avatar">
+            <div className="w-16 rounded-full">
+              <img src={previewFoto || "/user/profile-pic/profile1.jpg"} alt="Vista previa del perfil" />
+            </div>
+          </div>
+          <input
+            type="file"
+            className="file-input w-full"
+            accept="image/*"
+            onChange={handleFotoChange}
+          />
+        </div>
 
         {error && <p className="text-error text-sm">{error}</p>}
 
@@ -60,7 +75,7 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
           <button type="button" className="btn" onClick={onCancel}>
             Cancelar
           </button>
-          <button type="submit" className="btn btn-neutral" disabled={loading}>
+          <button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
             {loading ? "Guardando..." : "Guardar cambios"}
           </button>
         </div>

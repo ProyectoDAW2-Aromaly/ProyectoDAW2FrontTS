@@ -10,6 +10,7 @@ import Inicio from './views/inicio/Inicio'
 import Login from './views/usuarios/Login'
 import Register from './views/usuarios/Register'
 import ProfilePage from './views/perfil/ProfilePage'
+import NotFoundPage from './views/not-found/NotFoundPage'
 
 import ListaPerfumes from './views/listadoPerfumes/ListaPerfumes'
 import PaginaPerfume from './views/perfume/PaginaPerfume'
@@ -22,6 +23,7 @@ import ListaMarcas from './views/marca/listaMarcas/ListaMarcas'
 import PaginaMarca from './views/marca/marcaDetalles/PaginaMarca'
 
 import ListasUsuarios from './views/lista/listasUsuarios/ListasUsuarios'
+import ListDetailPage from './views/lista/ListDetailPage'
 import Premium from './views/premium/Premium'
 
 export interface IUser {
@@ -56,7 +58,9 @@ function App() {
         <Route path='/marca' element={<PaginaMarca />} />
 
         <Route path='/listas' element={<ListasUsuarios />} />
+        <Route path='/listas/:idLista' element={<ListDetailPage />} />
         <Route path='/premium' element={<Premium />} />
+        <Route path='/not-found' element={<NotFoundPage />} />
       </Routes>
 
       <BuyMeACoffee />

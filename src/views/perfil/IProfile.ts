@@ -14,6 +14,7 @@ export interface IListaPerfil {
   nombre: string;
   esPublica: boolean;
   totalPerfumes: number;
+  perfumeFotos?: string[];
 }
 
 export interface IPerfumeFavoritoPerfil {

@@ -1,9 +1,6 @@
 import type { IUser } from "../../../App";
 import type { ICardPerfume } from "../../../components/PerfumeCard";
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const USUARIOS_LISTAS = ["Lista 1", "Lista 2", "Lista 3", "Lista 4", "Lista 5"];
-
 export const EPOCA = [
     { key: "autumn", name: "Otono", icon: "/perfume-info/icons/season/autumn-icon.svg" },
     { key: "invierno", name: "Invierno", icon: "/perfume-info/icons/season/winter-icon.svg" },
@@ -11,12 +8,9 @@ export const EPOCA = [
     { key: "verano", name: "Verano", icon: "/perfume-info/icons/season/summer-icon.svg" },
 ] as const;
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const LABELS_DURACION = ["Escasa (0-2h)", "Poca (3-6h)", "Buena (5-12h)", "Excelente (+12h)"];
-// eslint-disable-next-line react-refresh/only-export-components
 export const LABELS_PRECIO = ["Economico", "Moderado", "Caro", "Muy caro"];
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const MOCKED_PERFUMES: ICardPerfume[] = [
     {
         id: "ValentinoID",
@@ -41,10 +35,9 @@ export const MOCKED_PERFUMES: ICardPerfume[] = [
     },
 ];
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const TEMP_USER: IUser = {
     userName: "Jakob",
     pfp: "/user/profile-pic/profile2.jpg",
-    rol: "admin",
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3Nzc3MzcwNTEsImV4cCI6MTc3NzgyMzQ1MX0.kHcVTgBHJWAyjpVhNh9CIC5bpVd-FpfI88HdshqyF6g"
+    rol: "ADMIN",
+    token: "temp-token",
 };

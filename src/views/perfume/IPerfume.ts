@@ -1,14 +1,12 @@
 import { ICardPerfume } from "../../components/PerfumeCard"
 import type { IPerfumista } from "../perfumista/IPerfumista"
 
-// Modelo que utiliza la página para organizar sus datos
 export interface INota {
     tipo: "salida" | "corazon" | "base",
     nombre: string,
     foto: string
 }
 
-// Interfaz para representar perfume por ahora
 export interface IPerfume {
     id: string,
     nombre: string,
