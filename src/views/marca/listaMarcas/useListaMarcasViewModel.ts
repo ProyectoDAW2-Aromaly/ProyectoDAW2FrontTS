@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IMarca, IMarcaBackend } from "../IMarca.ts";
 import { getAllMarcas } from "../../../services/marca.services.ts";
+import { mapMarcaBackend } from "./utils/ListaMarcasMapper.ts";
 
 export const useListaMarcasViewModel = () => {
 
@@ -8,16 +9,9 @@ export const useListaMarcasViewModel = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Aquí se hará la consulta para traer las marcas
         getAllMarcas()
             .then((datos: IMarcaBackend[]) => {
-                console.log("Datos brutos del backend:", datos);
-                const marcasFormateadas: IMarca[] = datos.map((m) => ({
-                    
-                    nombre: m.nombre ?? "Sin nombre",
-                    isdarklogo: m.isdarklogo ?? false,
-                    foto: m.foto ?? "/default.jpg"
-                }));
+                const marcasFormateadas: IMarca[] = datos.map(mapMarcaBackend);
                 setMarcas(marcasFormateadas);
                 setLoading(false);
             });
