@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router"
-import { PerfumeCard } from "../../components/PerfumeCard"
+import { ICardPerfume, PerfumeCard } from "../../components/PerfumeCard"
 import { FiltroPanel } from "../../components/FiltroPanel"
 import Paginacion from "../../components/Paginacion"
 import { usePerfumistaViewModel } from "./usePerfumistaViewModel"
 import type { IUser } from "../../App"
+import { usePaginacion } from "../../hooks/usePaginacion"
 
 const tempUser: IUser = {
     userName: "Jakob",
@@ -26,8 +27,14 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
     }
 
     const { perfumista, perfumes, loading, error} = usePerfumistaViewModel()
+    const perfumesPorPagina = 12;
 
-    // if (perfumistaSeleccionado === undefined) return null
+    const {
+            pagina,
+            setPagina,
+            itemsTotales,
+            itemsPaginacion: perfumesVisibles
+        } = usePaginacion<ICardPerfume>(perfumes, perfumesPorPagina);
 
     if (loading) {
         return (
@@ -97,13 +104,17 @@ const PerfumerPage = ({ user, setUser }: IPerfumerPage) => {
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {perfumista.nombre?.toUpperCase() ?? ""}</h1>
                 <div className="flex flex-wrap gap-12 mb-20" >
 
-                    {perfumes.map(perfume =>
+                    {perfumesVisibles.map((perfume: ICardPerfume) =>
                         <PerfumeCard data={perfume} key={perfume.id} />
                     )}
 
                 </div>
-                {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-                <Paginacion paginaActual={3} itemsPorPagina={12} totalItems={500} handleCambiarPagina={console.log} />
+                <Paginacion 
+                    paginaActual={pagina} 
+                    itemsPorPagina={perfumesPorPagina} 
+                    totalItems={itemsTotales} 
+                    handleCambiarPagina={setPagina} 
+                />
             </div>
         </>
     )

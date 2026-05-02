@@ -2,7 +2,8 @@ import Paginacion from "../../../components/Paginacion"
 import MarcaCard from "../../../components/MarcaCard";
 import { useListaMarcasViewModel } from "./useListaMarcasViewModel";
 import { FiltroPanel } from "../../../components/FiltroPanel";
-import { useState } from "react";
+import { usePaginacion } from "../../../hooks/usePaginacion";
+import { IMarca } from "../IMarca";
 
 const ListaMarcas = () => {
     // const navigate = useNavigate();
@@ -12,9 +13,14 @@ const ListaMarcas = () => {
     // }
 
     const { marcas, loading } = useListaMarcasViewModel();
-
-    const [paginaActual, setPaginaActual] = useState(1);
     const marcasPorPagina = 12;
+
+    const {
+        pagina,
+        setPagina,
+        itemsTotales,
+        itemsPaginacion: marcasVisibles
+    } = usePaginacion<IMarca>(marcas, marcasPorPagina);
 
     if (loading) {
         return (
@@ -24,15 +30,8 @@ const ListaMarcas = () => {
         );
     }
 
-    // Si paginaActual es 1: (1 * 12) = 12. El slice llega hasta el índice 12 (sin incluirlo).
-    const ultimoItem = paginaActual * marcasPorPagina;
-    // Si paginaActual es 1: (12 - 12) = 0. Empezamos en el índice 0.
-    const primerItem = ultimoItem - marcasPorPagina;
-    const marcasVisibles = marcas.slice(primerItem, ultimoItem);
-
     return (
         <>
-            
             <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
                 <h1 className="text-4xl mb-5">LISTADO DE MARCAS</h1>
 
@@ -48,12 +47,11 @@ const ListaMarcas = () => {
                 </div>
                 {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
                 <Paginacion 
-                    paginaActual={paginaActual} 
+                    paginaActual={pagina} 
                     itemsPorPagina={marcasPorPagina} 
-                    totalItems={marcas.length} 
-                    handleCambiarPagina={(pagina) => 
-                        setPaginaActual(pagina)
-                    } />
+                    totalItems={itemsTotales} 
+                    handleCambiarPagina={setPagina} 
+                />
             </div>
         </>
     )

@@ -1,11 +1,20 @@
-import { PerfumeCard } from "../../components/PerfumeCard";
+import { ICardPerfume, PerfumeCard } from "../../components/PerfumeCard";
 import { FiltroPanel } from "../../components/FiltroPanel";
-import Pagination from "../../components/Paginacion";
+import Paginacion from "../../components/Paginacion";
 import { useListaPerfumesViewModel } from "./useListaPerfumesViewModel";
+import { usePaginacion } from "../../hooks/usePaginacion";
 
 const ListaPerfumes = () => {
 
     const { listaPerfumes, loading } = useListaPerfumesViewModel();
+    const perfumesPorPagina = 12;
+    
+        const {
+            pagina,
+            setPagina,
+            itemsTotales,
+            itemsPaginacion: perfumesVisibles
+        } = usePaginacion<ICardPerfume>(listaPerfumes, perfumesPorPagina);
 
     if (loading) {
         return (
@@ -23,13 +32,17 @@ const ListaPerfumes = () => {
 
             <div className="flex flex-wrap gap-12 mb-20" >
 
-                {listaPerfumes.map(lista =>
+                {perfumesVisibles.map(lista =>
                     <PerfumeCard data={lista} key={lista.id} />
                 )}
 
             </div>
-            {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-            <Pagination paginaActual={1} itemsPorPagina={12} totalItems={listaPerfumes.length} handleCambiarPagina={(pagina) => console.log("Ir a página: ", pagina)} />
+            <Paginacion
+                paginaActual={pagina}
+                itemsPorPagina={perfumesPorPagina}
+                totalItems={itemsTotales}
+                handleCambiarPagina={setPagina}
+            />
         </div>
     )
 }
