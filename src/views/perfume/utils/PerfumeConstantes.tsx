@@ -46,5 +46,5 @@ export const TEMP_USER: IUser = {
     userName: "Jakob",
     pfp: "/user/profile-pic/profile2.jpg",
     rol: "admin",
-    token: "$2b$10$uSP8eixlaZmqCltuNXVzqu4zRIBAjyz/zHEuAPX.tn73O4d9IB7Sm"
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFkbWluIiwicm9sIjoiQURNSU4iLCJpYXQiOjE3Nzc3MzcwNTEsImV4cCI6MTc3NzgyMzQ1MX0.kHcVTgBHJWAyjpVhNh9CIC5bpVd-FpfI88HdshqyF6g"
 };

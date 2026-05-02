@@ -50,10 +50,9 @@ const mapFamilias = (familias: IPerfumeBackend["familiasOlfativas"]): string[] =
 };
 
 export const mapPerfumeFromBackend = (
-    perfume: IPerfumeBackend,
-    id: string
+    perfume: IPerfumeBackend
 ): IPerfume => ({
-    id,
+    id: perfume.id ?? "",
     nombre: perfume.nombre,
     coleccion: perfume.coleccion ?? "",
     descripcion: perfume.descripcion ?? "",
