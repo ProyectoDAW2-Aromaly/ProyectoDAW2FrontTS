@@ -146,7 +146,7 @@ export default function FormularioPerfume() {
           ></textarea>
 
           <label className="label text-neutral font-semibold">Foto del perfume</label>
-          <input type="file" className="file-input w-full" />
+          <input type="file" className="file-input w-full"/>
 
           {/* Notas */}
           <div className="divider font-semibold">NOTAS</div>
