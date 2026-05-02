@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IMarca, IMarcaBackend } from "../IMarca.ts";
 import { getAllMarcas } from "../../../services/marca.services.ts";
-import { mapMarcaBackend } from "./utils/ListaMarcasMapper.ts";
+import { mapMarcaBackend } from "../utils/MarcaMapper.ts";
 
 export const useListaMarcasViewModel = () => {
 

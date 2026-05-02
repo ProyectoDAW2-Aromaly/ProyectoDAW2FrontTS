@@ -19,7 +19,7 @@ const MarcaCard = ({ data }: { data: IMarca }) => {
                 <div className="card-body items-start flex-1 flex flex-col justify-center text-center">
                     <h1 className="card-title text-sm">{data.nombre.toUpperCase()}</h1>
                 </div>
-                <Link to={`/marca?nombre=${data.nombre.toLowerCase()}`} className="btn btn-neutral mt-2 hover:btn-accent text-primary-content mb-3">Ver perfumes</Link>
+                <Link to={`/marca/${encodeURIComponent(data.nombre)}`} className="btn btn-neutral mt-2 hover:btn-accent text-primary-content mb-3">Ver perfumes</Link>
             </div>
 
         </div>

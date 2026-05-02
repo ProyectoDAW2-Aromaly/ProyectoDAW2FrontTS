@@ -46,6 +46,7 @@ function App() {
           
           {/* Lista de marcas */}
           <Route path='/marcas' element={<ListaMarcas />} />
+          <Route path='/marca/:nombre' element={<PaginaMarca />} />
           {/* Se filtra por marca */}
           <Route path='/marca' element={<PaginaMarca />} />
           {/* Listado de las listas de usuarios */}

@@ -1,24 +1,59 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router";
-import { BRAND } from "../BrandData.ts";
-import { IMarca } from "../IMarca.ts";
+import { useNavigate, useParams, useSearchParams } from "react-router";
+import { IMarca, IMarcaBackend } from "../IMarca.ts";
+import { getMarcaPorNombre } from "../../../services/marca.services.ts";
+import { mapMarcaBackend } from "../utils/MarcaMapper.ts";
+import { getPerfumesFiltros } from "../../../services/perfume.services.ts";
+import { mapPerfumeToCard } from "../../perfume/IPerfume.ts";
+import { ICardPerfume } from "../../../components/PerfumeCard.tsx";
 
 export const useMarcaViewModel = () => {
-
+    const { nombre } = useParams();
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    const [marcaSeleccionada, setMarcaSeleccionada] = useState<IMarca>()
+
+    const [marca, setMarca] = useState<IMarca>();
+    const [perfumes, setPerfumes] = useState<ICardPerfume[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
 
     useEffect(() => {
-        const busqueda = searchParams.get("name")
-        if (busqueda) {
-            // Prueba búsqueda de perfume. Aquí va la consulta a backend
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setMarcaSeleccionada(BRAND.find(marca => marca.nombre.toLowerCase() === busqueda.toLowerCase()))
-        } else {
-            navigate("/not-found") //Para no tener la pantalla en blanco o que no se rompa la página entera
+        if (!nombre) {
+            navigate("/not-found");
+            return;
         }
-    }, [navigate, searchParams])
 
-    return (marcaSeleccionada);
+        getMarcaPorNombre(nombre ?? "")
+            .then((data: IMarcaBackend) => {
+                setMarca(mapMarcaBackend(data))
+
+                return getPerfumesFiltros({
+                    marca: nombre
+                })
+            })
+            .then((perfumesData) => {
+                const perfumesMapeados = perfumesData.map(mapPerfumeToCard);
+                setPerfumes(perfumesMapeados);
+            })
+            .catch((err) => {
+                console.error(err);
+                setError("No se ha podido cargar la marca.");
+                navigate("/not-found");
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+        // const busqueda = searchParams.get("name")
+        // if (busqueda) {
+        //     // Prueba búsqueda de perfume. Aquí va la consulta a backend
+
+        //     // eslint-disable-next-line react-hooks/set-state-in-effect
+        //     setMarca(BRAND.find(marca => marca.nombre.toLowerCase() === busqueda.toLowerCase()))
+        // } else {
+        //     navigate("/not-found") //Para no tener la pantalla en blanco o que no se rompa la página entera
+        // }
+    }, [nombre, navigate, searchParams])
+
+    return { marca, perfumes, loading, error };
 }
