@@ -21,7 +21,8 @@ export interface IUser {
   userName: string,
   // Profile picture
   pfp: string,
-  rol: string
+  rol: string,
+  token: string,
 }
 
 function App() {
@@ -30,7 +31,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar user={user} />
+        <Navbar />
         <Routes>
 
           <Route path='/' element={<Inicio/>}/>

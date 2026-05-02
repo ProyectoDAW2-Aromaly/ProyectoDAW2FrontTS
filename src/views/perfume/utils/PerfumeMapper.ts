@@ -49,8 +49,12 @@ const mapFamilias = (familias: IPerfumeBackend["familiasOlfativas"]): string[] =
         .filter((familia): familia is string => Boolean(familia));
 };
 
-export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
-    ...perfume,
+export const mapPerfumeFromBackend = (
+    perfume: IPerfumeBackend,
+    id: string
+): IPerfume => ({
+    id,
+    nombre: perfume.nombre,
     coleccion: perfume.coleccion ?? "",
     descripcion: perfume.descripcion ?? "",
     genero: getGeneroImagen(perfume.genero),
@@ -58,9 +62,14 @@ export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
     perfumista: perfume.perfumistas ?? [],
     familias: mapFamilias(perfume.familiasOlfativas),
     imagen: { src: perfume.foto, alt: perfume.nombre },
-    logo: {
+    logo: typeof perfume.marca === "string"
+    ? {
+        src: "/default-marca.png",
+        alt: perfume.marca
+    }
+    : {
         src: perfume.marca?.foto ?? "/default-marca.png",
-        alt: perfume.marca?.nombre ?? "Marca",
+        alt: perfume.marca?.nombre ?? "Marca"
     },
     notas: mapNotas(perfume.notas),
 });

@@ -4,26 +4,28 @@ type Props = {
     items: string[];
     label: string;
     size?: "xs" | "md";
+    selected: string[];
+    onChange: (items: string[]) => void;
 };
 
-export const BadgeSelector = ({ items, label, size = "md" }: Props) => {
-    const [itemSeleccionado, setItemSeleccionado] = useState<string[]>([]);
+export const BadgeSelector = ({ items = [], label, size = "md", selected = [], onChange }: Props) => {
     const [busqueda, setBusqueda] = useState("");
+    const selectedItems = selected ?? [];
+
     const sizeContenedor = size === "xs"
         ? "py-1 text-xs"
         : "py-2 text-base";
 
     // toggle: Cambio entre estados (on/off, true/false, seleccionado/no seleccionado)
     const toggle = (item: string) => {
-        if (itemSeleccionado.includes(item)) {
+        if (selected.includes(item)) {
             // Quita del array la nota que acabamos de seleccionar
             // "item" es cada nota del array, si no es la que queremos quitar, se queda
             // Si ya lo tengo seleccionado, crea un array sin ese item
-            const nuevoItemSeleccionado = itemSeleccionado.filter(it => it !== item);
-            setItemSeleccionado(nuevoItemSeleccionado);
+            onChange(selected.filter(it => it !== item))
         } else {
             // Si no está seleccionado, añadelo al array
-            setItemSeleccionado([...itemSeleccionado, item]);
+            onChange([...selected, item]);
         }
     };
 
@@ -36,8 +38,8 @@ export const BadgeSelector = ({ items, label, size = "md" }: Props) => {
         <div className="dropdown w-full">
             <label tabIndex={0} className={`w-full flex flex-wrap gap-2 justify-start h-auto rounded-field cursor-pointer py-2 bg-transparent border-2 border-neutral/20 pl-2 ${sizeContenedor}`}>
                 <div className="flex flex-wrap gap-2">
-                    {itemSeleccionado.length > 0
-                        ? itemSeleccionado.map(item => (
+                    {selected.length > 0
+                        ? selected.map(item => (
                             <span key={item} className="badge badge-sm badge-neutral text-primary-content ml-1">{item}</span>
                         ))
                         : label}
@@ -64,7 +66,7 @@ export const BadgeSelector = ({ items, label, size = "md" }: Props) => {
                         <label className="cursor-pointer flex items-center gap-2">
                             <input
                                 type="checkbox"
-                                checked={itemSeleccionado.includes(item)}
+                                checked={selectedItems.includes(item)}
                                 // Si estaba el item lo quita, si no, lo añade
                                 onChange={() => toggle(item)}
                                 className="checkbox checkbox-primary"

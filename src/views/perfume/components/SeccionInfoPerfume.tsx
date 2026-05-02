@@ -12,9 +12,6 @@ interface SeccionInfoPerfumeProps {
 }
 
 export const SeccionInfoPerfume = ({ perfume, user, liked, onToggleLiked, onEditPerfume }: SeccionInfoPerfumeProps) => {
-
-    console.log("PERFUME:", perfume);
-
     return (
         <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row">
             <figure className="w-full md:w-4xl h-auto flex-3">

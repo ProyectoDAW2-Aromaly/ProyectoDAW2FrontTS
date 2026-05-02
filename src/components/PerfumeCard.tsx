@@ -5,7 +5,7 @@ export interface ICardPerfume {
     nombre: string,
     marca: string,
     foto: string,
-    familiasOlfativas: string[]
+    familiasOlfativas: Array<string | { nombre: string }>
 }
 
 export const PerfumeCard = ({ data } : { data: ICardPerfume}) => {
@@ -28,7 +28,9 @@ export const PerfumeCard = ({ data } : { data: ICardPerfume}) => {
             <div className="absolute bottom-[1/3] w-full h-1/2 flex flex-col justify-between items-center text-center gap-3 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-300 p-6">
                 <div className="flex flex-wrap justify-center gap-2">
                     {data.familiasOlfativas.map(fo => 
-                        <div key={fo} className="badge badge-soft">{fo}</div>
+                        <div key={typeof fo === 'string' ? fo : fo.nombre} className="badge badge-soft">
+                            {typeof fo === 'string' ? fo : fo.nombre}
+                        </div>
                     )}
                 </div>
                 <Link to={`/perfume/${data.id}`} className="btn btn-neutral mt-2 hover:btn-accent text-primary-content">Ver perfume</Link>
