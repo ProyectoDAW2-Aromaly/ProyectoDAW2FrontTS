@@ -1,21 +1,30 @@
-import { usePerfumeViewModel } from "./usePerfumeViewModel";
+import { useEffect, useState } from "react";
 import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
+import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { SeccionInfoPerfume } from "./components/SeccionInfoPerfume";
 import { SeccionPiramide } from "./components/SeccionPiramide";
 import { SeccionValoraciones } from "./components/SeccionValoraciones";
 import { SeccionRecomendados } from "./components/SeccionRecomendados";
 import { SeccionComentarios } from "./components/SeccionComentarios";
-import { MOCKED_PERFUMES, TEMP_USER } from "./utils/PerfumeConstantes";
+import { MOCKED_PERFUMES } from "./utils/PerfumeConstantes";
+import {
+    addPerfumeToList,
+    getMyListsForPerfume,
+    removePerfumeFromList,
+    type IListaPerfumeOption,
+} from "../../servicios/listas.services";
 
 interface IPerfumePage {
     user?: IUser,
-    // * Definimos que se le pasará una función que reciba un usuario. Devuelve void
     setUser: (val?: IUser) => void
 }
 
-const PaginaPerfume = ({ user, setUser }: IPerfumePage) => {
+const PaginaPerfume = ({ user }: IPerfumePage) => {
     const navigate = useNavigate();
+    const [listasUsuario, setListasUsuario] = useState<IListaPerfumeOption[]>([]);
+    const [listasLoading, setListasLoading] = useState(false);
+    const [listasError, setListasError] = useState("");
 
     const goToEditPerfume = (perfumeId: string) => {
         navigate(`/perfume/form?edit=${perfumeId}`);
@@ -28,8 +37,63 @@ const PaginaPerfume = ({ user, setUser }: IPerfumePage) => {
         handleNumberRatingChange,
         handleSeasonRatingChange,
         liked,
-        toggleLiked,
+        toggleFavorite,
+        loadingFavorite,
     } = usePerfumeViewModel();
+
+    useEffect(() => {
+        const loadListas = async () => {
+            if (!user || !selectedPerfume?.id) {
+                setListasUsuario([]);
+                return;
+            }
+
+            try {
+                setListasLoading(true);
+                setListasError("");
+                const listas = await getMyListsForPerfume(Number(selectedPerfume.id));
+                setListasUsuario(listas);
+            } catch (err) {
+                setListasError(err instanceof Error ? err.message : "No se pudieron cargar las listas");
+            } finally {
+                setListasLoading(false);
+            }
+        };
+
+        loadListas();
+    }, [user, selectedPerfume?.id]);
+
+    const handleTogglePerfumeInList = async (idLista: number, checked: boolean) => {
+        if (!selectedPerfume?.id) return;
+
+        const idPerfume = Number(selectedPerfume.id);
+
+        try {
+            setListasError("");
+
+            if (checked) {
+                await addPerfumeToList(idLista, idPerfume);
+            } else {
+                await removePerfumeFromList(idLista, idPerfume);
+            }
+
+            setListasUsuario((prev) =>
+                prev.map((lista) =>
+                    lista.id === idLista
+                        ? {
+                            ...lista,
+                            contienePerfume: checked,
+                            totalPerfumes: checked
+                                ? lista.totalPerfumes + 1
+                                : Math.max(0, lista.totalPerfumes - 1),
+                        }
+                        : lista
+                )
+            );
+        } catch (err) {
+            setListasError(err instanceof Error ? err.message : "No se pudo actualizar la lista");
+        }
+    };
 
     if (loading) {
         return (
@@ -42,35 +106,28 @@ const PaginaPerfume = ({ user, setUser }: IPerfumePage) => {
     if (selectedPerfume === undefined) return null
 
     return (
-        <div>
-            <div className="relative mt-15">
-                <div className="absolute top-2 left-2 flex gap-2 z-30">
-                    <button onClick={() => setUser(TEMP_USER)} className="btn btn-xs">
-                        Usuario
-                    </button>
-                    <button onClick={() => setUser(undefined)} className="btn btn-xs">
-                        No usuario
-                    </button>
-                </div>
-            </div>
-            <div className="mx-auto max-w-7xl px-4 mt-25">
-                <SeccionInfoPerfume
-                    perfume={selectedPerfume}
-                    user={user}
-                    liked={liked}
-                    onToggleLiked={toggleLiked}
-                    onEditPerfume={goToEditPerfume}
-                />
-                <SeccionPiramide notas={selectedPerfume.notas} />
-                <SeccionValoraciones
-                    user={user}
-                    valoracion={rating}
-                    onNumberChange={handleNumberRatingChange}
-                    onSeasonChange={handleSeasonRatingChange}
-                />
-                <SeccionRecomendados user={user} mockedPerfumes={MOCKED_PERFUMES} />
-                <SeccionComentarios user={user} />
-            </div>
+        <div className="mx-auto max-w-7xl px-4 mt-25">
+            <SeccionInfoPerfume
+                perfume={selectedPerfume}
+                user={user}
+                liked={liked}
+                loadingFavorite={loadingFavorite}
+                listasUsuario={listasUsuario}
+                listasLoading={listasLoading}
+                listasError={listasError}
+                onTogglePerfumeInList={handleTogglePerfumeInList}
+                onToggleLiked={toggleFavorite}
+                onEditPerfume={goToEditPerfume}
+            />
+            <SeccionPiramide notas={selectedPerfume.notas} />
+            <SeccionValoraciones
+                user={user}
+                valoracion={rating}
+                onNumberChange={handleNumberRatingChange}
+                onSeasonChange={handleSeasonRatingChange}
+            />
+            <SeccionRecomendados user={user} mockedPerfumes={MOCKED_PERFUMES} />
+            <SeccionComentarios user={user} />
         </div>
     )
 }

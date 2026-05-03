@@ -1,13 +1,12 @@
+import { ICardPerfume } from "../../components/PerfumeCard"
 import type { IPerfumista } from "../perfumista/IPerfumista"
 
-// Modelo que utiliza la página para organizar sus datos
 export interface INota {
     tipo: "salida" | "corazon" | "base",
     nombre: string,
     foto: string
 }
 
-// Interfaz para representar perfume por ahora
 export interface IPerfume {
     id: string,
     nombre: string,
@@ -49,14 +48,14 @@ export interface INotaBackend {
 }
 
 export interface IPerfumeBackend {
-    id: string
+    id?: string
     nombre: string
     descripcion: string
     genero: string
     fechaLanzamiento?: string
     coleccion?: string
     foto: string
-    marca?: {
+    marca?: string | {
         nombre: string
         foto: string
     }
@@ -71,3 +70,37 @@ export interface IPerfumeBackend {
         base?: INotaBackend[]
     }
 }
+
+export interface ItemListado {
+    nombre: string;
+    id?: string;
+    coleccion?: string;
+}
+
+export interface IPerfumeFiltros {
+    marca?: string;
+    genero?: string;
+    perfumistaId?: string;
+    familias?: string[];
+    notas?: string[];
+}
+
+export interface IPerfumeBackendFiltros {
+    id: string;
+    nombre: string;
+    foto: string;
+    marca: {
+        nombre: string;
+    };
+    familiasOlfativas: {
+        nombre: string;
+    }[];
+}
+
+export const mapPerfumeToCard = (data: IPerfumeBackendFiltros): ICardPerfume => ({
+    id: data.id,
+    nombre: data.nombre,
+    marca: data.marca.nombre,
+    foto: data.foto,
+    familiasOlfativas: data.familiasOlfativas?.map(f => f.nombre) ?? []
+});

@@ -1,44 +1,53 @@
-// * El ViewModel es un hook de React (por eso empieza con use) que se utiliza para contener toda la lógica de una pantalla.
-// * Normalmente se le llama hook a una función cuyo nombre empieza por use y dentro usa hooks nativos de React, ejemplo: useState, useEffect
-// * https://react.dev/reference/react/hooks
-
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import type { IPerfume, IPerfumeBackend, IValoracion, IValoracionBooleanKey, IValoracionNumeroKey } from "./IPerfume";
 import { getPerfumeById } from "../../services/perfume.services";
 import { mapPerfumeFromBackend } from "./utils/PerfumeMapper";
+import { addFavorite, isFavorite, removeFavorite } from "../../servicios/votaciones.services";
 
 export const usePerfumeViewModel = () => {
     const navigate = useNavigate();
     const [selectedPerfume, setSelectedPerfume] = useState<IPerfume>()
     const [loading, setLoading] = useState(true)
-    const [rating, setRating] = useState<IValoracion>({}) // Aquí en vez de number, sería rating (por la base de datos) y modificas la propiedad
+    const [rating, setRating] = useState<IValoracion>({})
     const [liked, setLiked] = useState(false);
+    const [loadingFavorite, setLoadingFavorite] = useState(false);
 
     const { id } = useParams();
 
     useEffect(() => {
-        if (id) {
-            getPerfumeById(id)
-                .then((p: IPerfumeBackend) => {
-                    setSelectedPerfume(mapPerfumeFromBackend(p));
-                    setLoading(false);
-                }).catch(error => {
-                    console.error(error);
-                    setLoading(false);
-                    navigate("/not-found");
-                });
-        } else {
-            navigate("/not-found") //Para no tener la pantalla en blanco o que no se rompa la página entera
+        if (!id) {
+            navigate("/not-found");
+            return;
         }
+
+        getPerfumeById(id)
+            .then((p: IPerfumeBackend) => {
+                setSelectedPerfume(mapPerfumeFromBackend(p));
+                setLoading(false);
+            }).catch(error => {
+                console.error(error);
+                setLoading(false);
+                navigate("/not-found");
+            });
     }, [id, navigate])
 
-    /**
-     * * Función genérica que permite cambiar cualquiera de los atributos de rating y los muestra a la hora de utilizar la función.
-     * @param attr Es la propiedad de rating que se va a modificar
-     * @param value Es el valor que se va a poner en esa propiedad
-     * @example handleRatingChange("general", undefined)
-     */
+    useEffect(() => {
+        const loadFavoriteStatus = async () => {
+            if (!selectedPerfume?.id) return;
+
+            try {
+                const favorite = await isFavorite(Number(selectedPerfume.id));
+                setLiked(favorite);
+            } catch (error) {
+                console.error(error);
+                setLiked(false);
+            }
+        };
+
+        loadFavoriteStatus();
+    }, [selectedPerfume?.id]);
+
     const handleNumberRatingChange = (attr: IValoracionNumeroKey, value?: number) => {
         setRating((prev) => ({ ...prev, [attr]: value }));
     }
@@ -47,8 +56,24 @@ export const usePerfumeViewModel = () => {
         setRating((prev) => ({ ...prev, [attr]: value }));
     }
 
-    const toggleLiked = () => {
-        setLiked((prev) => !prev);
+    const toggleFavorite = async () => {
+        if (!selectedPerfume?.id) return;
+
+        try {
+            setLoadingFavorite(true);
+
+            if (liked) {
+                await removeFavorite(Number(selectedPerfume.id));
+                setLiked(false);
+            } else {
+                await addFavorite(Number(selectedPerfume.id));
+                setLiked(true);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoadingFavorite(false);
+        }
     }
 
     return {
@@ -57,7 +82,8 @@ export const usePerfumeViewModel = () => {
         handleNumberRatingChange,
         handleSeasonRatingChange,
         liked,
-        toggleLiked,
+        toggleFavorite,
+        loadingFavorite,
         loading
     }
 }

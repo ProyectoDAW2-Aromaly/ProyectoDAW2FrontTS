@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { IList } from "../IList.ts";
 import { getPublicLists } from "../../../servicios/listas.services.ts";
 
-export const useListasUsuariosViewModel = () => {
-    const [listas, setListas] = useState<IList[]>([]);
+export const useUserListsListViewModel = () => {
+    const [lists, setLists] = useState<IList[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     useEffect(() => {
-        const loadListas = async () => {
+        const loadLists = async () => {
             try {
                 setLoading(true);
                 setError("");
                 const publicLists = await getPublicLists();
-                setListas(publicLists);
+                setLists(publicLists);
             } catch (err) {
                 setError(err instanceof Error ? err.message : "No se pudieron cargar las listas");
             } finally {
@@ -21,12 +21,12 @@ export const useListasUsuariosViewModel = () => {
             }
         };
 
-        loadListas();
+        loadLists();
     }, []);
 
     return {
-        listas,
+        lists,
         loading,
         error,
-    }
-}
+    };
+};

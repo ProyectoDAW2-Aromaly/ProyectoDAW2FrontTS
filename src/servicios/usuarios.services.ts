@@ -1,4 +1,4 @@
-const API = `${import.meta.env.VITE_APP_API}/usuarios/`;
+const API = `${import.meta.env.VITE_APP_API}/usuario/`;
 
 export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
 
@@ -24,7 +24,22 @@ export interface ILoginUser {
 
 const getUser = (): IUser | null => {
   const user = localStorage.getItem("user");
-  return user ? JSON.parse(user) : null;
+  const token = localStorage.getItem("token");
+  
+  // Solo devolver usuario si hay ambos: datos Y token
+  if (user && token) {
+    try {
+      return JSON.parse(user);
+    } catch (error) {
+      // Si hay error al parsear, limpiar solo los datos corruptos
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      return null;
+    }
+  }
+  
+  // Si no hay ambos datos, devolver null (sin limpiar, podrían ser datos legítimos)
+  return null;
 };
 
 const saveUser = async (user: IRegisterUser) => {

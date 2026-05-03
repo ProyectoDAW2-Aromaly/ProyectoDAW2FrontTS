@@ -1,89 +1,16 @@
 import { IMarca } from "./IMarca";
 
 export const BRAND: IMarca[] = [
-    {
-        nombre: "Xerjoff",
-        imagen: {
-            src: "/brand/xerjoff-logo.png",
-            alt: "Xerjoff"
-        }
-    },
-    {
-        nombre: "Valentino",
-        imagen: {
-            src: "/brand/valentino-logo.png",
-            alt: "Valentino"
-        } 
-    },
-    {
-        nombre: "ELDO",
-        imagen: {
-            src: "/brand/ELDO-logo.png",
-            alt: "ELDO"
-        }
-    },
-    
-    {
-        nombre: "Xerjoff",
-        imagen: {
-            src: "/brand/xerjoff-logo.png",
-            alt: "Xerjoff"
-        }
-    },
-    {
-        nombre: "Valentino",
-        imagen: {
-            src: "/brand/valentino-logo.png",
-            alt: "Valentino"
-        } 
-    },
-    {
-        nombre: "ELDO",
-        imagen: {
-            src: "/brand/ELDO-logo.png",
-            alt: "ELDO"
-        }
-    },
-    {
-        nombre: "Xerjoff",
-        imagen: {
-            src: "/brand/xerjoff-logo.png",
-            alt: "Xerjoff"
-        }
-    },
-    {
-        nombre: "Valentino",
-        imagen: {
-            src: "/brand/valentino-logo.png",
-            alt: "Valentino"
-        } 
-    },
-    {
-        nombre: "ELDO",
-        imagen: {
-            src: "/brand/ELDO-logo.png",
-            alt: "ELDO"
-        }
-    },
-    {
-        nombre: "Xerjoff",
-        imagen: {
-            src: "/brand/xerjoff-logo.png",
-            alt: "Xerjoff"
-        }
-    },
-    {
-        nombre: "Valentino",
-        imagen: {
-            src: "/brand/valentino-logo.png",
-            alt: "Valentino"
-        } 
-    },
-    {
-        nombre: "ELDO",
-        imagen: {
-            src: "/brand/ELDO-logo.png",
-            alt: "ELDO"
-        }
-    },
+    { nombre: "Xerjoff", isdarklogo: true, foto: "/brand/xerjoff-logo.png" },
+    { nombre: "Valentino", isdarklogo: true, foto: "/brand/valentino-logo.png" },
+    { nombre: "ELDO", isdarklogo: true, foto: "/brand/ELDO-logo.png" },
+    { nombre: "Xerjoff", isdarklogo: true, foto: "/brand/xerjoff-logo.png" },
+    { nombre: "Valentino", isdarklogo: true, foto: "/brand/valentino-logo.png" },
+    { nombre: "ELDO", isdarklogo: true, foto: "/brand/ELDO-logo.png" },
+    { nombre: "Xerjoff", isdarklogo: true, foto: "/brand/xerjoff-logo.png" },
+    { nombre: "Valentino", isdarklogo: true, foto: "/brand/valentino-logo.png" },
+    { nombre: "ELDO", isdarklogo: true, foto: "/brand/ELDO-logo.png" },
+    { nombre: "Xerjoff", isdarklogo: true, foto: "/brand/xerjoff-logo.png" },
+    { nombre: "Valentino", isdarklogo: true, foto: "/brand/valentino-logo.png" },
+    { nombre: "ELDO", isdarklogo: true, foto: "/brand/ELDO-logo.png" },
 ]
