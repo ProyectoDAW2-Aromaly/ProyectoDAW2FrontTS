@@ -1,4 +1,10 @@
+import { useNavigate } from "react-router";
+
 export default function FormularioPerfumista() {
+
+    const navigate = useNavigate();
+
+    const handleCancelar = () => navigate(-1);
 
     return (
         // ! py -> Padding vertical. px -> Padding horizontal. Lo mismo con mx y my pero con margin.
@@ -30,7 +36,7 @@ export default function FormularioPerfumista() {
                             <button className="btn btn-neutral flex-2 mt-2 hover:btn-accent text-primary-content">
                                 Guardar
                             </button>
-                            <button className="btn btn-neutral flex-2 mt-2 hover:hover:btn-accent text-primary-content">
+                            <button className="btn btn-neutral flex-2 mt-2 hover:hover:btn-accent text-primary-content" onClick={handleCancelar}>
                                 Cancelar
                             </button>
                         </div>

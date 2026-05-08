@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import type { IUser } from "../../App";
+import { useContext, useEffect, useState } from "react";
+// import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { SeccionInfoPerfume } from "./components/SeccionInfoPerfume";
@@ -14,13 +14,16 @@ import {
     removePerfumeFromList,
     type IListaPerfumeOption,
 } from "../../servicios/listas.services";
+import UserContext from "../../context/UserContext";
 
-interface IPerfumePage {
-    user?: IUser,
-    setUser: (val?: IUser) => void
-}
+// interface IPerfumePage {
+//     user?: IUser,
+//     setUser: (val?: IUser) => void
+// }
 
-const PaginaPerfume = ({ user }: IPerfumePage) => {
+const PaginaPerfume = () => {
+    const userContext = useContext(UserContext);
+    const user = userContext?.user ?? undefined;
     const navigate = useNavigate();
     const [listasUsuario, setListasUsuario] = useState<IListaPerfumeOption[]>([]);
     const [listasLoading, setListasLoading] = useState(false);
