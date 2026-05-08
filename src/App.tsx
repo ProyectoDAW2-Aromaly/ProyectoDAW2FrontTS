@@ -48,7 +48,7 @@ function App() {
 
         <Route path='/perfumes' element={<ListaPerfumes />} />
         <Route path='/perfume/:id' element={<PaginaPerfume user={user} setUser={setUser} />} />
-        <Route path='/perfume/form' element={<FormularioPerfume />} />
+        <Route path='/perfume/formulario' element={<FormularioPerfume />} />
 
         <Route path='/perfumista/formulario' element={<FormularioPerfumista />} />
         <Route path='/perfumista/:id' element={<PaginaPerfumista user={user} setUser={setUser} />} />

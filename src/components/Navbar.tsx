@@ -139,9 +139,20 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-30 p-2 shadow">
+              <ul className="menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-1 w-32 p-2 shadow">
                 <li><Link to="/perfil">Perfil</Link></li>
-                <li><a>Ajustes</a></li>
+
+                {user.rol.toLocaleUpperCase() === "ADMIN" && (
+                  <>
+                    <li>
+                      <Link to="/perfume/formulario">Crear perfume</Link>
+                    </li>
+                    <li>
+                      <Link to="/perfumista/formulario">Crear perfumista</Link>
+                    </li>
+                  </>
+                )}
+
                 <li><button onClick={handleLogout}>Cerrar sesión</button></li>
 
                 {user.rol === "BASICO" && (
@@ -154,6 +165,8 @@ export default function Navbar() {
                     </li>
                   </>
                 )}
+
+                
               </ul>
             </>
           ) : (

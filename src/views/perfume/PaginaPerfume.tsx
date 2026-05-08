@@ -30,7 +30,7 @@ const PaginaPerfume = () => {
     const [listasError, setListasError] = useState("");
 
     const goToEditPerfume = (perfumeId: string) => {
-        navigate(`/perfume/form?edit=${perfumeId}`);
+        navigate(`/perfume/formulario?edit=${perfumeId}`);
     }
 
     const {
