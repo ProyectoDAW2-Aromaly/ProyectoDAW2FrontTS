@@ -76,6 +76,8 @@ export const useFormularioPerfumeViewModel = () => {
                         coleccion: perfume.coleccion || "",
                         notas: Array.isArray(perfume.notas) ? perfume.notas : []
                     });
+                } else {
+                    setFormulario(PERFUME_VACIO);
                 }
 
             } catch (err) {
@@ -161,7 +163,7 @@ export const useFormularioPerfumeViewModel = () => {
                 await crearPerfume(payload);
             }
 
-            navigate(-1);
+            navigate("/perfumes");
 
         } catch (err) {
             console.error(err);
