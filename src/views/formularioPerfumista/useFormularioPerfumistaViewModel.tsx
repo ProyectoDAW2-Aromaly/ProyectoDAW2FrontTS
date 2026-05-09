@@ -9,7 +9,7 @@ const PERFUMISTA_VACIO: IPerfumistaBackend = {
     foto: "",
 };
 
-export const useFormularioPerfumeViewModel = () => {
+export const useFormularioPerfumistaViewModel = () => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const id = params.get("edit") ?? params.get("id") ?? undefined;
@@ -71,7 +71,7 @@ export const useFormularioPerfumeViewModel = () => {
                 await crearPerfumista(payload);
             }
 
-            navigate("/perfumes");
+            navigate("/");
 
         } catch (err) {
             console.error(err);

@@ -32,7 +32,7 @@ export function editarPerfumista(id_perfumista: string, datosPerfumista: IPerfum
 }
 
 export function crearPerfumista(datosPerfumista: IPerfumistaBackend) {
-    return fetch(`${URL_SERVER}perfumista/nuevo`, {
+    return fetch(`${URL_SERVER}perfumista/crear`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

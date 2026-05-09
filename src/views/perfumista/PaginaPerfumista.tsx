@@ -50,7 +50,7 @@ const PaginaPerfumista = () => {
     }
 
     const irEditarPerfumista = (perfumistaId: string) => {
-        navigate(`/perfumista/formulario?editar=${perfumistaId}`);
+        navigate(`/perfumista/formulario?edit=${perfumistaId}`);
     }
 
     const { perfumista, perfumes, loading, error } = usePerfumistaViewModel()

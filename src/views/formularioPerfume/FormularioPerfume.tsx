@@ -54,7 +54,13 @@ export default function FormularioPerfume() {
             {/* IZQUIERDA */}
             <div className="space-y-3">
               <label className="label text-neutral font-semibold">Nombre</label>
-              <input type="text" className="input w-full focus:outline-none" placeholder="Nombre" value={formulario.nombre} onChange={handleChange("nombre")} />
+              <input 
+                type="text" 
+                className="input w-full focus:outline-none" 
+                placeholder="Nombre" 
+                value={formulario.nombre} 
+                onChange={handleChange("nombre")}
+              />
 
               <div className="space-y-1 flex flex-col">
                 <label className="label text-neutral font-semibold">Marca</label>
