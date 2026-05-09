@@ -19,7 +19,7 @@ export function getPerfumistaById(id_perfumista: string) {
 
 export function editarPerfumista(id_perfumista: string, datosPerfumista: IPerfumistaBackend) {
     return fetch(`${URL_SERVER}perfumista/editar/${id_perfumista}`, {
-        method: "PATCH",
+        method: "POST",
         headers: { 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem('token')}`

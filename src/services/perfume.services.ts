@@ -21,7 +21,7 @@ export function editarPerfume(id_perfume: string, datosPerfume: IPerfumeBackend)
     console.log(datosPerfume)
     datosPerfume.foto = ""
     return fetch(`${URL_SERVER}perfume/editar/${id_perfume}`, {
-        method: "PATCH",
+        method: "POST",
         headers: { 
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem('token')}`
