@@ -25,6 +25,7 @@ import PaginaMarca from './views/marca/marcaDetalles/PaginaMarca'
 import ListasUsuarios from './views/lista/listasUsuarios/ListasUsuarios'
 import ListDetailPage from './views/lista/ListDetailPage'
 import Premium from './views/premium/Premium'
+import ScrollToTop from './components/ScrollToTop'
 
 export interface IUser {
   userName: string;
@@ -39,6 +40,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <ScrollToTop/>
 
       <Routes>
         <Route path='/' element={<Inicio />} />
