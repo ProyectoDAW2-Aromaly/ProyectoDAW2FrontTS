@@ -77,6 +77,12 @@ export interface IPerfumeBackend {
     }
 }
 
+export interface IPerfumeBuscar {
+    id: number;
+    nombre: string;
+    foto: string;
+};
+
 export interface ItemListado {
     nombre: string;
     id?: string;

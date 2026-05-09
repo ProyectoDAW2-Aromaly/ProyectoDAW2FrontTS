@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router";
 
 import UserContext from "../context/UserContext";
 import { logout } from "../servicios/usuarios.services";
+import ModalBuscador from "./ModalBuscador";
 
 // ^ Es como un selector. Te limita solo a esas Strings, en este caso los temas de Daisy. Dark -> luxury | halloween | cofee . Light: caramellatte | garden | retro
 const THEMES = {
@@ -94,40 +95,7 @@ export default function Navbar() {
             </svg>
           </button>
 
-          <dialog id="search_modal" className="modal items-start">
-            <div className="modal-box relative mt-20 p-3 w-11/12 max-w-6xl">
-              <label className="input flex items-center gap-2 w-full">
-                <svg
-                  className="h-[1em] opacity-50"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                >
-                  <g
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2.5"
-                    fill="none"
-                    stroke="currentColor"
-                  >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.3-4.3"></path>
-                  </g>
-                </svg>
-
-                <input
-                  type="search"
-                  required
-                  placeholder="Search"
-                  className="grow"
-                />
-              </label>
-            </div>
-            <form method="dialog" className="modal-backdrop">
-              <button>
-                close
-              </button>
-            </form>
-          </dialog>
+          <ModalBuscador/>
         </div>
 
         <div className="dropdown dropdown-end">

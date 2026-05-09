@@ -9,6 +9,14 @@ export function getAllPerfumes() {
         })
 }
 
+export function buscarPerfumes(nombre: string) {
+    return fetch(`${URL_SERVER}perfume/buscar?nombre=${encodeURIComponent(nombre)}`)
+        .then(res => {
+            if (!res.ok) throw new Error("Error de conexión.");
+            return res.json();
+        })
+}
+
 export function getPerfumeById(id_perfume: string) {
     return fetch(`${URL_SERVER}perfume/${id_perfume}`,)
         .then(res => {
