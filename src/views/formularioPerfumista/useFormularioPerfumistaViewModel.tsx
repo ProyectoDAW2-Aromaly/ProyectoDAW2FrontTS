@@ -1,167 +1,98 @@
-// import { ChangeEvent, useEffect, useState } from "react";
-// import { useLocation, useNavigate } from "react-router";
-// import {
-//     crearPerfume,
-//     editarPerfume,
-//     getPerfumeById,
-//     obtenerMarcas,
-//     obtenerNotas,
-//     obtenerPerfumistas,
-//     obtenerFamiliasOlfativas,
-//     obtenerColecciones
-// } from "../../services/perfume.services";
-// import { IPerfumeBackend, ItemListado, INotaBackend } from "../perfume/IPerfume";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { IPerfumistaBackend } from "../perfumista/IPerfumista";
+import { crearPerfumista, editarPerfumista, getPerfumistaById } from "../../services/perfumista.services";
 
-// const PERFUMISTA_VACIO: IPerfumeBackend = {
-//     nombre: "",
-//     descripcion: "",
-//     genero: "",
-//     fechaLanzamiento: "",
-//     coleccion: "",
-//     foto: "",
-//     marca: undefined,
-//     perfumistas: [],
-//     familiasOlfativas: [],
-//     notas: [],
-// };
+const PERFUMISTA_VACIO: IPerfumistaBackend = {
+    nombre: "",
+    descripcion: "",
+    foto: "",
+};
 
-// export const useFormularioPerfumeViewModel = () => {
-//     const { search } = useLocation();
-//     const params = new URLSearchParams(search);
-//     const id = params.get("edit") ?? params.get("id") ?? undefined;
+export const useFormularioPerfumeViewModel = () => {
+    const { search } = useLocation();
+    const params = new URLSearchParams(search);
+    const id = params.get("edit") ?? params.get("id") ?? undefined;
 
-//     const navigate = useNavigate();
-//     const esModoEdicion = Boolean(id);
+    const navigate = useNavigate();
+    const esModoEdicion = Boolean(id);
 
-//     const [formulario, setFormulario] = useState<IPerfumeBackend>(PERFUMISTA_VACIO);
+    const [formulario, setFormulario] = useState<IPerfumistaBackend>(PERFUMISTA_VACIO);
 
-//     const [marcasDisponibles, setMarcasDisponibles] = useState<string[]>([]);
-//     const [notasDisponibles, setNotasDisponibles] = useState<string[]>([]);
-//     const [perfumistasDisponibles, setPerfumistasDisponibles] = useState<{ id: string, nombre: string }[]>([]);
-//     const [familiasDisponibles, setFamiliasDisponibles] = useState<string[]>([]);
-//     const [coleccionesDisponibles, setColeccionesDisponibles] = useState<string[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [guardando, setGuardando] = useState(false);
 
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState<string | null>(null);
-//     const [guardando, setGuardando] = useState(false);
+    useEffect(() => {
+        const cargarDatos = async () => {
+            try {
 
-//     useEffect(() => {
-//         const cargarDatos = async () => {
-//             try {
-//                 const [
-//                     marcas,
-//                     notas,
-//                     perfumistas,
-//                     familias,
-//                     colecciones
-//                 ] = await Promise.all([
-//                     obtenerMarcas(),
-//                     obtenerNotas(),
-//                     obtenerPerfumistas(),
-//                     obtenerFamiliasOlfativas(),
-//                     obtenerColecciones().catch(() => [])
-//                 ]);
+                if (esModoEdicion && id) {
+                    const perfumista = await getPerfumistaById(id);
 
-//                 setMarcasDisponibles(marcas.map((m: ItemListado) => m.nombre));
-//                 setNotasDisponibles(notas.map((m: ItemListado) => m.nombre));
+                    setFormulario({
+                        ...perfumista,
+                    });
+                } else {
+                    setFormulario(PERFUMISTA_VACIO);
+                }
 
-//                 if (esModoEdicion && id) {
-//                     const perfume = await getPerfumeById(id);
+            } catch (err) {
+                console.error(err);
+                setError("Error al cargar datos.");
+            } finally {
+                setLoading(false);
+            }
+        };
 
-//                     setFormulario({
-//                         ...perfume,
-//                         coleccion: perfume.coleccion || "",
-//                         notas: Array.isArray(perfume.notas) ? perfume.notas : []
-//                     });
-//                 } else {
-//                     setFormulario(PERFUME_VACIO);
-//                 }
+        cargarDatos();
+    }, [id]);
 
-//             } catch (err) {
-//                 console.error(err);
-//                 setError("Error al cargar datos.");
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
+    const handleChange = (campo: keyof IPerfumistaBackend) =>
+        (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+            setFormulario(prev => ({
+                ...prev,
+                [campo]: e.target.value
+            }));
+        };
 
-//         cargarDatos();
-//     }, [id]);
+    const handleSubmit = async () => {
+        setGuardando(true);
+        setError(null);
 
-//     const handleChange = (campo: keyof IPerfumeBackend) =>
-//         (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-//             setFormulario(prev => ({
-//                 ...prev,
-//                 [campo]: e.target.value
-//             }));
-//         };
+        try {
+            const payload: IPerfumistaBackend = {
+                ...formulario,
+            };
 
-//     const handleSubmit = async () => {
-//         setGuardando(true);
-//         setError(null);
+            if (esModoEdicion) {
+                await editarPerfumista(id!, payload);
+            } else {
+                await crearPerfumista(payload);
+            }
 
-//         try {
-//             const payload: IPerfumeBackend = {
-//                 ...formulario,
-//                 marca: typeof formulario.marca === "string"
-//                     ? { nombre: formulario.marca, foto: "" }
-//                     : formulario.marca
-//             };
+            navigate("/perfumes");
 
-//             if (esModoEdicion) {
-//                 await editarPerfume(id!, payload);
-//             } else {
-//                 await crearPerfume(payload);
-//             }
+        } catch (err) {
+            console.error(err);
+            setError("Error al guardar.");
+        } finally {
+            setGuardando(false);
+        }
+    };
 
-//             navigate("/perfumes");
+    const handleCancelar = () => navigate(-1);
 
-//         } catch (err) {
-//             console.error(err);
-//             setError("Error al guardar.");
-//         } finally {
-//             setGuardando(false);
-//         }
-//     };
+    return {
+        esModoEdicion,
+        formulario,
 
-//     const handleCancelar = () => navigate(-1);
+        loading,
+        error,
+        guardando,
 
-//     const notasSeleccionadas = (tipo: "salida" | "corazon" | "base") =>
-//     (formulario.notas as INotaBackend[] ?? [])
-//         .filter(n => n.tipo === tipo)
-//         .map(n => n.nombre);
-
-//     const perfumistasSeleccionados =
-//         formulario.perfumistas?.map(p => p.nombre) ?? [];
-
-//     const familiasSeleccionadas =
-//         (formulario.familiasOlfativas ?? []).map(f =>
-//             typeof f === "string" ? f : f.nombre
-//         );
-
-//     return {
-//         esModoEdicion,
-//         formulario,
-
-//         marcasDisponibles,
-//         notasDisponibles,
-//         perfumistasDisponibles,
-//         familiasDisponibles,
-//         coleccionesDisponibles,
-
-//         notasSeleccionadas,
-//         perfumistasSeleccionados,
-//         familiasSeleccionadas,
-
-//         loading,
-//         error,
-//         guardando,
-
-//         handleChange,
-//         handleFamiliasChange,
-//         handleNotasChange,
-//         handlePerfumistasChange,
-//         handleSubmit,
-//         handleCancelar,
-//     };
-// };
+        handleChange,
+        handleSubmit,
+        handleCancelar,
+    };
+};

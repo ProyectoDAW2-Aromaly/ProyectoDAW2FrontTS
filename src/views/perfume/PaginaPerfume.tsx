@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-// import type { IUser } from "../../App";
 import { useNavigate } from "react-router";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { SeccionInfoPerfume } from "./components/SeccionInfoPerfume";
@@ -15,11 +14,6 @@ import {
     type IListaPerfumeOption,
 } from "../../servicios/listas.services";
 import UserContext from "../../context/UserContext";
-
-// interface IPerfumePage {
-//     user?: IUser,
-//     setUser: (val?: IUser) => void
-// }
 
 const PaginaPerfume = () => {
     const userContext = useContext(UserContext);

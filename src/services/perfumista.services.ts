@@ -9,7 +9,7 @@ export function getNombrePerfumistas() {
         })
 }
 
-export function getPerfumistaById(id_perfumista: number) {
+export function getPerfumistaById(id_perfumista: string) {
     return fetch(`${URL_SERVER}perfumista/${id_perfumista}`,)
         .then(res => {
             if (!res.ok) throw new Error("Error al obtener el perfumista.");
@@ -17,8 +17,7 @@ export function getPerfumistaById(id_perfumista: number) {
         })
 }
 
-// * sin hacer aún
-export function editarPerfumista(id_perfumista: number, datosPerfumista: IPerfumistaBackend) {
+export function editarPerfumista(id_perfumista: string, datosPerfumista: IPerfumistaBackend) {
     return fetch(`${URL_SERVER}perfumista/editar/${id_perfumista}`, {
         method: "PATCH",
         headers: { 
@@ -32,7 +31,6 @@ export function editarPerfumista(id_perfumista: number, datosPerfumista: IPerfum
     })
 }
 
-// * Sin hacer aún
 export function crearPerfumista(datosPerfumista: IPerfumistaBackend) {
     return fetch(`${URL_SERVER}perfumista/nuevo`, {
         method: "POST",
@@ -43,6 +41,18 @@ export function crearPerfumista(datosPerfumista: IPerfumistaBackend) {
         body: JSON.stringify({ perfumista: datosPerfumista })
     }).then(res => {
         if (!res.ok) throw new Error("Error al crear el perfumista.");
+        return res.json();
+    })
+}
+
+export function eliminarPerfumista(id_perfumista: string) {
+    return fetch(`${URL_SERVER}perfumista/${id_perfumista}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    }).then(res => {
+        if (!res.ok) throw new Error("Error al elimninar el perfumista.");
         return res.json();
     })
 }

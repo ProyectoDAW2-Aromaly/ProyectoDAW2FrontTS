@@ -1,6 +1,5 @@
 import { URL_SERVER } from './constantes.js';
 import { IPerfumeBackend, IPerfumeFiltros } from '../views/perfume/IPerfume.js';
-import { TEMP_USER } from '../views/perfume/utils/PerfumeConstantes.js';
 
 export function getAllPerfumes() {
     return fetch(`${URL_SERVER}perfume`)
@@ -10,7 +9,7 @@ export function getAllPerfumes() {
         })
 }
 
-export function getPerfumeById(id_perfume: string | number) {
+export function getPerfumeById(id_perfume: string) {
     return fetch(`${URL_SERVER}perfume/${id_perfume}`,)
         .then(res => {
             if (!res.ok) throw new Error("Error al obtener el perfume.");
@@ -18,18 +17,30 @@ export function getPerfumeById(id_perfume: string | number) {
         })
 }
 
-export function editarPerfume(id_perfume: string | number, datosPerfume: IPerfumeBackend) {
+export function editarPerfume(id_perfume: string, datosPerfume: IPerfumeBackend) {
     console.log(datosPerfume)
     datosPerfume.foto = ""
     return fetch(`${URL_SERVER}perfume/editar/${id_perfume}`, {
         method: "PATCH",
         headers: { 
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${TEMP_USER.token}`
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ perfume: datosPerfume})
     }).then(res => {
         if (!res.ok) throw new Error("Error al editar el perfume.");
+        return res.json();
+    })
+}
+
+export function eliminarPerfume(id_perfume: string) {
+    return fetch(`${URL_SERVER}perfume/${id_perfume}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+    }).then(res => {
+        if (!res.ok) throw new Error("Error al elimninar el perfume.");
         return res.json();
     })
 }
