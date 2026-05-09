@@ -28,6 +28,7 @@ export const SeccionInfoPerfume = ({
     onToggleLiked,
     onEditPerfume,
 }: SeccionInfoPerfumeProps) => {
+    console.log("MArca: " + perfume?.marca?.nombre)
     return (
         <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row">
             <figure className="w-full md:w-4xl h-auto flex-3">
@@ -35,12 +36,12 @@ export const SeccionInfoPerfume = ({
             </figure>
             <div className="card-body items-start flex-5">
                 <h1 className="card-title ml-2">{perfume.nombre}</h1>
-                <Link to="/marca?name=xerjoff" className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0">
+                <Link to={`/marca/${encodeURIComponent(perfume?.marca?.nombre ?? "")}`} className="btn btn-ghost bg-[#FFF7ED] self-start p-2 h-auto min-h-0">
                     <figure className="flex items-center justify-center rounded-none">
                         <img
                             src={perfume.logo.src}
                             alt={perfume.logo.alt}
-                            style={{ width: "80px", height: "auto", maxHeight: "60px" }}
+                            style={{ width: "100px", height: "auto", maxHeight: "80px" }}
                             className="object-contain"
                         />
                     </figure>

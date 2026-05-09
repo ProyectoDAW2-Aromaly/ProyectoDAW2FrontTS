@@ -36,7 +36,7 @@ export default function FormularioPerfumista() {
                             <button className="btn btn-neutral flex-2 mt-2 hover:btn-accent text-primary-content">
                                 Guardar
                             </button>
-                            <button className="btn btn-neutral flex-2 mt-2 hover:hover:btn-accent text-primary-content" onClick={handleCancelar}>
+                            <button className="btn btn-neutral flex-2 mt-2 hover:hover:bg-red-500 hover:border-red-500 text-primary-content" onClick={handleCancelar}>
                                 Cancelar
                             </button>
                         </div>

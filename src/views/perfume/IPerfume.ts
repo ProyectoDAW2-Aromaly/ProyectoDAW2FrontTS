@@ -7,6 +7,11 @@ export interface INota {
     foto: string
 }
 
+export interface IMarca {
+    nombre: string;
+    foto: string;
+}
+
 export interface IPerfume {
     id: string,
     nombre: string,
@@ -15,6 +20,7 @@ export interface IPerfume {
     perfumista: IPerfumista[],
     yearSalida: string,
     coleccion: string,
+    marca: IMarca,
     imagen: {
         src: string,
         alt: string
