@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import { logout, type IUser } from "../servicios/usuarios.services";
+import { getUser, type IUser } from "../servicios/usuarios.services";
 
 interface IUserContext {
   user: IUser | null;
@@ -16,7 +16,7 @@ export function UserContextProvider({ children }: IUserContextProviderProps) {
   const [user, setUser] = useState<IUser | null>(null);
 
   useEffect(() => {
-    logout();
+    setUser(getUser());
   }, []);
 
   return (

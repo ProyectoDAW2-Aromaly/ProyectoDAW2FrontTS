@@ -1,55 +1,53 @@
-const URL_SERVER = `http://localhost:8080/api`;
+import { getToken } from "./usuarios.services";
 
-export interface IVotacionRequest {
-  id_perfume: number;
-  tipo: string; // 'favorito' o 'like'
-}
+const API = `${import.meta.env.VITE_APP_API}/votaciones`;
 
-// Guardar un perfume como favorito
+const authHeaders = () => ({
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${getToken()}`,
+});
+
 export const addFavorite = async (idPerfume: number): Promise<void> => {
-  const response = await fetch(`${URL_SERVER}/votacion`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+  const response = await fetch(`${API}/favorito`, {
+    method: "POST",
+    headers: authHeaders(),
     body: JSON.stringify({
-      id_perfume: idPerfume,
-      tipo: 'favorito'
-    } as IVotacionRequest),
+      perfumeId: idPerfume,
+      tipo: "favorito",
+    }),
   });
 
   if (!response.ok) {
-    throw new Error('No se pudo guardar el perfume como favorito');
+    throw new Error("No se pudo guardar el perfume como favorito");
   }
 };
 
-// Eliminar un perfume de favoritos
 export const removeFavorite = async (idPerfume: number): Promise<void> => {
-  const response = await fetch(`${URL_SERVER}/votacion/${idPerfume}?tipo=favorito`, {
-    method: 'DELETE',
+  const response = await fetch(`${API}/favorito/${idPerfume}`, {
+    method: "DELETE",
+    headers: authHeaders(),
   });
 
   if (!response.ok) {
-    throw new Error('No se pudo eliminar el perfume de favoritos');
+    throw new Error("No se pudo eliminar el perfume de favoritos");
   }
 };
 
-// Verificar si un perfume es favorito del usuario actual
 export const isFavorite = async (idPerfume: number): Promise<boolean> => {
-  const token = localStorage.getItem('token');
+  const token = getToken();
   if (!token) return false;
 
-  const response = await fetch(`${URL_SERVER}/votacion/${idPerfume}/favorito`, {
+  const response = await fetch(`${API}/favorito/${idPerfume}`, {
     headers: {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 
   if (!response.ok) {
-    if (response.status === 404) return false;
-    throw new Error('No se pudo verificar si el perfume es favorito');
+    if (response.status === 401 || response.status === 404) return false;
+    throw new Error("No se pudo verificar si el perfume es favorito");
   }
 
   const data = await response.json();
-  return data.isFavorite;
+  return Boolean(data.result?.isFavorite ?? data.result?.favorito ?? data.favorito ?? data.isFavorite);
 };
