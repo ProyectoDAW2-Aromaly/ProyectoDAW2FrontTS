@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
-import { ListCard } from "../../components/ListCard";
+import { ListaCard } from "../../components/ListaCard";
 import { PerfumeCard } from "../../components/PerfumeCard";
 import UserContext from "../../context/UserContext";
 import { getMyProfile, updateMyProfile } from "../../servicios/perfil.services";
@@ -24,20 +24,23 @@ export default function ProfilePage() {
 
   const buildProfileListCard = (lista: IPerfil["listasCreadas"][number]): IList => ({
     id: String(lista.id),
-    username: perfil?.user.userName || "",
+    nombreUsuario: perfil?.user.userName || "",
     premium: perfil?.user.rol === "PREMIUM",
-    coffee: false,
+    cafe: false,
     pfp: perfil?.user.pfp || "/user/profile-pic/profile1.jpg",
-    title: lista.nombre,
-    perfumes: lista.perfumeFotos || [],
+    titulo: lista.nombre,
+    perfumes: lista.perfumeFotos || Array.from(
+      { length: Math.max(1, Math.min(lista.totalPerfumes, 4)) },
+      () => "/perfume-info/perfume/lira/xerjoff-lira.jpg"
+    ),
   });
 
   const buildFavoritePerfumeCard = (perfume: IPerfil["perfumesFavoritos"][number]) => ({
     id: String(perfume.id),
-    name: perfume.nombre,
-    brand: perfume.marca,
-    image: perfume.foto,
-    olfactoryFamilies: perfume.familiasOlfativas,
+    nombre: perfume.nombre,
+    marca: perfume.marca,
+    foto: perfume.foto,
+    familiasOlfativas: perfume.familiasOlfativas,
   });
 
   const loadPerfil = async () => {
@@ -229,9 +232,9 @@ export default function ProfilePage() {
               <p className="opacity-70">Todavía no has creado ninguna lista.</p>
             ) : (
               <div className="flex flex-wrap gap-12">
-      {perfil.listasCreadas?.map((lista) => (
-                  <ListCard
-                    key={`list-${lista.id}`}
+                {perfil.listasCreadas.map((lista) => (
+                  <ListaCard
+                    key={lista.id}
                     data={buildProfileListCard(lista)}
                     user={userContext.user ?? undefined}
                     isOwner={true}
@@ -267,7 +270,7 @@ export default function ProfilePage() {
           <p className="opacity-70">Todavía no tienes perfumes favoritos guardados.</p>
         ) : (
           <div className="flex flex-wrap gap-12">
-            {perfil.perfumesFavoritos?.map((perfume) => (
+            {perfil.perfumesFavoritos.map((perfume) => (
               <PerfumeCard
                 key={perfume.id}
                 data={buildFavoritePerfumeCard(perfume)}

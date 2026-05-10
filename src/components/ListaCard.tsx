@@ -15,7 +15,7 @@ interface ListCardProps {
     onEdit?: () => void;
 }
 
-export const ListCard = ({ data, user, isOwner = false, onEdit }: ListCardProps) => {
+export const ListaCard = ({ data, user, isOwner = false, onEdit }: ListCardProps ) => {
     const [liked, setLiked] = useState(false);
 
     return <div className="card bg-base-100 shadow-sm w-96">
@@ -50,7 +50,7 @@ export const ListCard = ({ data, user, isOwner = false, onEdit }: ListCardProps)
                                     fill={liked ? "currentColor" : "none"}
                                     viewBox="0 0 24 24"
                                     strokeWidth="2"
-                                    stroke={liked ? "currentColor" : "currentColor"}
+                                    stroke="currentColor"
                                     className="size-[1.6em]"
                                 >
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
@@ -64,20 +64,20 @@ export const ListCard = ({ data, user, isOwner = false, onEdit }: ListCardProps)
             <div className="flex flex-wrap gap-6 mb-2 items-center">
                 <div className="avatar w-14 shrink-0">
                     <div className="w-14 rounded-full">
-                        <img src={data.pfp} alt={`Foto de perfil de ${data.username}`} />
+                        <img src={data.pfp} alt={`Foto de perfil de ${data.nombreUsuario}`} />
                     </div>
                 </div>
 
                 <div className="flex flex-col">
-                    <h2 className="card-title">{data.username}</h2>
+                    <h2 className="card-title">{data.nombreUsuario}</h2>
                 </div>
             </div>
 
             {data.premium && <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />}
-            {data.coffee && <img src="/user/icons/coffee-cup.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />}
+            {data.cafe && <img src="/user/icons/coffee-cup.svg" alt="Icono premium corona" className="absolute top-0.5 left-5 w-8 h-8 -rotate-22" />}
 
             <div className="divider h-1 my-0"></div>
-            <h2 className="font-semibold">{data.title}</h2>
+            <h2 className="font-semibold">{data.titulo}</h2>
             <div className="divider h-1 my-0"></div>
 
             <div className="avatar-group flex justify-center -space-x-2">
@@ -101,3 +101,5 @@ export const ListCard = ({ data, user, isOwner = false, onEdit }: ListCardProps)
         </div>
     </div>
 }
+
+export const ListCard = ListaCard

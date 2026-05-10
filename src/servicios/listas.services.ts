@@ -107,11 +107,11 @@ const getMyListsForPerfume = async (idPerfume: number): Promise<IListaPerfumeOpt
 
 const mapPublicList = (lista: IBackendPublicList): IList => ({
   id: String(lista.id),
-  username: lista.creadorUsername || "Usuario",
+  nombreUsuario: lista.creadorUsername || "Usuario",
   premium: lista.creadorRol === "PREMIUM",
-  coffee: false,
+  cafe: false,
   pfp: lista.creadorFoto || "/user/profile-pic/profile1.jpg",
-  title: lista.nombre,
+  titulo: lista.nombre,
   perfumes: (lista.perfumeFotos || []).map((foto: string) => normalizePerfumeImage(foto)),
 });
 
@@ -152,10 +152,10 @@ const getListDetail = async (idLista: number): Promise<IListaDetalle> => {
     creadorRol: lista.creadorRol,
     perfumes: (lista.perfumes || []).map((perfume) => ({
       id: String(perfume.id),
-      name: perfume.nombre,
-      brand: perfume.marca || "Marca desconocida",
-      image: normalizePerfumeImage(perfume.foto),
-      olfactoryFamilies: perfume.familiasOlfativas || [],
+      nombre: perfume.nombre,
+      marca: perfume.marca || "Marca desconocida",
+      foto: normalizePerfumeImage(perfume.foto),
+      familiasOlfativas: perfume.familiasOlfativas || [],
     })),
   };
 };
@@ -222,7 +222,6 @@ const deleteMyList = async (idLista: number) => {
   return data.result;
 };
 
-
 export {
   createMyList,
   getMyLists,
@@ -234,4 +233,3 @@ export {
   updateMyList,
   deleteMyList,
 };
-

@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { IUser } from "../../../servicios/usuarios.services";
+import type { IUser } from "../../../App";
 
 interface SeccionComentariosProps {
     user?: IUser;
@@ -17,6 +17,7 @@ const COMENTARIOS = [
         contenido: "Comentario random de este perfume. No se si deberia poner las estrellas que este usuario ha puesto o dejarlo sin estrellas.",
     },
 ];
+
 export const SeccionComentarios = ({ user }: SeccionComentariosProps) => (
     <>
         <h1 className="text-2xl text-center mb-10 mt-10">COMENTARIOS</h1>

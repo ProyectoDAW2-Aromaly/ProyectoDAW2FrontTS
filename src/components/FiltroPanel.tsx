@@ -2,20 +2,20 @@ import { useState } from "react";
 import { SelectFiltro } from "./SelectFiltro";
 import { useLocation } from "react-router";
 
-const brands = [
+const marcas = [
     "Xerjoff", "Valentino", "ELDO"
 ];
 
-const notes = [
+const notas = [
     'Vainilla', 'Bergamota', 'Sándalo', 'Almizcle', 'Cedro',
     'Rosa', 'Jazmin', 'Naranja roja', 'Lavanda', 'Canela', 'Caramelo'
 ];
 
-const olfactoryFamilies = [
+const familiasOlfativas = [
     'Cítrico', 'Oriental', 'Floral', 'Gourmand', 'Amaderado'
 ];
 
-const genres = [
+const generos = [
     'Mujer', 'Hombre', "Unisex"
 ]
 
@@ -45,40 +45,34 @@ export const FiltroPanel = () => {
                 <input className="w-full" type="search" required placeholder="Buscar" />
             </label>
 
-            {location.pathname !== "/brands" && (
-
-                <div className=" flex flex-row flex-wrap gap-4 justify-evenly">
-
-                    {/* Marca */}
-                    {location.pathname !== "/brand" && (
+            {location.pathname !== "/marcas" && (
+                <div className="flex flex-row flex-wrap gap-4 justify-evenly">
+                    {location.pathname !== "/marca" && (
                         <SelectFiltro
                             label="Selecciona una marca"
-                            items={brands}
+                            items={marcas}
                             value={selectedBrand}
                             onChange={setSelectedBrand}
                         />
                     )}
 
-                    {/* Género */}
                     <SelectFiltro
                         label="Selecciona el género"
-                        items={genres}
+                        items={generos}
                         value={selectedGenre}
                         onChange={setSelectedGenre}
                     />
 
-                    {/* Familia olfativa */}
                     <SelectFiltro
                         label="Selecciona una familia olfativa"
-                        items={olfactoryFamilies}
+                        items={familiasOlfativas}
                         value={selectedOlfactoryFamily}
                         onChange={setSelectedOlfactoryFamily}
                     />
 
-                    {/* Nota */}
                     <SelectFiltro
                         label="Selecciona una nota"
-                        items={notes}
+                        items={notas}
                         value={selectedNote}
                         onChange={setSelectedNote}
                     />
@@ -95,12 +89,8 @@ export const FiltroPanel = () => {
                             </a>
                         </div>
                     </div>
-
                 </div>
-
             )}
-
         </div>
-
     );
 };

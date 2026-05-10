@@ -1,21 +1,33 @@
 import { Link } from "react-router";
-import type { IUser } from "../../../servicios/usuarios.services";
+import type { IUser } from "../../../App";
+import type { IListaPerfumeOption } from "../../../servicios/listas.services";
 import type { IPerfume } from "../IPerfume";
-import { USUARIOS_LISTAS } from "../utils/PerfumeConstantes";
 
 interface SeccionInfoPerfumeProps {
     perfume: IPerfume;
     user?: IUser;
     liked: boolean;
     loadingFavorite?: boolean;
+    listasUsuario: IListaPerfumeOption[];
+    listasLoading: boolean;
+    listasError: string;
+    onTogglePerfumeInList: (idLista: number, checked: boolean) => void;
     onToggleLiked: () => void;
     onEditPerfume: (id: string) => void;
 }
 
-export const SeccionInfoPerfume = ({ perfume, user, liked, loadingFavorite, onToggleLiked, onEditPerfume }: SeccionInfoPerfumeProps) => {
-
-    console.log("PERFUME:", perfume);
-
+export const SeccionInfoPerfume = ({
+    perfume,
+    user,
+    liked,
+    loadingFavorite,
+    listasUsuario,
+    listasLoading,
+    listasError,
+    onTogglePerfumeInList,
+    onToggleLiked,
+    onEditPerfume,
+}: SeccionInfoPerfumeProps) => {
     return (
         <div className="card card-side bg-base-100 shadow-sm flex flex-col md:flex-row">
             <figure className="w-full md:w-4xl h-auto flex-3">
@@ -45,29 +57,55 @@ export const SeccionInfoPerfume = ({ perfume, user, liked, loadingFavorite, onTo
                         </div>
                     ) : null}
 
-                    {user?.rol === "PREMIUM" || user?.rol === "ADMIN" ? (
+                    {user ? (
                         <div className="dropdown dropdown-end tooltip save" data-tip="Guardar en lista">
                             <label tabIndex={0} className="btn btn-circle" aria-label="Guardar en lista">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-[1.6em]">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
                             </label>
-                            <ul tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-52 p-2 shadow-sm mt-2 space-y-2 max-h-40 overflow-y-auto">
-                                {USUARIOS_LISTAS.map((lista) => (
-                                    <li className="flex flex-row" key={lista}>
-                                        <p>{lista}</p>
-                                        <input type="checkbox" className="checkbox checkbox-primary" />
-                                    </li>
-                                ))}
-                            </ul>
+                            <div tabIndex={0} className="dropdown-content bg-base-100 rounded-box z-10 w-64 p-3 shadow-sm mt-2">
+                                <h4 className="font-semibold mb-2">Guardar en lista</h4>
+
+                                {listasLoading && <p className="text-sm opacity-70">Cargando listas...</p>}
+                                {listasError && <p className="text-sm text-error mb-2">{listasError}</p>}
+                                {!listasLoading && listasUsuario.length === 0 && (
+                                    <p className="text-sm opacity-70">No tienes listas creadas.</p>
+                                )}
+
+                                <ul className="space-y-2 max-h-52 overflow-y-auto">
+                                    {listasUsuario.map((lista) => (
+                                        <li className="flex items-center justify-between gap-3" key={lista.id}>
+                                            <div>
+                                                <p className="font-medium">{lista.nombre}</p>
+                                                <p className="text-xs opacity-60">
+                                                    {lista.totalPerfumes} perfumes
+                                                </p>
+                                            </div>
+
+                                            <input
+                                                type="checkbox"
+                                                className="checkbox checkbox-primary"
+                                                checked={lista.contienePerfume}
+                                                onChange={(e) => onTogglePerfumeInList(lista.id, e.target.checked)}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <div className="divider my-2"></div>
+                                <Link to="/perfil" className="btn btn-sm btn-neutral w-full">
+                                    Crear o gestionar listas
+                                </Link>
+                            </div>
                         </div>
                     ) : null}
 
                     {user ? (
                         <div className="tooltip save" data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}>
-                            <button 
-                                className="btn btn-circle" 
-                                onClick={onToggleLiked} 
+                            <button
+                                className="btn btn-circle"
+                                onClick={onToggleLiked}
                                 aria-label="Alternar favorito"
                                 disabled={loadingFavorite}
                             >

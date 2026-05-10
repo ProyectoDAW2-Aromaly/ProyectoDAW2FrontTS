@@ -44,7 +44,7 @@ export default function ListDetailPage() {
     return (
       <div className="mx-auto max-w-4xl px-4 mt-25">
         <div className="alert alert-error">{error || "No se pudo cargar la lista"}</div>
-        <Link to="/lists" className="btn mt-4">Volver a listas</Link>
+        <Link to="/listas" className="btn mt-4">Volver a listas</Link>
       </div>
     );
   }
@@ -53,7 +53,7 @@ export default function ListDetailPage() {
     <div className="mx-auto max-w-7xl px-4 mt-25 mb-20">
       <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <Link to="/lists" className="link text-sm">Volver a listas</Link>
+          <Link to="/listas" className="link text-sm">Volver a listas</Link>
           <h1 className="text-4xl font-semibold mt-3">{lista.nombre}</h1>
           <p className="opacity-70 mt-2">
             Lista de {lista.creadorUsername} - {lista.totalPerfumes} perfumes - {lista.esPublica ? "Publica" : "Privada"}
@@ -62,7 +62,7 @@ export default function ListDetailPage() {
       </div>
 
       {lista.perfumes.length === 0 ? (
-        <p className="opacity-70">Esta lista todavia no tiene perfumes.</p>
+        <p className="opacity-70">Esta lista todavía no tiene perfumes.</p>
       ) : (
         <div className="flex flex-wrap gap-12">
           {lista.perfumes.map((perfume) => (

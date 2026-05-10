@@ -1,4 +1,4 @@
-export default function PerfumerForm() {
+export default function FormularioPerfumista() {
 
     return (
         // ! py -> Padding vertical. px -> Padding horizontal. Lo mismo con mx y my pero con margin.

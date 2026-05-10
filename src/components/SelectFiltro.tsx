@@ -3,13 +3,23 @@ type Props = {
     label: string;
     value?: string;
     onChange: (value: string) => void;
-    overrideSelectClasses?: string 
+    sobreescribirClasesSelect?: string;
 };
 
-export const SelectFiltro = ({ items, label, value, onChange, overrideSelectClasses = "select select-sm w-60" }: Props) => {
-
+export const SelectFiltro = ({
+    items,
+    label,
+    value,
+    onChange,
+    sobreescribirClasesSelect = "select select-sm w-60",
+}: Props) => {
     return (
-        <select className={overrideSelectClasses} defaultValue="" value={value} onChange={(e) => onChange(e.target.value)}>
+        <select
+            className={sobreescribirClasesSelect}
+            defaultValue=""
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+        >
             <option disabled value="">
                 {label}
             </option>
@@ -22,3 +32,5 @@ export const SelectFiltro = ({ items, label, value, onChange, overrideSelectClas
         </select>
     );
 };
+
+export const SelectFilter = SelectFiltro;

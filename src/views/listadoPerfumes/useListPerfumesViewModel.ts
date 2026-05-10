@@ -12,23 +12,19 @@ export const useListPerfumesViewModel = () => {
             try {
                 setLoading(true);
                 setError(null);
-                
+
                 const perfumesData = await getAllPerfumes();
-                
-                // Debug: Ver qué datos llegan del backend
-                console.log('Perfumes del backend:', perfumesData);
-                
-                // Convertir datos del backend a formato ICardPerfume
-                const cardPerfumes: ICardPerfume[] = perfumesData.map(perfume => ({
+
+                const cardPerfumes: ICardPerfume[] = perfumesData.map((perfume: { id: string; nombre: string; marca?: { nombre?: string }; foto: string; familiasOlfativas?: Array<string | { nombre: string }> }) => ({
                     id: perfume.id,
-                    name: perfume.nombre,
-                    brand: perfume.marca?.nombre || 'Marca desconocida',
-                    image: perfume.foto,
-                    olfactoryFamilies: perfume.familiasOlfativas?.map(f => 
+                    nombre: perfume.nombre,
+                    marca: perfume.marca?.nombre || 'Marca desconocida',
+                    foto: perfume.foto,
+                    familiasOlfativas: perfume.familiasOlfativas?.map(f =>
                         typeof f === 'string' ? f : f.nombre
                     ) || []
                 }));
-                
+
                 setListPerfumes(cardPerfumes);
             } catch (err) {
                 console.error('Error loading perfumes:', err);

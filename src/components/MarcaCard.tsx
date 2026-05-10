@@ -1,7 +1,7 @@
 import { Link } from "react-router"
-import { IBrand } from "../views/brand/IBrand";
+import { IMarca } from "../views/marca/IMarca";
 
-const BrandCard = ({ data }: { data: IBrand }) => {
+const MarcaCard = ({ data }: { data: IMarca }) => {
 
     return (
         <div className="mx-auto max-w-sm px-4 mt-6">
@@ -9,23 +9,21 @@ const BrandCard = ({ data }: { data: IBrand }) => {
                 <div className="w-full h-32 dark:bg-[#FFF7ED] flex items-center justify-center rounded-t-lg">
                     <figure className="w-32 h-32 flex items-center justify-center">
                         <img
-                            src={data.image?.src}
-                            alt={`Imagen de la marca ${data.name}`}
+                            src={data.foto}
+                            alt={`Imagen de la marca ${data.nombre}`}
                             className="max-h-full max-w-full object-contain"
                         />
                     </figure>
                 </div>
                 
                 <div className="card-body items-start flex-1 flex flex-col justify-center text-center">
-                    <h1 className="card-title">{data.name.toUpperCase()}</h1>
-
+                    <h1 className="card-title text-sm">{data.nombre.toUpperCase()}</h1>
                 </div>
-
-                <Link to="/brand?name=xerjoff" className="btn btn-neutral mt-2 hover:btn-accent text-primary-content mb-3">Ver perfumes</Link>
+                <Link to={`/marca/${encodeURIComponent(data.nombre)}`} className="btn btn-neutral mt-2 hover:btn-accent text-primary-content mb-3">Ver perfumes</Link>
             </div>
 
         </div>
     )
 }
 
-export default BrandCard;
+export default MarcaCard;

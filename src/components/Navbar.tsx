@@ -53,12 +53,12 @@ export default function Navbar() {
               <details open>
                 <summary>Perfumes</summary>
                 <ul>
-                  <li><Link to="/perfumes">Todos</Link></li>
-                  <li><Link to="/brands">Marcas</Link></li>
+                  <li><Link to="/perfumes">Explorar</Link></li>
+                  <li><Link to="/marcas">Marcas</Link></li>
                 </ul>
               </details>
             </li>
-            <li><Link to="/lists">Listas de usuarios</Link></li>
+            <li><Link to="/listas">Listas credas por usuarios</Link></li>
           </ul>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router";
-import type { IUser } from "../../../servicios/usuarios.services";
+import type { IUser } from "../../../App";
 import type { IValoracion, IValoracionBooleanKey, IValoracionNumeroKey } from "../IPerfume";
 import { LABELS_DURACION, LABELS_PRECIO, EPOCA } from "../utils/PerfumeConstantes";
 

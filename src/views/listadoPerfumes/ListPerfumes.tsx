@@ -39,9 +39,8 @@ const ListPerfumes = () => {
                     <PerfumeCard data={perfume} key={perfume.id} />
                 )}
             </div>
-            
-            {/* En el handlePageChange es llamada a back con limit. El currentPage es un estado con useState. */}
-            <Paginacion currentPage={3} itemsPerPage={12} totalItems={listPerfumes.length} handlePageChange={console.log} />
+
+            <Paginacion paginaActual={3} itemsPorPagina={12} totalItems={listPerfumes.length} handleCambiarPagina={console.log} />
         </div>
     )
 }
