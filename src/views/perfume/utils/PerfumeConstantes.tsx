@@ -1,4 +1,4 @@
-import type { IUser } from "../../../App";
+import type { IUser } from "../../../servicios/usuarios.services";
 import type { ICardPerfume } from "../../../components/PerfumeCard";
 
 export const EPOCA = [
@@ -39,5 +39,4 @@ export const TEMP_USER: IUser = {
     userName: "Jakob",
     pfp: "/user/profile-pic/profile2.jpg",
     rol: "ADMIN",
-    token: "temp-token",
 };

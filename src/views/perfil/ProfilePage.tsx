@@ -29,10 +29,7 @@ export default function ProfilePage() {
     cafe: false,
     pfp: perfil?.user.pfp || "/user/profile-pic/profile1.jpg",
     titulo: lista.nombre,
-    perfumes: lista.perfumeFotos || Array.from(
-      { length: Math.max(1, Math.min(lista.totalPerfumes, 4)) },
-      () => "/perfume-info/perfume/lira/xerjoff-lira.jpg"
-    ),
+    perfumes: lista.perfumeFotos || [],
   });
 
   const buildFavoritePerfumeCard = (perfume: IPerfil["perfumesFavoritos"][number]) => ({
@@ -119,7 +116,7 @@ export default function ProfilePage() {
           ? {
               ...prev,
               listasCreadas: prev.listasCreadas.map((lista) =>
-                lista.id === idLista ? updated : lista
+                lista.id === idLista ? { ...lista, ...updated } : lista
               ),
             }
           : prev

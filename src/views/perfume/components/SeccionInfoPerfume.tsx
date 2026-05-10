@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { IUser } from "../../../App";
+import type { IUser } from "../../../servicios/usuarios.services";
 import type { IListaPerfumeOption } from "../../../servicios/listas.services";
 import type { IPerfume } from "../IPerfume";
 
@@ -142,9 +142,9 @@ export const SeccionInfoPerfume = ({
                 </h5>
                 <h5>
                     <span>Perfumista:</span>
-                    {perfume.perfumista.map((perfumista) => (
+                    {perfume.perfumista.map((perfumista, index) => (
                         <Link
-                            key={perfumista.id}
+                            key={`${perfumista.id ?? perfumista.nombre}-${index}`}
                             className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent"
                             to={`/perfumista/${perfumista.id}`}
                         >

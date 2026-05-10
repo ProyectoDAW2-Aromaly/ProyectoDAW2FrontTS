@@ -1,6 +1,6 @@
 import { URL_SERVER } from './constantes.js';
 import { IPerfumeBackend, IPerfumeFiltros } from '../views/perfume/IPerfume.js';
-import { TEMP_USER } from '../views/perfume/utils/PerfumeConstantes.js';
+import { getToken } from '../servicios/usuarios.services.js';
 
 export function getAllPerfumes() {
     return fetch(`${URL_SERVER}perfume`)
@@ -25,7 +25,7 @@ export function editarPerfume(id_perfume: string | number, datosPerfume: IPerfum
         method: "PATCH",
         headers: { 
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${TEMP_USER.token}`
+            "Authorization": `Bearer ${getToken()}`
         },
         body: JSON.stringify({ perfume: datosPerfume})
     }).then(res => {

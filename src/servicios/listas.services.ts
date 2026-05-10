@@ -2,7 +2,7 @@ import { getToken } from "./usuarios.services";
 import type { IListaPerfil } from "../views/perfil/IProfile";
 import type { ICardPerfume } from "../components/PerfumeCard";
 import type { IList } from "../views/lista/IList";
-import { normalizePerfumeImage } from "../utils/assets";
+import { normalizePerfumeImage, normalizeUserImage } from "../utils/assets";
 
 const API = `${import.meta.env.VITE_APP_API}/listas`;
 
@@ -110,7 +110,7 @@ const mapPublicList = (lista: IBackendPublicList): IList => ({
   nombreUsuario: lista.creadorUsername || "Usuario",
   premium: lista.creadorRol === "PREMIUM",
   cafe: false,
-  pfp: lista.creadorFoto || "/user/profile-pic/profile1.jpg",
+  pfp: normalizeUserImage(lista.creadorFoto),
   titulo: lista.nombre,
   perfumes: (lista.perfumeFotos || []).map((foto: string) => normalizePerfumeImage(foto)),
 });
