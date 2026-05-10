@@ -1,3 +1,5 @@
+import { normalizeUserImage } from "../utils/assets";
+
 const API = `${import.meta.env.VITE_APP_API}/usuario/`;
 
 export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
@@ -80,7 +82,7 @@ const doLogin = async (user: ILoginUser) => {
     if (data.status === 200) {
       const mappedUser: IUser = {
         userName: data.result.user.username,
-        pfp: data.result.user.foto || "/user/profile-pic/profile1.jpg",
+        pfp: normalizeUserImage(data.result.user.foto),
         rol: data.result.user.rol || "BASICO",
       };
 

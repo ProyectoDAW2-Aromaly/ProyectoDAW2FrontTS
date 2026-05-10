@@ -5,13 +5,21 @@ import { useListasUsuariosViewModel } from "./useListasUsuariosViewModel"
 
 const ListasUsuarios = () => {
 
-    const { listas } = useListasUsuariosViewModel();
+    const { listas, loading, error } = useListasUsuariosViewModel();
 
     return (
         <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
             <h1 className="text-4xl mb-5">LISTAS DE USUARIOS</h1>
 
             <FiltroPanel/>
+
+            {loading && <span className="loading loading-spinner loading-lg text-neutral"></span>}
+
+            {error && <div className="alert alert-error max-w-2xl">{error}</div>}
+
+            {!loading && !error && listas.length === 0 && (
+                <p className="opacity-70">No hay listas publicas disponibles.</p>
+            )}
 
             <div className="flex flex-wrap gap-12 mb-20" >
 

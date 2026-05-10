@@ -1,6 +1,6 @@
 import { getToken, type UserRol } from "./usuarios.services";
 import type { IPerfil } from "../views/perfil/IProfile";
-import { normalizePerfumeImage } from "../utils/assets";
+import { normalizePerfumeImage, normalizeUserImage } from "../utils/assets";
 
 const API = `${import.meta.env.VITE_APP_API}`;
 
@@ -37,7 +37,7 @@ const mapUser = (user: IBackendUser) => ({
   userName: user.username,
   email: user.email || "",
   descripcion: user.descripcion || "",
-  pfp: user.foto || "/user/profile-pic/profile1.jpg",
+  pfp: normalizeUserImage(user.foto),
   rol: user.rol || "BASICO",
 });
 

@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
-import { useState } from 'react'
 import './App.css'
 
 import Navbar from './components/Navbar'
@@ -27,16 +26,7 @@ import ListDetailPage from './views/lista/ListDetailPage'
 import Premium from './views/premium/Premium'
 import ScrollToTop from './components/ScrollToTop'
 
-export interface IUser {
-  userName: string;
-  pfp: string;
-  rol: string;
-  token?: string;
-}
-
 function App() {
-  const [user, setUser] = useState<IUser>();
-
   return (
     <BrowserRouter>
       <Navbar />
@@ -49,11 +39,12 @@ function App() {
         <Route path='/perfil' element={<ProfilePage />} />
 
         <Route path='/perfumes' element={<ListaPerfumes />} />
-        <Route path='/perfume/:id' element={<PaginaPerfume user={user} setUser={setUser} />} />
         <Route path='/perfume/formulario' element={<FormularioPerfume />} />
 
+        <Route path='/perfume/:id' element={<PaginaPerfume />} />
+
         <Route path='/perfumista/formulario' element={<FormularioPerfumista />} />
-        <Route path='/perfumista/:id' element={<PaginaPerfumista user={user} setUser={setUser} />} />
+        <Route path='/perfumista/:id' element={<PaginaPerfumista />} />
 
         <Route path='/marcas' element={<ListaMarcas />} />
         <Route path='/marca/:nombre' element={<PaginaMarca />} />

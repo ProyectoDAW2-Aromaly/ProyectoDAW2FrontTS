@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import UserContext from "../../context/UserContext";
 import { usePerfumeViewModel } from "./usePerfumeViewModel";
 import { SeccionInfoPerfume } from "./components/SeccionInfoPerfume";
 import { SeccionPiramide } from "./components/SeccionPiramide";
@@ -13,12 +14,13 @@ import {
     removePerfumeFromList,
     type IListaPerfumeOption,
 } from "../../servicios/listas.services";
-import UserContext from "../../context/UserContext";
+// import UserContext from "../../context/UserContext";
 
 const PaginaPerfume = () => {
     const userContext = useContext(UserContext);
     const user = userContext?.user ?? undefined;
     const navigate = useNavigate();
+    // const user = useContext(UserContext)?.user ?? undefined;
     const [listasUsuario, setListasUsuario] = useState<IListaPerfumeOption[]>([]);
     const [listasLoading, setListasLoading] = useState(false);
     const [listasError, setListasError] = useState("");
