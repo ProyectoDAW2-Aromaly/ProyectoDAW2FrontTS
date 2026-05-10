@@ -9,6 +9,7 @@ export default function FormularioPerfumista() {
         error,
         guardando,
         handleChange,
+        handleFileChange,
         handleSubmit,
         handleCancelar
     } = useFormularioPerfumistaViewModel();
@@ -50,7 +51,11 @@ export default function FormularioPerfumista() {
                         {/* DERECHA */}
                         <div className="space-y-3">
                             <label className="label text-neutral font-semibold">Foto del perfumista</label>
-                            <input type="file" className="file-input w-full" />
+                            <input 
+                                type="file" 
+                                className="file-input w-full"
+                                onChange={handleFileChange}
+                            />
                         </div>
 
                     </div>

@@ -18,6 +18,7 @@ export const useFormularioPerfumistaViewModel = () => {
     const esModoEdicion = Boolean(id);
 
     const [formulario, setFormulario] = useState<IPerfumistaBackend>(PERFUMISTA_VACIO);
+    const [archivo, setArchivo] = useState<File | null>(null);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -56,20 +57,50 @@ export const useFormularioPerfumistaViewModel = () => {
             }));
         };
 
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setArchivo(e.target.files[0]);
+        }
+    }
+
     const handleSubmit = async () => {
         setGuardando(true);
         setError(null);
 
         try {
-            const payload: IPerfumistaBackend = {
-                ...formulario,
-            };
+
+            const formData = new FormData();
+
+            formData.append("perfumista", JSON.stringify(
+                {
+                    nombre: formulario.nombre,
+                    descripcion: formulario.descripcion,
+                    foto: formulario.foto
+                }
+            ));
+
+            if (archivo) {
+                formData.append("foto", archivo);
+            }
 
             if (esModoEdicion) {
-                await editarPerfumista(id!, payload);
+                await editarPerfumista(id!, formData);
             } else {
-                await crearPerfumista(payload);
+                await crearPerfumista(formData);
             }
+            // const payload: IPerfumistaBackend = {
+            //     ...formulario,
+            // };
+
+            // if (archivo) {
+            //     payload.foto = archivo;
+            // }
+
+            // if (esModoEdicion) {
+            //     await editarPerfumista(id!, payload);
+            // } else {
+            //     await crearPerfumista(payload);
+            // }
 
             navigate("/");
 
@@ -92,6 +123,7 @@ export const useFormularioPerfumistaViewModel = () => {
         guardando,
 
         handleChange,
+        handleFileChange,
         handleSubmit,
         handleCancelar,
     };

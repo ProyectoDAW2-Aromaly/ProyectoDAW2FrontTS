@@ -34,6 +34,7 @@ export const useFormularioPerfumeViewModel = () => {
     const esModoEdicion = Boolean(id);
 
     const [formulario, setFormulario] = useState<IPerfumeBackend>(PERFUME_VACIO);
+    const [archivo, setArchivo] = useState<File | null>(null);
 
     const [marcasDisponibles, setMarcasDisponibles] = useState<string[]>([]);
     const [notasDisponibles, setNotasDisponibles] = useState<string[]>([]);
@@ -145,22 +146,31 @@ export const useFormularioPerfumeViewModel = () => {
         }));
     };
 
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setArchivo(e.target.files[0]);
+        }
+    }
+
     const handleSubmit = async () => {
         setGuardando(true);
         setError(null);
 
         try {
-            const payload: IPerfumeBackend = {
-                ...formulario,
-                marca: typeof formulario.marca === "string"
-                    ? { nombre: formulario.marca, foto: "" }
-                    : formulario.marca
-            };
+            const formData = new FormData();
+
+            formData.append("perfume", JSON.stringify({
+                ...formulario
+            }))
+
+            if (archivo) {
+                formData.append("foto", archivo)
+            }
 
             if (esModoEdicion) {
-                await editarPerfume(id!, payload);
+                await editarPerfume(id!, formData);
             } else {
-                await crearPerfume(payload);
+                await crearPerfume(formData);
             }
 
             navigate("/perfumes");
@@ -176,9 +186,9 @@ export const useFormularioPerfumeViewModel = () => {
     const handleCancelar = () => navigate(-1);
 
     const notasSeleccionadas = (tipo: "salida" | "corazon" | "base") =>
-    (formulario.notas as INotaBackend[] ?? [])
-        .filter(n => n.tipo === tipo)
-        .map(n => n.nombre);
+        (formulario.notas as INotaBackend[] ?? [])
+            .filter(n => n.tipo === tipo)
+            .map(n => n.nombre);
 
     const perfumistasSeleccionados =
         formulario.perfumistas?.map(p => p.nombre) ?? [];
@@ -207,6 +217,7 @@ export const useFormularioPerfumeViewModel = () => {
         guardando,
 
         handleChange,
+        handleFileChange,
         handleFamiliasChange,
         handleNotasChange,
         handlePerfumistasChange,

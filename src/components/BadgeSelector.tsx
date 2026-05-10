@@ -31,7 +31,7 @@ export const BadgeSelector = ({ items = [], label, size = "md", selected = [], o
 
     const itemsFiltrados = items.filter(item => 
         // Guarda solo los items que contienen lo que escribo
-        item.toLowerCase().includes(busqueda.toLowerCase())
+        item?.toLowerCase().includes(busqueda.toLowerCase())
     );
 
     return (
