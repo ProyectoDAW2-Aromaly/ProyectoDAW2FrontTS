@@ -2,11 +2,9 @@ import Paginacion from "../../../components/Paginacion"
 import { useMarcaViewModel } from "./useMarcaViewModel";
 import { ICardPerfume, PerfumeCard } from "../../../components/PerfumeCard";
 import { FiltroPanel } from "../../../components/FiltroPanel";
-// import { useNavigate } from "react-router";
 import { usePaginacion } from "../../../hooks/usePaginacion";
 
 const PaginaMarca = () => {
-    // const navigate = useNavigate();
 
     const { marca, perfumes, loading, error} = useMarcaViewModel();
     const perfumesPorPagina = 12;

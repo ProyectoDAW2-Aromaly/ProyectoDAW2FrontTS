@@ -2,12 +2,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { IPerfumistaBackend } from "../perfumista/IPerfumista";
 import { crearPerfumista, editarPerfumista, getPerfumistaById } from "../../services/perfumista.services";
+import { PERFUMISTA_VACIO } from "../../constantes/constantes";
 
-const PERFUMISTA_VACIO: IPerfumistaBackend = {
-    nombre: "",
-    descripcion: "",
-    foto: "",
-};
 
 export const useFormularioPerfumistaViewModel = () => {
     const { search } = useLocation();
@@ -88,19 +84,6 @@ export const useFormularioPerfumistaViewModel = () => {
             } else {
                 await crearPerfumista(formData);
             }
-            // const payload: IPerfumistaBackend = {
-            //     ...formulario,
-            // };
-
-            // if (archivo) {
-            //     payload.foto = archivo;
-            // }
-
-            // if (esModoEdicion) {
-            //     await editarPerfumista(id!, payload);
-            // } else {
-            //     await crearPerfumista(payload);
-            // }
 
             navigate("/");
 

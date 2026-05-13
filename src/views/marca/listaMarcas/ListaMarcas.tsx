@@ -6,11 +6,6 @@ import { usePaginacion } from "../../../hooks/usePaginacion";
 import { IMarca } from "../IMarca";
 
 const ListaMarcas = () => {
-    // const navigate = useNavigate();
-
-    // const goToBrand = (brandName: string) => {
-    //     navigate(`/brands?name=${brandName}`);
-    // }
 
     const { marcas, loading } = useListaMarcasViewModel();
     const marcasPorPagina = 12;

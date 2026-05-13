@@ -30,3 +30,16 @@ export interface IPerfil {
   listasCreadas: IListaPerfil[];
   perfumesFavoritos: IPerfumeFavoritoPerfil[];
 }
+
+export interface ICreateListFormProps {
+  loading: boolean;
+  onCreate: (data: { nombre: string; esPublica: boolean }) => Promise<void>;
+}
+
+export interface IManageListFormProps {
+  lista: IListaPerfil;
+  loading: boolean;
+  onSave: (data: { nombre: string; esPublica: boolean }) => Promise<void>;
+  onDelete: () => Promise<void>;
+  onCancel: () => void;
+}

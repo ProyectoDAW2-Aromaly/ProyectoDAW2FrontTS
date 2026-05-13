@@ -1,22 +1,10 @@
 import { Link } from "react-router";
-import type { IUser } from "../../../services/usuarios.services";
+import { IUser } from "../../../services/usuarios.services";
+import { COMENTARIOS } from "../../../constantes/constantes";
 
-interface SeccionComentariosProps {
+export interface SeccionComentariosProps {
     user?: IUser;
 }
-
-const COMENTARIOS = [
-    {
-        id: "1",
-        nombre: "Axel",
-        contenido: "Comentario random de este perfume. No se si deberia poner las estrellas que este usuario ha puesto o dejarlo sin estrellas.",
-    },
-    {
-        id: "2",
-        nombre: "Axel",
-        contenido: "Comentario random de este perfume. No se si deberia poner las estrellas que este usuario ha puesto o dejarlo sin estrellas.",
-    },
-];
 
 export const SeccionComentarios = ({ user }: SeccionComentariosProps) => (
     <>

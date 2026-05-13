@@ -1,4 +1,3 @@
-import { ICardPerfume } from "../../components/PerfumeCard"
 import type { IPerfumista } from "../perfumista/IPerfumista"
 
 export interface INota {
@@ -108,11 +107,3 @@ export interface IPerfumeBackendFiltros {
         nombre: string;
     }[];
 }
-
-export const mapPerfumeToCard = (data: IPerfumeBackendFiltros): ICardPerfume => ({
-    id: data.id,
-    nombre: data.nombre,
-    marca: data.marca.nombre,
-    foto: data.foto,
-    familiasOlfativas: data.familiasOlfativas?.map(f => f.nombre) ?? []
-});

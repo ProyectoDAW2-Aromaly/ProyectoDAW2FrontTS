@@ -1,9 +1,6 @@
 import { BadgeSelector } from "../../components/BadgeSelector";
 import { useFormularioPerfumeViewModel } from "./useFormularioPerfumeViewModel";
-
-const generos = [
-  'Mujer', 'Hombre', "Unisex"
-]
+import { GENEROS } from "../../constantes/constantes";
 
 export default function FormularioPerfume() {
 
@@ -102,7 +99,7 @@ export default function FormularioPerfume() {
                 onChange={handleChange("genero")}
               >
                 <option disabled value="">Selecciona un género</option>
-                {generos.map(genero => (
+                {GENEROS.map(genero => (
                   <option key={genero} value={genero}>
                     {genero}
                   </option>
