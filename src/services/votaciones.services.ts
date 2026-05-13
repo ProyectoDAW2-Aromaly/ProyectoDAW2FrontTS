@@ -1,4 +1,4 @@
-import { getToken } from "./usuarios.services";
+import { getToken } from "../services/usuarios.services";
 
 const API = `${import.meta.env.VITE_APP_API}/votaciones`;
 

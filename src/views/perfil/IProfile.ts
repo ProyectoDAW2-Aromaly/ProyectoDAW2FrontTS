@@ -1,4 +1,4 @@
-import type { UserRol } from "../../servicios/usuarios.services";
+import type { UserRol } from "../../services/usuarios.services";
 
 export interface IUserProfile {
   id?: number;

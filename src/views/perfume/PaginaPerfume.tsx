@@ -13,7 +13,7 @@ import {
     getMyListsForPerfume,
     removePerfumeFromList,
     type IListaPerfumeOption,
-} from "../../servicios/listas.services";
+} from "../../services/listas.services";
 // import UserContext from "../../context/UserContext";
 
 const PaginaPerfume = () => {

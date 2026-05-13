@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IList } from "../IList.ts";
-import { getPublicLists } from "../../../servicios/listas.services.ts";
+import { getPublicLists } from "../../../services/listas.services.ts";
 
 export const useUserListsListViewModel = () => {
     const [lists, setLists] = useState<IList[]>([]);

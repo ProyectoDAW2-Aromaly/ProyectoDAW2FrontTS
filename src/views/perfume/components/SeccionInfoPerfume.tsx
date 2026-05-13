@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router";
-import type { IUser } from "../../../servicios/usuarios.services";
-import type { IListaPerfumeOption } from "../../../servicios/listas.services";
+import type { IUser } from "../../../services/usuarios.services";
+import type { IListaPerfumeOption } from "../../../services/listas.services";
 import type { IPerfume } from "../IPerfume";
 import { useState } from "react";
 import { eliminarPerfume } from "../../../services/perfume.services";

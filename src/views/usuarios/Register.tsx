@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { saveUser } from "../../servicios/usuarios.services";
+import { saveUser } from "../../services/usuarios.services";
 
 export default function Register() {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { IUser } from "../../../servicios/usuarios.services";
+import type { IUser } from "../../../services/usuarios.services";
 
 interface SeccionComentariosProps {
     user?: IUser;

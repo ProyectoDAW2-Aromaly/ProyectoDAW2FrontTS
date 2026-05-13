@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import UserContext from "../../context/UserContext";
-import { doLogin, getUser } from "../../servicios/usuarios.services";
+import { doLogin, getUser } from "../../services/usuarios.services";
 
 export default function Login() {
   const navigate = useNavigate();

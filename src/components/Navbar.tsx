@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 
 import UserContext from "../context/UserContext";
-import { logout } from "../servicios/usuarios.services";
+import { logout } from "../services/usuarios.services";
 import ModalBuscador from "./ModalBuscador";
 
 // ^ Es como un selector. Te limita solo a esas Strings, en este caso los temas de Daisy. Dark -> luxury | halloween | cofee . Light: caramellatte | garden | retro

@@ -1,6 +1,6 @@
 import { ListaCard } from "../../../components/ListaCard";
 import { PerfumeCard, type ICardPerfume } from "../../../components/PerfumeCard";
-import type { IUser } from "../../../servicios/usuarios.services";
+import type { IUser } from "../../../services/usuarios.services";
 import { LIST } from "../../lista/ListData";
 
 interface SeccionRecomendadosProps {
