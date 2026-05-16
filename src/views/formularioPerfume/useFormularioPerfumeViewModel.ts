@@ -60,7 +60,6 @@ export const useFormularioPerfumeViewModel = () => {
 
     const cargarDatos = async () => {
         try {
-            // TODO: En vez de poner as Interfaz en todos, se quita por la mierda esa de los servicios (comprobar en el resto de viewmodels, si no, pedir rescate técnico)
             const marcas = await obtenerMarcas();
             const notas = await obtenerNotas();
             const perfumistas = await obtenerPerfumistas();
