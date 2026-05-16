@@ -1,4 +1,4 @@
-import { IPerfumeFiltros } from '../views/perfume/IPerfume.js';
+import { IPerfumeFiltros } from '../interfaces/IPerfume.js';
 
 const URL_SERVER = `${import.meta.env.VITE_SERVER_URL}`;
 

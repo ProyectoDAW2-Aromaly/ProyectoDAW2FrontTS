@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router";
 import type { IUser } from "../../../services/usuarios.services";
 import type { IListaPerfumeOption } from "../../../services/listas.services";
-import type { IPerfume } from "../IPerfume";
+import type { IPerfume } from "../../../interfaces/IPerfume";
 import { useState } from "react";
 import { eliminarPerfume } from "../../../services/perfume.services";
 import { ModalConfirmacion } from "../../../components/ModalConfirmacion";

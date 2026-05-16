@@ -1,8 +1,8 @@
 import { BadgeSelector } from "../../components/BadgeSelector";
 import { useFormularioPerfumeViewModel } from "./useFormularioPerfumeViewModel";
 import { GENEROS } from "../../constantes/constantes";
-import { IFamilias, INotaBackend } from "../perfume/IPerfume";
-import { IPerfumistaBackend } from "../perfumista/IPerfumista";
+import { IFamilias, INotaBackend } from "../../interfaces/IPerfume";
+import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 
 export default function FormularioPerfume() {
 

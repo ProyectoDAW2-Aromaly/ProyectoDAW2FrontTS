@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ICreateListFormProps } from "../perfil/IProfile";
+import { ICreateListFormProps } from "../../interfaces/IPerfil";
 
 export default function CreateListForm({ loading, onCreate }: ICreateListFormProps) {
   const [nombre, setNombre] = useState("");

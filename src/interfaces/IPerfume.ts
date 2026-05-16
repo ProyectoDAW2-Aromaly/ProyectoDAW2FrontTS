@@ -1,5 +1,5 @@
-import { IMarcaBackend } from "../../interfaces/IMarca";
-import type { IPerfumista, IPerfumistaBackend } from "../perfumista/IPerfumista"
+import { IMarcaBackend } from "./IMarca";
+import type { IPerfumista, IPerfumistaBackend } from "./IPerfumista"
 
 export interface INota {
     tipo: "salida" | "corazon" | "base",

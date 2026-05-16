@@ -1,5 +1,5 @@
 import { getToken } from "./usuarios.services";
-import type { IListaPerfil } from "../views/perfil/IProfile";
+import type { IListaPerfil } from "../interfaces/IPerfil";
 import type { IBackendListDetail, IBackendPublicList, ICreateListPayload, IListaDetalle, IListaPerfumeOption, IListas } from "../interfaces/IListas";
 import { normalizePerfumeImage, normalizeUserImage } from "../utils/assets";
 import { getHandler } from "./handler";

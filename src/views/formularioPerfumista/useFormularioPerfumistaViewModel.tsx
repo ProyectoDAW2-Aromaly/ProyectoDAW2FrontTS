@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { IPerfumistaBackend } from "../perfumista/IPerfumista";
+import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { crearPerfumista, editarPerfumista, getPerfumistaById } from "../../services/perfumista.services";
 import { PERFUMISTA_VACIO } from "../../constantes/constantes";
 

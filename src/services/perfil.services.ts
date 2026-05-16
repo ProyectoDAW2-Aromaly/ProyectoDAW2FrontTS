@@ -1,31 +1,8 @@
-import { getToken, type UserRol } from "./usuarios.services";
-import type { IPerfil } from "../views/perfil/IProfile";
+import { getToken } from "./usuarios.services";
+import type { IBackendPerfumeFavorito, IBackendUser, IPerfil, IUpdateProfilePayload } from "../interfaces/IPerfil";
 import { normalizePerfumeImage, normalizeUserImage } from "../utils/assets";
 
 const API = `${import.meta.env.VITE_APP_API}`;
-
-interface IUpdateProfilePayload {
-  email: string;
-  descripcion: string;
-  foto: string;
-}
-
-interface IBackendUser {
-  id?: number;
-  username: string;
-  email?: string;
-  descripcion?: string;
-  foto?: string;
-  rol?: UserRol;
-}
-
-interface IBackendPerfumeFavorito {
-  id: number;
-  nombre?: string;
-  foto?: string;
-  marca?: string;
-  familiasOlfativas?: string[];
-}
 
 const authHeaders = () => ({
   "Content-Type": "application/json",

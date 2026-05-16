@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { Link } from "react-router";
 import type { IUser } from "../../../services/usuarios.services";
-import type { IValoracion, IValoracionBooleanKey, IValoracionNumeroKey } from "../IPerfume";
+import type { IValoracion, IValoracionBooleanKey, IValoracionNumeroKey } from "../../../interfaces/IPerfume";
 import { LABELS_DURACION, LABELS_PRECIO, EPOCA } from "../utils/PerfumeConstantes";
 
 interface RatingsSectionProps {

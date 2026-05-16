@@ -1,4 +1,4 @@
-import type { UserRol } from "../../services/usuarios.services";
+import type { UserRol } from "../services/usuarios.services";
 
 export interface IUserProfile {
   id?: number;
@@ -42,4 +42,27 @@ export interface IManageListFormProps {
   onSave: (data: { nombre: string; esPublica: boolean }) => Promise<void>;
   onDelete: () => Promise<void>;
   onCancel: () => void;
+}
+
+export interface IUpdateProfilePayload {
+  email: string;
+  descripcion: string;
+  foto: string;
+}
+
+export interface IBackendUser {
+  id?: number;
+  username: string;
+  email?: string;
+  descripcion?: string;
+  foto?: string;
+  rol?: UserRol;
+}
+
+export interface IBackendPerfumeFavorito {
+  id: number;
+  nombre?: string;
+  foto?: string;
+  marca?: string;
+  familiasOlfativas?: string[];
 }

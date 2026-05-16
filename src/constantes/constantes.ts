@@ -1,4 +1,4 @@
-import { IPerfumistaBackend } from "../views/perfumista/IPerfumista";
+import { IPerfumistaBackend } from "../interfaces/IPerfumista";
 
 export const GENEROS = [
   'Mujer', 'Hombre', "Unisex"

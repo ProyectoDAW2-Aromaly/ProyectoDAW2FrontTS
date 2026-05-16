@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { IUserProfile } from "./IProfile";
+import type { IUserProfile } from "../../interfaces/IPerfil";
 
 interface IEditProfileFormProps {
   user: IUserProfile;

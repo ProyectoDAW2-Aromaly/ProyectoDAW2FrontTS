@@ -8,9 +8,9 @@ import {
     obtenerPerfumistas,
     obtenerFamiliasOlfativas
 } from "../../services/perfume.services";
-import { IPerfumeBackend, INotaBackend, IFamilias } from "../perfume/IPerfume";
+import { IPerfumeBackend, INotaBackend, IFamilias } from "../../interfaces/IPerfume";
 import { IMarcaBackend } from "../../interfaces/IMarca";
-import { IPerfumistaBackend } from "../perfumista/IPerfumista";
+import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { obtenerMarcas } from "../../services/marca.services";
 
 const PERFUME_VACIO: IPerfumeBackend = {

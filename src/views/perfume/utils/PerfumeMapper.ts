@@ -1,4 +1,4 @@
-import type { IMarca, INota, INotaBackend, IPerfume, IPerfumeBackend } from "../IPerfume";
+import type { IMarca, INota, INotaBackend, IPerfume, IPerfumeBackend } from "../../../interfaces/IPerfume";
 
 export const getGeneroImagen = (value: string): string => {
     switch (value.toLowerCase()) {

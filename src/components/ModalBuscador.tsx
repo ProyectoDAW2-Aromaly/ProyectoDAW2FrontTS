@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { buscarPerfumes } from "../services/perfume.services";
-import { IPerfumeBuscar } from "../views/perfume/IPerfume";
+import { IPerfumeBuscar } from "../interfaces/IPerfume";
 import { useNavigate } from "react-router";
 
 export default function ModalBuscador() {

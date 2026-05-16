@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IManageListFormProps } from "../perfil/IProfile";
+import { IManageListFormProps } from "../../interfaces/IPerfil";
 
 export default function ManageListForm({ lista, loading, onSave, onDelete, onCancel }: IManageListFormProps) {
   const [nombre, setNombre] = useState(lista.nombre);

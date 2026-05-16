@@ -5,8 +5,8 @@ import { PerfumeCard } from "../../components/PerfumeCard";
 import UserContext from "../../context/UserContext";
 import { getMyProfile, updateMyProfile } from "../../services/perfil.services";
 import { createMyList, deleteMyList, updateMyList } from "../../services/listas.services";
-import type { IList } from "../../interfaces/IListas";
-import type { IPerfil } from "./IProfile";
+import type { IListas } from "../../interfaces/IListas";
+import type { IPerfil } from "../../interfaces/IPerfil";
 import EditProfileForm from "./EditProfileForm";
 import CreateListForm from "./CreateListForm";
 import ManageListForm from "./ManageListForm";
@@ -22,7 +22,7 @@ export default function ProfilePage() {
   const [managingListId, setManagingListId] = useState<number | null>(null);
   const [editingListId, setEditingListId] = useState<number | null>(null);
 
-  const buildProfileListCard = (lista: IPerfil["listasCreadas"][number]): IList => ({
+  const buildProfileListCard = (lista: IPerfil["listasCreadas"][number]): IListas => ({
     id: String(lista.id),
     nombreUsuario: perfil?.user.userName || "",
     premium: perfil?.user.rol === "PREMIUM",
