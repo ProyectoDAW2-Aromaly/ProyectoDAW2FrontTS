@@ -59,7 +59,7 @@ export default function Navbar() {
                 </ul>
               </details>
             </li>
-            <li><Link to="/listas">Listas credas por usuarios</Link></li>
+            <li><Link to="/listas">Listas creadas por usuarios</Link></li>
           </ul>
         </div>
       </div>
@@ -103,7 +103,11 @@ export default function Navbar() {
             <>
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
                 <div className="w-10 rounded-full">
-                  <img alt="avatar" src={user.pfp || "/user/profile-pic/profile1.jpg"} />
+                  <img
+                    alt="avatar"
+                    src={user.pfp || "/user/profile-pic/default-profile.jpg"}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               </div>
 

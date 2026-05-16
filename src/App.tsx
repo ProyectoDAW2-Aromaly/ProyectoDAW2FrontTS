@@ -40,10 +40,14 @@ function App() {
 
         <Route path='/perfumes' element={<ListaPerfumes />} />
         <Route path='/perfume/formulario' element={<FormularioPerfume />} />
+        <Route path='/admin/perfumes/crear' element={<FormularioPerfume />} />
+        <Route path='/admin/perfumes/editar/:id' element={<FormularioPerfume />} />
 
         <Route path='/perfume/:id' element={<PaginaPerfume />} />
 
         <Route path='/perfumista/formulario' element={<FormularioPerfumista />} />
+        <Route path='/admin/perfumistas/crear' element={<FormularioPerfumista />} />
+        <Route path='/admin/perfumistas/editar/:id' element={<FormularioPerfumista />} />
         <Route path='/perfumista/:id' element={<PaginaPerfumista />} />
 
         <Route path='/marcas' element={<ListaMarcas />} />

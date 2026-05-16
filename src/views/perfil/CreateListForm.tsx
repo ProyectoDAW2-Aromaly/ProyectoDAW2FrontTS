@@ -1,26 +1,38 @@
 import { useState } from "react";
 import { ICreateListFormProps } from "../../interfaces/IPerfil";
 
-export default function CreateListForm({ loading, onCreate }: ICreateListFormProps) {
+export default function CreateListForm({
+  loading,
+  userRol,
+  listasCreadasCount,
+  onCreate,
+}: ICreateListFormProps) {
   const [nombre, setNombre] = useState("");
   const [esPublica, setEsPublica] = useState(true);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!nombre.trim()) {
-      setError("El nombre es obligatorio");
+    const nombreLimpio = nombre.trim();
+
+    if (!nombreLimpio) {
+      setError("El nombre de la lista es obligatorio.");
+      return;
+    }
+
+    if (userRol === "BASICO" && listasCreadasCount >= 1) {
+      setError("Los usuarios basicos solo pueden tener una lista. Actualiza a Premium para crear mas.");
       return;
     }
 
     try {
-      await onCreate({ nombre, esPublica });
+      await onCreate({ nombre: nombreLimpio, esPublica });
       setNombre("");
       setEsPublica(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo crear la lista");
+      setError(err instanceof Error ? err.message : "No se pudo crear la lista.");
     }
   };
 
@@ -36,6 +48,7 @@ export default function CreateListForm({ loading, onCreate }: ICreateListFormPro
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           placeholder="Ej: Favoritos de invierno"
+          required
         />
 
         <label className="label cursor-pointer justify-start gap-3 mt-2">
@@ -45,7 +58,7 @@ export default function CreateListForm({ loading, onCreate }: ICreateListFormPro
             checked={esPublica}
             onChange={(e) => setEsPublica(e.target.checked)}
           />
-          <span className="label-text">Lista pública</span>
+          <span className="label-text">Lista publica</span>
         </label>
 
         {error && <p className="text-error text-sm">{error}</p>}

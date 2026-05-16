@@ -1,11 +1,17 @@
 import { getToken } from "../services/usuarios.services";
 
-const API = `${import.meta.env.VITE_APP_API}/votaciones`;
+const API = `${import.meta.env.VITE_SERVER_URL}votaciones`;
 
-const authHeaders = () => ({
-  "Content-Type": "application/json",
-  Authorization: `Bearer ${getToken()}`,
-});
+const authHeaders = () => {
+  const token = getToken();
+  if (!token) {
+    throw new Error("No hay token de autenticación. Por favor, inicia sesión.");
+  }
+  return {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  };
+};
 
 export const addFavorite = async (idPerfume: number): Promise<void> => {
   const response = await fetch(`${API}/favorito`, {

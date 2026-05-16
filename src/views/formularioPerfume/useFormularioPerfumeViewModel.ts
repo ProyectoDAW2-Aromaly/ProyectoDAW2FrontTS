@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import {
     crearPerfume,
     editarPerfume,
@@ -34,8 +34,9 @@ interface IOpcionSelectores {
 
 export const useFormularioPerfumeViewModel = () => {
     const { search } = useLocation();
+    const { id: routeId } = useParams();
     const params = new URLSearchParams(search);
-    const id = params.get("edit") ?? params.get("id") ?? undefined;
+    const id = routeId ?? params.get("edit") ?? params.get("id") ?? undefined;
 
     const navigate = useNavigate();
     const esModoEdicion = Boolean(id);

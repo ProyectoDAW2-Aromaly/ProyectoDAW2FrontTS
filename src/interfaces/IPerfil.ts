@@ -17,6 +17,19 @@ export interface IListaPerfil {
   perfumeFotos?: string[];
 }
 
+export interface IListaGuardadaPerfil {
+  id: number;
+  fecha_guardado?: string;
+  listaId: number;
+  listaNombre: string;
+  listaEsPublica: boolean;
+  creadorUsername: string;
+  creadorFoto?: string;
+  creadorRol?: UserRol;
+  totalPerfumes: number;
+  perfumeFotos?: string[];
+}
+
 export interface IPerfumeFavoritoPerfil {
   id: number;
   nombre: string;
@@ -29,10 +42,13 @@ export interface IPerfil {
   user: IUserProfile;
   listasCreadas: IListaPerfil[];
   perfumesFavoritos: IPerfumeFavoritoPerfil[];
+  listasGuardadas: IListaGuardadaPerfil[];
 }
 
 export interface ICreateListFormProps {
   loading: boolean;
+  userRol: UserRol;
+  listasCreadasCount: number;
   onCreate: (data: { nombre: string; esPublica: boolean }) => Promise<void>;
 }
 
@@ -47,7 +63,8 @@ export interface IManageListFormProps {
 export interface IUpdateProfilePayload {
   email: string;
   descripcion: string;
-  foto: string;
+  foto?: string;
+  archivo?: File | null;
 }
 
 export interface IBackendUser {

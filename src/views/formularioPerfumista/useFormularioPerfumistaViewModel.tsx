@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { crearPerfumista, editarPerfumista, getPerfumistaById } from "../../services/perfumista.services";
 import { PERFUMISTA_VACIO } from "../../constantes/constantes";
@@ -7,8 +7,9 @@ import { PERFUMISTA_VACIO } from "../../constantes/constantes";
 
 export const useFormularioPerfumistaViewModel = () => {
     const { search } = useLocation();
+    const { id: routeId } = useParams();
     const params = new URLSearchParams(search);
-    const id = params.get("edit") ?? params.get("id") ?? undefined;
+    const id = routeId ?? params.get("edit") ?? params.get("id") ?? undefined;
 
     const navigate = useNavigate();
     const esModoEdicion = Boolean(id);
@@ -85,7 +86,7 @@ export const useFormularioPerfumistaViewModel = () => {
                 await crearPerfumista(formData);
             }
 
-            navigate("/");
+            navigate("/perfil");
 
         } catch (err) {
             console.error(err);

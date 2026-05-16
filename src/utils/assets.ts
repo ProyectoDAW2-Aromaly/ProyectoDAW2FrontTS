@@ -41,4 +41,4 @@ export const normalizeBrandImage = (src?: string) =>
   normalizeFileAsset(src, "/brand", brandImageOverrides, "/brand/xerjoff-logo.png");
 
 export const normalizeUserImage = (src?: string) =>
-  normalizeFileAsset(src, "/user/profile-pic", {}, "/user/profile-pic/profile1.jpg");
+  normalizeFileAsset(src, "/user/profile-pic", {}, "/user/profile-pic/default-profile.jpg");

@@ -5,13 +5,13 @@ interface IEditProfileFormProps {
   user: IUserProfile;
   loading: boolean;
   onCancel: () => void;
-  onSave: (data: { email: string; descripcion: string; foto: string }) => Promise<void>;
+  onSave: (data: { email: string; descripcion: string; foto?: string; archivo?: File | null }) => Promise<void>;
 }
 
 export default function EditProfileForm({ user, loading, onCancel, onSave }: IEditProfileFormProps) {
   const [email, setEmail] = useState(user.email);
   const [descripcion, setDescripcion] = useState(user.descripcion);
-  const [foto, setFoto] = useState(user.pfp);
+  const [archivo, setArchivo] = useState<File | null>(null);
   const [previewFoto, setPreviewFoto] = useState(user.pfp);
   const [error, setError] = useState("");
 
@@ -19,7 +19,7 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setFoto(file.name);
+    setArchivo(file);
     setPreviewFoto(URL.createObjectURL(file));
   };
 
@@ -28,7 +28,7 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
     setError("");
 
     try {
-      await onSave({ email, descripcion, foto });
+      await onSave({ email, descripcion, foto: user.pfp, archivo });
     } catch (err) {
       setError(err instanceof Error ? err.message : "No se pudo guardar");
     }
@@ -58,7 +58,7 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <div className="avatar">
             <div className="w-16 rounded-full">
-              <img src={previewFoto || "/user/profile-pic/profile1.jpg"} alt="Vista previa del perfil" />
+              <img src={previewFoto || "/user/profile-pic/default-profile.jpg"} alt="Vista previa del perfil" />
             </div>
           </div>
           <input
