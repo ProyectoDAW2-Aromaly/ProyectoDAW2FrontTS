@@ -1,6 +1,6 @@
-import { IList } from "./IList";
+import { IListas } from "../../interfaces/IListas";
 
-export const LIST: IList[] = [
+export const LIST: IListas[] = [
     {
         id: "AxelID",
         nombreUsuario: "Axel",

@@ -5,7 +5,7 @@ import { PerfumeCard } from "../../components/PerfumeCard";
 import UserContext from "../../context/UserContext";
 import { getMyProfile, updateMyProfile } from "../../services/perfil.services";
 import { createMyList, deleteMyList, updateMyList } from "../../services/listas.services";
-import type { IList } from "../lista/IList";
+import type { IList } from "../../interfaces/IListas";
 import type { IPerfil } from "./IProfile";
 import EditProfileForm from "./EditProfileForm";
 import CreateListForm from "./CreateListForm";

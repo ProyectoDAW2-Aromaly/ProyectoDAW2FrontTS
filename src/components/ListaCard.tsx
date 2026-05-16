@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { IList } from "../views/lista/IList";
+import { IList } from "../interfaces/IListas";
 
 interface IUser {
     userName: string,
