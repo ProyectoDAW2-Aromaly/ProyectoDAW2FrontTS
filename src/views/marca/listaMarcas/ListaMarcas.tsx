@@ -3,14 +3,9 @@ import MarcaCard from "../../../components/MarcaCard";
 import { useListaMarcasViewModel } from "./useListaMarcasViewModel";
 import { FiltroPanel } from "../../../components/FiltroPanel";
 import { usePaginacion } from "../../../hooks/usePaginacion";
-import { IMarca } from "../IMarca";
+import { IMarca } from "../../../interfaces/IMarca";
 
 const ListaMarcas = () => {
-    // const navigate = useNavigate();
-
-    // const goToBrand = (brandName: string) => {
-    //     navigate(`/brands?name=${brandName}`);
-    // }
 
     const { marcas, loading } = useListaMarcasViewModel();
     const marcasPorPagina = 12;

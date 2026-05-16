@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { IList } from "../IList.ts";
-import { getPublicLists } from "../../../servicios/listas.services.ts";
+import { IListas } from "../../../interfaces/IListas.ts";
+import { getPublicLists } from "../../../services/listas.services.ts";
 
 export const useUserListsListViewModel = () => {
-    const [lists, setLists] = useState<IList[]>([]);
+    const [lists, setLists] = useState<IListas[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     useEffect(() => {
-        const loadLists = async () => {
+        const loadListas = async () => {
             try {
                 setLoading(true);
                 setError("");
@@ -21,7 +21,7 @@ export const useUserListsListViewModel = () => {
             }
         };
 
-        loadLists();
+        loadListas();
     }, []);
 
     return {

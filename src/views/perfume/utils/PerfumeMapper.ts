@@ -1,4 +1,4 @@
-import type { INota, INotaBackend, IPerfume, IPerfumeBackend } from "../IPerfume";
+import type { IMarca, INota, INotaBackend, IPerfume, IPerfumeBackend } from "../../../interfaces/IPerfume";
 
 export const getGeneroImagen = (value: string): string => {
     switch (value.toLowerCase()) {
@@ -49,26 +49,42 @@ const mapFamilias = (familias: IPerfumeBackend["familiasOlfativas"]): string[] =
         .filter((familia): familia is string => Boolean(familia));
 };
 
-export const mapPerfumeFromBackend = (
-    perfume: IPerfumeBackend
-): IPerfume => ({
+const mapMarca = (marca: IPerfumeBackend["marca"]): IMarca => {
+    if (!marca || typeof marca === "string") {
+        return {
+            nombre: typeof marca === "string" ? marca : "Desconocida",
+            foto: "/default-marca.png"
+        };
+    }
+
+    return {
+        nombre: marca.nombre,
+        foto: marca.foto
+    };
+};
+
+export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
     id: perfume.id ?? "",
     nombre: perfume.nombre,
     coleccion: perfume.coleccion ?? "",
     descripcion: perfume.descripcion ?? "",
     genero: getGeneroImagen(perfume.genero),
     yearSalida: perfume.fechaLanzamiento ?? "",
+
     perfumista: perfume.perfumistas ?? [],
     familias: mapFamilias(perfume.familiasOlfativas),
-    imagen: { src: perfume.foto, alt: perfume.nombre },
-    logo: typeof perfume.marca === "string"
-    ? {
-        src: "/default-marca.png",
-        alt: perfume.marca
-    }
-    : {
-        src: perfume.marca?.foto ?? "/default-marca.png",
-        alt: perfume.marca?.nombre ?? "Marca"
+
+    imagen: {
+        src: perfume.foto,
+        alt: perfume.nombre
     },
+
+    marca: mapMarca(perfume.marca),
+
+    logo: {
+        src: mapMarca(perfume.marca).foto,
+        alt: mapMarca(perfume.marca).nombre
+    },
+
     notas: mapNotas(perfume.notas),
 });

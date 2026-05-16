@@ -1,4 +1,4 @@
-import type { INota } from "../IPerfume";
+import type { INota } from "../../../interfaces/IPerfume";
 
 export const SeccionPiramide = ({ notas }: { notas: INota[] }) => {
     const tipoLabel: Record<INota["tipo"], string> = {

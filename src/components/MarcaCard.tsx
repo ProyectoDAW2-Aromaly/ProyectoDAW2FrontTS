@@ -1,5 +1,5 @@
 import { Link } from "react-router"
-import { IMarca } from "../views/marca/IMarca";
+import { IMarca } from "../interfaces/IMarca";
 
 const MarcaCard = ({ data }: { data: IMarca }) => {
 

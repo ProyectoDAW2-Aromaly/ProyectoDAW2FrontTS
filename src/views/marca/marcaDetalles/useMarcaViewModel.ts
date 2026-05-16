@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import { IMarca, IMarcaBackend } from "../IMarca.ts";
+import { IMarca, IMarcaBackend } from "../../../interfaces/IMarca.ts";
 import { getMarcaPorNombre } from "../../../services/marca.services.ts";
 import { mapMarcaBackend } from "../utils/MarcaMapper.ts";
 import { getPerfumesFiltros } from "../../../services/perfume.services.ts";
-import { mapPerfumeToCard } from "../../perfume/IPerfume.ts";
+import { mapPerfumeToCard } from "../../../utils/converters/converters.ts";
 import { ICardPerfume } from "../../../components/PerfumeCard.tsx";
 
 export const useMarcaViewModel = () => {
@@ -16,7 +16,6 @@ export const useMarcaViewModel = () => {
     const [perfumes, setPerfumes] = useState<ICardPerfume[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-
 
     useEffect(() => {
         if (!nombre) {
@@ -44,15 +43,6 @@ export const useMarcaViewModel = () => {
             .finally(() => {
                 setLoading(false)
             })
-        // const busqueda = searchParams.get("name")
-        // if (busqueda) {
-        //     // Prueba búsqueda de perfume. Aquí va la consulta a backend
-
-        //     // eslint-disable-next-line react-hooks/set-state-in-effect
-        //     setMarca(BRAND.find(marca => marca.nombre.toLowerCase() === busqueda.toLowerCase()))
-        // } else {
-        //     navigate("/not-found") //Para no tener la pantalla en blanco o que no se rompa la página entera
-        // }
     }, [nombre, navigate, searchParams])
 
     return { marca, perfumes, loading, error };

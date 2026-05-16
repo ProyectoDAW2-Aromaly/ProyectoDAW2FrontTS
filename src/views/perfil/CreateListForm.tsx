@@ -1,9 +1,5 @@
 import { useState } from "react";
-
-interface ICreateListFormProps {
-  loading: boolean;
-  onCreate: (data: { nombre: string; esPublica: boolean }) => Promise<void>;
-}
+import { ICreateListFormProps } from "../../interfaces/IPerfil";
 
 export default function CreateListForm({ loading, onCreate }: ICreateListFormProps) {
   const [nombre, setNombre] = useState("");

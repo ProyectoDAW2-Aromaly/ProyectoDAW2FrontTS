@@ -1,13 +1,5 @@
 import { useState } from "react";
-import type { IListaPerfil } from "./IProfile";
-
-interface IManageListFormProps {
-  lista: IListaPerfil;
-  loading: boolean;
-  onSave: (data: { nombre: string; esPublica: boolean }) => Promise<void>;
-  onDelete: () => Promise<void>;
-  onCancel: () => void;
-}
+import { IManageListFormProps } from "../../interfaces/IPerfil";
 
 export default function ManageListForm({ lista, loading, onSave, onDelete, onCancel }: IManageListFormProps) {
   const [nombre, setNombre] = useState(lista.nombre);

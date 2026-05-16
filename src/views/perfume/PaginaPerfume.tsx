@@ -13,17 +13,20 @@ import {
     getMyListsForPerfume,
     removePerfumeFromList,
     type IListaPerfumeOption,
-} from "../../servicios/listas.services";
+} from "../../services/listas.services";
+// import UserContext from "../../context/UserContext";
 
 const PaginaPerfume = () => {
+    const userContext = useContext(UserContext);
+    const user = userContext?.user ?? undefined;
     const navigate = useNavigate();
-    const user = useContext(UserContext)?.user ?? undefined;
+    // const user = useContext(UserContext)?.user ?? undefined;
     const [listasUsuario, setListasUsuario] = useState<IListaPerfumeOption[]>([]);
     const [listasLoading, setListasLoading] = useState(false);
     const [listasError, setListasError] = useState("");
 
     const goToEditPerfume = (perfumeId: string) => {
-        navigate(`/perfume/form?edit=${perfumeId}`);
+        navigate(`/perfume/formulario?edit=${perfumeId}`);
     }
 
     const {

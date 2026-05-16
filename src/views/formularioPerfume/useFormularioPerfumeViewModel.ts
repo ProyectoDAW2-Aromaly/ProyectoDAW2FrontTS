@@ -4,13 +4,14 @@ import {
     crearPerfume,
     editarPerfume,
     getPerfumeById,
-    obtenerMarcas,
     obtenerNotas,
     obtenerPerfumistas,
-    obtenerFamiliasOlfativas,
-    obtenerColecciones
+    obtenerFamiliasOlfativas
 } from "../../services/perfume.services";
-import { IPerfumeBackend, ItemListado, INotaBackend } from "../perfume/IPerfume";
+import { IPerfumeBackend, INotaBackend, IFamilias } from "../../interfaces/IPerfume";
+import { IMarcaBackend } from "../../interfaces/IMarca";
+import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
+import { obtenerMarcas } from "../../services/marca.services";
 
 const PERFUME_VACIO: IPerfumeBackend = {
     nombre: "",
@@ -24,6 +25,12 @@ const PERFUME_VACIO: IPerfumeBackend = {
     familiasOlfativas: [],
     notas: [],
 };
+interface IOpcionSelectores {
+    marca: IMarcaBackend[],
+    nota: INotaBackend[],
+    perfumista: IPerfumistaBackend[],
+    familia: IFamilias[];
+};
 
 export const useFormularioPerfumeViewModel = () => {
     const { search } = useLocation();
@@ -34,134 +41,89 @@ export const useFormularioPerfumeViewModel = () => {
     const esModoEdicion = Boolean(id);
 
     const [formulario, setFormulario] = useState<IPerfumeBackend>(PERFUME_VACIO);
+    const [archivo, setArchivo] = useState<File | null>(null);
 
-    const [marcasDisponibles, setMarcasDisponibles] = useState<string[]>([]);
-    const [notasDisponibles, setNotasDisponibles] = useState<string[]>([]);
-    const [perfumistasDisponibles, setPerfumistasDisponibles] = useState<{ id: string, nombre: string }[]>([]);
-    const [familiasDisponibles, setFamiliasDisponibles] = useState<string[]>([]);
-    const [coleccionesDisponibles, setColeccionesDisponibles] = useState<string[]>([]);
+    const [opcionesSelectores, setOpcionesSelectores] = useState<IOpcionSelectores>({
+        marca: [],
+        familia: [],
+        nota: [],
+        perfumista: []
+    })
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [guardando, setGuardando] = useState(false);
 
-    useEffect(() => {
-        const cargarDatos = async () => {
-            try {
-                const [
-                    marcas,
-                    notas,
-                    perfumistas,
-                    familias,
-                    colecciones
-                ] = await Promise.all([
-                    obtenerMarcas(),
-                    obtenerNotas(),
-                    obtenerPerfumistas(),
-                    obtenerFamiliasOlfativas(),
-                    obtenerColecciones().catch(() => [])
-                ]);
+    const cargarDatos = async () => {
+        try {
+            // TODO: En vez de poner as Interfaz en todos, se quita por la mierda esa de los servicios (comprobar en el resto de viewmodels, si no, pedir rescate técnico)
+            const marcas = await obtenerMarcas();
+            const notas = await obtenerNotas() as INotaBackend[];
+            const perfumistas = await obtenerPerfumistas() as IPerfumistaBackend[];
+            const familias = await obtenerFamiliasOlfativas() as IFamilias[];
 
-                setMarcasDisponibles(marcas.map((m: ItemListado) => m.nombre));
-                setNotasDisponibles(notas.map((m: ItemListado) => m.nombre));
-                setPerfumistasDisponibles(perfumistas);
-                setFamiliasDisponibles(familias.map((m: ItemListado) => m.nombre));
-                setColeccionesDisponibles(colecciones.map((c: any) => c.coleccion));
+            setOpcionesSelectores({
+                marca: marcas,
+                nota: notas,
+                perfumista: perfumistas,
+                familia: familias
+            })
 
-                if (esModoEdicion && id) {
-                    const perfume = await getPerfumeById(id);
+            if (esModoEdicion && id) {
+                const perfume = await getPerfumeById(id);
 
-                    setFormulario({
-                        ...perfume,
-                        coleccion: perfume.coleccion || "",
-                        notas: Array.isArray(perfume.notas) ? perfume.notas : []
-                    });
-                }
-
-            } catch (err) {
-                console.error(err);
-                setError("Error al cargar datos.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        cargarDatos();
-    }, [id]);
-
-    const handleChange = (campo: keyof IPerfumeBackend) =>
-        (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-            setFormulario(prev => ({
-                ...prev,
-                [campo]: e.target.value
-            }));
-        };
-
-    const handleFamiliasChange = (seleccionadas: string[]) => {
-        setFormulario(prev => ({
-            ...prev,
-            familiasOlfativas: seleccionadas.map(nombre => ({ nombre }))
-        }));
-    };
-
-    const handleNotasChange =
-        (tipo: "salida" | "corazon" | "base") =>
-            (nombres: string[]) => {
-                setFormulario(prev => {
-                    const notasPrevias = (prev.notas as INotaBackend[]) ?? [];
-
-                    // elimina las del mismo tipo
-                    const filtradas = notasPrevias.filter(n => n.tipo !== tipo);
-
-                    const nuevas = nombres.map(nombre => ({
-                        nombre,
-                        foto: "",
-                        tipo
-                    }));
-
-                    return {
-                        ...prev,
-                        notas: [...filtradas, ...nuevas]
-                    };
+                setFormulario({
+                    ...perfume,
+                    coleccion: perfume.coleccion ?? "",
+                    notas: Array.isArray(perfume.notas) ? perfume.notas : []
                 });
-            };
+            } else {
+                setFormulario(PERFUME_VACIO);
+            }
 
-    const handlePerfumistasChange = (nombres: string[]) => {
-        setFormulario(prev => ({
-            ...prev,
-            perfumistas: nombres
-                .map(nombre => {
-                    const encontrado = perfumistasDisponibles.find(p => p.nombre === nombre);
-                    const original = prev.perfumistas?.find(p => p.nombre === nombre);
-
-                    const id = encontrado?.id ?? original?.id;
-                    if (!id) return null;
-
-                    return { id, nombre };
-                })
-                .filter(Boolean) as { id: string, nombre: string }[]
-        }));
+        } catch (err) {
+            console.error(err);
+            setError("Error al cargar datos.");
+        } finally {
+            setLoading(false);
+        }
     };
+
+    useEffect(() => {
+        cargarDatos();
+    }, []);
+
+    const handleChange = (campo: keyof IPerfumeBackend, valor: string | IMarcaBackend | IPerfumistaBackend[] | IFamilias[] | INotaBackend[]) =>
+        setFormulario({ ...formulario, [campo]: valor });
+
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setArchivo(e.target.files[0]);
+        }
+    }
 
     const handleSubmit = async () => {
         setGuardando(true);
         setError(null);
 
         try {
-            const payload: IPerfumeBackend = {
-                ...formulario,
-                marca: typeof formulario.marca === "string"
-                    ? { nombre: formulario.marca, foto: "" }
-                    : formulario.marca
-            };
+            const formData = new FormData();
 
-            if (esModoEdicion) {
-                await editarPerfume(id!, payload);
-            } else {
-                await crearPerfume(payload);
+            formData.append("perfume", JSON.stringify({
+                ...formulario
+            }))
+
+            if (archivo) {
+                formData.append("foto", archivo)
             }
 
-            navigate(-1);
+            if (esModoEdicion) {
+                await editarPerfume(id!, formData);
+            } else {
+                await crearPerfume(formData);
+            }
+
+            navigate("/perfumes");
 
         } catch (err) {
             console.error(err);
@@ -173,42 +135,16 @@ export const useFormularioPerfumeViewModel = () => {
 
     const handleCancelar = () => navigate(-1);
 
-    const notasSeleccionadas = (tipo: "salida" | "corazon" | "base") =>
-    (formulario.notas as INotaBackend[] ?? [])
-        .filter(n => n.tipo === tipo)
-        .map(n => n.nombre);
-
-    const perfumistasSeleccionados =
-        formulario.perfumistas?.map(p => p.nombre) ?? [];
-
-    const familiasSeleccionadas =
-        (formulario.familiasOlfativas ?? []).map(f =>
-            typeof f === "string" ? f : f.nombre
-        );
-
     return {
         esModoEdicion,
         formulario,
-
-        marcasDisponibles,
-        notasDisponibles,
-        perfumistasDisponibles,
-        familiasDisponibles,
-        coleccionesDisponibles,
-
-        notasSeleccionadas,
-        perfumistasSeleccionados,
-        familiasSeleccionadas,
-
         loading,
         error,
         guardando,
-
+        opcionesSelectores,
         handleChange,
-        handleFamiliasChange,
-        handleNotasChange,
-        handlePerfumistasChange,
+        handleFileChange,
         handleSubmit,
-        handleCancelar,
+        handleCancelar
     };
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ICardPerfume } from "../../components/PerfumeCard";
-import { getAllPerfumes } from "../../peticiones";
+import { getAllPerfumes } from "../../services/perfume.services";
 
 export const useListPerfumesViewModel = () => {
     const [listPerfumes, setListPerfumes] = useState<ICardPerfume[]>([]);

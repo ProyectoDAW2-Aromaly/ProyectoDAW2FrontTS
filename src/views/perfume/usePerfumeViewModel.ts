@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
-import type { IPerfume, IPerfumeBackend, IValoracion, IValoracionBooleanKey, IValoracionNumeroKey } from "./IPerfume";
+import type { IPerfume, IPerfumeBackend, IValoracion, IValoracionBooleanKey, IValoracionNumeroKey } from "../../interfaces/IPerfume";
 import { getPerfumeById } from "../../services/perfume.services";
 import { mapPerfumeFromBackend } from "./utils/PerfumeMapper";
-import { addFavorite, isFavorite, removeFavorite } from "../../servicios/votaciones.services";
+import { addFavorite, isFavorite, removeFavorite } from "../../services/votaciones.services";
 
 export const usePerfumeViewModel = () => {
     const navigate = useNavigate();

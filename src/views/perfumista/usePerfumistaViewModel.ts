@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router"
-import { IPerfumista, IPerfumistaBackend } from "./IPerfumista";
+import { IPerfumista, IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { getPerfumistaById } from "../../services/perfumista.services";
-import { mapPerfumistaBackend } from "./utils/PerfumistaMapper";
+import { mapPerfumistaBackend, mapPerfumeToCard } from "../../utils/converters/converters";
 import { getPerfumesFiltros } from "../../services/perfume.services";
 import { ICardPerfume } from "../../components/PerfumeCard";
-import { mapPerfumeToCard } from "../perfume/IPerfume";
 
 export const usePerfumistaViewModel = () => {
     const { id } = useParams();
@@ -22,7 +21,7 @@ export const usePerfumistaViewModel = () => {
             return;
         }
 
-        getPerfumistaById(Number(id))
+        getPerfumistaById(id)
             .then((data: IPerfumistaBackend) => {
                 setPerfumista(mapPerfumistaBackend(data, id));
 

@@ -24,11 +24,13 @@ import PaginaMarca from './views/marca/marcaDetalles/PaginaMarca'
 import ListasUsuarios from './views/lista/listasUsuarios/ListasUsuarios'
 import ListDetailPage from './views/lista/ListDetailPage'
 import Premium from './views/premium/Premium'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <ScrollToTop/>
 
       <Routes>
         <Route path='/' element={<Inicio />} />
@@ -37,8 +39,9 @@ function App() {
         <Route path='/perfil' element={<ProfilePage />} />
 
         <Route path='/perfumes' element={<ListaPerfumes />} />
+        <Route path='/perfume/formulario' element={<FormularioPerfume />} />
+
         <Route path='/perfume/:id' element={<PaginaPerfume />} />
-        <Route path='/perfume/form' element={<FormularioPerfume />} />
 
         <Route path='/perfumista/formulario' element={<FormularioPerfumista />} />
         <Route path='/perfumista/:id' element={<PaginaPerfumista />} />

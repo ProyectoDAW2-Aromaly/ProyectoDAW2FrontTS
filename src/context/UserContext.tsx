@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import { getUser, type IUser } from "../servicios/usuarios.services";
+import { getUser, type IUser } from "../services/usuarios.services";
 
 interface IUserContext {
   user: IUser | null;
