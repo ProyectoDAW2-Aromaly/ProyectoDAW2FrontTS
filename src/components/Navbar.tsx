@@ -59,7 +59,7 @@ export default function Navbar() {
                 </ul>
               </details>
             </li>
-            <li><Link to="/listas">Listas credas por usuarios</Link></li>
+            <li><Link to="/listas">Listas creadas por usuarios</Link></li>
           </ul>
         </div>
       </div>

@@ -121,7 +121,7 @@ export default function FormularioPerfume() {
                   className="input w-full focus:outline-none"
                   placeholder="Colección"
                   value={formulario.coleccion}
-                  onChange={(e) => handleChange("perfumistas", e.target.value)}
+                  onChange={(e) => handleChange("coleccion", e.target.value)}
                 />
               </div>
             </div>
@@ -145,7 +145,7 @@ export default function FormularioPerfume() {
             className="textarea w-full focus:outline-none"
             placeholder="Descripción"
             value={formulario.descripcion}
-            onChange={(e) => handleChange("perfumistas", e.target.value)}
+            onChange={(e) => handleChange("descripcion", e.target.value)}
           ></textarea>
 
           <label className="label text-neutral font-semibold">Foto del perfume</label>
@@ -158,16 +158,23 @@ export default function FormularioPerfume() {
           {/* Notas */}
           <div className="divider font-semibold">NOTAS</div>
 
-          <label className="label text-neutral font-semibold">Salida</label>
           {(["salida", "corazon", "base"] as ("salida" | "corazon" | "base")[]).map((tipo) =>
-            <BadgeSelector<INotaBackend>
-              items={opcionesSelectores.nota.map((nota) => { return { ...nota, tipo } })}
-              selected={formulario.notas ?? []}
-              onChange={(nuevos) => handleChange("notas", nuevos)}
-              placeholder={"Selecciona las notas de " + tipo}
-              getIdentifier={(val) => val.nombre}
-              getLabel={(val) => val.nombre}
-            />)}
+            <>
+              <label className="label text-neutral font-semibold capitalize">{tipo}</label>
+              <BadgeSelector<INotaBackend>
+                key={tipo}
+                items={opcionesSelectores.nota.map((nota) => { return { ...nota, tipo } })}
+                selected={formulario.notas?.filter(nota => nota.tipo === tipo) ?? []}
+                onChange={(nuevos) => {
+                  console.log(nuevos, formulario.notas)
+                  handleChange("notas", [...(formulario.notas?.filter((nota) => nota.tipo !== tipo) ?? []), ...nuevos])}
+                }
+                placeholder={"Selecciona las notas de " + tipo}
+                getIdentifier={(val) => val.nombre}
+                getLabel={(val) => val.nombre}
+              />
+            </>
+          )}
 
           <div className="flex gap-10">
             <button

@@ -4,14 +4,14 @@ import {
     crearPerfume,
     editarPerfume,
     getPerfumeById,
-    obtenerNotas,
-    obtenerPerfumistas,
-    obtenerFamiliasOlfativas
 } from "../../services/perfume.services";
 import { IPerfumeBackend, INotaBackend, IFamilias } from "../../interfaces/IPerfume";
 import { IMarcaBackend } from "../../interfaces/IMarca";
 import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { obtenerMarcas } from "../../services/marca.services";
+import { obtenerNotas } from "../../services/nota.services";
+import { obtenerPerfumistas } from "../../services/perfumista.services";
+import { obtenerFamiliasOlfativas } from "../../services/familia.services";
 
 const PERFUME_VACIO: IPerfumeBackend = {
     nombre: "",
@@ -54,13 +54,17 @@ export const useFormularioPerfumeViewModel = () => {
     const [error, setError] = useState<string | null>(null);
     const [guardando, setGuardando] = useState(false);
 
+    useEffect(() => {
+        console.log(formulario)
+    }, [formulario])
+
     const cargarDatos = async () => {
         try {
             // TODO: En vez de poner as Interfaz en todos, se quita por la mierda esa de los servicios (comprobar en el resto de viewmodels, si no, pedir rescate técnico)
             const marcas = await obtenerMarcas();
-            const notas = await obtenerNotas() as INotaBackend[];
-            const perfumistas = await obtenerPerfumistas() as IPerfumistaBackend[];
-            const familias = await obtenerFamiliasOlfativas() as IFamilias[];
+            const notas = await obtenerNotas();
+            const perfumistas = await obtenerPerfumistas();
+            const familias = await obtenerFamiliasOlfativas();
 
             setOpcionesSelectores({
                 marca: marcas,
@@ -116,14 +120,17 @@ export const useFormularioPerfumeViewModel = () => {
             if (archivo) {
                 formData.append("foto", archivo)
             }
+            let tempId = id
 
             if (esModoEdicion) {
                 await editarPerfume(id!, formData);
             } else {
-                await crearPerfume(formData);
+                const perfumeCreado = await crearPerfume(formData);
+                tempId = perfumeCreado.id
             }
 
-            navigate("/perfumes");
+            navigate("/perfume/" + tempId);
+
 
         } catch (err) {
             console.error(err);

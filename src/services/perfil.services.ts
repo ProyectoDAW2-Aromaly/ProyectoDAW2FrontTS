@@ -2,7 +2,7 @@ import { getToken } from "./usuarios.services";
 import type { IBackendPerfumeFavorito, IBackendUser, IPerfil, IUpdateProfilePayload } from "../interfaces/IPerfil";
 import { normalizePerfumeImage, normalizeUserImage } from "../utils/assets";
 
-const API = `${import.meta.env.VITE_APP_API}`;
+const API = `${import.meta.env.VITE_SERVER_URL}`;
 
 const authHeaders = () => ({
   "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const mapPerfumeFavorito = (perfume: IBackendPerfumeFavorito) => ({
 });
 
 const getMyProfile = async (): Promise<IPerfil> => {
-  const response = await fetch(`${API}/perfil`, {
+  const response = await fetch(`${API}perfil`, {
     method: "GET",
     headers: authHeaders(),
   });
@@ -46,7 +46,7 @@ const getMyProfile = async (): Promise<IPerfil> => {
 };
 
 const updateMyProfile = async (payload: IUpdateProfilePayload) => {
-  const response = await fetch(`${API}/perfil`, {
+  const response = await fetch(`${API}perfil`, {
     method: "PATCH",
     headers: authHeaders(),
     body: JSON.stringify(payload),

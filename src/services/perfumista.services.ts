@@ -1,5 +1,9 @@
+import { IPerfumistaBackend } from "../interfaces/IPerfumista";
+import { getHandler } from "./handler";
 
 const URL_SERVER = `${import.meta.env.VITE_SERVER_URL}`;
+
+const customFetch = getHandler("perfumista");
 
 export function getNombrePerfumistas() {
     return fetch(`${URL_SERVER}perfumista/listar`)
@@ -54,4 +58,14 @@ export function eliminarPerfumista(id_perfumista: string) {
         if (!res.ok) throw new Error("Error al elimninar el perfumista.");
         return res.json();
     })
+}
+
+export function obtenerPerfumistas() {
+    return customFetch<IPerfumistaBackend[]>("/listar", "Error al obtener los perfumistas.", true)
+    return fetch(`${URL_SERVER}perfumista/listar`, {
+        headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` }
+    }).then(res => {
+        if (!res.ok) throw new Error("Error al obtener los perfumistas.");
+        return res.json();
+    });
 }

@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import { IUser } from "../../../services/usuarios.services";
 import { COMENTARIOS } from "../../../constantes/constantes";
+import { IUser } from "../../../interfaces/IUsuario";
 
 export interface SeccionComentariosProps {
     user?: IUser;
