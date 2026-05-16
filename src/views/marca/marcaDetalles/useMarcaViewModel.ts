@@ -4,8 +4,7 @@ import { IMarca, IMarcaBackend } from "../../../interfaces/IMarca.ts";
 import { getMarcaPorNombre } from "../../../services/marca.services.ts";
 import { mapMarcaBackend } from "../utils/MarcaMapper.ts";
 import { getPerfumesFiltros } from "../../../services/perfume.services.ts";
-import { mapPerfumeToCard } from "../../../utils/converters/converters.ts";
-import { ICardPerfume } from "../../../components/PerfumeCard.tsx";
+import { IPerfumeBackend } from "../../../interfaces/IPerfume.ts";
 
 export const useMarcaViewModel = () => {
     const { nombre } = useParams();
@@ -13,7 +12,7 @@ export const useMarcaViewModel = () => {
     const [searchParams] = useSearchParams();
 
     const [marca, setMarca] = useState<IMarca>();
-    const [perfumes, setPerfumes] = useState<ICardPerfume[]>([]);
+    const [perfumes, setPerfumes] = useState<IPerfumeBackend[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -32,8 +31,7 @@ export const useMarcaViewModel = () => {
                 })
             })
             .then((perfumesData) => {
-                const perfumesMapeados = perfumesData.map(mapPerfumeToCard);
-                setPerfumes(perfumesMapeados);
+                setPerfumes(perfumesData);
             })
             .catch((err) => {
                 console.error(err);

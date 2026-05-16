@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import { PerfumeCard } from "../../components/PerfumeCard";
-import { getListDetail, type IListaDetalle } from "../../services/listas.services";
+import { getListDetail } from "../../services/listas.services";
+import { IListaDetalle } from "../../interfaces/IListas";
 
 export default function ListDetailPage() {
   const { idLista } = useParams();
