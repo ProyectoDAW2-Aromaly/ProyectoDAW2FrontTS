@@ -21,29 +21,28 @@ export const useFormularioPerfumistaViewModel = () => {
     const [error, setError] = useState<string | null>(null);
     const [guardando, setGuardando] = useState(false);
 
-    useEffect(() => {
-        const cargarDatos = async () => {
-            try {
+    const cargarDatos = async () => {
+        try {
+            if (esModoEdicion && id) {
+                const perfumista = await getPerfumistaById(id);
 
-                if (esModoEdicion && id) {
-                    const perfumista = await getPerfumistaById(id);
-
-                    setFormulario({
-                        ...perfumista,
-                    });
-                    setPreviewFoto(perfumista.foto ?? "");
-                } else {
-                    setFormulario(PERFUMISTA_VACIO);
-                }
-
-            } catch (err) {
-                console.error(err);
-                setError("Error al cargar datos.");
-            } finally {
-                setLoading(false);
+                setFormulario({
+                    ...perfumista,
+                });
+                setPreviewFoto(perfumista.foto ?? "");
+            } else {
+                setFormulario(PERFUMISTA_VACIO);
             }
-        };
 
+        } catch (err) {
+            console.error(err);
+            setError("Error al cargar datos.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         cargarDatos();
     }, [id]);
 

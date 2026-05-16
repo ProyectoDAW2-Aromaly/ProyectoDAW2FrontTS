@@ -55,10 +55,6 @@ export const useFormularioPerfumeViewModel = () => {
     const [error, setError] = useState<string | null>(null);
     const [guardando, setGuardando] = useState(false);
 
-    useEffect(() => {
-        console.log(formulario)
-    }, [formulario])
-
     const cargarDatos = async () => {
         try {
             const marcas = await obtenerMarcas();
