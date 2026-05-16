@@ -1,7 +1,7 @@
 import { IMarcaBackend } from '../interfaces/IMarca.js';
 import { getHandler } from './handler.js';
 
-const customFetch = getHandler("marca")
+const customFetch = getHandler("marca");
 
 export function getAllMarcas() {
     return customFetch<IMarcaBackend[]>("", "Error de conexión.");
