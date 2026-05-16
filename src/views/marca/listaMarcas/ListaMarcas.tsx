@@ -3,7 +3,7 @@ import MarcaCard from "../../../components/MarcaCard";
 import { useListaMarcasViewModel } from "./useListaMarcasViewModel";
 import { FiltroPanel } from "../../../components/FiltroPanel";
 import { usePaginacion } from "../../../hooks/usePaginacion";
-import { IMarca } from "../IMarca";
+import { IMarca } from "../../../interfaces/IMarca";
 
 const ListaMarcas = () => {
 

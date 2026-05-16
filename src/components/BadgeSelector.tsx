@@ -1,14 +1,16 @@
 import { useState } from "react";
 
-type Props = {
-    items: string[];
-    label: string;
+type Props<T> = {
+    items: T[];
+    placeholder: string;
+    getLabel: (val: T) => string;
+    getIdentifier: (val: T) => string;
     size?: "xs" | "md";
-    selected: string[];
-    onChange: (items: string[]) => void;
+    selected: T[];
+    onChange: (items: T[]) => void;
 };
 
-export const BadgeSelector = ({ items = [], label, size = "md", selected = [], onChange }: Props) => {
+export function BadgeSelector<T>({ items = [], placeholder, getLabel, getIdentifier, size = "md", selected = [], onChange }: Props<T>) {
     const [busqueda, setBusqueda] = useState("");
     const selectedItems = selected ?? [];
 
@@ -17,7 +19,7 @@ export const BadgeSelector = ({ items = [], label, size = "md", selected = [], o
         : "py-2 text-base";
 
     // toggle: Cambio entre estados (on/off, true/false, seleccionado/no seleccionado)
-    const toggle = (item: string) => {
+    const toggle = (item: T) => {
         if (selected.includes(item)) {
             // Quita del array la nota que acabamos de seleccionar
             // "item" es cada nota del array, si no es la que queremos quitar, se queda
@@ -29,9 +31,9 @@ export const BadgeSelector = ({ items = [], label, size = "md", selected = [], o
         }
     };
 
-    const itemsFiltrados = items.filter(item => 
+    const itemsFiltrados = items.filter(item =>
         // Guarda solo los items que contienen lo que escribo
-        item?.toLowerCase().includes(busqueda.toLowerCase())
+        getLabel(item).toLowerCase().includes(busqueda.toLowerCase())
     );
 
     return (
@@ -40,9 +42,9 @@ export const BadgeSelector = ({ items = [], label, size = "md", selected = [], o
                 <div className="flex flex-wrap gap-2">
                     {selected.length > 0
                         ? selected.map(item => (
-                            <span key={item} className="badge badge-sm badge-neutral text-primary-content ml-1">{item}</span>
+                            <span key={getIdentifier(item)} className="badge badge-sm badge-neutral text-primary-content ml-1">{getLabel(item)}</span>
                         ))
-                        : label}
+                        : placeholder}
                 </div>
             </label>
             <ul
@@ -51,7 +53,7 @@ export const BadgeSelector = ({ items = [], label, size = "md", selected = [], o
             >
 
                 <li className="mb-2">
-                    <input 
+                    <input
                         type="text"
                         placeholder="Buscar..."
                         value={busqueda}
@@ -62,7 +64,7 @@ export const BadgeSelector = ({ items = [], label, size = "md", selected = [], o
                 </li>
 
                 {itemsFiltrados.map(item => (
-                    <li key={item}>
+                    <li key={getIdentifier(item)}>
                         <label className="cursor-pointer flex items-center gap-2">
                             <input
                                 type="checkbox"
@@ -71,7 +73,7 @@ export const BadgeSelector = ({ items = [], label, size = "md", selected = [], o
                                 onChange={() => toggle(item)}
                                 className="checkbox checkbox-primary"
                             />
-                            {item}
+                            {getLabel(item)}
                         </label>
                     </li>
                 ))}

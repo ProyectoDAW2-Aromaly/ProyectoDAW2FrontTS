@@ -3,9 +3,10 @@ import type { IListaPerfil } from "../views/perfil/IProfile";
 import type { ICardPerfume } from "../components/PerfumeCard";
 import type { IList } from "../views/lista/IList";
 import { normalizePerfumeImage, normalizeUserImage } from "../utils/assets";
+import { getHandler } from "./handler";
 
-const API = `${import.meta.env.VITE_APP_API}/listas`;
-
+const customFetch = getHandler("listas")
+const API = `${import.meta.env.VITE_SERVER_URL}/listas`;
 export interface IListaPerfumeOption {
   id: number;
   nombre: string;
@@ -60,19 +61,7 @@ const authHeaders = () => ({
 });
 
 const createMyList = async (payload: ICreateListPayload): Promise<IListaPerfil> => {
-  const response = await fetch(API, {
-    method: "POST",
-    headers: authHeaders(),
-    body: JSON.stringify(payload),
-  });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.mensaje || "No se pudo crear la lista");
-  }
-
-  return data.result.lista;
+  return await customFetch("", "No se pudo crear la lista", true, "POST", JSON.stringify(payload))
 };
 
 const getMyLists = async (): Promise<IListaPerfil[]> => {

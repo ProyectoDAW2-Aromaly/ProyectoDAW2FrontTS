@@ -1,4 +1,5 @@
-import { URL_SERVER } from './constantes.js';
+
+const URL_SERVER = `${import.meta.env.VITE_SERVER_URL}`;
 
 export function getNombrePerfumistas() {
     return fetch(`${URL_SERVER}perfumista/listar`)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { IMarca, IMarcaBackend } from "../IMarca.ts";
+import { IMarca } from "../../../interfaces/IMarca.ts";
 import { getAllMarcas } from "../../../services/marca.services.ts";
 import { mapMarcaBackend } from "../utils/MarcaMapper.ts";
 
@@ -10,7 +10,7 @@ export const useListaMarcasViewModel = () => {
 
     useEffect(() => {
         getAllMarcas()
-            .then((datos: IMarcaBackend[]) => {
+            .then((datos) => {
                 const marcasFormateadas: IMarca[] = datos.map(mapMarcaBackend);
                 setMarcas(marcasFormateadas);
                 setLoading(false);

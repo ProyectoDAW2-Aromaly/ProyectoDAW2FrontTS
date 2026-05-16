@@ -1,9 +1,14 @@
-import type { IPerfumista } from "../perfumista/IPerfumista"
+import { IMarcaBackend } from "../../interfaces/IMarca";
+import type { IPerfumista, IPerfumistaBackend } from "../perfumista/IPerfumista"
 
 export interface INota {
     tipo: "salida" | "corazon" | "base",
     nombre: string,
     foto: string
+}
+
+export interface IFamilias {
+    nombre: string
 }
 
 export interface IMarca {
@@ -60,20 +65,10 @@ export interface IPerfumeBackend {
     fechaLanzamiento?: string
     coleccion?: string
     foto: string
-    marca?: string | {
-        nombre: string
-        foto: string
-    }
-    perfumistas?: {
-        id: string
-        nombre: string
-    }[]
-    familiasOlfativas?: Array<string | { nombre: string }>
-    notas?: INotaBackend[] | {
-        salida?: INotaBackend[]
-        corazon?: INotaBackend[]
-        base?: INotaBackend[]
-    }
+    marca?: IMarcaBackend
+    perfumistas?: IPerfumistaBackend[]
+    familiasOlfativas?: IFamilias[]
+    notas?: INotaBackend[]
 }
 
 export interface IPerfumeBuscar {
@@ -81,12 +76,6 @@ export interface IPerfumeBuscar {
     nombre: string;
     foto: string;
 };
-
-export interface ItemListado {
-    nombre: string;
-    id?: string;
-    coleccion?: string;
-}
 
 export interface IPerfumeFiltros {
     marca?: string;

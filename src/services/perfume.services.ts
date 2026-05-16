@@ -1,5 +1,6 @@
-import { URL_SERVER } from './constantes.js';
 import { IPerfumeFiltros } from '../views/perfume/IPerfume.js';
+
+const URL_SERVER = `${import.meta.env.VITE_SERVER_URL}`;
 
 export function getAllPerfumes() {
     return fetch(`${URL_SERVER}perfume`)
@@ -61,15 +62,6 @@ export function crearPerfume(formData: FormData) {
         if (!res.ok) throw new Error("Error al crear el perfume.");
         return res.json();
     })
-}
-
-export function obtenerMarcas() {
-    return fetch(`${URL_SERVER}marca/listar`, {
-        headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` }
-    }).then(res => {
-        if (!res.ok) throw new Error("Error al obtener las marcas.");
-        return res.json();
-    });
 }
 
 export function obtenerNotas() {

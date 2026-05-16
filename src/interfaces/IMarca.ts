@@ -9,3 +9,4 @@ export interface IMarcaBackend {
     isdarklogo: boolean;
     foto?: string;
 }
+

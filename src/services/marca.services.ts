@@ -1,17 +1,17 @@
-import { URL_SERVER } from './constantes.js';
+import { IMarcaBackend } from '../interfaces/IMarca.js';
+import { getHandler } from './handler.js';
+
+const customFetch = getHandler("marca")
 
 export function getAllMarcas() {
-    return fetch(`${URL_SERVER}marca`)
-        .then(res => {
-            if (!res.ok) throw new Error("Error de conexión.");
-            return res.json();
-        })
+    return customFetch<IMarcaBackend[]>("", "Error de conexión.");
 }
 
 export function getMarcaPorNombre(nombre: string) {
-    return fetch(`${URL_SERVER}marca/${nombre}`,)
-        .then(res => {
-            if (!res.ok) throw new Error("Error al obtener la marca.");
-            return res.json();
-        })
+    return customFetch<IMarcaBackend>(`/${nombre}`, "Error al obtener la marca.");
+}
+
+
+export function obtenerMarcas() {
+    return customFetch<IMarcaBackend[]>("/listar", "Error al obtener las marcas.", true)
 }

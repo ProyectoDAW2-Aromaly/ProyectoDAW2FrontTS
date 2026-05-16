@@ -1,6 +1,8 @@
 import { BadgeSelector } from "../../components/BadgeSelector";
 import { useFormularioPerfumeViewModel } from "./useFormularioPerfumeViewModel";
 import { GENEROS } from "../../constantes/constantes";
+import { IFamilias, INotaBackend } from "../perfume/IPerfume";
+import { IPerfumistaBackend } from "../perfumista/IPerfumista";
 
 export default function FormularioPerfume() {
 
@@ -10,19 +12,9 @@ export default function FormularioPerfume() {
     loading,
     error,
     guardando,
-    marcasDisponibles,
-    notasDisponibles,
-    perfumistasDisponibles,
-    familiasDisponibles,
-    coleccionesDisponibles,
-    notasSeleccionadas,
-    perfumistasSeleccionados,
-    familiasSeleccionadas,
+    opcionesSelectores,
     handleChange,
     handleFileChange,
-    handleFamiliasChange,
-    handleNotasChange,
-    handlePerfumistasChange,
     handleSubmit,
     handleCancelar
   } = useFormularioPerfumeViewModel();
@@ -52,12 +44,12 @@ export default function FormularioPerfume() {
             {/* IZQUIERDA */}
             <div className="space-y-3">
               <label className="label text-neutral font-semibold">Nombre</label>
-              <input 
-                type="text" 
-                className="input w-full focus:outline-none" 
-                placeholder="Nombre" 
-                value={formulario.nombre} 
-                onChange={handleChange("nombre")}
+              <input
+                type="text"
+                className="input w-full focus:outline-none"
+                placeholder="Nombre"
+                value={formulario.nombre}
+                onChange={(e) => handleChange("nombre", e.target.value)}
               />
 
               <div className="space-y-1 flex flex-col">
@@ -66,26 +58,30 @@ export default function FormularioPerfume() {
                   className="select w-full"
                   value={
                     typeof formulario.marca === 'object'
-                    ? formulario.marca.nombre
-                    : (formulario.marca ?? "")
+                      ? formulario.marca.nombre
+                      : (formulario.marca ?? "")
                   }
-                  onChange={handleChange("marca")}
+                  onChange={(e) => {
+                    const nuevaMarca = opcionesSelectores.marca.find(m => m.nombre === e.target.value)
+                    if (nuevaMarca)
+                      handleChange("marca", nuevaMarca)
+                  }}
                 >
                   <option value="" disabled selected>Selecciona una marca</option>
-                  {marcasDisponibles.map(m => <option key={m} value={m}>{m}</option>)}
+                  {opcionesSelectores.marca.map(m => <option key={m.nombre} value={m.nombre}>{m.nombre}</option>)}
                 </select>
               </div>
 
               <div className="space-y-1 flex flex-col">
                 <label className="label text-neutral font-semibold">Fecha de lanzamiento</label>
-                <input 
-                  type="number" 
-                  className="input w-full focus:outline-none" 
-                  placeholder="Año de lanzamiento" 
-                  value={formulario.fechaLanzamiento} 
-                  onChange={handleChange("fechaLanzamiento")} 
-                  min={1800} 
-                  max={new Date().getFullYear()} 
+                <input
+                  type="number"
+                  className="input w-full focus:outline-none"
+                  placeholder="Año de lanzamiento"
+                  value={formulario.fechaLanzamiento}
+                  onChange={(e) => handleChange("fechaLanzamiento", e.target.value)}
+                  min={1800}
+                  max={new Date().getFullYear()}
                 />
               </div>
             </div>
@@ -93,10 +89,10 @@ export default function FormularioPerfume() {
             {/* DERECHA */}
             <div className="space-y-3">
               <span className="label text-neutral font-semibold">Género</span>
-              <select 
-                className="select w-full" 
+              <select
+                className="select w-full"
                 value={formulario.genero}
-                onChange={handleChange("genero")}
+                onChange={(e) => handleChange("genero", e.target.value)}
               >
                 <option disabled value="">Selecciona un género</option>
                 {GENEROS.map(genero => (
@@ -108,50 +104,53 @@ export default function FormularioPerfume() {
 
               <div className="space-y-1 flex flex-col">
                 <label className="label text-neutral font-semibold focus:outline-none">Perfumista/s</label>
-                <BadgeSelector
-                  items={perfumistasDisponibles.map(p => p.nombre)}
-                  selected={perfumistasSeleccionados}
-                  onChange={handlePerfumistasChange}
-                  label="Selecciona los perfumistas"
+                <BadgeSelector<IPerfumistaBackend>
+                  items={opcionesSelectores.perfumista}
+                  selected={formulario.perfumistas ?? []}
+                  onChange={(nuevos) => handleChange("perfumistas", nuevos)}
+                  placeholder="Selecciona los perfumistas"
+                  getIdentifier={(val) => val.id ?? ""}
+                  getLabel={(val) => val.nombre}
                 />
               </div>
 
               <div className="space-y-1 flex flex-col">
                 <label className="label text-neutral font-semibold">Colección</label>
-                <select 
-                  className="select w-full" 
+                <input
+                  type="text"
+                  className="input w-full focus:outline-none"
+                  placeholder="Colección"
                   value={formulario.coleccion}
-                  onChange={handleChange("coleccion")}
-                >
-                  <option value="">Sin colección</option>
-                  {coleccionesDisponibles.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
+                  onChange={(e) => handleChange("perfumistas", e.target.value)}
+                />
               </div>
             </div>
           </div>
 
           <div className="space-y-1 flex flex-col">
             <label className="label text-neutral font-semibold">Familia Olfativa</label>
-            <BadgeSelector
-              items={familiasDisponibles}
-              selected={familiasSeleccionadas}
-              onChange={handleFamiliasChange}
-              label="Selecciona las familias"
+            <BadgeSelector<IFamilias>
+              items={opcionesSelectores.familia}
+              selected={formulario.familiasOlfativas ?? []}
+              onChange={(nuevos) => handleChange("familiasOlfativas", nuevos)}
+              placeholder="Selecciona las familias"
+              getIdentifier={(val) => val.nombre}
+              getLabel={(val) => val.nombre}
             />
           </div>
 
           {/* DESCRIPCIÓN */}
           <label className="label text-neutral font-semibold">Descripción</label>
-          <textarea 
-            className="textarea w-full focus:outline-none" 
+          <textarea
+            className="textarea w-full focus:outline-none"
             placeholder="Descripción"
             value={formulario.descripcion}
-            onChange={handleChange("descripcion")}
+            onChange={(e) => handleChange("perfumistas", e.target.value)}
           ></textarea>
 
           <label className="label text-neutral font-semibold">Foto del perfume</label>
-          <input 
-            type="file" 
+          <input
+            type="file"
             className="file-input w-full"
             onChange={handleFileChange}
           />
@@ -160,31 +159,18 @@ export default function FormularioPerfume() {
           <div className="divider font-semibold">NOTAS</div>
 
           <label className="label text-neutral font-semibold">Salida</label>
-          <BadgeSelector
-            items={notasDisponibles}
-            selected={notasSeleccionadas("salida")}
-            onChange={handleNotasChange("salida")}
-            label="Selecciona las notas de salida"
-          />
-
-          <label className="label text-neutral font-semibold">Corazón</label>
-          <BadgeSelector
-            items={notasDisponibles}
-            selected={notasSeleccionadas("corazon")}
-            onChange={handleNotasChange("corazon")}
-            label="Selecciona las notas corazón"
-          />
-
-          <label className="label text-neutral font-semibold">Base</label>
-          <BadgeSelector
-            items={notasDisponibles}
-            selected={notasSeleccionadas("base")}
-            onChange={handleNotasChange("base")}
-            label="Selecciona las notas base"
-          />
+          {(["salida", "corazon", "base"] as ("salida" | "corazon" | "base")[]).map((tipo) =>
+            <BadgeSelector<INotaBackend>
+              items={opcionesSelectores.nota.map((nota) => { return { ...nota, tipo } })}
+              selected={formulario.notas ?? []}
+              onChange={(nuevos) => handleChange("notas", nuevos)}
+              placeholder={"Selecciona las notas de " + tipo}
+              getIdentifier={(val) => val.nombre}
+              getLabel={(val) => val.nombre}
+            />)}
 
           <div className="flex gap-10">
-            <button 
+            <button
               className="btn btn-neutral flex-2 mt-2 hover:btn-accent text-primary-content"
               onClick={handleSubmit}
               disabled={guardando}
@@ -192,7 +178,7 @@ export default function FormularioPerfume() {
               {guardando && <span className="loading loading-spinner"></span>}
               {esModoEdicion ? "Actualizar perfume" : "Crear perfume"}
             </button>
-            <button 
+            <button
               className="btn btn-neutral flex-2 mt-2 hover:hover:bg-red-500 hover:border-red-500 text-primary-content"
               onClick={handleCancelar}
             >

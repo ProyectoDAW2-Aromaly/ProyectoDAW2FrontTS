@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router";
-import { IMarca, IMarcaBackend } from "../IMarca.ts";
+import { IMarca, IMarcaBackend } from "../../../interfaces/IMarca.ts";
 import { getMarcaPorNombre } from "../../../services/marca.services.ts";
 import { mapMarcaBackend } from "../utils/MarcaMapper.ts";
 import { getPerfumesFiltros } from "../../../services/perfume.services.ts";
