@@ -42,6 +42,7 @@ export const useFormularioPerfumeViewModel = () => {
 
     const [formulario, setFormulario] = useState<IPerfumeBackend>(PERFUME_VACIO);
     const [archivo, setArchivo] = useState<File | null>(null);
+    const [previewFoto, setPreviewFoto] = useState("");
 
     const [opcionesSelectores, setOpcionesSelectores] = useState<IOpcionSelectores>({
         marca: [],
@@ -80,6 +81,7 @@ export const useFormularioPerfumeViewModel = () => {
                     coleccion: perfume.coleccion ?? "",
                     notas: Array.isArray(perfume.notas) ? perfume.notas : []
                 });
+                setPreviewFoto(perfume.foto ?? "");
             } else {
                 setFormulario(PERFUME_VACIO);
             }
@@ -101,7 +103,9 @@ export const useFormularioPerfumeViewModel = () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setArchivo(e.target.files[0]);
+            const file = e.target.files[0]
+            setArchivo(file);
+            setPreviewFoto(URL.createObjectURL(file));
         }
     }
 
@@ -144,6 +148,7 @@ export const useFormularioPerfumeViewModel = () => {
     return {
         esModoEdicion,
         formulario,
+        previewFoto,
         loading,
         error,
         guardando,
