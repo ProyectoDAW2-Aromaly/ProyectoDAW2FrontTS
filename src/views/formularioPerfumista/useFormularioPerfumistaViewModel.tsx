@@ -67,28 +67,25 @@ export const useFormularioPerfumistaViewModel = () => {
         setError(null);
 
         try {
-
             const formData = new FormData();
 
-            formData.append("perfumista", JSON.stringify(
-                {
-                    nombre: formulario.nombre,
-                    descripcion: formulario.descripcion,
-                    foto: formulario.foto
-                }
-            ));
+            formData.append("perfumista", JSON.stringify({
+                ...formulario
+            }));
 
             if (archivo) {
                 formData.append("foto", archivo);
             }
+            let tempId = id;
 
             if (esModoEdicion) {
                 await editarPerfumista(id!, formData);
             } else {
-                await crearPerfumista(formData);
+                const perfumistaCreado = await crearPerfumista(formData);
+                tempId = perfumistaCreado.id;
             }
 
-            navigate("/");
+            navigate("/perfumista/" + tempId);
 
         } catch (err) {
             console.error(err);
