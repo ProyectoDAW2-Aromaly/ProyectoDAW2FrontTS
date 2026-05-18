@@ -4,14 +4,14 @@ import {
     crearPerfume,
     editarPerfume,
     getPerfumeById,
-    obtenerNotas,
-    obtenerPerfumistas,
-    obtenerFamiliasOlfativas
 } from "../../services/perfume.services";
 import { IPerfumeBackend, INotaBackend, IFamilias } from "../../interfaces/IPerfume";
 import { IMarcaBackend } from "../../interfaces/IMarca";
 import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { obtenerMarcas } from "../../services/marca.services";
+import { obtenerNotas } from "../../services/nota.services";
+import { obtenerPerfumistas } from "../../services/perfumista.services";
+import { obtenerFamiliasOlfativas } from "../../services/familia.services";
 
 const PERFUME_VACIO: IPerfumeBackend = {
     nombre: "",
@@ -43,6 +43,7 @@ export const useFormularioPerfumeViewModel = () => {
 
     const [formulario, setFormulario] = useState<IPerfumeBackend>(PERFUME_VACIO);
     const [archivo, setArchivo] = useState<File | null>(null);
+    const [previewFoto, setPreviewFoto] = useState("");
 
     const [opcionesSelectores, setOpcionesSelectores] = useState<IOpcionSelectores>({
         marca: [],
@@ -57,11 +58,10 @@ export const useFormularioPerfumeViewModel = () => {
 
     const cargarDatos = async () => {
         try {
-            // TODO: En vez de poner as Interfaz en todos, se quita por la mierda esa de los servicios (comprobar en el resto de viewmodels, si no, pedir rescate técnico)
             const marcas = await obtenerMarcas();
-            const notas = await obtenerNotas() as INotaBackend[];
-            const perfumistas = await obtenerPerfumistas() as IPerfumistaBackend[];
-            const familias = await obtenerFamiliasOlfativas() as IFamilias[];
+            const notas = await obtenerNotas();
+            const perfumistas = await obtenerPerfumistas();
+            const familias = await obtenerFamiliasOlfativas();
 
             setOpcionesSelectores({
                 marca: marcas,
@@ -78,6 +78,7 @@ export const useFormularioPerfumeViewModel = () => {
                     coleccion: perfume.coleccion ?? "",
                     notas: Array.isArray(perfume.notas) ? perfume.notas : []
                 });
+                setPreviewFoto(perfume.foto ?? "");
             } else {
                 setFormulario(PERFUME_VACIO);
             }
@@ -99,7 +100,9 @@ export const useFormularioPerfumeViewModel = () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setArchivo(e.target.files[0]);
+            const file = e.target.files[0]
+            setArchivo(file);
+            setPreviewFoto(URL.createObjectURL(file));
         }
     }
 
@@ -117,14 +120,17 @@ export const useFormularioPerfumeViewModel = () => {
             if (archivo) {
                 formData.append("foto", archivo)
             }
+            let tempId = id
 
             if (esModoEdicion) {
                 await editarPerfume(id!, formData);
             } else {
-                await crearPerfume(formData);
+                const perfumeCreado = await crearPerfume(formData);
+                tempId = perfumeCreado.id
             }
 
-            navigate("/perfumes");
+            navigate("/perfume/" + tempId);
+
 
         } catch (err) {
             console.error(err);
@@ -139,6 +145,7 @@ export const useFormularioPerfumeViewModel = () => {
     return {
         esModoEdicion,
         formulario,
+        previewFoto,
         loading,
         error,
         guardando,

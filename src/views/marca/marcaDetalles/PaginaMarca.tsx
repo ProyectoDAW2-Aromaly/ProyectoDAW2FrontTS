@@ -1,8 +1,9 @@
 import Paginacion from "../../../components/Paginacion"
 import { useMarcaViewModel } from "./useMarcaViewModel";
-import { ICardPerfume, PerfumeCard } from "../../../components/PerfumeCard";
+import { PerfumeCard } from "../../../components/PerfumeCard";
 import { FiltroPanel } from "../../../components/FiltroPanel";
 import { usePaginacion } from "../../../hooks/usePaginacion";
+import { IPerfumeBackend } from "../../../interfaces/IPerfume";
 
 const PaginaMarca = () => {
 
@@ -14,7 +15,7 @@ const PaginaMarca = () => {
         setPagina,
         itemsTotales,
         itemsPaginacion: perfumesVisibles
-    } = usePaginacion<ICardPerfume>(perfumes, perfumesPorPagina)
+    } = usePaginacion<IPerfumeBackend>(perfumes, perfumesPorPagina)
 
     if (loading) {
         return (

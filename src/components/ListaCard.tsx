@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { IUser } from "../interfaces/IUsuario";
 import { IListas } from "../interfaces/IListas";
 import {
   guardarLista,
@@ -7,11 +8,6 @@ import {
   estaListaGuardada,
 } from "../services/listasGuardadas.services";
 
-interface IUser {
-  userName: string;
-  pfp: string;
-  rol: string;
-}
 
 interface ListCardProps {
   data: IListas;
@@ -32,7 +28,7 @@ export const ListaCard = ({ data, user, isOwner = false, onEdit }: ListCardProps
         if (isOwner) return; // no need when it's your own list
         if (!data?.id) return;
 
-        // data.id is a string in this app; services expect number
+        // data.id is a string ; services expect number
         const id = Number(data.id);
         if (Number.isNaN(id)) return;
 

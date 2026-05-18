@@ -20,11 +20,12 @@ export function BadgeSelector<T>({ items = [], placeholder, getLabel, getIdentif
 
     // toggle: Cambio entre estados (on/off, true/false, seleccionado/no seleccionado)
     const toggle = (item: T) => {
-        if (selected.includes(item)) {
+        console.log(selected, item)
+        if (selected.some(sItem => getIdentifier(sItem) === getIdentifier(item))) {
             // Quita del array la nota que acabamos de seleccionar
             // "item" es cada nota del array, si no es la que queremos quitar, se queda
             // Si ya lo tengo seleccionado, crea un array sin ese item
-            onChange(selected.filter(it => it !== item))
+            onChange(selected.filter(it => getIdentifier(it) !== getIdentifier(item)))
         } else {
             // Si no está seleccionado, añadelo al array
             onChange([...selected, item]);
@@ -68,7 +69,7 @@ export function BadgeSelector<T>({ items = [], placeholder, getLabel, getIdentif
                         <label className="cursor-pointer flex items-center gap-2">
                             <input
                                 type="checkbox"
-                                checked={selectedItems.includes(item)}
+                                checked={selectedItems.some(sItem => getIdentifier(sItem) === getIdentifier(item))}
                                 // Si estaba el item lo quita, si no, lo añade
                                 onChange={() => toggle(item)}
                                 className="checkbox checkbox-primary"

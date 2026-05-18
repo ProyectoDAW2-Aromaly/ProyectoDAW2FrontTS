@@ -1,34 +1,26 @@
 import { useEffect, useState } from "react";
-import { getAllPerfumes } from "../../services/perfume.services";
-import { ICardPerfume } from "../../components/PerfumeCard";
-import { IPerfumeBackend } from "../../interfaces/IListadoPerfumes";
+import { getAllPerfumes, getPerfumesFiltros } from "../../services/perfume.services";
+import { IFamilias, INota, IPerfumeBackend, TGenero } from "../../interfaces/IPerfume";
 
 export const useListaPerfumesViewModel = () => {
-    const [listaPerfumes, setListaPerfumes] = useState<ICardPerfume[]>([]);
+    const [listaPerfumes, setListaPerfumes] = useState<IPerfumeBackend[]>([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+    const cargarDatos = () => {
         getAllPerfumes()
             .then((datos: IPerfumeBackend[]) => {
-                const perfumesFormateados: ICardPerfume[] = datos.map((p) => ({
+                const perfumesFormateados: IPerfumeBackend[] = datos.map((p) => ({
                     // Convertimos el id en texto para React
-                    id: String(p.id),
+                    ...p,
 
                     // La marca es un objeto?
                     // Sí -> Dame el nombre
                     // No -> Pon el texto que venga o aviso de que no ha llegado bien
-                    marca: typeof p.marca === 'object' && p.marca !== null
-                        ? p.marca.nombre
-                        : (p.marca || "Sin marca"),
+                    marca: p.marca ?? { isdarklogo: true, nombre: "Sin marca" },
 
-                    nombre: p.nombre || "Sin nombre",
+                    nombre: p.nombre ?? "Sin nombre",
 
-                    foto: p.foto || "/default.jpg",
-
-                    // Si viene en una lista...
-                    familiasOlfativas: Array.isArray(p.familiasOlfativas)
-                        ? p.familiasOlfativas // De cada familia, solo guarda el nombre
-                        : [] // Si no hay nada, lista vacía
+                    foto: p.foto ?? "/default.jpg"
                 }));
 
                 // Guarda la lista en el estado de la página
@@ -37,10 +29,25 @@ export const useListaPerfumesViewModel = () => {
                 setLoading(false);
 
             });
+    }
+
+    const aplicarFiltros = (nombre: string, familias: IFamilias[], notas: INota[], genero?: TGenero) => {
+
+        getPerfumesFiltros({
+            familias: familias.map(f => f.nombre),
+            genero,
+            notas: notas.map(n => n.nombre)
+        })
+
+    }
+
+    useEffect(() => {
+        cargarDatos()
     }, [])
 
     return {
         listaPerfumes,
-        loading
+        loading,
+        aplicarFiltros
     }
 }

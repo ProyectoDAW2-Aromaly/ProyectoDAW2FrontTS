@@ -2,58 +2,53 @@ import { getToken } from "../services/usuarios.services";
 
 const API = `${import.meta.env.VITE_SERVER_URL}votaciones`;
 
-const authHeaders = () => {
-  const token = getToken();
-  if (!token) {
-    throw new Error("No hay token de autenticación. Por favor, inicia sesión.");
-  }
-  return {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  };
-};
+
+const authHeaders = () => ({
+	"Content-Type": "application/json",
+	Authorization: `Bearer ${getToken()}`,
+});
 
 export const addFavorite = async (idPerfume: number): Promise<void> => {
-  const response = await fetch(`${API}/favorito`, {
-    method: "POST",
-    headers: authHeaders(),
-    body: JSON.stringify({
-      perfumeId: idPerfume,
-      tipo: "favorito",
-    }),
-  });
+	const response = await fetch(`${API}/favorito`, {
+		method: "POST",
+		headers: authHeaders(),
+		body: JSON.stringify({
+			perfumeId: idPerfume,
+			tipo: "favorito",
+		}),
+	});
 
-  if (!response.ok) {
-    throw new Error("No se pudo guardar el perfume como favorito");
-  }
+	if (!response.ok) {
+		throw new Error("No se pudo guardar el perfume como favorito");
+	}
 };
 
 export const removeFavorite = async (idPerfume: number): Promise<void> => {
-  const response = await fetch(`${API}/favorito/${idPerfume}`, {
-    method: "DELETE",
-    headers: authHeaders(),
-  });
+	const response = await fetch(`${API}/favorito/${idPerfume}`, {
+		method: "DELETE",
+		headers: authHeaders(),
+	});
 
-  if (!response.ok) {
-    throw new Error("No se pudo eliminar el perfume de favoritos");
-  }
+	if (!response.ok) {
+		throw new Error("No se pudo eliminar el perfume de favoritos");
+	}
 };
 
 export const isFavorite = async (idPerfume: number): Promise<boolean> => {
-  const token = getToken();
-  if (!token) return false;
+	const token = getToken();
+	if (!token) return false;
 
-  const response = await fetch(`${API}/favorito/${idPerfume}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+	const response = await fetch(`${API}/favorito/${idPerfume}`, {
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
 
-  if (!response.ok) {
-    if (response.status === 401 || response.status === 404) return false;
-    throw new Error("No se pudo verificar si el perfume es favorito");
-  }
+	if (!response.ok) {
+		if (response.status === 401 || response.status === 404) return false;
+		throw new Error("No se pudo verificar si el perfume es favorito");
+	}
 
-  const data = await response.json();
-  return Boolean(data.result?.isFavorite ?? data.result?.favorito ?? data.favorito ?? data.isFavorite);
+	const data = await response.json();
+	return Boolean(data.result?.isFavorite ?? data.result?.favorito ?? data.favorito ?? data.isFavorite);
 };

@@ -6,8 +6,8 @@ import UserContext from "../../context/UserContext";
 import { getMyProfile, updateMyProfile } from "../../services/perfil.services";
 import { createMyList, deleteMyList, updateMyList } from "../../services/listas.services";
 import { getAllPerfumes } from "../../services/perfume.services";
-import { getNombrePerfumistas } from "../../services/perfumista.services";
-import { normalizePerfumeImage } from "../../utils/assets";
+import { obtenerPerfumistas  } from "../../services/perfumista.services";
+import { normalizePerfumeImage, withImageCacheBust } from "../../utils/assets";
 import type { IListas } from "../../interfaces/IListas";
 import type { IPerfil } from "../../interfaces/IPerfil";
 import EditProfileForm from "./EditProfileForm";
@@ -68,7 +68,7 @@ export default function ProfilePage() {
       if (perfilData.user.rol === "ADMIN") {
         const [perfumes, perfumistas] = await Promise.all([
           getAllPerfumes(),
-          getNombrePerfumistas(),
+          obtenerPerfumistas (),
         ]);
         setAdminPerfumes(perfumes || []);
         setAdminPerfumistas(perfumistas || []);
@@ -88,6 +88,7 @@ export default function ProfilePage() {
     try {
       setSavingProfile(true);
       const updatedUser = await updateMyProfile(data);
+      const newPfp = withImageCacheBust(updatedUser.pfp);
 
       setPerfil((prev) =>
         prev
@@ -97,15 +98,15 @@ export default function ProfilePage() {
                 ...prev.user,
                 email: updatedUser.email || prev.user.email,
                 descripcion: updatedUser.descripcion || prev.user.descripcion,
-                pfp: updatedUser.pfp || prev.user.pfp,
+                pfp: newPfp,
               },
             }
           : prev
       );
 
       userContext?.setUser({
-        userName: perfil?.user.userName || userContext?.user?.userName || "",
-        pfp: updatedUser.pfp || perfil?.user.pfp || "",
+        userName: updatedUser.userName || userContext?.user?.userName || "",
+        pfp: newPfp,
         rol: updatedUser.rol,
       });
 
@@ -189,14 +190,22 @@ export default function ProfilePage() {
       <div className="flex flex-wrap gap-3">
         <button
           type="button"
-          className={`btn ${adminView === "perfumes" ? "btn-neutral" : "btn-outline"}`}
+          className={`btn ${
+            adminView === "perfumes"
+              ? "btn-primary text-primary-content"
+              : "btn-outline border-base-content/30 text-base-content hover:border-primary hover:bg-base-200"
+          }`}
           onClick={() => setAdminView("perfumes")}
         >
           Gestionar perfumes
         </button>
         <button
           type="button"
-          className={`btn ${adminView === "perfumistas" ? "btn-neutral" : "btn-outline"}`}
+          className={`btn ${
+            adminView === "perfumistas"
+              ? "btn-primary text-primary-content"
+              : "btn-outline border-base-content/30 text-base-content hover:border-primary hover:bg-base-200"
+          }`}
           onClick={() => setAdminView("perfumistas")}
         >
           Gestionar perfumistas
@@ -327,17 +336,23 @@ export default function ProfilePage() {
       <div className="card bg-base-100 shadow-sm mb-8">
         <div className="card-body">
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-            <div className="avatar">
-              <div className="w-24 rounded-full relative">
-                <img src={perfil.user?.pfp || "/user/profile-pic/default-profile.jpg"} alt={`Foto de ${perfil.user?.userName || "usuario"}`} />
-                {(perfil.user?.rol === "PREMIUM" || perfil.user?.rol === "ADMIN") && (
+            <div className="relative shrink-0">
+              <div className="avatar">
+                <div className="h-24 w-24 overflow-hidden rounded-full ring-2 ring-base-content/10">
+                  <img
+                    src={perfil.user?.pfp || "/user/profile-pic/default-profile.jpg"}
+                    alt={`Foto de ${perfil.user?.userName || "usuario"}`}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              {(perfil.user?.rol === "PREMIUM" || perfil.user?.rol === "ADMIN") && (
                   <img
                     src={perfil.user?.rol === "ADMIN" ? "/user/icons/admin-icon.svg" : "/user/icons/crown-1.svg"}
                     alt={perfil.user?.rol === "ADMIN" ? "Icono admin" : "Icono premium corona"}
-                    className="absolute -top-4 -left-1 z-10 w-8 h-8 -rotate-12 drop-shadow"
+                    className="pointer-events-none absolute -bottom-0.5 -right-0.5 z-10 h-8 w-8 drop-shadow-md"
                   />
                 )}
-              </div>
             </div>
 
             <div className="flex-1">

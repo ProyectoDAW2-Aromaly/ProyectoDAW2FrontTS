@@ -5,6 +5,7 @@ export default function FormularioPerfumista() {
     const {
         esModoEdicion,
         formulario,
+        previewFoto,
         loading,
         error,
         guardando,
@@ -39,9 +40,9 @@ export default function FormularioPerfumista() {
                         {/* IZQUIERDA */}
                         <div className="space-y-3">
                             <label className="label text-neutral font-semibold">Nombre</label>
-                            <input 
-                                type="text" 
-                                className="input w-full focus:outline-none" 
+                            <input
+                                type="text"
+                                className="input w-full focus:outline-none"
                                 placeholder="Nombre"
                                 value={formulario.nombre}
                                 onChange={handleChange("nombre")}
@@ -51,37 +52,43 @@ export default function FormularioPerfumista() {
                         {/* DERECHA */}
                         <div className="space-y-3">
                             <label className="label text-neutral font-semibold">Foto del perfumista</label>
-                            <input 
-                                type="file" 
-                                className="file-input w-full"
-                                onChange={handleFileChange}
-                            />
+                            <div className="flex items-center gap-4">
+                                <div className="w-16 rounded-full">
+                                    <img src={previewFoto || "/placeholder.jpg"} alt="Vista previa del perfumista" />
+                                </div>
+                                <input
+                                    type="file"
+                                    className="file-input w-full"
+                                    onChange={handleFileChange}
+                                />
+                            </div>
+
                         </div>
 
                     </div>
                     {/* DESCRIPCIÓN */}
-                        <label className="label text-neutral font-semibold">Descripción</label>
-                        <textarea 
-                            className="textarea w-full focus:outline-none" 
-                            placeholder="Descripción"
-                            value={formulario.descripcion}
-                            onChange={handleChange("descripcion")}
-                        ></textarea>
-
-                    <div className="flex gap-10">
+                    <label className="label text-neutral font-semibold">Descripción</label>
+                    <textarea
+                        className="textarea w-full focus:outline-none"
+                        placeholder="Descripción"
+                        value={formulario.descripcion}
+                        onChange={handleChange("descripcion")}
+                    ></textarea>
+                    
+                    <div className="flex gap-4 justify-end mt-3">
                         <button
-                            className="btn btn-neutral flex-2 mt-2 hover:btn-accent text-primary-content"
+                            className="btn"
+                            onClick={handleCancelar}
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            className="btn btn-neutral hover:hover:btn-accent text-primary-content"
                             onClick={handleSubmit}
                             disabled={guardando}
                         >
                             {guardando && <span className="loading loading-spinner"></span>}
                             {esModoEdicion ? "Actualizar perfumista" : "Crear perfumista"}
-                        </button>
-                        <button
-                            className="btn btn-neutral flex-2 mt-2 hover:hover:bg-red-500 hover:border-red-500 text-primary-content"
-                            onClick={handleCancelar}
-                        >
-                            Cancelar
                         </button>
                     </div>
                 </div>

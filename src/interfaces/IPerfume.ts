@@ -1,6 +1,7 @@
 import { IMarcaBackend } from "./IMarca";
 import type { IPerfumista, IPerfumistaBackend } from "./IPerfumista"
 
+export type TGenero = 'Mujer' | 'Hombre' | "Unisex";
 export interface INota {
     tipo: "salida" | "corazon" | "base",
     nombre: string,
@@ -20,7 +21,7 @@ export interface IPerfume {
     id: string,
     nombre: string,
     descripcion: string,
-    genero: string,
+    genero: TGenero,
     perfumista: IPerfumista[],
     yearSalida: string,
     coleccion: string,

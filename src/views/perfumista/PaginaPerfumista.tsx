@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router"
-import { ICardPerfume, PerfumeCard } from "../../components/PerfumeCard"
+import { PerfumeCard } from "../../components/PerfumeCard"
 import { FiltroPanel } from "../../components/FiltroPanel"
 import Paginacion from "../../components/Paginacion"
 import { usePerfumistaViewModel } from "./usePerfumistaViewModel"
@@ -8,6 +8,7 @@ import { useContext, useState } from "react"
 import UserContext from "../../context/UserContext"
 import { eliminarPerfumista } from "../../services/perfumista.services"
 import { ModalConfirmacion } from "../../components/ModalConfirmacion"
+import { IPerfumeBackend } from "../../interfaces/IPerfume"
 
 const PaginaPerfumista = () => {
     const userContext = useContext(UserContext);
@@ -63,7 +64,7 @@ console.log("FOTO URL:", perfumista?.imagen?.src);
         setPagina,
         itemsTotales,
         itemsPaginacion: perfumesVisibles
-    } = usePaginacion<ICardPerfume>(perfumes, perfumesPorPagina);
+    } = usePaginacion<IPerfumeBackend>(perfumes, perfumesPorPagina);
 
     if (loading) {
         return (
@@ -133,7 +134,7 @@ console.log("FOTO URL:", perfumista?.imagen?.src);
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {perfumista.nombre?.toUpperCase() ?? ""}</h1>
                 <div className="flex flex-wrap gap-12 mb-20" >
 
-                    {perfumesVisibles.map((perfume: ICardPerfume) =>
+                    {perfumesVisibles.map((perfume) =>
                         <PerfumeCard data={perfume} key={perfume.id} />
                     )}
 

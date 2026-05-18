@@ -1,14 +1,4 @@
-import { ICardPerfume } from "../../components/PerfumeCard";
-import { IPerfumeBackendFiltros } from "../../interfaces/IPerfume";
 import { IPerfumista, IPerfumistaBackend } from "../../interfaces/IPerfumista";
-
-export const mapPerfumeToCard = (data: IPerfumeBackendFiltros): ICardPerfume => ({
-    id: data.id,
-    nombre: data.nombre,
-    marca: data.marca.nombre,
-    foto: data.foto,
-    familiasOlfativas: data.familiasOlfativas?.map(f => f.nombre) ?? []
-});
 
 export const mapPerfumistaBackend = (
     data: IPerfumistaBackend,

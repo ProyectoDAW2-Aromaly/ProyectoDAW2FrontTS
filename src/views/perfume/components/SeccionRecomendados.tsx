@@ -1,27 +1,38 @@
+import { useEffect, useState } from "react";
 import { ListaCard } from "../../../components/ListaCard";
-import { PerfumeCard, type ICardPerfume } from "../../../components/PerfumeCard";
-import type { IUser } from "../../../services/usuarios.services";
-import { LIST } from "../../lista/ListData";
+import { PerfumeCard } from "../../../components/PerfumeCard";
+import { IPerfumeBackend } from "../../../interfaces/IPerfume";
+import { IUser } from "../../../interfaces/IUsuario";
+import { getAllPerfumes } from "../../../services/perfume.services";
+import { IListas } from "../../../interfaces/IListas";
+import { getPublicLists } from "../../../services/listas.services";
 
 interface SeccionRecomendadosProps {
     user?: IUser;
-    mockedPerfumes: ICardPerfume[];
 }
 
-export const SeccionRecomendados = ({ user, mockedPerfumes }: SeccionRecomendadosProps) => (
-    <>
+export const SeccionRecomendados = ({ user }: SeccionRecomendadosProps) => {
+    const [perfumesRecomendados, setPerfumesRecomendados] = useState<IPerfumeBackend[]>([]);
+    const [listasRecomendadas, setListasRecomendadas] = useState<IListas[]>([]);
+
+    useEffect(() => {
+        getAllPerfumes().then((res) => setPerfumesRecomendados(res.slice(1, 4)))
+        getPublicLists().then((res) => setListasRecomendadas(res.slice(1, 4)))
+    }, [])
+
+    return <>
         <h1 className="text-2xl text-center mb-10 mt-10">LISTAS DESTACADAS</h1>
         <div className="flex flex-wrap gap-12">
-            {LIST.slice(0, 3).map((lista) => (
+            {listasRecomendadas.slice(0, 3).map((lista) => (
                 <ListaCard data={lista} user={user} key={lista.id} />
             ))}
         </div>
 
         <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES SIMILARES</h1>
         <div className="flex flex-wrap gap-12">
-            {mockedPerfumes.map((perfume) => (
+            {perfumesRecomendados.map((perfume) => (
                 <PerfumeCard data={perfume} key={perfume.id} />
             ))}
         </div>
     </>
-);
+};
