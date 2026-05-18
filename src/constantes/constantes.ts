@@ -1,6 +1,7 @@
+import { TGenero } from "../interfaces/IPerfume";
 import { IPerfumistaBackend } from "../interfaces/IPerfumista";
 
-export const GENEROS = [
+export const GENEROS: TGenero[] = [
   'Mujer', 'Hombre', "Unisex"
 ]
 

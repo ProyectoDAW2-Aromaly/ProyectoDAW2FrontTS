@@ -1,7 +1,7 @@
 import { ILoginUser, IRegisterUser, IUser } from "../interfaces/IUsuario";
 import { normalizeUserImage } from "../utils/assets";
 
-const API = `${import.meta.env.VITE_APP_API}/usuario/`;
+const API = `${import.meta.env.VITE_SERVER_URL}usuario/`;
 
 export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
 

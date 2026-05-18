@@ -1,20 +1,21 @@
-import { ICardPerfume, PerfumeCard } from "../../components/PerfumeCard";
+import { PerfumeCard } from "../../components/PerfumeCard";
 import { FiltroPanel } from "../../components/FiltroPanel";
 import Paginacion from "../../components/Paginacion";
 import { useListaPerfumesViewModel } from "./useListaPerfumesViewModel";
 import { usePaginacion } from "../../hooks/usePaginacion";
+import { IPerfumeBackend } from "../../interfaces/IPerfume";
 
 const ListaPerfumes = () => {
 
     const { listaPerfumes, loading } = useListaPerfumesViewModel();
     const perfumesPorPagina = 12;
-    
-        const {
-            pagina,
-            setPagina,
-            itemsTotales,
-            itemsPaginacion: perfumesVisibles
-        } = usePaginacion<ICardPerfume>(listaPerfumes, perfumesPorPagina);
+
+    const {
+        pagina,
+        setPagina,
+        itemsTotales,
+        itemsPaginacion: perfumesVisibles
+    } = usePaginacion<IPerfumeBackend>(listaPerfumes, perfumesPorPagina);
 
     if (loading) {
         return (

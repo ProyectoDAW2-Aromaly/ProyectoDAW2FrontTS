@@ -1,4 +1,4 @@
-import { ICardPerfume } from "../components/PerfumeCard";
+import { IPerfumeBackend } from "./IPerfume";
 
 export interface IListas {
     id: string,
@@ -26,7 +26,7 @@ export interface IListaDetalle {
 	creadorUsername: string;
 	creadorFoto?: string;
 	creadorRol?: string;
-	perfumes: ICardPerfume[];
+	perfumes: IPerfumeBackend[];
 }
 
 export interface IBackendPublicList {

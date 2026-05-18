@@ -1,13 +1,15 @@
 import Paginacion from "../../../components/Paginacion"
 import MarcaCard from "../../../components/MarcaCard";
 import { useListaMarcasViewModel } from "./useListaMarcasViewModel";
-import { FiltroPanel } from "../../../components/FiltroPanel";
 import { usePaginacion } from "../../../hooks/usePaginacion";
 import { IMarca } from "../../../interfaces/IMarca";
+import { Buscador } from "../../../components/Buscador";
+import { useState } from "react";
 
 const ListaMarcas = () => {
 
     const { marcas, loading } = useListaMarcasViewModel();
+    const [nombre, setNombre] = useState("");
     const marcasPorPagina = 12;
 
     const {
@@ -31,7 +33,8 @@ const ListaMarcas = () => {
                 <h1 className="text-4xl mb-5">LISTADO DE MARCAS</h1>
 
                 {/* <div className="divider mb-10"></div> */}
-                <FiltroPanel/>
+                {/* <FiltroPanel/> */}
+                <Buscador value={nombre} onChange={setNombre} />
 
                 <div className="flex flex-wrap gap-12 mb-20" >
 

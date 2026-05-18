@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router";
-import { IList } from "../interfaces/IListas";
-
-interface IUser {
-    userName: string,
-    pfp: string,
-    rol: string
-}
+import { IUser } from "../interfaces/IUsuario";
+import { IListas } from "../interfaces/IListas";
 
 interface ListCardProps {
-    data: IList;
+    data: IListas;
     user?: IUser;
     isOwner?: boolean;
     onEdit?: () => void;

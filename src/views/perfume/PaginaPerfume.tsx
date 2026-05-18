@@ -7,13 +7,12 @@ import { SeccionPiramide } from "./components/SeccionPiramide";
 import { SeccionValoraciones } from "./components/SeccionValoraciones";
 import { SeccionRecomendados } from "./components/SeccionRecomendados";
 import { SeccionComentarios } from "./components/SeccionComentarios";
-import { MOCKED_PERFUMES } from "./utils/PerfumeConstantes";
 import {
     addPerfumeToList,
     getMyListsForPerfume,
-    removePerfumeFromList,
-    type IListaPerfumeOption,
+    removePerfumeFromList
 } from "../../services/listas.services";
+import { IListaPerfumeOption } from "../../interfaces/IListas";
 // import UserContext from "../../context/UserContext";
 
 const PaginaPerfume = () => {
@@ -125,7 +124,7 @@ const PaginaPerfume = () => {
                 onNumberChange={handleNumberRatingChange}
                 onSeasonChange={handleSeasonRatingChange}
             />
-            <SeccionRecomendados user={user} mockedPerfumes={MOCKED_PERFUMES} />
+            <SeccionRecomendados user={user} />
             <SeccionComentarios user={user} />
         </div>
     )

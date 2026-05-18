@@ -15,33 +15,34 @@ export const useFormularioPerfumistaViewModel = () => {
 
     const [formulario, setFormulario] = useState<IPerfumistaBackend>(PERFUMISTA_VACIO);
     const [archivo, setArchivo] = useState<File | null>(null);
+    const [previewFoto, setPreviewFoto] = useState("");
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [guardando, setGuardando] = useState(false);
 
-    useEffect(() => {
-        const cargarDatos = async () => {
-            try {
+    const cargarDatos = async () => {
+        try {
+            if (esModoEdicion && id) {
+                const perfumista = await getPerfumistaById(id);
 
-                if (esModoEdicion && id) {
-                    const perfumista = await getPerfumistaById(id);
-
-                    setFormulario({
-                        ...perfumista,
-                    });
-                } else {
-                    setFormulario(PERFUMISTA_VACIO);
-                }
-
-            } catch (err) {
-                console.error(err);
-                setError("Error al cargar datos.");
-            } finally {
-                setLoading(false);
+                setFormulario({
+                    ...perfumista,
+                });
+                setPreviewFoto(perfumista.foto ?? "");
+            } else {
+                setFormulario(PERFUMISTA_VACIO);
             }
-        };
 
+        } catch (err) {
+            console.error(err);
+            setError("Error al cargar datos.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
         cargarDatos();
     }, [id]);
 
@@ -55,7 +56,9 @@ export const useFormularioPerfumistaViewModel = () => {
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-            setArchivo(e.target.files[0]);
+            const file = e.target.files[0]
+            setArchivo(file);
+            setPreviewFoto(URL.createObjectURL(file));
         }
     }
 
@@ -64,28 +67,25 @@ export const useFormularioPerfumistaViewModel = () => {
         setError(null);
 
         try {
-
             const formData = new FormData();
 
-            formData.append("perfumista", JSON.stringify(
-                {
-                    nombre: formulario.nombre,
-                    descripcion: formulario.descripcion,
-                    foto: formulario.foto
-                }
-            ));
+            formData.append("perfumista", JSON.stringify({
+                ...formulario
+            }));
 
             if (archivo) {
                 formData.append("foto", archivo);
             }
+            let tempId = id;
 
             if (esModoEdicion) {
                 await editarPerfumista(id!, formData);
             } else {
-                await crearPerfumista(formData);
+                const perfumistaCreado = await crearPerfumista(formData);
+                tempId = perfumistaCreado.id;
             }
 
-            navigate("/");
+            navigate("/perfumista/" + tempId);
 
         } catch (err) {
             console.error(err);
@@ -100,6 +100,7 @@ export const useFormularioPerfumistaViewModel = () => {
     return {
         esModoEdicion,
         formulario,
+        previewFoto,
 
         loading,
         error,

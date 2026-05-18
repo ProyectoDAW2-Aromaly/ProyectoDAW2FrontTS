@@ -1,14 +1,8 @@
 import { Link } from "react-router"
+import { IPerfumeBackend } from "../interfaces/IPerfume"
 
-export interface ICardPerfume {
-    id: string,
-    nombre: string,
-    marca: string,
-    foto: string,
-    familiasOlfativas: Array<string | { nombre: string }>
-}
 
-export const PerfumeCard = ({ data } : { data: ICardPerfume}) => {
+export const PerfumeCard = ({ data } : { data: IPerfumeBackend}) => {
     return <div className="card bg-base-100 w-96 shadow-sm rounded-2xl overflow-hidden group" tabIndex={0}>
         <img
             className="w-full h-80 object-cover"
@@ -20,12 +14,12 @@ export const PerfumeCard = ({ data } : { data: ICardPerfume}) => {
             <div className="flex flex-col justify-center items-center p-4 text-white">
                 <h2 className="text-lg font-bold">{data.nombre}</h2>
                 {/* TODO: TIENE QUE LLEVAR A LA MARCA */}
-                <a href="" className="link hover:font-bold hover:no-underline">{data.marca}</a>
+                <Link to={`/marca/${data.marca?.nombre}`} className="link hover:font-bold hover:no-underline">{data.marca?.nombre}</Link>
             </div>
 
             <div className="px-6 pb-6 flex flex-col items-center gap-3 text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex flex-wrap justify-center gap-2">
-                    {data.familiasOlfativas.map(fo =>
+                    {data.familiasOlfativas?.map(fo =>
                         <div key={typeof fo === 'string' ? fo : fo.nombre} className="badge badge-soft">
                             {typeof fo === 'string' ? fo : fo.nombre}
                         </div>
