@@ -34,18 +34,18 @@ export function getPerfumesFiltros(filtros: IPerfumeFiltros) {
     if (filtros.marca) {
         parametros.append("marca", filtros.marca);
     }
-    if (filtros.genero) {
-        parametros.append("genero", filtros.genero);
-    }
+    // if (filtros.genero) {
+    //     parametros.append("genero", filtros.genero);
+    // }
     if (filtros.perfumistaId) {
         parametros.append("perfumistaId", filtros.perfumistaId);
     }
-    filtros.familias?.forEach(f =>
-        parametros.append("familias", f)
-    )
-    filtros.notas?.forEach(n => 
-        parametros.append("notas", n)
-    )
+    // filtros.familias?.forEach(f =>
+    //     parametros.append("familias", f)
+    // )
+    // filtros.notas?.forEach(n => 
+    //     parametros.append("notas", n)
+    // )
 
     return customFetch<IPerfumeBackend[]>(`/filtros?${parametros.toString()}`, "Error al buscar por filtros.", true);
 }

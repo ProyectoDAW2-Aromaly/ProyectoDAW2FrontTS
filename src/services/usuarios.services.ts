@@ -13,7 +13,7 @@ const getUser = (): IUser | null => {
 	if (user && token) {
 		try {
 			return JSON.parse(user);
-		} catch (error) {
+		} catch {
 			// Si hay error al parsear, limpiar solo los datos corruptos
 			localStorage.removeItem("user");
 			localStorage.removeItem("token");

@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router"
 import { PerfumeCard } from "../../components/PerfumeCard"
-import { FiltroPanel } from "../../components/FiltroPanel"
 import Paginacion from "../../components/Paginacion"
 import { usePerfumistaViewModel } from "./usePerfumistaViewModel"
 import { usePaginacion } from "../../hooks/usePaginacion"
@@ -128,8 +127,6 @@ console.log("FOTO URL:", perfumista?.imagen?.src);
 
                     </div>
                 </div>
-
-                <FiltroPanel />
 
                 <h1 className="text-2xl text-center mb-10 mt-10">PERFUMES DE {perfumista.nombre?.toUpperCase() ?? ""}</h1>
                 <div className="flex flex-wrap gap-12 mb-20" >

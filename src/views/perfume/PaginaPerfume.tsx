@@ -13,13 +13,11 @@ import {
     removePerfumeFromList
 } from "../../services/listas.services";
 import { IListaPerfumeOption } from "../../interfaces/IListas";
-// import UserContext from "../../context/UserContext";
 
 const PaginaPerfume = () => {
     const userContext = useContext(UserContext);
     const user = userContext?.user ?? undefined;
     const navigate = useNavigate();
-    // const user = useContext(UserContext)?.user ?? undefined;
     const [listasUsuario, setListasUsuario] = useState<IListaPerfumeOption[]>([]);
     const [listasLoading, setListasLoading] = useState(false);
     const [listasError, setListasError] = useState("");

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router"
-import { IPerfumista, IPerfumistaBackend } from "../../interfaces/IPerfumista";
+import { IPerfumista } from "../../interfaces/IPerfumista";
 import { getPerfumistaById } from "../../services/perfumista.services";
 import { mapPerfumistaBackend } from "../../utils/converters/converters";
 import { getPerfumesFiltros } from "../../services/perfume.services";
@@ -15,32 +15,30 @@ export const usePerfumistaViewModel = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    const cargarDatos = async () => {
+        try {
+            if (!id) throw Error();
+
+            const datosPerfumista = await getPerfumistaById(id);
+            setPerfumista(mapPerfumistaBackend( datosPerfumista, id))
+            const datosPerfumes = await getPerfumesFiltros({ perfumistaId: id });
+            setPerfumes(datosPerfumes);
+        } catch (err) {
+            console.log(err);
+            setError("No se ha podido cargar el perfumista.");
+            navigate("/not-found");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     useEffect(() => {
         if (!id) {
             navigate("/not-found");
             return;
         }
-
-        getPerfumistaById(id)
-            .then((data: IPerfumistaBackend) => {
-                setPerfumista(mapPerfumistaBackend(data, id));
-
-                return getPerfumesFiltros({
-                    perfumistaId: id
-                })
-            })
-            .then((perfumesData) => {
-                setPerfumes(perfumesData);
-            })
-            .catch((err) => {
-                console.log(err);
-                setError("No se ha podido cargar el perfumista.");
-                navigate("/not-found");
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-    }, [id, navigate]);
+        cargarDatos();
+    }, []);
 
     return { perfumista, perfumes, loading, error };
 }
