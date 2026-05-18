@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { ListaCard } from "../../../components/ListaCard";
 import Pagination from "../../../components/Paginacion";
+import UserContext from "../../../context/UserContext";
 import { useListasUsuariosViewModel } from "./useListasUsuariosViewModel"
 
 const ListasUsuarios = () => {
 
     const { listas, loading, error } = useListasUsuariosViewModel();
+    const userContext = useContext(UserContext);
 
     return (
         <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
@@ -21,7 +24,7 @@ const ListasUsuarios = () => {
             <div className="flex flex-wrap gap-12 mb-20" >
 
                 {listas.map(lista =>
-                    <ListaCard data={lista} key={lista.id} />
+                    <ListaCard data={lista} user={userContext?.user ?? undefined} key={lista.id} />
                 )}
 
             </div>

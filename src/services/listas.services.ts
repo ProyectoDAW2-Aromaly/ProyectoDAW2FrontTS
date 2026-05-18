@@ -7,10 +7,16 @@ import { getHandler } from "./handler";
 const customFetch = getHandler("listas")
 const API = `${import.meta.env.VITE_SERVER_URL}listas`;
 
-const authHeaders = () => ({
-	"Content-Type": "application/json",
-	Authorization: `Bearer ${getToken()}`,
-});
+const authHeaders = () => {
+	const token = getToken();
+	if (!token) {
+		throw new Error("No hay token de autenticación. Por favor, inicia sesión.");
+	}
+	return {
+		"Content-Type": "application/json",
+		Authorization: `Bearer ${token}`,
+	};
+};
 
 const createMyList = async (payload: ICreateListPayload): Promise<IListaPerfil> => {
 	return await customFetch("", "No se pudo crear la lista", true, "POST", JSON.stringify(payload))

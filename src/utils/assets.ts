@@ -41,4 +41,11 @@ export const normalizeBrandImage = (src?: string) =>
   normalizeFileAsset(src, "/brand", brandImageOverrides, "/brand/xerjoff-logo.png");
 
 export const normalizeUserImage = (src?: string) =>
-  normalizeFileAsset(src, "/user/profile-pic", {}, "/user/profile-pic/profile1.jpg");
+  normalizeFileAsset(src, "/user/profile-pic", {}, "/user/profile-pic/default-profile.jpg");
+
+/** Fuerza recarga de imagen en navbar/avatar tras actualizar perfil (evita caché del navegador). */
+export const withImageCacheBust = (src: string) => {
+  if (!src || src.startsWith("blob:")) return src;
+  const separator = src.includes("?") ? "&" : "?";
+  return `${src}${separator}v=${Date.now()}`;
+};

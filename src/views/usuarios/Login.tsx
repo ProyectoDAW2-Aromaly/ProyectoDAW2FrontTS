@@ -25,7 +25,15 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
-    const result = await doLogin(form);
+    const username = form.username.trim();
+    const password = form.password.trim();
+
+    if (!username || !password) {
+      setError("Username y contrasena son obligatorios");
+      return;
+    }
+
+    const result = await doLogin({ username, password });
 
     if (result?.status === 200) {
       userContext?.setUser(getUser());
@@ -33,14 +41,14 @@ export default function Login() {
       return;
     }
 
-    setError(result?.mensaje || "Error al iniciar sesión");
+    setError(result?.mensaje || "Error al iniciar sesion");
   };
 
   return (
     <div className="min-h-screen relative flex items-center justify-center bg-base-200/30 transition-colors duration-500">
       <form onSubmit={handleSubmit} className="w-sm bg-base-100 shadow-lg rounded-2xl p-6">
         <div className="card-body">
-          <h1 className="font-semibold text-lg text-center mb-6">INICIAR SESIÓN</h1>
+          <h1 className="font-semibold text-lg text-center mb-6">INICIAR SESION</h1>
 
           <input
             name="username"
@@ -49,27 +57,29 @@ export default function Login() {
             placeholder="Username"
             value={form.username}
             onChange={handleChange}
+            required
           />
 
           <input
             name="password"
             type="password"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Contraseña"
+            placeholder="Contrasena"
             value={form.password}
             onChange={handleChange}
+            required
           />
 
           {error && <p className="text-error text-sm mb-3">{error}</p>}
 
           <button className="btn btn-neutral hover:btn-accent text-primary-content" type="submit">
-            Iniciar sesión
+            Iniciar sesion
           </button>
 
           <div className="divider">o</div>
 
           <p className="text-center text-xs text-base-content/80">
-            ¿No tienes cuenta? <Link to="/registro" className="text-accent">Regístrate aquí.</Link>
+            No tienes cuenta? <Link to="/registro" className="text-accent">Registrate aqui.</Link>
           </p>
         </div>
       </form>
