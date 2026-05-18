@@ -5,13 +5,19 @@ interface IEditProfileFormProps {
 	user: IUserProfile;
 	loading: boolean;
 	onCancel: () => void;
-	onSave: (data: { email: string; descripcion: string; foto: string }) => Promise<void>;
+	onSave: (data: {
+		email: string;
+		descripcion: string;
+		foto: string;
+		archivo?: File | null;
+	}) => Promise<void>;
 }
 
 export default function EditProfileForm({ user, loading, onCancel, onSave }: IEditProfileFormProps) {
 	const [email, setEmail] = useState(user.email);
 	const [descripcion, setDescripcion] = useState(user.descripcion);
-	const [foto, setFoto] = useState(user.pfp);
+	const [foto] = useState(user.pfp);
+	const [archivo, setArchivo] = useState<File | null>(null);
 	const [previewFoto, setPreviewFoto] = useState(user.pfp);
 	const [error, setError] = useState("");
 
@@ -19,7 +25,7 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
 		const file = e.target.files?.[0];
 		if (!file) return;
 
-		setFoto(file.name);
+		setArchivo(file);
 		setPreviewFoto(URL.createObjectURL(file));
 	};
 
@@ -28,7 +34,7 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
 		setError("");
 
 		try {
-			await onSave({ email, descripcion, foto });
+			await onSave({ email, descripcion, foto, archivo });
 		} catch (err) {
 			setError(err instanceof Error ? err.message : "No se pudo guardar");
 		}
@@ -37,9 +43,9 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
 	return (
 		<form onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
 			<div className="card-body">
-				<h2 className="card-title">Editar perfil</h2>
+				<h2 className="card-title text-base-content">Editar perfil</h2>
 
-				<label className="label text-neutral font-semibold">Email</label>
+				<label className="label font-semibold text-base-content">Email</label>
 				<input
 					type="email"
 					className="input w-full"
@@ -47,23 +53,27 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
 					onChange={(e) => setEmail(e.target.value)}
 				/>
 
-				<label className="label text-neutral font-semibold">Descripción</label>
+				<label className="label font-semibold text-base-content">Descripción</label>
 				<textarea
 					className="textarea w-full h-28"
 					value={descripcion}
 					onChange={(e) => setDescripcion(e.target.value)}
 				/>
 
-				<label className="label text-neutral font-semibold">Foto</label>
+				<label className="label font-semibold text-base-content">Foto</label>
 				<div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-					<div className="avatar">
-						<div className="w-16 rounded-full">
-							<img src={previewFoto || "/user/profile-pic/profile1.jpg"} alt="Vista previa del perfil" />
+					<div className="avatar shrink-0">
+						<div className="h-16 w-16 overflow-hidden rounded-full ring-2 ring-base-content/10">
+							<img
+								src={previewFoto || "/user/profile-pic/default-profile.jpg"}
+								alt="Vista previa del perfil"
+								className="h-full w-full object-cover"
+							/>
 						</div>
 					</div>
 					<input
 						type="file"
-						className="file-input w-full"
+						className="file-input file-input-bordered w-full"
 						accept="image/*"
 						onChange={handleFotoChange}
 					/>
@@ -72,10 +82,14 @@ export default function EditProfileForm({ user, loading, onCancel, onSave }: IEd
 				{error && <p className="text-error text-sm">{error}</p>}
 
 				<div className="flex gap-4 justify-end mt-3">
-					<button type="button" className="btn" onClick={onCancel}>
+					<button type="button" className="btn btn-ghost text-base-content" onClick={onCancel}>
 						Cancelar
 					</button>
-					<button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
+					<button
+						type="submit"
+						className="btn btn-primary text-primary-content"
+						disabled={loading}
+					>
 						{loading ? "Guardando..." : "Guardar cambios"}
 					</button>
 				</div>

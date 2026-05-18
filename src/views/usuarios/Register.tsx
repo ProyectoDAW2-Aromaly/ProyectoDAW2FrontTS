@@ -25,17 +25,37 @@ export default function Register() {
     e.preventDefault();
     setError("");
 
-    if (form.password !== form.repeatPassword) {
-      setError("Las contraseñas no coinciden");
+    const username = form.username.trim();
+    const email = form.email.trim();
+    const password = form.password.trim();
+    const repeatPassword = form.repeatPassword.trim();
+
+    if (!username || !email || !password || !repeatPassword) {
+      setError("Todos los campos son obligatorios");
+      return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Introduce un email valido");
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("La contrasena debe tener al menos 6 caracteres");
+      return;
+    }
+
+    if (password !== repeatPassword) {
+      setError("Las contrasenas no coinciden");
       return;
     }
 
     const result = await saveUser({
-      username: form.username,
-      email: form.email,
-      password: form.password,
+      username,
+      email,
+      password,
       descripcion: "",
-      foto: "/user/profile-pic/profile1.jpg",
+      foto: "",
       rol: "BASICO",
     });
 
@@ -60,6 +80,7 @@ export default function Register() {
             placeholder="Username"
             value={form.username}
             onChange={handleChange}
+            required
           />
 
           <input
@@ -69,24 +90,29 @@ export default function Register() {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
+            required
           />
 
           <input
             name="password"
             type="password"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Contraseña"
+            placeholder="Contrasena"
             value={form.password}
             onChange={handleChange}
+            minLength={6}
+            required
           />
 
           <input
             name="repeatPassword"
             type="password"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Confirmar contraseña"
+            placeholder="Confirmar contrasena"
             value={form.repeatPassword}
             onChange={handleChange}
+            minLength={6}
+            required
           />
 
           {error && <p className="text-error text-sm mb-3">{error}</p>}
@@ -98,7 +124,7 @@ export default function Register() {
           <div className="divider">o</div>
 
           <p className="text-center text-xs text-base-content/80">
-            ¿Ya tienes cuenta? <Link to="/login" className="text-accent">Inicia sesión</Link>
+            Ya tienes cuenta? <Link to="/login" className="text-accent">Inicia sesion</Link>
           </p>
         </div>
       </form>

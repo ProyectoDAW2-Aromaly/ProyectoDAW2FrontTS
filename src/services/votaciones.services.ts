@@ -1,6 +1,7 @@
 import { getToken } from "../services/usuarios.services";
 
-const API = `${import.meta.env.VITE_APP_API}/votaciones`;
+const API = `${import.meta.env.VITE_SERVER_URL}votaciones`;
+
 
 const authHeaders = () => ({
 	"Content-Type": "application/json",

@@ -102,8 +102,13 @@ export default function Navbar() {
           {user ? (
             <>
               <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar mr-3">
-                <div className="w-10 rounded-full">
-                  <img alt="avatar" src={user.pfp || "/user/profile-pic/profile1.jpg"} />
+                <div className="h-10 w-10 overflow-hidden rounded-full ring-2 ring-base-content/10">
+                  <img
+                    key={user.pfp}
+                    alt={`Avatar de ${user.userName}`}
+                    src={user.pfp || "/user/profile-pic/default-profile.jpg"}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
               </div>
 

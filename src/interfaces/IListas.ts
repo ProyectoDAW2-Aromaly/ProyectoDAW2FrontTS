@@ -7,7 +7,8 @@ export interface IListas {
     cafe: boolean,
     pfp: string,
     titulo: string,
-    perfumes: string[]
+    perfumes: string[],
+    rol?: string
 }
 
 export interface IListaPerfumeOption {
