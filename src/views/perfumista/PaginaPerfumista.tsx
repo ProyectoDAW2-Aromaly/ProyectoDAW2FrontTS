@@ -54,8 +54,6 @@ const PaginaPerfumista = () => {
     }
 
     const { perfumista, perfumes, loading, error } = usePerfumistaViewModel()
-    console.log("PERFUMISTA FRONT:", perfumista);
-console.log("FOTO URL:", perfumista?.imagen?.src);
     const perfumesPorPagina = 12;
 
     const {

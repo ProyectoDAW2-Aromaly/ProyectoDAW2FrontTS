@@ -5,6 +5,7 @@ import { eliminarPerfume } from "../../../services/perfume.services";
 import { ModalConfirmacion } from "../../../components/ModalConfirmacion";
 import { IListaPerfumeOption } from "../../../interfaces/IListas";
 import { IUser } from "../../../interfaces/IUsuario";
+import { getGeneroImagen } from "../utils/PerfumeMapper";
 
 interface SeccionInfoPerfumeProps {
     perfume: IPerfume;
@@ -187,7 +188,7 @@ export const SeccionInfoPerfume = ({
                 <h5 className="flex items-center">
                     Genero
                     <figure>
-                        <img src={perfume.genero} alt="Icono de genero" className="w-5 ml-2 icon-theme-aware" />
+                        <img src={getGeneroImagen(perfume.genero)} alt="Icono de genero" className="w-5 ml-2 icon-theme-aware" />
                     </figure>
                 </h5>
                 <h5>

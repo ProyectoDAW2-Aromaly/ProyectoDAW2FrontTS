@@ -173,7 +173,6 @@ export default function FormularioPerfume() {
 								items={opcionesSelectores.nota.map((nota) => { return { ...nota, tipo } })}
 								selected={formulario.notas?.filter(nota => nota.tipo === tipo) ?? []}
 								onChange={(nuevos) => {
-									console.log(nuevos, formulario.notas)
 									handleChange("notas", [...(formulario.notas?.filter((nota) => nota.tipo !== tipo) ?? []), ...nuevos])
 								}
 								}

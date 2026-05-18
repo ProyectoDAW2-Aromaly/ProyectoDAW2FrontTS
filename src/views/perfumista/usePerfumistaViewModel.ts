@@ -24,7 +24,7 @@ export const usePerfumistaViewModel = () => {
             const datosPerfumes = await getPerfumesFiltros({ perfumistaId: id });
             setPerfumes(datosPerfumes);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             setError("No se ha podido cargar el perfumista.");
             navigate("/not-found");
         } finally {

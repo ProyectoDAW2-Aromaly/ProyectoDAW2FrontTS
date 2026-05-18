@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import { getUser, type IUser } from "../services/usuarios.services";
+import { getUser } from "../services/usuarios.services";
+import { IUser } from "../interfaces/IUsuario";
 
 interface IUserContext {
   user: IUser | null;
@@ -13,11 +14,7 @@ interface IUserContextProviderProps {
 }
 
 export function UserContextProvider({ children }: IUserContextProviderProps) {
-  const [user, setUser] = useState<IUser | null>(null);
-
-  useEffect(() => {
-    setUser(getUser());
-  }, []);
+  const [user, setUser] = useState<IUser | null>(getUser());
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

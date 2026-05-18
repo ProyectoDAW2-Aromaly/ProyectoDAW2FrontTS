@@ -13,6 +13,8 @@ import {
     removePerfumeFromList
 } from "../../services/listas.services";
 import { IListaPerfumeOption } from "../../interfaces/IListas";
+import { IVotacion } from "../../interfaces/IVotacion";
+import { crearComentario, obtenerComentariosPorPerfume } from "../../services/comentario.services";
 
 const PaginaPerfume = () => {
     const userContext = useContext(UserContext);
@@ -21,6 +23,8 @@ const PaginaPerfume = () => {
     const [listasUsuario, setListasUsuario] = useState<IListaPerfumeOption[]>([]);
     const [listasLoading, setListasLoading] = useState(false);
     const [listasError, setListasError] = useState("");
+    const [comentario, setComentario] = useState("");
+    const [comentarios, setComentarios] = useState<IVotacion[]>([]);
 
     const goToEditPerfume = (perfumeId: string) => {
         navigate(`/perfume/formulario?edit=${perfumeId}`);
@@ -59,6 +63,21 @@ const PaginaPerfume = () => {
         loadListas();
     }, [user, selectedPerfume?.id]);
 
+    useEffect(() => {
+        const loadComentarios = async () => {
+            if (!selectedPerfume?.id) return;
+
+            try {
+                const data = await obtenerComentariosPorPerfume(Number(selectedPerfume.id));
+                setComentarios(data);
+            } catch (err) {
+                console.error(err)
+            }
+        };
+
+        loadComentarios()
+    }, [selectedPerfume?.id])
+
     const handleTogglePerfumeInList = async (idLista: number, checked: boolean) => {
         if (!selectedPerfume?.id) return;
 
@@ -90,6 +109,24 @@ const PaginaPerfume = () => {
             setListasError(err instanceof Error ? err.message : "No se pudo actualizar la lista");
         }
     };
+
+    const handleCrearComentario = async () => {
+        try {
+            const nuevoComentario: IVotacion = {
+                id_perfume: Number(selectedPerfume?.id),
+                id_usuario: user?.id ?? -1,
+                tipo: "comentario",
+                valor: comentario
+            };
+
+            const creado = await crearComentario(nuevoComentario);
+
+            setComentarios([...comentarios, creado]);
+            setComentario("");
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     if (loading) {
         return (
@@ -123,7 +160,13 @@ const PaginaPerfume = () => {
                 onSeasonChange={handleSeasonRatingChange}
             />
             <SeccionRecomendados user={user} />
-            <SeccionComentarios user={user} />
+            <SeccionComentarios
+                user={user}
+                comentario={comentario}
+                setComentario={setComentario}
+                onCrearComentario={handleCrearComentario}
+                comentarios={comentarios}
+            />
         </div>
     )
 }

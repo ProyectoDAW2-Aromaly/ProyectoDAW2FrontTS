@@ -3,7 +3,15 @@ import { normalizeUserImage } from "../utils/assets";
 
 const API = `${import.meta.env.VITE_SERVER_URL}usuario/`;
 
+import { getHandler } from "./handler";
+
+const customFetch = getHandler("usuario/");
+
 export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
+
+export function getUsuarioPorId(id_usuario: number) {
+	return customFetch<IUser>(`${id_usuario}`, "Error al obtener el usuario.");
+}
 
 const getUser = (): IUser | null => {
 	const user = localStorage.getItem("user");
@@ -62,6 +70,7 @@ const doLogin = async (user: ILoginUser) => {
 
 		if (data.status === 200) {
 			const mappedUser: IUser = {
+				id: data.result.user.id,
 				userName: data.result.user.username,
 				pfp: normalizeUserImage(data.result.user.foto),
 				rol: data.result.user.rol || "BASICO",
