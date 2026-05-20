@@ -360,7 +360,7 @@ export default function ProfilePage() {
               <p className="text-sm opacity-70">{perfil.user?.email}</p>
               <div className="badge badge-xs badge-soft badge-neutral mt-2">{perfil.user?.rol}</div>
               <p className="mt-4 whitespace-pre-line">
-                {perfil.user?.descripcion || "Este usuario todavia no ha anadido descripcion."}
+                {perfil.user?.descripcion || "Este usuario todavia no ha anadido descripción."}
               </p>
             </div>
 
