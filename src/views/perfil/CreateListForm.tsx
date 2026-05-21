@@ -36,10 +36,10 @@ export default function CreateListForm({
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
-      <div className="card-body">
-        <h2 className="card-title">Crear lista</h2>
+    return (
+        <form onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
+            <div className="card-body">
+                <h2 className="card-title">Crear lista</h2>
 
         <label className="label text-neutral font-semibold">Nombre</label>
         <input
@@ -61,14 +61,14 @@ export default function CreateListForm({
           <span className="label-text">Lista publica</span>
         </label>
 
-        {error && <p className="text-error text-sm">{error}</p>}
+                {error && <p className="text-error text-sm">{error}</p>}
 
-        <div className="flex justify-end mt-3">
-          <button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
-            {loading ? "Creando..." : "Crear lista"}
-          </button>
-        </div>
-      </div>
-    </form>
-  );
+                <div className="flex justify-end mt-3">
+                    <button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
+                        {loading ? "Creando..." : "Crear lista"}
+                    </button>
+                </div>
+            </div>
+        </form>
+    );
 }

@@ -1,4 +1,4 @@
-import type { IMarca, INota, INotaBackend, IPerfume, IPerfumeBackend } from "../../../interfaces/IPerfume";
+import type { IMarca, INota, INotaBackend, IPerfume, IPerfumeBackend, TGenero } from "../../../interfaces/IPerfume";
 
 export const getGeneroImagen = (value: string): string => {
     switch (value.toLowerCase()) {
@@ -68,7 +68,7 @@ export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
     nombre: perfume.nombre,
     coleccion: perfume.coleccion ?? "",
     descripcion: perfume.descripcion ?? "",
-    genero: getGeneroImagen(perfume.genero),
+    genero: perfume.genero as TGenero,
     yearSalida: perfume.fechaLanzamiento ?? "",
 
     perfumista: perfume.perfumistas ?? [],

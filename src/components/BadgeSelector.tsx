@@ -20,7 +20,6 @@ export function BadgeSelector<T>({ items = [], placeholder, getLabel, getIdentif
 
     // toggle: Cambio entre estados (on/off, true/false, seleccionado/no seleccionado)
     const toggle = (item: T) => {
-        console.log(selected, item)
         if (selected.some(sItem => getIdentifier(sItem) === getIdentifier(item))) {
             // Quita del array la nota que acabamos de seleccionar
             // "item" es cada nota del array, si no es la que queremos quitar, se queda

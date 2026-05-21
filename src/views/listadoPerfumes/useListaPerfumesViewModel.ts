@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllPerfumes, getPerfumesFiltros } from "../../services/perfume.services";
-import { IFamilias, INota, IPerfumeBackend, TGenero } from "../../interfaces/IPerfume";
+import { getAllPerfumes } from "../../services/perfume.services";
+import { IPerfumeBackend } from "../../interfaces/IPerfume";
 
 export const useListaPerfumesViewModel = () => {
     const [listaPerfumes, setListaPerfumes] = useState<IPerfumeBackend[]>([]);
@@ -31,23 +31,12 @@ export const useListaPerfumesViewModel = () => {
             });
     }
 
-    const aplicarFiltros = (nombre: string, familias: IFamilias[], notas: INota[], genero?: TGenero) => {
-
-        getPerfumesFiltros({
-            familias: familias.map(f => f.nombre),
-            genero,
-            notas: notas.map(n => n.nombre)
-        })
-
-    }
-
     useEffect(() => {
         cargarDatos()
     }, [])
 
     return {
         listaPerfumes,
-        loading,
-        aplicarFiltros
+        loading
     }
 }

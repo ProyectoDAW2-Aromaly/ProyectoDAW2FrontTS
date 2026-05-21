@@ -1,12 +1,17 @@
 import { Link } from "react-router";
-import { COMENTARIOS } from "../../../constantes/constantes";
 import { IUser } from "../../../interfaces/IUsuario";
+import { IVotacion } from "../../../interfaces/IVotacion";
+import { ComentarioCard } from "../../../components/ComentarioCard";
 
 export interface SeccionComentariosProps {
     user?: IUser;
+    comentario: string;
+    setComentario: (value: string) => void;
+    onCrearComentario: () => void | Promise<void>;
+    comentarios: IVotacion[];
 }
 
-export const SeccionComentarios = ({ user }: SeccionComentariosProps) => (
+export const SeccionComentarios = ({ user, comentario, setComentario, onCrearComentario, comentarios }: SeccionComentariosProps) => (
     <>
         <h1 className="text-2xl text-center mb-10 mt-10">COMENTARIOS</h1>
         <div className="divider mt-10">Anade un comentario</div>
@@ -26,8 +31,13 @@ export const SeccionComentarios = ({ user }: SeccionComentariosProps) => (
 
                             <div className="w-full">
                                 <div className="flex flex-col gap-2 w-full">
-                                    <textarea className="textarea textarea-md w-full h-22" placeholder="Escribe aqui tu comentario..." />
-                                    <button className="btn btn-neutral hover:btn-accent text-primary-content self-end">Comentar</button>
+                                    <textarea 
+                                        className="textarea textarea-md w-full h-22" 
+                                        placeholder="Escribe aqui tu comentario..."
+                                        value={comentario}
+                                        onChange={(e) => setComentario(e.target.value)}
+                                    />
+                                    <button className="btn btn-neutral hover:btn-accent text-primary-content self-end" onClick={onCrearComentario}>Comentar</button>
                                 </div>
                             </div>
                         </div>
@@ -49,23 +59,9 @@ export const SeccionComentarios = ({ user }: SeccionComentariosProps) => (
 
         <div className="divider mt-4"></div>
         <div className="flex flex-col gap-2">
-            {COMENTARIOS.map((comentario) => (
-                <div className="card bg-base-100 w-auto" key={comentario.id}>
-                    <div className="card-body flex flex-col justify-between">
-                        <div className="flex gap-6 mb-2 items-center">
-                            <div className="avatar w-14 shrink-0 relative">
-                                <div className="w-14 rounded-full">
-                                    <img src="/user/profile-pic/profile1.jpg" alt={`Foto de perfil de ${comentario.nombre}`} />
-                                </div>
-                                <img src="/user/icons/crown-1.svg" alt="Icono premium corona" className="absolute -top-5.5 -left-1 w-8 h-8 -rotate-22" />
-                            </div>
-                            <div>
-                                <h2 className="card-title">{comentario.nombre}</h2>
-                                <p>{comentario.contenido}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {comentarios.map((comentario) => (
+                <ComentarioCard key={comentario.id} comentario={comentario}/>
+                
             ))}
         </div>
     </>

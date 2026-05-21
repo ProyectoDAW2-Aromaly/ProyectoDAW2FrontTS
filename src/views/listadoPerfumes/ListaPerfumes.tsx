@@ -1,5 +1,4 @@
 import { PerfumeCard } from "../../components/PerfumeCard";
-import { FiltroPanel } from "../../components/FiltroPanel";
 import Paginacion from "../../components/Paginacion";
 import { useListaPerfumesViewModel } from "./useListaPerfumesViewModel";
 import { usePaginacion } from "../../hooks/usePaginacion";
@@ -29,7 +28,7 @@ const ListaPerfumes = () => {
         <div className="mx-auto max-w-7xl px-4 mt-25 flex flex-col items-center">
             <h1 className="text-4xl mb-5">TODOS LOS PERFUMES</h1>
 
-            <FiltroPanel />
+            <div className="divider"></div>
 
             <div className="flex flex-wrap gap-12 mb-20" >
 

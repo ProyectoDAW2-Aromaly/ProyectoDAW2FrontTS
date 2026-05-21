@@ -1,6 +1,7 @@
 import { UserRol } from "../services/usuarios.services";
 
 export interface IUser {
+  id: number,
   userName: string;
   pfp: string;
   rol: UserRol;

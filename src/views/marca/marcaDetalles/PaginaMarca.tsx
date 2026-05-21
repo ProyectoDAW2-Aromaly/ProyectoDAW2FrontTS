@@ -1,7 +1,6 @@
 import Paginacion from "../../../components/Paginacion"
 import { useMarcaViewModel } from "./useMarcaViewModel";
 import { PerfumeCard } from "../../../components/PerfumeCard";
-import { FiltroPanel } from "../../../components/FiltroPanel";
 import { usePaginacion } from "../../../hooks/usePaginacion";
 import { IPerfumeBackend } from "../../../interfaces/IPerfume";
 
@@ -39,7 +38,7 @@ const PaginaMarca = () => {
                     </figure>
                 </div>
                 
-                <FiltroPanel/>
+                <div className="divider"></div>
 
                 <div className="flex flex-wrap gap-12 mb-20" >
 

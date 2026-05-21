@@ -105,6 +105,7 @@ export default function ProfilePage() {
       );
 
       userContext?.setUser({
+        id: updatedUser.id ?? -1,
         userName: updatedUser.userName || userContext?.user?.userName || "",
         pfp: newPfp,
         rol: updatedUser.rol,
