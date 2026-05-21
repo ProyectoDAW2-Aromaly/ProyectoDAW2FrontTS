@@ -17,7 +17,8 @@ export default function FormularioPerfume() {
 		handleChange,
 		handleFileChange,
 		handleSubmit,
-		handleCancelar
+		handleCancelar,
+		erroresCampos
 	} = useFormularioPerfumeViewModel();
 
 	if (loading) {
@@ -38,25 +39,25 @@ export default function FormularioPerfume() {
 						{esModoEdicion ? "EDITAR PERFUME" : "NUEVO PERFUME"}
 					</h1>
 
-					{/* FIXME: PRUEBA */}
 					{error && <div className="alert alert-error mb-4">{error}</div>}
 
 					<div className="grid md:grid-cols-2 gap-4">
 						{/* IZQUIERDA */}
 						<div className="space-y-3">
-							<label className="label text-neutral font-semibold">Nombre</label>
+							<label className="label text-neutral font-semibold">Nombre <span className="text-error">*</span></label>
 							<input
 								type="text"
-								className="input w-full focus:outline-none"
+								className={"input w-full focus:outline-none" + (erroresCampos.nombre ? " input-error" : "")}
 								placeholder="Nombre"
 								value={formulario.nombre}
 								onChange={(e) => handleChange("nombre", e.target.value)}
 							/>
+							{erroresCampos.nombre && <span className="text-error text-xs">{erroresCampos.nombre}</span>}
 
 							<div className="space-y-1 flex flex-col">
-								<label className="label text-neutral font-semibold">Marca</label>
+								<label className="label text-neutral font-semibold">Marca <span className="text-error">*</span></label>
 								<select
-									className="select w-full"
+									className={"select w-full" + (erroresCampos.marca ? " input-error" : "")}
 									value={
 										typeof formulario.marca === 'object'
 											? formulario.marca.nombre
@@ -71,6 +72,7 @@ export default function FormularioPerfume() {
 									<option value="" disabled selected>Selecciona una marca</option>
 									{opcionesSelectores.marca.map(m => <option key={m.nombre} value={m.nombre}>{m.nombre}</option>)}
 								</select>
+								{erroresCampos.marca && <span className="text-error text-xs">{erroresCampos.marca}</span>}
 							</div>
 
 							<div className="space-y-1 flex flex-col">
@@ -89,9 +91,9 @@ export default function FormularioPerfume() {
 
 						{/* DERECHA */}
 						<div className="space-y-3">
-							<span className="label text-neutral font-semibold">Género</span>
+							<span className="label text-neutral font-semibold">Género <span className="text-error">*</span></span>
 							<select
-								className="select w-full"
+								className={"select w-full" + (erroresCampos.genero ? " input-error" : "")}
 								value={formulario.genero}
 								onChange={(e) => handleChange("genero", e.target.value)}
 							>
@@ -102,9 +104,10 @@ export default function FormularioPerfume() {
 									</option>
 								))}
 							</select>
+							{erroresCampos.genero && <span className="text-error text-xs">{erroresCampos.genero}</span>}
 
 							<div className="space-y-1 flex flex-col">
-								<label className="label text-neutral font-semibold focus:outline-none">Perfumista/s</label>
+								<label className="label text-neutral font-semibold focus:outline-none">Perfumista/s <span className="text-error">*</span></label>
 								<BadgeSelector<IPerfumistaBackend>
 									items={opcionesSelectores.perfumista}
 									selected={formulario.perfumistas ?? []}
@@ -112,8 +115,10 @@ export default function FormularioPerfume() {
 									placeholder="Selecciona los perfumistas"
 									getIdentifier={(val) => val.id ?? ""}
 									getLabel={(val) => val.nombre}
+									error={erroresCampos.perfumistas ? true : false}
 								/>
 							</div>
+							{erroresCampos.perfumistas && <span className="text-error text-xs">{erroresCampos.perfumistas}</span>}
 
 							<div className="space-y-1 flex flex-col">
 								<label className="label text-neutral font-semibold">Colección</label>
@@ -129,7 +134,7 @@ export default function FormularioPerfume() {
 					</div>
 
 					<div className="space-y-1 flex flex-col">
-						<label className="label text-neutral font-semibold">Familia Olfativa</label>
+						<label className="label text-neutral font-semibold">Familia Olfativa <span className="text-error">*</span></label>
 						<BadgeSelector<IFamilias>
 							items={opcionesSelectores.familia}
 							selected={formulario.familiasOlfativas ?? []}
@@ -137,33 +142,36 @@ export default function FormularioPerfume() {
 							placeholder="Selecciona las familias"
 							getIdentifier={(val) => val.nombre}
 							getLabel={(val) => val.nombre}
+							error={erroresCampos.familiasOlfativas ? true : false}
 						/>
 					</div>
+					{erroresCampos.familiasOlfativas && <span className="text-error text-xs">{erroresCampos.familiasOlfativas}</span>}
 
 					{/* DESCRIPCIÓN */}
-					<label className="label text-neutral font-semibold">Descripción</label>
+					<label className="label text-neutral font-semibold">Descripción <span className="text-error">*</span></label>
 					<textarea
-						className="textarea w-full focus:outline-none"
+						className={"textarea w-full focus:outline-none" + (erroresCampos.descripcion ? " input-error" : "")}
 						placeholder="Descripción"
 						value={formulario.descripcion}
 						onChange={(e) => handleChange("descripcion", e.target.value)}
 					></textarea>
+					{erroresCampos.descripcion && <span className="text-error text-xs">{erroresCampos.descripcion}</span>}
 
-					<label className="label text-neutral font-semibold">Foto del perfume</label>
+					<label className="label text-neutral font-semibold">Foto del perfume <span className="text-error">*</span></label>
 					<div className="flex items-center gap-4">
 						<div className="w-16 rounded-full">
 							<img src={previewFoto || "/placeholder.jpg"} alt="Vista previa del perfume" />
 						</div>
 						<input
 							type="file"
-							className="file-input w-full"
+							className={"file-input w-full" + (erroresCampos.imagen ? " input-error" : "")}
 							onChange={handleFileChange}
 						/>
 					</div>
-					
+					{erroresCampos.imagen && <span className="text-error text-xs">{erroresCampos.imagen}</span>}
 
 					{/* Notas */}
-					<div className="divider font-semibold">NOTAS</div>
+					<div className="divider font-semibold">NOTAS<span className="text-error">*</span></div>
 
 					{(["salida", "corazon", "base"] as ("salida" | "corazon" | "base")[]).map((tipo) =>
 						<>
@@ -174,14 +182,15 @@ export default function FormularioPerfume() {
 								selected={formulario.notas?.filter(nota => nota.tipo === tipo) ?? []}
 								onChange={(nuevos) => {
 									handleChange("notas", [...(formulario.notas?.filter((nota) => nota.tipo !== tipo) ?? []), ...nuevos])
-								}
-								}
+								}}
 								placeholder={"Selecciona las notas de " + tipo}
 								getIdentifier={(val) => val.nombre}
 								getLabel={(val) => val.nombre}
+								error={erroresCampos.notas ? true : false}
 							/>
 						</>
 					)}
+					{erroresCampos.notas && <span className="text-error text-xs">{erroresCampos.notas}</span>}
 
 					<div className="flex gap-4 justify-end mt-3">
 						<button
