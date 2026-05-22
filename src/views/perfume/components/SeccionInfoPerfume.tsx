@@ -108,7 +108,7 @@ export const SeccionInfoPerfume = ({
                         </div>
                     ) : null}
 
-                    {user ? (
+                    {user && user.rol !== "ADMIN" ? (
                         <div className="dropdown dropdown-end tooltip save" data-tip="Guardar en lista">
                             <label tabIndex={0} className="btn btn-circle" aria-label="Guardar en lista">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-[1.6em]">
@@ -152,7 +152,7 @@ export const SeccionInfoPerfume = ({
                         </div>
                     ) : null}
 
-                    {user ? (
+                    {user && user.rol !== "ADMIN" ? (
                         <div className="tooltip save" data-tip={liked ? "Quitar de favoritos" : "Guardar en favoritos"}>
                             <button
                                 className="btn btn-circle"

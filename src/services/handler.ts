@@ -2,9 +2,9 @@ const URL_SERVER = `${import.meta.env.VITE_SERVER_URL}`;
 
 export const getHandler = (base: string) => {
     return async <T>(req: string, errorMessage: string, requiresAuth: boolean = false, postType?: string, body?: BodyInit, applyContentType: boolean = false) => {
-        let params: RequestInit | undefined = undefined
+        let params: RequestInit = { credentials: "include" }
         if (requiresAuth)
-            params = { headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` } }
+            params = { ...params, headers: { "Authorization": `Bearer ${localStorage.getItem('token')}` } }
 
         if (applyContentType)
             params = params ?

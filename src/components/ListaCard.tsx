@@ -73,7 +73,7 @@ export const ListaCard = ({ data, user, isOwner = false, onEdit }: ListCardProps
               </div>
             ) : null}
 
-            {!isOwner ? (
+            {!isOwner && user.rol !== "ADMIN" ? (
               <div
                 className="tooltip save"
                 data-tip={saving ? "Guardando..." : liked ? "Quitar lista" : "Guardar lista"}

@@ -1,115 +1,45 @@
-const API = `${import.meta.env.VITE_SERVER_URL}listas/`;
+import { getHandler } from "./handler";
 
-const getToken = () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    throw new Error("No hay token de autenticación. Por favor, inicia sesión.");
-  }
-  return token;
+const customFetch = getHandler("listas");
+
+type ListActionResponse = {
+	result: {
+		ok: boolean;
+	};
 };
 
-export const guardarLista = async (idLista: number) => {
-  const url = `${API}guardar/${idLista}`;
-  const token = getToken();
-
-  try {
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify({ username: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!).userName : '' }),
-    });
-
-    const data = await response.json();
-    data.status = response.status;
-
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudo guardar la lista");
-    }
-
-    return data;
-  } catch (err) {
-    return err;
-  }
+type SavedStateResponse = {
+	result: {
+		guardada: boolean;
+	};
 };
 
-export const quitarListaGuardada = async (idLista: number) => {
-  const url = `${API}guardar/${idLista}`;
-  const token = getToken();
+export function guardarLista(idLista: number) {
+	return customFetch<ListActionResponse>(
+		`/guardar/${idLista}`,
+		"No se pudo guardar la lista",
+		true,
+		"POST"
+	);
+}
 
-  try {
-    const response = await fetch(url, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify({ username: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!).userName : '' }),
-    });
+export function quitarListaGuardada(idLista: number) {
+	return customFetch<ListActionResponse>(
+		`/guardar/${idLista}`,
+		"No se pudo quitar la lista guardada",
+		true,
+		"DELETE"
+	);
+}
 
-    const data = await response.json();
-    data.status = response.status;
+export function getListasGuardadas() {
+	return customFetch("/guardadas", "No se pudieron obtener las listas guardadas", true);
+}
 
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudo quitar la lista guardada");
-    }
-
-    return data;
-  } catch (err) {
-    return err;
-  }
-};
-
-export const getListasGuardadas = async () => {
-  const url = `${API}guardadas`;
-  const token = getToken();
-
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-
-    const data = await response.json();
-    data.status = response.status;
-
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudieron obtener las listas guardadas");
-    }
-
-    return data;
-  } catch (err) {
-    return err;
-  }
-};
-
-export const estaListaGuardada = async (idLista: number) => {
-  const url = `${API}guardada/${idLista}`;
-  const token = getToken();
-
-  try {
-    const response = await fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-
-    const data = await response.json();
-    data.status = response.status;
-
-    if (!response.ok) {
-      throw new Error(data.mensaje || "No se pudo verificar la lista guardada");
-    }
-
-    return data;
-  } catch (err) {
-    return err;
-  }
-};
+export function estaListaGuardada(idLista: number) {
+	return customFetch<SavedStateResponse>(
+		`/guardada/${idLista}`,
+		"No se pudo verificar la lista guardada",
+		true
+	);
+}
