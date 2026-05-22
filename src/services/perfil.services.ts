@@ -1,84 +1,51 @@
-import { getToken } from "./usuarios.services";
 import type { IBackendPerfumeFavorito, IBackendUser, IPerfil, IUpdateProfilePayload } from "../interfaces/IPerfil";
-import { normalizePerfumeImage, normalizeUserImage, withImageCacheBust } from "../utils/assets";
+import { getHandler } from "./handler";
 
-const API = `${import.meta.env.VITE_SERVER_URL}`;
+const customFetch = getHandler("perfil");
 
-const authHeaders = () => {
-	const token = getToken();
-	if (!token) {
-		throw new Error("No hay token de autenticación. Por favor, inicia sesión.");
-	}
-	const cleanedToken = token.trim();
-	return {
-		"Content-Type": "application/json",
-		Authorization: `Bearer ${cleanedToken}`,
+type ProfileResponse = {
+	result: {
+		user: IBackendUser;
+		listasCreadas?: Array<IPerfil["listasCreadas"][number]>;
+		listasGuardadas?: Array<IPerfil["listasGuardadas"][number]>;
+		perfumesFavoritos?: IBackendPerfumeFavorito[];
 	};
 };
 
-const authMultipartHeaders = () => {
-	const token = getToken();
-	if (!token) {
-		throw new Error("No hay token de autenticación. Por favor, inicia sesión.");
-	}
-	return {
-		Authorization: `Bearer ${token.trim()}`,
+type UpdateProfileResponse = {
+	result: {
+		user: IBackendUser;
 	};
 };
+
+const defaultProfileImage = "/user/profile-pic/default-profile.jpg";
 
 const mapUser = (user: IBackendUser) => ({
 	id: user.id,
 	userName: user.username,
 	email: user.email || "",
 	descripcion: user.descripcion || "",
-	pfp: normalizeUserImage(user.foto),
+	pfp: user.foto || defaultProfileImage,
 	rol: user.rol || "BASICO",
 });
 
 const mapPerfumeFavorito = (perfume: IBackendPerfumeFavorito) => ({
 	id: perfume.id,
 	nombre: perfume.nombre || "",
-	foto: normalizePerfumeImage(perfume.foto),
+	foto: perfume.foto || "",
 	marca: perfume.marca || "",
 	familiasOlfativas: perfume.familiasOlfativas || [],
 });
 
-const mapListaPerfil = (lista: any) => ({
-	...lista,
-	perfumeFotos: (lista.perfumeFotos || []).map((foto: string) => normalizePerfumeImage(foto)),
-});
-
-const mapListaGuardada = (lista: any) => ({
-	...lista,
-	creadorFoto: normalizeUserImage(lista.creadorFoto),
-	perfumeFotos: (lista.perfumeFotos || []).map((foto: string) => normalizePerfumeImage(foto)),
-});
-
 const getMyProfile = async (): Promise<IPerfil> => {
-	const response = await fetch(`${API}perfil`, {
-		method: "GET",
-		headers: authHeaders(),
-	});
-
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudo cargar el perfil");
-	}
+	const data = await customFetch<ProfileResponse>("", "No se pudo cargar el perfil", true);
 
 	return {
 		user: mapUser(data.result.user),
-		listasCreadas: (data.result.listasCreadas || []).map(mapListaPerfil),
-		listasGuardadas: (data.result.listasGuardadas || []).map(mapListaGuardada),
+		listasCreadas: data.result.listasCreadas || [],
+		listasGuardadas: data.result.listasGuardadas || [],
 		perfumesFavoritos: (data.result.perfumesFavoritos || []).map(mapPerfumeFavorito),
 	};
-};
-
-const fotoParaBackend = (foto?: string) => {
-	if (!foto) return "";
-	if (foto.startsWith("http")) return foto.split("/").pop() || "";
-	if (foto.startsWith("/")) return "";
-	return foto;
 };
 
 const updateMyProfile = async (payload: IUpdateProfilePayload) => {
@@ -86,37 +53,33 @@ const updateMyProfile = async (payload: IUpdateProfilePayload) => {
 
 	formData.append("email", payload.email);
 	formData.append("descripcion", payload.descripcion);
-	formData.append("foto", fotoParaBackend(payload.foto));
+	formData.append("foto", payload.foto || "");
 
 	if (payload.archivo) {
 		formData.append("foto", payload.archivo);
 	}
 
-	const response = await fetch(`${API}perfil`, {
-		method: "PATCH",
-		headers: authMultipartHeaders(),
-		body: formData,
-	});
-
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudo actualizar el perfil");
-	}
+	const data = await customFetch<UpdateProfileResponse>(
+		"",
+		"No se pudo actualizar el perfil",
+		true,
+		"PATCH",
+		formData
+	);
 
 	const mappedUser = mapUser(data.result.user);
-	const pfpForStorage = withImageCacheBust(mappedUser.pfp);
 
 	localStorage.setItem(
 		"user",
 		JSON.stringify({
+			id: mappedUser.id,
 			userName: mappedUser.userName,
-			pfp: pfpForStorage,
+			pfp: mappedUser.pfp,
 			rol: mappedUser.rol,
 		}),
 	);
 
-	return { ...mappedUser, pfp: pfpForStorage };
+	return mappedUser;
 };
 
 export { getMyProfile, updateMyProfile };
