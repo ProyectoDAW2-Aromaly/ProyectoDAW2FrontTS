@@ -105,7 +105,7 @@ export default function Navbar() {
                 <div className="h-10 w-10 overflow-hidden rounded-full ring-2 ring-base-content/10">
                   <img
                     key={user.pfp}
-                    alt={`Avatar de ${user.userName}`}
+                    alt={`Avatar de ${user.username}`}
                     src={user.pfp || "/user/profile-pic/default-profile.jpg"}
                     className="h-full w-full object-cover"
                   />

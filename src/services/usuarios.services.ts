@@ -71,7 +71,7 @@ const doLogin = async (user: ILoginUser) => {
 		if (data.status === 200) {
 			const mappedUser: IUser = {
 				id: data.result.user.id,
-				userName: data.result.user.username,
+				username: data.result.user.username,
 				pfp: normalizeUserImage(data.result.user.foto),
 				rol: data.result.user.rol || "BASICO",
 			};

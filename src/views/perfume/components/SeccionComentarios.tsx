@@ -23,10 +23,10 @@ export const SeccionComentarios = ({ user, comentario, setComentario, onCrearCom
                             <div className="flex flex-col items-center">
                                 <div className="avatar w-14 shrink-0">
                                     <div className="w-14 rounded-full">
-                                        <img src={user.pfp} alt={`Foto de perfil de ${user.userName}`} />
+                                        <img src={user.pfp} alt={`Foto de perfil de ${user.username}`} />
                                     </div>
                                 </div>
-                                <p className="mt-2 font-semibold">{user.userName}</p>
+                                <p className="mt-2 font-semibold">{user.username}</p>
                             </div>
 
                             <div className="w-full">
@@ -57,11 +57,9 @@ export const SeccionComentarios = ({ user, comentario, setComentario, onCrearCom
             </div>
         </div>
 
-        <div className="divider mt-4"></div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mb-10">
             {comentarios.map((comentario) => (
                 <ComentarioCard key={comentario.id} comentario={comentario}/>
-                
             ))}
         </div>
     </>
