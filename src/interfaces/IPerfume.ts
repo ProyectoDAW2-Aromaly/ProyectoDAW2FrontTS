@@ -72,12 +72,6 @@ export interface IPerfumeBackend {
     notas?: INotaBackend[]
 }
 
-export interface IPerfumeBuscar {
-    id: number;
-    nombre: string;
-    foto: string;
-};
-
 export interface IPerfumeFiltros {
     marca?: string;
     genero?: string;

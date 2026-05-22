@@ -1,26 +1,27 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
-import { IUser } from "../interfaces/IUsuario";
 import { IListas } from "../interfaces/IListas";
 import {
   guardarLista,
   quitarListaGuardada,
   estaListaGuardada,
 } from "../services/listasGuardadas.services";
+import UserContext from "../context/UserContext";
 
 
 interface ListCardProps {
   data: IListas;
-  user?: IUser;
   isOwner?: boolean;
   onEdit?: () => void;
 }
 
-export const ListaCard = ({ data, user, isOwner = false, onEdit }: ListCardProps) => {
+export const ListaCard = ({ data, isOwner = false, onEdit }: ListCardProps) => {
+  const userContext = useContext(UserContext);
+  const user = userContext?.user ?? undefined;
   const [liked, setLiked] = useState(false);
   const [saving, setSaving] = useState(false);
   const perfumeImages = (data.perfumes || []).filter(Boolean);
-  const userImage = data.pfp || "/user/profile-pic/default-profile.jpg";
+  const userImage = (data?.pfp ?? "").trim() === "" ? "/user/profile-pic/default-profile.jpg" : data.pfp;
 
   useEffect(() => {
     const load = async () => {
@@ -86,17 +87,17 @@ export const ListaCard = ({ data, user, isOwner = false, onEdit }: ListCardProps
                     setLiked(nextLiked);
                     setSaving(true);
 
-            try {
-              const id = Number(data.id);
-              if (Number.isNaN(id)) return;
+                    try {
+                      const id = Number(data.id);
+                      if (Number.isNaN(id)) return;
 
-              if (nextLiked) await guardarLista(id);
-              else await quitarListaGuardada(id);
-            } catch {
-              setLiked(!nextLiked);
-            } finally {
-              setSaving(false);
-            }
+                      if (nextLiked) await guardarLista(id);
+                      else await quitarListaGuardada(id);
+                    } catch {
+                      setLiked(!nextLiked);
+                    } finally {
+                      setSaving(false);
+                    }
                   }}
                 >
                   <svg

@@ -3,6 +3,7 @@ import { useFormularioPerfumeViewModel } from "./useFormularioPerfumeViewModel";
 import { GENEROS } from "../../constantes/constantes";
 import { IFamilias, INotaBackend } from "../../interfaces/IPerfume";
 import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
+import { Fragment } from "react/jsx-runtime";
 
 export default function FormularioPerfume() {
 
@@ -69,7 +70,7 @@ export default function FormularioPerfume() {
 											handleChange("marca", nuevaMarca)
 									}}
 								>
-									<option value="" disabled selected>Selecciona una marca</option>
+									<option value="" disabled>Selecciona una marca</option>
 									{opcionesSelectores.marca.map(m => <option key={m.nombre} value={m.nombre}>{m.nombre}</option>)}
 								</select>
 								{erroresCampos.marca && <span className="text-error text-xs">{erroresCampos.marca}</span>}
@@ -174,7 +175,7 @@ export default function FormularioPerfume() {
 					<div className="divider font-semibold">NOTAS<span className="text-error">*</span></div>
 
 					{(["salida", "corazon", "base"] as ("salida" | "corazon" | "base")[]).map((tipo) =>
-						<>
+						<Fragment key={tipo}>
 							<label className="label text-neutral font-semibold capitalize">{tipo}</label>
 							<BadgeSelector<INotaBackend>
 								key={tipo}
@@ -188,7 +189,7 @@ export default function FormularioPerfume() {
 								getLabel={(val) => val.nombre}
 								error={erroresCampos.notas ? true : false}
 							/>
-						</>
+						</Fragment>
 					)}
 					{erroresCampos.notas && <span className="text-error text-xs">{erroresCampos.notas}</span>}
 

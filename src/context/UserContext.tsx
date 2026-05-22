@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useState, type ReactNode } from "react";
 import { getUser } from "../services/usuarios.services";
 import { IUser } from "../interfaces/IUsuario";
 

@@ -10,7 +10,7 @@ export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, h
 
     return <div className="join flex justify-center mb-10">
         <button
-            className={`join-item btn ${paginaActual === 1 && "btn-disabled"}`}
+            className={`join-item btn ${(paginaActual === 1 || totalItems === 0) && "btn-disabled"}`}
             onClick={() => handleCambiarPagina(1)}>
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                 <title>arrow-skip-back</title>
@@ -26,7 +26,7 @@ export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, h
             </svg>
         </button>
         <button
-            className={`join-item btn ${paginaActual === 1 && "btn-disabled"}`}
+            className={`join-item btn ${(paginaActual === 1 || totalItems === 0) && "btn-disabled"}`}
             onClick={() => handleCambiarPagina(paginaActual - 1)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
@@ -43,7 +43,7 @@ export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, h
         </button>
         <button className="join-item btn btn-primary">{paginaActual}</button>
         <button
-            className={`join-item btn ${paginaActual === paginas && "btn-disabled"}`}
+            className={`join-item btn ${(paginaActual === paginas || totalItems === 0) && "btn-disabled"}`}
             onClick={() => handleCambiarPagina(paginaActual + 1)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
@@ -59,7 +59,7 @@ export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, h
             </svg>
         </button>
         <button
-            className={`join-item btn ${paginaActual === paginas && "btn-disabled"}`}
+            className={`join-item btn ${(paginaActual === paginas || totalItems === 0) && "btn-disabled"}`}
             onClick={() => handleCambiarPagina(paginas)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">

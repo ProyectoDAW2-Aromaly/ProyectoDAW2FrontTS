@@ -28,9 +28,10 @@ const mapPublicList = (lista: IBackendPublicList): IListas => ({
 	nombreUsuario: lista.creadorUsername || "Usuario",
 	premium: lista.creadorRol === "PREMIUM",
 	cafe: false,
-	pfp: lista.creadorFoto || "/user/profile-pic/default-profile.jpg",
+	pfp: lista.creadorFoto ?? "/user/profile-pic/default-profile.jpg",
 	titulo: lista.nombre,
 	perfumes: lista.perfumeFotos || [],
+	rol: lista.creadorRol
 });
 
 const mapListDetail = (lista: IBackendListDetail): IListaDetalle => ({
@@ -82,7 +83,7 @@ export function getMyListsForPerfume(idPerfume: number): Promise<IListaPerfumeOp
 
 export function getPublicLists(): Promise<IListas[]> {
 	return customFetch<ListsResponse<IBackendPublicList>>("/publicas", "No se pudieron obtener las listas publicas")
-		.then((data) => (data.result.listas || []).map(mapPublicList));
+		.then((data) => (data.result.listas ?? []).map(mapPublicList));
 }
 
 export function getListDetail(idLista: number): Promise<IListaDetalle> {

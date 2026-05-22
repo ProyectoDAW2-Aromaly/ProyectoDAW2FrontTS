@@ -12,12 +12,14 @@ import type { IPerfil } from "../../interfaces/IPerfil";
 import EditProfileForm from "./EditProfileForm";
 import CreateListForm from "./CreateListForm";
 import ManageListForm from "./ManageListForm";
+import { IPerfumeBackend } from "../../interfaces/IPerfume";
+import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 
 export default function ProfilePage() {
   const userContext = useContext(UserContext);
   const [perfil, setPerfil] = useState<IPerfil | null>(null);
-  const [adminPerfumes, setAdminPerfumes] = useState<any[]>([]);
-  const [adminPerfumistas, setAdminPerfumistas] = useState<any[]>([]);
+  const [adminPerfumes, setAdminPerfumes] = useState<IPerfumeBackend[]>([]);
+  const [adminPerfumistas, setAdminPerfumistas] = useState<IPerfumistaBackend[]>([]);
   const [loading, setLoading] = useState(true);
   const [savingProfile, setSavingProfile] = useState(false);
   const [savingList, setSavingList] = useState(false);
@@ -226,7 +228,6 @@ export default function ProfilePage() {
               <tr>
                 <th>Perfume</th>
                 <th>Marca</th>
-                <th>Genero</th>
                 <th></th>
               </tr>
             </thead>
@@ -253,9 +254,8 @@ export default function ProfilePage() {
                     </div>
                   </td>
                   <td>{getNombre(perfume.marca, "Sin marca")}</td>
-                  <td><span className="badge badge-ghost badge-sm">{getNombre(perfume.genero, "Sin genero")}</span></td>
                   <th>
-                    <Link to={`/perfume/${perfume.id}`} className="btn btn-ghost btn-xs">details</Link>
+                    <Link to={`/perfume/${perfume.id}`} className="btn btn-ghost btn-xs">Detalles</Link>
                   </th>
                 </tr>
               ))}
@@ -272,7 +272,6 @@ export default function ProfilePage() {
             <thead>
               <tr>
                 <th>Perfumista</th>
-                <th>Descripcion</th>
                 <th></th>
               </tr>
             </thead>
@@ -298,7 +297,6 @@ export default function ProfilePage() {
                       </div>
                     </div>
                   </td>
-                  <td>{typeof perfumista.descripcion === "string" ? perfumista.descripcion : "Sin descripcion"}</td>
                   <th>
                     <Link to={`/perfumista/${perfumista.id}`} className="btn btn-ghost btn-xs">details</Link>
                   </th>
@@ -417,7 +415,6 @@ export default function ProfilePage() {
                       <ListaCard
                         key={lista.id}
                         data={buildProfileListCard(lista)}
-                        user={userContext.user ?? undefined}
                         isOwner={true}
                         onEdit={() => setEditingListId((prev) => (prev === lista.id ? null : lista.id))}
                       />
@@ -443,7 +440,6 @@ export default function ProfilePage() {
                     <ListaCard
                       key={`saved-${lista.id}-${lista.listaId}`}
                       data={buildSavedListCard(lista)}
-                      user={userContext.user ?? undefined}
                       isOwner={false}
                     />
                   ))}
