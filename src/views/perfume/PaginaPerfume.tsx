@@ -142,7 +142,6 @@ const PaginaPerfume = () => {
         <div className="mx-auto max-w-7xl px-4 mt-25">
             <SeccionInfoPerfume
                 perfume={selectedPerfume}
-                user={user}
                 liked={liked}
                 loadingFavorite={loadingFavorite}
                 listasUsuario={listasUsuario}
@@ -159,7 +158,7 @@ const PaginaPerfume = () => {
                 onNumberChange={handleNumberRatingChange}
                 onSeasonChange={handleSeasonRatingChange}
             />
-            <SeccionRecomendados user={user} />
+            <SeccionRecomendados />
             <SeccionComentarios
                 user={user}
                 comentario={comentario}

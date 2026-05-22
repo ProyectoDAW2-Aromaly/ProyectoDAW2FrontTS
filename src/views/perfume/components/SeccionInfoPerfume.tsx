@@ -1,15 +1,14 @@
 import { Link, useNavigate } from "react-router";
 import { IPerfume } from "../../../interfaces/IPerfume";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { eliminarPerfume } from "../../../services/perfume.services";
 import { ModalConfirmacion } from "../../../components/ModalConfirmacion";
 import { IListaPerfumeOption } from "../../../interfaces/IListas";
-import { IUser } from "../../../interfaces/IUsuario";
 import { getGeneroImagen } from "../utils/PerfumeMapper";
+import UserContext from "../../../context/UserContext";
 
 interface SeccionInfoPerfumeProps {
     perfume: IPerfume;
-    user?: IUser;
     liked: boolean;
     loadingFavorite?: boolean;
     listasUsuario: IListaPerfumeOption[];
@@ -22,7 +21,6 @@ interface SeccionInfoPerfumeProps {
 
 export const SeccionInfoPerfume = ({
     perfume,
-    user,
     liked,
     loadingFavorite,
     listasUsuario,
@@ -32,6 +30,8 @@ export const SeccionInfoPerfume = ({
     onToggleLiked,
     onEditPerfume,
 }: SeccionInfoPerfumeProps) => {
+    const userContext = useContext(UserContext);
+    const user = userContext?.user ?? undefined;
     const navigate = useNavigate();
 
     const [idAEliminar, setIdAEliminar] = useState<string | null>(null);
@@ -52,7 +52,7 @@ export const SeccionInfoPerfume = ({
 
             const modal = document.getElementById("modal-eliminar-perfume") as HTMLDialogElement;
             modal?.close();
-            
+
             setIdAEliminar(null);
             navigate("/");
         } catch (error) {
@@ -181,7 +181,7 @@ export const SeccionInfoPerfume = ({
                 <div className="divider">Informacion general</div>
                 <h5>
                     <span>Familia olfativa:</span>
-                    {perfume.familias.map((familia, index) => (
+                    {perfume.familiasOlfativas.map((familia, index) => (
                         <span key={`${familia}-${index}`} className="badge badge-sm badge-soft badge-neutral ml-2">{familia}</span>
                     ))}
                 </h5>
@@ -193,7 +193,7 @@ export const SeccionInfoPerfume = ({
                 </h5>
                 <h5>
                     <span>Perfumista:</span>
-                    {perfume.perfumista.map((perfumista, index) => (
+                    {perfume.perfumistas.map((perfumista, index) => (
                         <Link
                             key={`${perfumista.id ?? perfumista.nombre}-${index}`}
                             className="badge badge-sm badge-soft badge-neutral ml-2 hover:badge-accent"

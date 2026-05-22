@@ -12,5 +12,5 @@ export function eliminarComentario(id_comentario: number) {
 }
 
 export function obtenerComentariosPorPerfume(id_perfume: number) {
-    return customFetch<IVotacion>(`/comentario/${id_perfume}`, "Error al obtener los comentarios del perfume.")
+    return customFetch<IVotacion[]>(`/comentario/${id_perfume}`, "Error al obtener los comentarios del perfume.")
 }

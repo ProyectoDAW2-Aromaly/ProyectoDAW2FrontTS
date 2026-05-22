@@ -23,7 +23,7 @@ const defaultProfileImage = "/user/profile-pic/default-profile.jpg";
 
 const mapUser = (user: IBackendUser): IUser => ({
 	id: user.id,
-	userName: user.username,
+	username: user.username,
 	pfp: user.foto || defaultProfileImage,
 	rol: user.rol || "BASICO",
 });

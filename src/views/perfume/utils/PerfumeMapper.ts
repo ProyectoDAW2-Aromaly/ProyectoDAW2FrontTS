@@ -1,4 +1,5 @@
 import type { IMarca, INota, INotaBackend, IPerfume, IPerfumeBackend, TGenero } from "../../../interfaces/IPerfume";
+import { IPerfumista, IPerfumistaBackend } from "../../../interfaces/IPerfumista";
 
 export const getGeneroImagen = (value: string): string => {
     switch (value.toLowerCase()) {
@@ -19,22 +20,10 @@ const mapNotaTipo = (tipo?: string): INota["tipo"] => {
     return "base";
 };
 
-const mapNotas = (notas: IPerfumeBackend["notas"]): INota[] => {
+const mapNotas = (notas?: INotaBackend[]): INota[] => {
     if (!notas) return [];
 
-    if (Array.isArray(notas)) {
-        return notas.map((nota: INotaBackend) => ({
-            nombre: nota.nombre,
-            foto: nota.foto,
-            tipo: mapNotaTipo(nota.tipo),
-        }));
-    }
-
-    return [
-        ...(notas.salida ?? []).map((nota) => ({ ...nota, tipo: "salida" as const })),
-        ...(notas.corazon ?? []).map((nota) => ({ ...nota, tipo: "corazon" as const })),
-        ...(notas.base ?? []).map((nota) => ({ ...nota, tipo: "base" as const })),
-    ].map((nota) => ({
+    return notas.map((nota: INotaBackend) => ({
         nombre: nota.nombre,
         foto: nota.foto,
         tipo: mapNotaTipo(nota.tipo),
@@ -59,9 +48,18 @@ const mapMarca = (marca: IPerfumeBackend["marca"]): IMarca => {
 
     return {
         nombre: marca.nombre,
-        foto: marca.foto
+        foto: marca.foto ?? ""
     };
 };
+
+const mapPerfumista = (perfumista: IPerfumistaBackend): IPerfumista => {
+    return {
+        id: perfumista.id ?? "",
+        nombre: perfumista.nombre,
+        descripcion: perfumista.descripcion ?? "",
+        imagen: { src: perfumista.foto ?? "/user/profile-pic/default-profile.jpg", alt: perfumista.nombre }
+    }
+}
 
 export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
     id: perfume.id ?? "",
@@ -71,8 +69,8 @@ export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
     genero: perfume.genero as TGenero,
     yearSalida: perfume.fechaLanzamiento ?? "",
 
-    perfumista: perfume.perfumistas ?? [],
-    familias: mapFamilias(perfume.familiasOlfativas),
+    perfumistas: perfume.perfumistas?.map(mapPerfumista) ?? [],
+    familiasOlfativas: mapFamilias(perfume.familiasOlfativas),
 
     imagen: {
         src: perfume.foto,

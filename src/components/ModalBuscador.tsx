@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { buscarPerfumes } from "../services/perfume.services";
-import { IPerfumeBuscar } from "../interfaces/IPerfume";
 import { useNavigate } from "react-router";
+import { IPerfumeBackend } from "../interfaces/IPerfume";
 
 export default function ModalBuscador() {
     const [buscar, setBuscar] = useState("");
-    const [resultados, setResultados] = useState<IPerfumeBuscar[]>([]);
+    const [resultados, setResultados] = useState<IPerfumeBackend[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {

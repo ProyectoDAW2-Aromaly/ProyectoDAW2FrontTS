@@ -38,7 +38,6 @@ export const ComentarioCard = ({ comentario }: ComentarioCardProps) => {
     
             try {
                 setLoadingEliminar(true);
-                // await eliminarPerfume(idAEliminar);
                 if (comentario.id === undefined) throw Error("Comentario no encontrado.");
                 await eliminarComentario(comentario.id);
     
@@ -78,7 +77,7 @@ export const ComentarioCard = ({ comentario }: ComentarioCardProps) => {
                         <img
                             src={usuario?.rol === "ADMIN" ? "/user/icons/admin-icon.svg" : "/user/icons/crown-1.svg"}
                             alt={usuario?.rol === "ADMIN" ? "Icono admin" : "Icono premium corona"}
-                            className="pointer-events-none absolute -bottom-0.5 -right-0.5 z-10 h-5 w-5 drop-shadow-md"
+                            className="pointer-events-none absolute -top-0.5 -left-0.5 z-10 h-5 w-5 drop-shadow-md"
                         />
                     </div>
                     <div>
@@ -86,7 +85,7 @@ export const ComentarioCard = ({ comentario }: ComentarioCardProps) => {
                         <p>{comentario.valor}</p>
                     </div>
                 </div>
-                <div className="absolute top-10 right-2 flex gap-2 z-40">
+                <div className="absolute top-10 right-10 flex gap-2 z-40">
                     {usuario?.rol === "ADMIN" || comentario.id_usuario === user?.id ? (
                         <div className="tooltip save" data-tip="Borrar comentario">
                             <button className="btn btn-circle" onClick={() => eliminar(String(comentario.id))} aria-label="Borrar comentario">
