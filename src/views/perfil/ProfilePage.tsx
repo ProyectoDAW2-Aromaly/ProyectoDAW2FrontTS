@@ -7,7 +7,6 @@ import { getMyProfile, updateMyProfile } from "../../services/perfil.services";
 import { createMyList, deleteMyList, updateMyList } from "../../services/listas.services";
 import { getAllPerfumes } from "../../services/perfume.services";
 import { obtenerPerfumistas  } from "../../services/perfumista.services";
-import { normalizePerfumeImage, withImageCacheBust } from "../../utils/assets";
 import type { IListas } from "../../interfaces/IListas";
 import type { IPerfil } from "../../interfaces/IPerfil";
 import EditProfileForm from "./EditProfileForm";
@@ -53,9 +52,15 @@ export default function ProfilePage() {
   const buildFavoritePerfumeCard = (perfume: IPerfil["perfumesFavoritos"][number]) => ({
     id: String(perfume.id),
     nombre: perfume.nombre,
-    marca: perfume.marca,
+    descripcion: "",
+    genero: "",
+    marca: {
+      nombre: perfume.marca,
+      isdarklogo: true,
+      foto: "",
+    },
     foto: perfume.foto,
-    familiasOlfativas: perfume.familiasOlfativas,
+    familiasOlfativas: perfume.familiasOlfativas.map((nombre) => ({ nombre })),
   });
 
   const loadPerfil = async () => {
@@ -88,7 +93,6 @@ export default function ProfilePage() {
     try {
       setSavingProfile(true);
       const updatedUser = await updateMyProfile(data);
-      const newPfp = withImageCacheBust(updatedUser.pfp);
 
       setPerfil((prev) =>
         prev
@@ -98,7 +102,7 @@ export default function ProfilePage() {
                 ...prev.user,
                 email: updatedUser.email || prev.user.email,
                 descripcion: updatedUser.descripcion || prev.user.descripcion,
-                pfp: newPfp,
+                pfp: updatedUser.pfp,
               },
             }
           : prev
@@ -107,7 +111,7 @@ export default function ProfilePage() {
       userContext?.setUser({
         id: updatedUser.id ?? -1,
         userName: updatedUser.userName || userContext?.user?.userName || "",
-        pfp: newPfp,
+        pfp: updatedUser.pfp,
         rol: updatedUser.rol,
       });
 
@@ -234,7 +238,7 @@ export default function ProfilePage() {
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
                           {perfume.foto ? (
-                            <img src={normalizePerfumeImage(perfume.foto)} alt={`Perfume ${perfume.nombre}`} />
+                            <img src={perfume.foto} alt={`Perfume ${perfume.nombre}`} />
                           ) : (
                             <div className="bg-neutral text-neutral-content flex h-12 w-12 items-center justify-center">
                               {String(perfume.nombre || "?").charAt(0)}
@@ -361,7 +365,7 @@ export default function ProfilePage() {
               <p className="text-sm opacity-70">{perfil.user?.email}</p>
               <div className="badge badge-xs badge-soft badge-neutral mt-2">{perfil.user?.rol}</div>
               <p className="mt-4 whitespace-pre-line">
-                {perfil.user?.descripcion || "Este usuario todavia no ha anadido descripcion."}
+                {perfil.user?.descripcion || "Este usuario todavia no ha añadido descripcion."}
               </p>
             </div>
 
@@ -436,7 +440,7 @@ export default function ProfilePage() {
                 <div className="flex flex-wrap gap-12">
                   {perfil.listasGuardadas.map((lista) => (
                     <ListaCard
-                      key={lista.id}
+                      key={`saved-${lista.id}-${lista.listaId}`}
                       data={buildSavedListCard(lista)}
                       user={userContext.user ?? undefined}
                       isOwner={false}

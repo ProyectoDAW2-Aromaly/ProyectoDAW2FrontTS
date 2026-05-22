@@ -1,88 +1,99 @@
 import { ILoginUser, IRegisterUser, IUser } from "../interfaces/IUsuario";
-import { normalizeUserImage } from "../utils/assets";
-
-const API = `${import.meta.env.VITE_SERVER_URL}usuario/`;
-
 import { getHandler } from "./handler";
 
 const customFetch = getHandler("usuario/");
 
 export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
 
+interface IBackendUser {
+	id: number;
+	username: string;
+	foto?: string;
+	rol?: UserRol;
+}
+
+interface IAuthResponse {
+	result: {
+		user: IBackendUser;
+		token?: string;
+	};
+}
+
+const defaultProfileImage = "/user/profile-pic/default-profile.jpg";
+
+const mapUser = (user: IBackendUser): IUser => ({
+	id: user.id,
+	userName: user.username,
+	pfp: user.foto || defaultProfileImage,
+	rol: user.rol || "BASICO",
+});
+
 export function getUsuarioPorId(id_usuario: number) {
-	return customFetch<IUser>(`${id_usuario}`, "Error al obtener el usuario.");
+	return customFetch<IBackendUser>(`${id_usuario}`, "Error al obtener el usuario.")
+		.then(mapUser);
 }
 
 const getUser = (): IUser | null => {
 	const user = localStorage.getItem("user");
 	const token = localStorage.getItem("token");
 
-	// Solo devolver usuario si hay ambos: datos Y token
 	if (user && token) {
 		try {
 			return JSON.parse(user);
 		} catch {
-			// Si hay error al parsear, limpiar solo los datos corruptos
 			localStorage.removeItem("user");
 			localStorage.removeItem("token");
 			return null;
 		}
 	}
 
-	// Si no hay ambos datos, devolver null (sin limpiar, podrían ser datos legítimos)
 	return null;
 };
 
 const saveUser = async (user: IRegisterUser) => {
-	const url = `${API}registro`;
-
 	try {
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(user),
-		});
+		const data = await customFetch<IAuthResponse>(
+			"registro",
+			"Error al registrar el usuario",
+			false,
+			"POST",
+			JSON.stringify(user),
+			true
+		);
 
-		const data = await response.json();
-		data.status = response.status;
-		return data;
+		return { ...data, status: 201 };
 	} catch (err) {
-		return err;
+		return {
+			status: 400,
+			mensaje: err instanceof Error ? err.message : "Error al registrar el usuario",
+		};
 	}
 };
 
 const doLogin = async (user: ILoginUser) => {
-	const url = `${API}login`;
-
 	try {
-		const response = await fetch(url, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(user),
-		});
+		const data = await customFetch<IAuthResponse>(
+			"login",
+			"Error al iniciar sesion",
+			false,
+			"POST",
+			JSON.stringify(user),
+			true
+		);
 
-		const data = await response.json();
-		data.status = response.status;
+		const mappedUser = mapUser(data.result.user);
 
-		if (data.status === 200) {
-			const mappedUser: IUser = {
-				id: data.result.user.id,
-				userName: data.result.user.username,
-				pfp: normalizeUserImage(data.result.user.foto),
-				rol: data.result.user.rol || "BASICO",
-			};
-
-			localStorage.setItem("user", JSON.stringify(mappedUser));
+		localStorage.setItem("user", JSON.stringify(mappedUser));
+		if (data.result.token) {
 			localStorage.setItem("token", data.result.token);
 		}
 
-		return data;
+		return { ...data, status: 200 };
 	} catch (err) {
-		return err;
+		return {
+			status: 401,
+			mensaje: err instanceof Error ? err.message : "Error al iniciar sesion",
+		};
 	}
 };
 

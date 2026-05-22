@@ -1,182 +1,131 @@
-import { getToken } from "./usuarios.services";
 import type { IListaPerfil } from "../interfaces/IPerfil";
-import type { IBackendListDetail, IBackendPublicList, ICreateListPayload, IListaDetalle, IListaPerfumeOption, IListas } from "../interfaces/IListas";
-import { normalizePerfumeImage, normalizeUserImage } from "../utils/assets";
+import type {
+	IBackendListDetail,
+	IBackendPublicList,
+	ICreateListPayload,
+	IListaDetalle,
+	IListaPerfumeOption,
+	IListas,
+} from "../interfaces/IListas";
 import { getHandler } from "./handler";
 
-const customFetch = getHandler("listas")
-const API = `${import.meta.env.VITE_SERVER_URL}listas`;
+const customFetch = getHandler("listas");
 
-const authHeaders = () => {
-	const token = getToken();
-	if (!token) {
-		throw new Error("No hay token de autenticación. Por favor, inicia sesión.");
-	}
-	return {
-		"Content-Type": "application/json",
-		Authorization: `Bearer ${token}`,
-	};
+type ListResponse<T> = {
+	result: T;
 };
 
-const createMyList = async (payload: ICreateListPayload): Promise<IListaPerfil> => {
-	return await customFetch("", "No se pudo crear la lista", true, "POST", JSON.stringify(payload))
-};
+type ListsResponse<T> = ListResponse<{
+	listas: T[];
+}>;
 
-const getMyLists = async (): Promise<IListaPerfil[]> => {
-	const response = await fetch(`${API}/mias`, {
-		method: "GET",
-		headers: authHeaders(),
-	});
-
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudieron obtener las listas");
-	}
-
-	return data.result.listas || [];
-};
-
-const getMyListsForPerfume = async (idPerfume: number): Promise<IListaPerfumeOption[]> => {
-	const response = await fetch(`${API}/perfume/${idPerfume}`, {
-		method: "GET",
-		headers: authHeaders(),
-	});
-
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudieron obtener las listas del perfume");
-	}
-
-	return data.result.listas || [];
-};
+type SingleListResponse<T> = ListResponse<{
+	lista: T;
+}>;
 
 const mapPublicList = (lista: IBackendPublicList): IListas => ({
 	id: String(lista.id),
 	nombreUsuario: lista.creadorUsername || "Usuario",
 	premium: lista.creadorRol === "PREMIUM",
 	cafe: false,
-	pfp: normalizeUserImage(lista.creadorFoto),
+	pfp: lista.creadorFoto || "/user/profile-pic/default-profile.jpg",
 	titulo: lista.nombre,
-	perfumes: (lista.perfumeFotos || []).map((foto: string) => normalizePerfumeImage(foto)),
+	perfumes: lista.perfumeFotos || [],
 });
 
-const getPublicLists = async (): Promise<IListas[]> => {
-	const response = await fetch(`${API}/publicas`);
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudieron obtener las listas públicas");
-	}
-
-	return (data.result.listas || []).map(mapPublicList);
-};
-
-const getListDetail = async (idLista: number): Promise<IListaDetalle> => {
-	const token = getToken();
-	const response = await fetch(`${API}/${idLista}`, {
-		headers: {
-			...(token ? { Authorization: `Bearer ${token}` } : {}),
+const mapListDetail = (lista: IBackendListDetail): IListaDetalle => ({
+	id: lista.id,
+	nombre: lista.nombre,
+	esPublica: lista.esPublica,
+	totalPerfumes: lista.totalPerfumes,
+	creadorUsername: lista.creadorUsername,
+	creadorFoto: lista.creadorFoto,
+	creadorRol: lista.creadorRol,
+	perfumes: (lista.perfumes || []).map((perfume) => ({
+		id: String(perfume.id),
+		nombre: perfume.nombre,
+		descripcion: "",
+		genero: "",
+		marca: {
+			nombre: perfume.marca || "Marca desconocida",
+			isdarklogo: true,
+			foto: "",
 		},
-	});
+		foto: perfume.foto || "",
+		familiasOlfativas: (perfume.familiasOlfativas || []).map((nombre) => ({ nombre })),
+	})),
+});
 
-	const data = await response.json();
+export function createMyList(payload: ICreateListPayload): Promise<IListaPerfil> {
+	return customFetch<SingleListResponse<IListaPerfil>>(
+		"",
+		"No se pudo crear la lista",
+		true,
+		"POST",
+		JSON.stringify(payload),
+		true
+	).then((data) => data.result.lista);
+}
 
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudo cargar la lista");
-	}
+export function getMyLists(): Promise<IListaPerfil[]> {
+	return customFetch<ListsResponse<IListaPerfil>>("/mias", "No se pudieron obtener las listas", true)
+		.then((data) => data.result.listas || []);
+}
 
-	const lista = data.result.lista as IBackendListDetail;
+export function getMyListsForPerfume(idPerfume: number): Promise<IListaPerfumeOption[]> {
+	return customFetch<ListsResponse<IListaPerfumeOption>>(
+		`/perfume/${idPerfume}`,
+		"No se pudieron obtener las listas del perfume",
+		true
+	).then((data) => data.result.listas || []);
+}
 
-	return {
-		id: lista.id,
-		nombre: lista.nombre,
-		esPublica: lista.esPublica,
-		totalPerfumes: lista.totalPerfumes,
-		creadorUsername: lista.creadorUsername,
-		creadorFoto: lista.creadorFoto,
-		creadorRol: lista.creadorRol,
-		perfumes: (lista.perfumes || []).map((perfume) => ({
-			id: String(perfume.id),
-			nombre: perfume.nombre,
-			marca: perfume.marca || "Marca desconocida",
-			foto: normalizePerfumeImage(perfume.foto),
-			familiasOlfativas: perfume.familiasOlfativas || [],
-		})),
-	};
-};
+export function getPublicLists(): Promise<IListas[]> {
+	return customFetch<ListsResponse<IBackendPublicList>>("/publicas", "No se pudieron obtener las listas publicas")
+		.then((data) => (data.result.listas || []).map(mapPublicList));
+}
 
-const addPerfumeToList = async (idLista: number, idPerfume: number) => {
-	const response = await fetch(`${API}/${idLista}/perfumes`, {
-		method: "POST",
-		headers: authHeaders(),
-		body: JSON.stringify({ idPerfume }),
-	});
+export function getListDetail(idLista: number): Promise<IListaDetalle> {
+	return customFetch<SingleListResponse<IBackendListDetail>>(`/${idLista}`, "No se pudo cargar la lista")
+		.then((data) => mapListDetail(data.result.lista));
+}
 
-	const data = await response.json();
+export function addPerfumeToList(idLista: number, idPerfume: number) {
+	return customFetch<ListResponse<{ ok: boolean }>>(
+		`/${idLista}/perfumes`,
+		"No se pudo guardar el perfume en la lista",
+		true,
+		"POST",
+		JSON.stringify({ idPerfume }),
+		true
+	).then((data) => data.result);
+}
 
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudo guardar el perfume en la lista");
-	}
+export function removePerfumeFromList(idLista: number, idPerfume: number) {
+	return customFetch<ListResponse<{ ok: boolean }>>(
+		`/${idLista}/perfumes/${idPerfume}`,
+		"No se pudo quitar el perfume de la lista",
+		true,
+		"DELETE"
+	).then((data) => data.result);
+}
 
-	return data.result;
-};
+export function updateMyList(idLista: number, payload: ICreateListPayload): Promise<IListaPerfil> {
+	return customFetch<SingleListResponse<IListaPerfil>>(
+		`/${idLista}`,
+		"No se pudo editar la lista",
+		true,
+		"PATCH",
+		JSON.stringify(payload),
+		true
+	).then((data) => data.result.lista);
+}
 
-const removePerfumeFromList = async (idLista: number, idPerfume: number) => {
-	const response = await fetch(`${API}/${idLista}/perfumes/${idPerfume}`, {
-		method: "DELETE",
-		headers: authHeaders(),
-	});
-
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudo quitar el perfume de la lista");
-	}
-
-	return data.result;
-};
-
-const updateMyList = async (idLista: number, payload: ICreateListPayload): Promise<IListaPerfil> => {
-	const response = await fetch(`${API}/${idLista}`, {
-		method: "PATCH",
-		headers: authHeaders(),
-		body: JSON.stringify(payload),
-	});
-
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudo editar la lista");
-	}
-
-	return data.result.lista;
-};
-
-const deleteMyList = async (idLista: number) => {
-	const response = await fetch(`${API}/${idLista}`, {
-		method: "DELETE",
-		headers: authHeaders(),
-	});
-
-	const data = await response.json();
-
-	if (!response.ok) {
-		throw new Error(data.mensaje || "No se pudo borrar la lista");
-	}
-
-	return data.result;
-};
-
-export {
-	createMyList,
-	getMyLists,
-	getPublicLists,
-	getListDetail,
-	getMyListsForPerfume,
-	addPerfumeToList,
-	removePerfumeFromList,
-	updateMyList,
-	deleteMyList,
-};
+export function deleteMyList(idLista: number) {
+	return customFetch<ListResponse<{ ok: boolean }>>(
+		`/${idLista}`,
+		"No se pudo borrar la lista",
+		true,
+		"DELETE"
+	).then((data) => data.result);
+}
