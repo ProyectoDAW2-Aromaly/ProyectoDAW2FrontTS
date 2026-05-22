@@ -5,7 +5,7 @@ import {
     editarPerfume,
     getPerfumeById,
 } from "../../services/perfume.services";
-import { IPerfumeBackend, INotaBackend, IFamilias } from "../../interfaces/IPerfume";
+import { IPerfumeBackend, INotaBackend, IFamilias, IPerfume } from "../../interfaces/IPerfume";
 import { IMarcaBackend } from "../../interfaces/IMarca";
 import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { obtenerMarcas } from "../../services/marca.services";
@@ -25,6 +25,17 @@ const PERFUME_VACIO: IPerfumeBackend = {
     familiasOlfativas: [],
     notas: [],
 };
+
+const ERRORES_VACIOS = {
+    nombre: "",
+    descripcion: "",
+    familiasOlfativas: "",
+    genero: "",
+    imagen: "",
+    perfumistas: "",
+    notas: "",
+    marca: ""
+}
 interface IOpcionSelectores {
     marca: IMarcaBackend[],
     nota: INotaBackend[],
@@ -44,6 +55,7 @@ export const useFormularioPerfumeViewModel = () => {
     const [formulario, setFormulario] = useState<IPerfumeBackend>(PERFUME_VACIO);
     const [archivo, setArchivo] = useState<File | null>(null);
     const [previewFoto, setPreviewFoto] = useState("");
+    const [erroresCampos, setErroresCampos] = useState<{ [key in keyof IPerfume]?: string }>(ERRORES_VACIOS)
 
     const [opcionesSelectores, setOpcionesSelectores] = useState<IOpcionSelectores>({
         marca: [],
@@ -106,7 +118,38 @@ export const useFormularioPerfumeViewModel = () => {
         }
     }
 
+    const validacion = () => {
+        const nombreError = formulario.nombre.trim() === "";
+        const descripcionError = formulario.descripcion.trim() === "";
+        const marcaError = !formulario.marca?.nombre?.trim();
+        const perfumistaError = (formulario.perfumistas?.length ?? 0) === 0;
+        const notaError = (formulario.notas?.length ?? 0) === 0;
+        const familiaError = (formulario.familiasOlfativas?.length ?? 0) === 0;
+        const fotoError = !archivo && !formulario.foto;
+        const generoError = formulario.genero.trim() === "";
+
+        const nuevosErroresCampos = {
+            nombre: nombreError ? "El nombre no debe estar vacío." : undefined,
+            descripcion: descripcionError ? "La descripción no debe estar vacía." : undefined,
+            marca: marcaError ? "Debe tener una marca." : undefined,
+            perfumistas: perfumistaError ? "Debe tener al menos un perfumista." : undefined,
+            notas: notaError ? "Debe tener al menos una nota." : undefined,
+            familiasOlfativas: familiaError ? "Debe tener al menos una familia olfativa." : undefined,
+            imagen: fotoError ? "Debe tener una foto." : undefined,
+            genero: generoError ? "Debe tener un género." : undefined,
+        }
+        setErroresCampos(nuevosErroresCampos)
+        return nuevosErroresCampos
+    }
+
     const handleSubmit = async () => {
+        // Sacamos el objeto con los errores actuales
+        const erroresActuales = validacion()
+        // Sacamos los valores de las propiedades del objeto en un array
+        const valoresErrores = Object.values(erroresActuales)
+        // SI alguno/s (some) cumplen con la condicion que se pone dentro, da true. Si da true es que hay algun error.
+        if (valoresErrores.some(valor => valor !== "" && valor !== undefined)) return;
+
         setGuardando(true);
         setError(null);
 
@@ -140,7 +183,7 @@ export const useFormularioPerfumeViewModel = () => {
         }
     };
 
-    const handleCancelar = () => navigate(-1);
+    const handleCancelar = () => navigate("/");
 
     return {
         esModoEdicion,
@@ -153,6 +196,7 @@ export const useFormularioPerfumeViewModel = () => {
         handleChange,
         handleFileChange,
         handleSubmit,
-        handleCancelar
+        handleCancelar,
+        erroresCampos
     };
 };

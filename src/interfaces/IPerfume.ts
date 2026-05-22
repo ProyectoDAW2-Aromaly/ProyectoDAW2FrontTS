@@ -22,7 +22,7 @@ export interface IPerfume {
     nombre: string,
     descripcion: string,
     genero: TGenero,
-    perfumista: IPerfumista[],
+    perfumistas: IPerfumista[],
     yearSalida: string,
     coleccion: string,
     marca: IMarca,
@@ -34,7 +34,7 @@ export interface IPerfume {
         src: string,
         alt: string
     },
-    familias: string[],
+    familiasOlfativas: string[],
     notas: INota[]
 }
 

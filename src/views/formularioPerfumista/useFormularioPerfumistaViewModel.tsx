@@ -1,9 +1,14 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
+import { IPerfumista, IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { crearPerfumista, editarPerfumista, getPerfumistaById } from "../../services/perfumista.services";
 import { PERFUMISTA_VACIO } from "../../constantes/constantes";
 
+const ERRORES_VACIOS = {
+    nombre: "",
+    descripcion: "",
+    imagen: ""
+}
 
 export const useFormularioPerfumistaViewModel = () => {
     const { search } = useLocation();
@@ -17,6 +22,7 @@ export const useFormularioPerfumistaViewModel = () => {
     const [formulario, setFormulario] = useState<IPerfumistaBackend>(PERFUMISTA_VACIO);
     const [archivo, setArchivo] = useState<File | null>(null);
     const [previewFoto, setPreviewFoto] = useState("");
+    const [erroresCampos, setErroresCampos] = useState<{ [key in keyof IPerfumista]?: string }>(ERRORES_VACIOS)
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -63,7 +69,28 @@ export const useFormularioPerfumistaViewModel = () => {
         }
     }
 
+    const validacion = () => {
+        const nombreError = formulario.nombre.trim() === "";
+        const descripcionError = formulario.descripcion.trim() === "";
+        const fotoError = !archivo && !formulario.foto;
+
+        const nuevosErroresCampos = {
+            nombre: nombreError ? "El nombre no debe estar vacío." : undefined,
+            descripcion: descripcionError ? "La descripción no debe estar vacía." : undefined,
+            imagen: fotoError ? "Debe tener una foto." : undefined,
+        }
+        setErroresCampos(nuevosErroresCampos)
+        return nuevosErroresCampos
+    }
+
     const handleSubmit = async () => {
+        // Sacamos el objeto con los errores actuales
+        const erroresActuales = validacion()
+        // Sacamos los valores de las propiedades del objeto en un array
+        const valoresErrores = Object.values(erroresActuales)
+        // SI alguno/s (some) cumplen con la condicion que se pone dentro, da true. Si da true es que hay algun error.
+        if (valoresErrores.some(valor => valor !== "" && valor !== undefined)) return;
+
         setGuardando(true);
         setError(null);
 
@@ -97,7 +124,7 @@ export const useFormularioPerfumistaViewModel = () => {
         }
     };
 
-    const handleCancelar = () => navigate(-1);
+    const handleCancelar = () => navigate("/");
 
     return {
         esModoEdicion,
@@ -112,5 +139,6 @@ export const useFormularioPerfumistaViewModel = () => {
         handleFileChange,
         handleSubmit,
         handleCancelar,
+        erroresCampos
     };
 };

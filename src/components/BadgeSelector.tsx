@@ -8,9 +8,10 @@ type Props<T> = {
     size?: "xs" | "md";
     selected: T[];
     onChange: (items: T[]) => void;
+    error?: boolean;
 };
 
-export function BadgeSelector<T>({ items = [], placeholder, getLabel, getIdentifier, size = "md", selected = [], onChange }: Props<T>) {
+export function BadgeSelector<T>({ items = [], placeholder, getLabel, getIdentifier, size = "md", selected = [], onChange, error }: Props<T>) {
     const [busqueda, setBusqueda] = useState("");
     const selectedItems = selected ?? [];
 
@@ -38,7 +39,7 @@ export function BadgeSelector<T>({ items = [], placeholder, getLabel, getIdentif
 
     return (
         <div className="dropdown w-full">
-            <label tabIndex={0} className={`w-full flex flex-wrap gap-2 justify-start h-auto rounded-field cursor-pointer py-2 bg-transparent border-2 border-neutral/20 pl-2 ${sizeContenedor}`}>
+            <label tabIndex={0} className={`w-full flex flex-wrap gap-2 justify-start h-auto rounded-field cursor-pointer py-2 bg-transparent border-2 border-neutral/20 pl-2 ${sizeContenedor} ${error ? "border-error" : ""}`}>
                 <div className="flex flex-wrap gap-2">
                     {selected.length > 0
                         ? selected.map(item => (

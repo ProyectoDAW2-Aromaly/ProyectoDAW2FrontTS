@@ -12,7 +12,8 @@ export default function FormularioPerfumista() {
         handleChange,
         handleFileChange,
         handleSubmit,
-        handleCancelar
+        handleCancelar,
+        erroresCampos
     } = useFormularioPerfumistaViewModel();
 
     if (loading) {
@@ -33,48 +34,49 @@ export default function FormularioPerfumista() {
                         {esModoEdicion ? "EDITAR PERFUMISTA" : "NUEVO PERFUMISTA"}
                     </h1>
 
-                    {/* FIXME: PRUEBA */}
                     {error && <div className="alert alert-error mb-4">{error}</div>}
 
                     <div className="grid md:grid-cols-2 gap-4">
                         {/* IZQUIERDA */}
                         <div className="space-y-3">
-                            <label className="label text-neutral font-semibold">Nombre</label>
+                            <label className="label text-neutral font-semibold">Nombre <span className="text-error">*</span></label>
                             <input
                                 type="text"
-                                className="input w-full focus:outline-none"
+                                className={"input w-full focus:outline-none" + (erroresCampos.nombre ? " input-error" : "")}
                                 placeholder="Nombre"
                                 value={formulario.nombre}
                                 onChange={handleChange("nombre")}
                             />
+                            {erroresCampos.nombre && <span className="text-error text-xs">{erroresCampos.nombre}</span>}
                         </div>
-
+                        
                         {/* DERECHA */}
                         <div className="space-y-3">
-                            <label className="label text-neutral font-semibold">Foto del perfumista</label>
+                            <label className="label text-neutral font-semibold">Foto del perfumista <span className="text-error">*</span></label>
                             <div className="flex items-center gap-4">
                                 <div className="w-16 rounded-full">
                                     <img src={previewFoto || "/placeholder.jpg"} alt="Vista previa del perfumista" />
                                 </div>
                                 <input
                                     type="file"
-                                    className="file-input w-full"
+                                    className={"file-input w-full" + (erroresCampos.imagen ? " input-error" : "")}
                                     onChange={handleFileChange}
                                 />
                             </div>
 
                         </div>
-
                     </div>
+
                     {/* DESCRIPCIÓN */}
-                    <label className="label text-neutral font-semibold">Descripción</label>
+                    <label className="label text-neutral font-semibold">Descripción <span className="text-error">*</span></label>
                     <textarea
-                        className="textarea w-full focus:outline-none"
+                        className={"textarea w-full focus:outline-none" + (erroresCampos.descripcion ? " input-error" : "")}
                         placeholder="Descripción"
                         value={formulario.descripcion}
                         onChange={handleChange("descripcion")}
                     ></textarea>
-                    
+                    {erroresCampos.descripcion && <span className="text-error text-xs">{erroresCampos.descripcion}</span>}
+
                     <div className="flex gap-4 justify-end mt-3">
                         <button
                             className="btn"
