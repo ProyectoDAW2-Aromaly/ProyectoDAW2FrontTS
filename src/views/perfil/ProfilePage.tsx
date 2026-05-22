@@ -366,6 +366,7 @@ export default function ProfilePage() {
               <div className="badge badge-xs badge-soft badge-neutral mt-2">{perfil.user?.rol}</div>
               <p className="mt-4 whitespace-pre-line">
                 {perfil.user?.descripcion || "Este usuario todavia no ha añadido descripcion."}
+
               </p>
             </div>
 
