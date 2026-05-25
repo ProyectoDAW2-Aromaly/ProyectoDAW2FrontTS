@@ -114,14 +114,7 @@ const PaginaPerfumista = () => {
                         </div>
 
                         <div className="divider">Descripción</div>
-                        <p>{perfumista.descripcion?.map(des =>
-                            <span key={des}>
-                                {des}
-                                <br />
-                                <br />
-                            </span>
-                        )}
-                        </p>
+                        <p>{perfumista.descripcion}</p>
 
                     </div>
                 </div>

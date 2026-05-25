@@ -6,9 +6,7 @@ export const mapPerfumistaBackend = (
 ): IPerfumista => ({
     id,
     nombre: data.nombre,
-    descripcion: data.descripcion
-        ? data.descripcion.split("\n")
-        : [],
+    descripcion: data.descripcion,
     imagen: data.foto
         ? {
             src: data.foto,
