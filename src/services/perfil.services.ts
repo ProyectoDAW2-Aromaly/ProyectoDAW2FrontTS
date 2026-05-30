@@ -42,9 +42,9 @@ const getMyProfile = async (): Promise<IPerfil> => {
 
 	return {
 		user: mapUser(data.result.user),
-		listasCreadas: data.result.listasCreadas || [],
-		listasGuardadas: data.result.listasGuardadas || [],
-		perfumesFavoritos: (data.result.perfumesFavoritos || []).map(mapPerfumeFavorito),
+		listasCreadas: data.result.listasCreadas ?? [],
+		listasGuardadas: data.result.listasGuardadas ?? [],
+		perfumesFavoritos: (data.result.perfumesFavoritos ?? []).map(mapPerfumeFavorito),
 	};
 };
 

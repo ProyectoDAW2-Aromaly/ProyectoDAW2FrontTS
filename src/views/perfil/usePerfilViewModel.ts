@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react"
 import UserContext from "../../context/UserContext"
-// import { useNavigate } from "react-router";
 import { IPerfil } from "../../interfaces/IPerfil";
 import { IPerfumeBackend } from "../../interfaces/IPerfume";
 import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
@@ -12,7 +11,6 @@ import { IListas } from "../../interfaces/IListas";
 
 export const usePerfilViewModel = () => {
     const userContext = useContext(UserContext);
-    // const navigate = useNavigate();
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -28,7 +26,7 @@ export const usePerfilViewModel = () => {
     const [mostrarEditar, setMostrarEditar] = useState(false);
     const [vistaAdmin, setVistaAdmin] = useState<"perfumes" | "perfumistas">("perfumes");
 
-    const [manegarListaId, setManejarListaId] = useState<number | null>(null);
+    const [manejarListaId, setManejarListaId] = useState<number | null>(null);
     const [editarListaId, setEditarListaId] = useState<number | null>(null);
 
     const cargarPerfil = async () => {
@@ -194,7 +192,7 @@ export const usePerfilViewModel = () => {
         vistaAdmin,
         setVistaAdmin,
         error,
-        manegarListaId,
+        manegarListaId: manejarListaId,
         editarListaId,
         setEditarListaId,
         // Acciones
