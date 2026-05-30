@@ -29,7 +29,7 @@ export default function Login() {
     const password = form.password.trim();
 
     if (!username || !password) {
-      setError("Username y contrasena son obligatorios");
+      setError("El nombre y la contraseña son obligatorios.");
       return;
     }
 
@@ -41,20 +41,20 @@ export default function Login() {
       return;
     }
 
-    setError(result?.mensaje || "Error al iniciar sesion");
+    setError(result?.mensaje || "No se ha podido iniciar sesión.");
   };
 
   return (
     <div className="min-h-screen relative flex items-center justify-center bg-base-200/30 transition-colors duration-500">
       <form onSubmit={handleSubmit} className="w-sm bg-base-100 shadow-lg rounded-2xl p-6">
         <div className="card-body">
-          <h1 className="font-semibold text-lg text-center mb-6">INICIAR SESION</h1>
+          <h1 className="font-semibold text-lg text-center mb-6">INICIAR SESIÓN</h1>
 
           <input
             name="username"
             type="text"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Username"
+            placeholder="Nombre de usuario"
             value={form.username}
             onChange={handleChange}
             required
@@ -64,7 +64,7 @@ export default function Login() {
             name="password"
             type="password"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Contrasena"
+            placeholder="Contraseña"
             value={form.password}
             onChange={handleChange}
             required
@@ -73,13 +73,13 @@ export default function Login() {
           {error && <p className="text-error text-sm mb-3">{error}</p>}
 
           <button className="btn btn-neutral hover:btn-accent text-primary-content" type="submit">
-            Iniciar sesion
+            Iniciar sesión
           </button>
 
           <div className="divider">o</div>
 
           <p className="text-center text-xs text-base-content/80">
-            No tienes cuenta? <Link to="/registro" className="text-accent">Registrate aqui.</Link>
+            ¿No tienes cuenta? <Link to="/registro" className="text-accent">Regístrate aquí.</Link>
           </p>
         </div>
       </form>

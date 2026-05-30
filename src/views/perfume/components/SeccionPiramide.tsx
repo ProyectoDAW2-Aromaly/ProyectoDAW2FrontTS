@@ -25,15 +25,19 @@ export const SeccionPiramide = ({ notas }: { notas: INota[] }) => {
                             <h2 className="card-title">{"Notas de " + tipoLabel[tipo as INota["tipo"]]}</h2>
 
                             <div className="flex flex-wrap gap-6 mb-4">
-                                {notasTipo.slice(0, 3).map((nota) =>
-                                    nota.foto ? (
-                                        <div className="avatar" key={nota.nombre}>
-                                            <div className="w-14 rounded-full">
-                                                <img src={nota.foto} alt={nota.nombre} />
+                                {notasTipo.length === 0 ? (
+                                    <p className="text-sm">No hay notas de {tipoLabel[tipo as INota["tipo"]]}</p>
+                                ) : (
+                                    notasTipo.slice(0, 3).map((nota) =>
+                                        nota.foto ? (
+                                            <div className="avatar" key={nota.nombre}>
+                                                <div className="w-14 rounded-full">
+                                                    <img src={nota.foto} alt={nota.nombre} />
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) : null,
-                                )}
+                                        ) : null,
+                                    ))
+                                }
                             </div>
 
                             <div className="flex flex-wrap gap-2">

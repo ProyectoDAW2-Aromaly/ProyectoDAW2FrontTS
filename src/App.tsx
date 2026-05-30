@@ -8,7 +8,7 @@ import BuyMeACoffee from './components/BuyMeACoffee'
 import Inicio from './views/inicio/Inicio'
 import Login from './views/usuarios/Login'
 import Register from './views/usuarios/Register'
-import ProfilePage from './views/perfil/ProfilePage'
+// import ProfilePage from './views/perfil/ProfilePage'
 import NotFoundPage from './views/not-found/NotFoundPage'
 
 import ListaPerfumes from './views/listadoPerfumes/ListaPerfumes'
@@ -25,6 +25,7 @@ import ListasUsuarios from './views/lista/listasUsuarios/ListasUsuarios'
 import ListDetailPage from './views/lista/ListDetailPage'
 import Premium from './views/premium/Premium'
 import ScrollToTop from './components/ScrollToTop'
+import PaginaPerfil from './views/perfil/PaginaPerfil'
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
         <Route path='/' element={<Inicio />} />
         <Route path='/login' element={<Login />} />
         <Route path='/registro' element={<Register />} />
-        <Route path='/perfil' element={<ProfilePage />} />
+        {/* <Route path='/perfil' element={<ProfilePage />} /> */}
+        <Route path='/perfil' element={<PaginaPerfil />} />
 
         <Route path='/perfumes' element={<ListaPerfumes />} />
         <Route path='/perfume/formulario' element={<FormularioPerfume />} />

@@ -18,7 +18,7 @@ export default function ManageListForm({ lista, loading, onSave, onDelete, onCan
     try {
       await onSave({ nombre, esPublica });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo guardar");
+      setError(err instanceof Error ? err.message : "No se ha podido guardar");
     }
   };
 
@@ -27,12 +27,12 @@ export default function ManageListForm({ lista, loading, onSave, onDelete, onCan
     try {
       await onDelete();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo borrar");
+      setError(err instanceof Error ? err.message : "No se ha podido borrar");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
+    <form id="formulario-lista" onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
       <div className="card-body">
         <h3 className="card-title">{lista.nombre}</h3>
 
