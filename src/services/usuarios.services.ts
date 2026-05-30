@@ -2,6 +2,7 @@ import { ILoginUser, IRegisterUser, IUser } from "../interfaces/IUsuario";
 import { getHandler } from "./handler";
 
 const customFetch = getHandler("usuario/");
+const URL_SERVER = `${import.meta.env.VITE_SERVER_URL}`;
 
 export type UserRol = "ADMIN" | "BASICO" | "PREMIUM";
 
@@ -28,6 +29,25 @@ const mapUser = (user: IBackendUser): IUser => ({
 	rol: user.rol || "BASICO",
 });
 
+const postAuth = async (endpoint: "registro" | "login", body: ILoginUser | IRegisterUser) => {
+	const res = await fetch(URL_SERVER + "usuario/" + endpoint, {
+		method: "POST",
+		credentials: "include",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(body),
+	});
+
+	const data = await res.json();
+
+	if (!res.ok) {
+		throw new Error(data.mensaje || "No se ha podido completar la operación.");
+	}
+
+	return data as IAuthResponse;
+};
+
 export function getUsuarioPorId(id_usuario: number) {
 	return customFetch<IBackendUser>(`${id_usuario}`, "Error al obtener el usuario.")
 		.then(mapUser);
@@ -52,14 +72,7 @@ const getUser = (): IUser | null => {
 
 const saveUser = async (user: IRegisterUser) => {
 	try {
-		const data = await customFetch<IAuthResponse>(
-			"registro",
-			"Error al registrar el usuario",
-			false,
-			"POST",
-			JSON.stringify(user),
-			true
-		);
+		const data = await postAuth("registro", user);
 
 		return { ...data, status: 201 };
 	} catch (err) {
@@ -72,14 +85,7 @@ const saveUser = async (user: IRegisterUser) => {
 
 const doLogin = async (user: ILoginUser) => {
 	try {
-		const data = await customFetch<IAuthResponse>(
-			"login",
-			"Error al iniciar sesion",
-			false,
-			"POST",
-			JSON.stringify(user),
-			true
-		);
+		const data = await postAuth("login", user);
 
 		const mappedUser = mapUser(data.result.user);
 
