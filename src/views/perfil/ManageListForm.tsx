@@ -18,7 +18,7 @@ export default function ManageListForm({ lista, loading, onSave, onDelete, onCan
     try {
       await onSave({ nombre, esPublica });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo guardar");
+      setError(err instanceof Error ? err.message : "No se ha podido guardar");
     }
   };
 
@@ -27,7 +27,7 @@ export default function ManageListForm({ lista, loading, onSave, onDelete, onCan
     try {
       await onDelete();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo borrar");
+      setError(err instanceof Error ? err.message : "No se ha podido borrar");
     }
   };
 

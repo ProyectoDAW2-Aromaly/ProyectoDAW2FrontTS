@@ -31,22 +31,22 @@ export default function Register() {
     const repeatPassword = form.repeatPassword.trim();
 
     if (!username || !email || !password || !repeatPassword) {
-      setError("Todos los campos son obligatorios");
+      setError("Todos los campos son obligatorios.");
       return;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setError("Introduce un email valido");
+      setError("Introduce un email válido.");
       return;
     }
 
     if (password.length < 6) {
-      setError("La contrasena debe tener al menos 6 caracteres");
+      setError("La contraseña debe tener al menos 6 carácteres.");
       return;
     }
 
     if (password !== repeatPassword) {
-      setError("Las contrasenas no coinciden");
+      setError("Las contraseñas no coinciden.");
       return;
     }
 
@@ -64,7 +64,7 @@ export default function Register() {
       return;
     }
 
-    setError(result?.mensaje || "Error al registrar el usuario");
+    setError(result?.mensaje || "No se ha podido registrar al usuario.");
   };
 
   return (
@@ -77,7 +77,7 @@ export default function Register() {
             name="username"
             type="text"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Username"
+            placeholder="Nombre de usuario"
             value={form.username}
             onChange={handleChange}
             required
@@ -97,7 +97,7 @@ export default function Register() {
             name="password"
             type="password"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Contrasena"
+            placeholder="Contraseña"
             value={form.password}
             onChange={handleChange}
             minLength={6}
@@ -108,7 +108,7 @@ export default function Register() {
             name="repeatPassword"
             type="password"
             className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
-            placeholder="Confirmar contrasena"
+            placeholder="Confirmar contraseña"
             value={form.repeatPassword}
             onChange={handleChange}
             minLength={6}
@@ -124,7 +124,7 @@ export default function Register() {
           <div className="divider">o</div>
 
           <p className="text-center text-xs text-base-content/80">
-            Ya tienes cuenta? <Link to="/login" className="text-accent">Inicia sesion</Link>
+            ¿Ya tienes cuenta? <Link to="/login" className="text-accent">Inicia sesión</Link>
           </p>
         </div>
       </form>
