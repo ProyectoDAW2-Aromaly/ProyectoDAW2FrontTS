@@ -11,6 +11,8 @@ const THEMES = {
   dark: "halloween",
 };
 
+const DEFAULT_PROFILE_IMAGE = "/user/profile-pic/default-profile.jpg";
+
 export default function Navbar() {
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
@@ -106,7 +108,10 @@ export default function Navbar() {
                   <img
                     key={user.pfp}
                     alt={`Avatar de ${user.username}`}
-                    src={user.pfp || "/user/profile-pic/default-profile.jpg"}
+                    src={user.pfp || DEFAULT_PROFILE_IMAGE}
+                    onError={(event) => {
+                      event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+                    }}
                     className="h-full w-full object-cover"
                   />
                 </div>

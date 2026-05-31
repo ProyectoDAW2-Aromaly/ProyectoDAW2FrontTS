@@ -73,7 +73,7 @@ const updateMyProfile = async (payload: IUpdateProfilePayload) => {
 		"user",
 		JSON.stringify({
 			id: mappedUser.id,
-			userName: mappedUser.userName,
+			username: mappedUser.userName,
 			pfp: mappedUser.pfp,
 			rol: mappedUser.rol,
 		}),
