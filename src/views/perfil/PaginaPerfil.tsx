@@ -37,7 +37,7 @@ export default function ProfilePage() {
 
     if (!user) {
         return (
-            <div className="mx-auto max-w-4xl px-4 mt-25">
+            <div className="mx-auto max-w-4xl px-4 my-25">
                 <div className="card bg-base-100 shadow-sm">
                     <div className="card-body">
                         <h1 className="text-3xl">Perfil</h1>
@@ -59,7 +59,7 @@ export default function ProfilePage() {
                 mostrarEditar={mostrarEditar}
                 onEditarPerfil={() => setMostrarEditar(true)}
             />
- 
+
             {mostrarEditar && (
                 <div className="mb-8">
                     <EditProfileForm
@@ -70,7 +70,7 @@ export default function ProfilePage() {
                     />
                 </div>
             )}
- 
+
             {isAdmin ? (
                 <TablaAdmin
                     perfumes={adminPerfumes}
@@ -81,31 +81,32 @@ export default function ProfilePage() {
             ) : (
                 <>
                     <div className="grid grid-cols-1 xl:grid-cols-[380px_1fr] gap-8">
-                        <CreateListForm
-                            loading={guardarLista}
-                            userRol={perfil.user.rol}
-                            listasCreadasCount={perfil.listasCreadas?.length || 0}
-                            onCreate={handleCrearlista}
-                        />
- 
-                        {/* Aparece debajo de las cards dentro del componente */}
+                        <div>
+                            <CreateListForm
+                                loading={guardarLista}
+                                userRol={perfil.user.rol}
+                                listasCreadasCount={perfil.listasCreadas?.length || 0}
+                                onCreate={handleCrearlista}
+                            />
+                        </div>
+
                         <MisListas
                             listas={perfil.listasCreadas}
                             editarListaId={editarListaId}
                             manegarListaId={manegarListaId}
                             buildProfileListCard={buildProfileListCard}
-                            onEditar={(id: number | null) => setEditarListaId((prev) => (prev === id ? null : id))} // ! Mirrar si está bien, con id a secas es any
+                            onEditar={(id: number | null) => setEditarListaId((prev) => (prev === id ? null : id))}
                             onGuardar={handleActualizarLista}
                             onBorrar={handleBorrarLista}
                             onCancelar={() => setEditarListaId(null)}
                         />
                     </div>
- 
+
                     <ListasGuardadas
                         listas={perfil.listasGuardadas}
                         buildSavedListCard={buildSavedListCard}
                     />
- 
+
                     <PerfumesFavoritos
                         perfumes={perfil.perfumesFavoritos}
                         buildFavoritePerfumeCard={buildFavoritePerfumeCard}

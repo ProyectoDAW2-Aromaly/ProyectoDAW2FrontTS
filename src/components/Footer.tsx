@@ -13,13 +13,13 @@ export default function Footer(){
             </nav>
             <nav>
                 <h6 className="footer-title">Legal</h6>
-                <a className="link link-hover">Política de privacidad</a>
-                <a className="link link-hover">Términos de uso</a>
-                <a className="link link-hover">Aviso legal</a>
+                <a href="/" className="link link-hover">Política de privacidad</a>
+                <a href="/" className="link link-hover">Términos de uso</a>
+                <a href="/" className="link link-hover">Aviso legal</a>
             </nav>
             <nav>
                 <h6 className="footer-title">Información</h6>
-                <a className="link link-hover">aromaly@business.com</a>
+                <a href="mailto:aromaly@business.com" className="link link-hover">aromaly@business.com</a>
             </nav>
             </footer>
             <footer className="footer bg-base-200 text-base-content border-base-300 border-t px-10 py-4">

@@ -23,3 +23,7 @@ export function eliminarPerfumista(id_perfumista: string) {
 export function obtenerPerfumistas() {
     return customFetch<IPerfumistaBackend[]>("/listar", "Error al obtener los perfumistas.", true);
 }
+
+export function obtenerListadoPerfumistas() {
+    return customFetch<IPerfumistaBackend[]>("/", "Error al obtener los perfumistas.", true);
+}

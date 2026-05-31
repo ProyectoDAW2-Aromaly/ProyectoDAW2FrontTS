@@ -2,64 +2,64 @@ import { useState } from "react";
 import { ICreateListFormProps } from "../../interfaces/IPerfil";
 
 export default function CreateListForm({
-  loading,
-  userRol,
-  listasCreadasCount,
-  onCreate,
+    loading,
+    userRol,
+    listasCreadasCount,
+    onCreate,
 }: ICreateListFormProps) {
-  const [nombre, setNombre] = useState("");
-  const [esPublica, setEsPublica] = useState(true);
-  const [error, setError] = useState("");
+    const [nombre, setNombre] = useState("");
+    const [esPublica, setEsPublica] = useState(true);
+    const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
 
-    const nombreLimpio = nombre.trim();
+        const nombreLimpio = nombre.trim();
 
-    if (!nombreLimpio) {
-      setError("El nombre de la lista es obligatorio.");
-      return;
-    }
+        if (!nombreLimpio) {
+            setError("El nombre de la lista es obligatorio.");
+            return;
+        }
 
-    if (userRol === "BASICO" && listasCreadasCount >= 1) {
-      setError("Los usuarios basicos solo pueden tener una lista. Actualiza a Premium para crear mas.");
-      return;
-    }
+        if (userRol === "BASICO" && listasCreadasCount >= 1) {
+            setError("Los usuarios basicos solo pueden tener una lista. Actualiza a Premium para crear mas.");
+            return;
+        }
 
-    try {
-      await onCreate({ nombre: nombreLimpio, esPublica });
-      setNombre("");
-      setEsPublica(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo crear la lista.");
-    }
-  };
+        try {
+            await onCreate({ nombre: nombreLimpio, esPublica });
+            setNombre("");
+            setEsPublica(true);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "No se pudo crear la lista.");
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
             <div className="card-body">
                 <h2 className="card-title">Crear lista</h2>
 
-        <label className="label text-neutral font-semibold">Nombre</label>
-        <input
-          type="text"
-          className="input w-full"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          placeholder="Ej: Favoritos de invierno"
-          required
-        />
+                <label className="label text-neutral font-semibold">Nombre</label>
+                <input
+                    type="text"
+                    className="input w-full"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                    placeholder="Ej: Favoritos de invierno"
+                    required
+                />
 
-        <label className="label cursor-pointer justify-start gap-3 mt-2">
-          <input
-            type="checkbox"
-            className="checkbox"
-            checked={esPublica}
-            onChange={(e) => setEsPublica(e.target.checked)}
-          />
-          <span className="label-text">Lista publica</span>
-        </label>
+                <label className="label cursor-pointer justify-start gap-3 mt-2">
+                    <input
+                        type="checkbox"
+                        className="checkbox"
+                        checked={esPublica}
+                        onChange={(e) => setEsPublica(e.target.checked)}
+                    />
+                    <span className="label-text">Lista pública</span>
+                </label>
 
                 {error && <p className="text-error text-sm">{error}</p>}
 

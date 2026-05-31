@@ -5,7 +5,7 @@ import { IPerfumeBackend } from "../../interfaces/IPerfume";
 import { IPerfumistaBackend } from "../../interfaces/IPerfumista";
 import { getMyProfile, updateMyProfile } from "../../services/perfil.services";
 import { getAllPerfumes } from "../../services/perfume.services";
-import { obtenerPerfumistas } from "../../services/perfumista.services";
+import { obtenerListadoPerfumistas } from "../../services/perfumista.services";
 import { createMyList, deleteMyList, updateMyList } from "../../services/listas.services";
 import { IListas } from "../../interfaces/IListas";
 
@@ -39,7 +39,7 @@ export const usePerfilViewModel = () => {
             if (perfilData.user.rol === "ADMIN") {
                 const [perfumes, perfumistas] = await Promise.all([
                     getAllPerfumes(),
-                    obtenerPerfumistas(), // TODO: CAMBIAR POR LA BUENA
+                    obtenerListadoPerfumistas(),
                 ]);
                 setAdminPerfumes(perfumes || []);
                 setAdminPerfumistas(perfumistas || []);
@@ -140,7 +140,6 @@ export const usePerfilViewModel = () => {
         }
     }
 
-    // ! ESTO CREO QUE ES MEJOR HACER UNA INTERFAZ!!!
     const buildProfileListCard = (lista: IPerfil["listasCreadas"][number]): IListas => ({
         id: String(lista.id),
         nombreUsuario: perfil?.user.userName || "",
@@ -177,10 +176,7 @@ export const usePerfilViewModel = () => {
         familiasOlfativas: perfume.familiasOlfativas.map((nombre) => ({ nombre })),
     });
 
-    // ? MIRAR LO DE ARRIBA PLS
-
     return {
-        // Estado
         perfil,
         adminPerfumes,
         adminPerfumistas,
@@ -195,16 +191,16 @@ export const usePerfilViewModel = () => {
         manegarListaId: manejarListaId,
         editarListaId,
         setEditarListaId,
-        // Acciones
+        
         handleGuardarPerfil,
         handleCrearlista,
         handleActualizarLista,
         handleBorrarLista,
-        // Builders
+        
         buildProfileListCard,
         buildSavedListCard,
         buildFavoritePerfumeCard,
-        // Helpers derivados
+
         isAdmin: perfil?.user?.rol === "ADMIN",
         user: userContext?.user,
     };

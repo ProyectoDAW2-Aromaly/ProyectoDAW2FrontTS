@@ -17,13 +17,16 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
         <div className="card bg-base-100 shadow-sm w-auto">
             <div className="flex flex-col md:flex-row">
                 <div className="card-body w-full md:w-1/2">
-                    <h2 className="card-title">Tu valoracion</h2>
+                    <div className="flex justify-between">
+                        <h2 className="card-title">Tu valoración</h2>
+                        <button className="btn btn-neutral hover:hover:btn-accent text-primary-content">Guardar</button>
+                    </div>
                     {user ? (
                         <>
                             <div>
                                 <div className="flex w-40 mt-5 mb-2">
-                                    <img src="/perfume-info/icons/rating/calendar-icon.svg" alt="Logo epoca del ano calendario" className="w-5 icon-theme-aware mr-2" />
-                                    <p>Epoca del ano</p>
+                                    <img src="/perfume-info/icons/rating/calendar-icon.svg" alt="Logo época del año calendario" className="w-5 icon-theme-aware mr-2" />
+                                    <p>Época del año</p>
                                 </div>
                                 <div className="flex gap-4 mb-2 mt-5">
                                     {EPOCA.map((estacion) => (
@@ -44,7 +47,7 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
                             <div>
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img src="/perfume-info/icons/rating/time-icon.svg" alt="Logo duracion reloj de arena" className="w-5 icon-theme-aware mr-2" />
-                                    <p>Duracion</p>
+                                    <p>Duración</p>
                                 </div>
                                 <div className="w-full flex justify-between items-center mt-5">
                                     {LABELS_DURACION.map((label, index) => (
@@ -86,7 +89,7 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
                             <div>
                                 <div className="flex w-40 mt-5 mb-2">
                                     <img src="/perfume-info/icons/rating/star-icon.svg" alt="Logo puntuacion general estrella" className="w-5 icon-theme-aware mr-2" />
-                                    <p>Puntuacion general</p>
+                                    <p>Puntuación general</p>
                                 </div>
                                 <div className="w-full relative">
                                     <div className="rating flex gap-0.5">
@@ -111,7 +114,7 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
                                 <h1 className="text-center text-lg">
                                     Debes <Link className="link hover:link-accent hover:no-underline" to="/registro">registrarte</Link>
                                     &nbsp;o&nbsp;
-                                    <Link className="link hover:link-accent hover:no-underline" to="/login">iniciar sesion</Link>
+                                    <Link className="link hover:link-accent hover:no-underline" to="/login">iniciar sesión</Link>
                                     &nbsp;para votar en un perfume.
                                 </h1>
                             </div>
@@ -121,11 +124,11 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
 
                 <div className="divider md:divider-horizontal mt-5 mb-5"></div>
                 <div className="card-body w-full md:w-1/2">
-                    <h2 className="card-title">Valoracion media</h2>
+                    <h2 className="card-title">Valoración media</h2>
                     <div>
                         <div className="flex w-40 mt-5 mb-2">
                             <img src="/perfume-info/icons/rating/calendar-icon.svg" alt="Logo epoca del ano calendario" className="w-5 icon-theme-aware mr-2" />
-                            <p>Epoca del ano</p>
+                            <p>Época del año</p>
                         </div>
                         <div className="flex gap-10">
                             {EPOCA.map((estacion) => {
@@ -150,7 +153,7 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
                     <div>
                         <div className="flex w-40 mt-3 mb-4">
                             <img src="/perfume-info/icons/rating/time-icon.svg" alt="Logo duracion reloj de arena" className="w-5 icon-theme-aware mr-2" />
-                            <p>Duracion</p>
+                            <p>Duración</p>
                         </div>
                         <div className="badge badge-s badge-soft badge-neutral">Buena</div>
                     </div>
@@ -166,7 +169,7 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
                     <div>
                         <div className="flex w-40 mt-3 mb-4">
                             <img src="/perfume-info/icons/rating/star-icon.svg" alt="Logo puntuacion general estrella" className="w-5 icon-theme-aware mr-2" />
-                            <p>Puntuacion general</p>
+                            <p>Puntuación general</p>
                         </div>
                         <div className="w-full relative">
                             <div className="rating flex gap-0.5" aria-label="Valoracion general media">
