@@ -23,7 +23,7 @@ export interface IPerfume {
     descripcion: string,
     genero: TGenero,
     perfumistas: IPerfumista[],
-    yearSalida: string,
+    fechaLanzamiento: string,
     coleccion: string,
     marca: IMarca,
     imagen: {

@@ -77,10 +77,10 @@ export default function FormularioPerfume() {
 							</div>
 
 							<div className="space-y-1 flex flex-col">
-								<label className="label text-neutral font-semibold">Fecha de lanzamiento</label>
+								<label className="label text-neutral font-semibold">Fecha de lanzamiento <span className="text-error">*</span></label>
 								<input
 									type="number"
-									className="input w-full focus:outline-none"
+									className={"input w-full focus:outline-none" + (erroresCampos.fechaLanzamiento ? " input-error" : "")}
 									placeholder="Año de lanzamiento"
 									value={formulario.fechaLanzamiento}
 									onChange={(e) => handleChange("fechaLanzamiento", e.target.value)}
@@ -88,6 +88,7 @@ export default function FormularioPerfume() {
 									max={new Date().getFullYear()}
 								/>
 							</div>
+							{erroresCampos.fechaLanzamiento && <span className="text-error text-xs">{erroresCampos.fechaLanzamiento}</span>}
 						</div>
 
 						{/* DERECHA */}

@@ -34,7 +34,8 @@ const ERRORES_VACIOS = {
     imagen: "",
     perfumistas: "",
     notas: "",
-    marca: ""
+    marca: "",
+    fechaLanzamiento: ""
 }
 interface IOpcionSelectores {
     marca: IMarcaBackend[],
@@ -119,6 +120,8 @@ export const useFormularioPerfumeViewModel = () => {
     }
 
     const validacion = () => {
+        const fecha = Number(formulario.fechaLanzamiento);
+
         const nombreError = formulario.nombre.trim() === "";
         const descripcionError = formulario.descripcion.trim() === "";
         const marcaError = !formulario.marca?.nombre?.trim();
@@ -127,6 +130,7 @@ export const useFormularioPerfumeViewModel = () => {
         const familiaError = (formulario.familiasOlfativas?.length ?? 0) === 0;
         const fotoError = !archivo && !formulario.foto;
         const generoError = formulario.genero.trim() === "";
+        const fechaLanzamientoError = formulario.fechaLanzamiento?.trim() === "" || fecha < 1800 || fecha > new Date().getFullYear();
 
         const nuevosErroresCampos = {
             nombre: nombreError ? "El nombre no debe estar vacío." : undefined,
@@ -137,6 +141,7 @@ export const useFormularioPerfumeViewModel = () => {
             familiasOlfativas: familiaError ? "Debe tener al menos una familia olfativa." : undefined,
             imagen: fotoError ? "Debe tener una foto." : undefined,
             genero: generoError ? "Debe tener un género." : undefined,
+            fechaLanzamiento: fechaLanzamientoError ? `La fecha debe estar entre 1800 y ${new Date().getFullYear()}.` : undefined,
         }
         setErroresCampos(nuevosErroresCampos)
         return nuevosErroresCampos
