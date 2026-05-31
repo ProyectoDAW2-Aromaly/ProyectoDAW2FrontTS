@@ -93,6 +93,7 @@ export default function ProfilePage() {
                             listas={perfil.listasCreadas}
                             editarListaId={editarListaId}
                             manegarListaId={manegarListaId}
+                            userRol={perfil.user.rol}
                             buildProfileListCard={buildProfileListCard}
                             onEditar={(id: number | null) => setEditarListaId((prev) => (prev === id ? null : id))} // ! Mirrar si está bien, con id a secas es any
                             onGuardar={handleActualizarLista}

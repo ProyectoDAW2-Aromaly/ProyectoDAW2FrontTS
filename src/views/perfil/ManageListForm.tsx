@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { IManageListFormProps } from "../../interfaces/IPerfil";
 
-export default function ManageListForm({ lista, loading, onSave, onDelete, onCancel }: IManageListFormProps) {
+export default function ManageListForm({ lista, loading, userRol, onSave, onDelete, onCancel }: IManageListFormProps) {
   const [nombre, setNombre] = useState(lista.nombre);
   const [esPublica, setEsPublica] = useState(lista.esPublica);
   const [error, setError] = useState("");
+  const puedeBorrarLista = userRol !== "BASICO";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,9 +63,11 @@ export default function ManageListForm({ lista, loading, onSave, onDelete, onCan
           <button type="button" className="btn" onClick={onCancel} disabled={loading}>
             Cancelar
           </button>
-          <button type="button" className="btn btn-error btn-outline" onClick={handleDelete} disabled={loading}>
-            Borrar
-          </button>
+          {puedeBorrarLista && (
+            <button type="button" className="btn btn-error btn-outline" onClick={handleDelete} disabled={loading}>
+              Borrar
+            </button>
+          )}
           <button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
             {loading ? "Guardando..." : "Guardar"}
           </button>

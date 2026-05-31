@@ -53,9 +53,10 @@ const updateMyProfile = async (payload: IUpdateProfilePayload) => {
 
 	formData.append("email", payload.email);
 	formData.append("descripcion", payload.descripcion);
-	formData.append("foto", payload.foto || "");
 
-	if (payload.archivo) {
+	if (payload.quitarFoto) {
+		formData.append("foto", payload.foto ?? "");
+	} else if (payload.archivo) {
 		formData.append("foto", payload.archivo);
 	}
 

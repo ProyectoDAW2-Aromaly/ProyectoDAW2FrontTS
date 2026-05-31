@@ -55,6 +55,7 @@ export interface ICreateListFormProps {
 export interface IManageListFormProps {
   lista: IListaPerfil;
   loading: boolean;
+  userRol: UserRol;
   onSave: (data: { nombre: string; esPublica: boolean }) => Promise<void>;
   onDelete: () => Promise<void>;
   onCancel: () => void;
@@ -65,6 +66,7 @@ export interface IUpdateProfilePayload {
   descripcion: string;
   foto?: string;
   archivo?: File | null;
+  quitarFoto?: boolean;
 }
 
 export interface IBackendUser {
