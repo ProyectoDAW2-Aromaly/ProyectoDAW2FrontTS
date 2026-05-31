@@ -52,7 +52,7 @@ export const ListaCard = ({ data, isOwner = false, onEdit }: ListCardProps) => {
     <div className="card bg-base-100 shadow-sm w-96">
       <div className="card-body flex flex-col justify-between">
         {user ? (
-          <div className="absolute top-2 right-2 z-50 flex gap-2">
+          <div className="absolute top-2 right-2 z-1 flex gap-2">
             {isOwner && onEdit ? (
               <div className="tooltip save" data-tip="Editar lista">
                 <button className="btn btn-circle" onClick={onEdit}>

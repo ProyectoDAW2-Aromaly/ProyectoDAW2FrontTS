@@ -32,7 +32,7 @@ export default function ManageListForm({ lista, loading, onSave, onDelete, onCan
   };
 
   return (
-    <form onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
+    <form id="formulario-lista" onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
       <div className="card-body">
         <h3 className="card-title">{lista.nombre}</h3>
 

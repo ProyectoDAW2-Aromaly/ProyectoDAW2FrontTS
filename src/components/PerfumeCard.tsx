@@ -13,7 +13,6 @@ export const PerfumeCard = ({ data } : { data: IPerfumeBackend}) => {
         <div className="absolute bottom-0 w-full bg-black/70 text-white h-auto min-h-55 md:h-28 md:min-h-0 md:transition-all md:duration-300 md:group-hover:h-3/4">
             <div className="flex flex-col justify-center items-center p-4 text-white">
                 <h2 className="text-lg font-bold">{data.nombre}</h2>
-                {/* TODO: TIENE QUE LLEVAR A LA MARCA */}
                 <Link to={`/marca/${data.marca?.nombre}`} className="link hover:font-bold hover:no-underline">{data.marca?.nombre}</Link>
             </div>
 
