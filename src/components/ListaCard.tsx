@@ -22,11 +22,12 @@ export const ListaCard = ({ data, isOwner = false, onEdit }: ListCardProps) => {
   const [saving, setSaving] = useState(false);
   const perfumeImages = (data.perfumes || []).filter(Boolean);
   const userImage = (data?.pfp ?? "").trim() === "" ? "/user/profile-pic/default-profile.jpg" : data.pfp;
+  const isOwnList = isOwner || user?.username === data.nombreUsuario;
 
   useEffect(() => {
     const load = async () => {
       try {
-        if (isOwner) return; // no need when it's your own list
+        if (isOwnList) return; // no need when it's your own list
         if (!data?.id) return;
 
         // data.id is a string ; services expect number
@@ -46,7 +47,7 @@ export const ListaCard = ({ data, isOwner = false, onEdit }: ListCardProps) => {
     };
 
     load();
-  }, [data?.id, isOwner]);
+  }, [data?.id, isOwnList]);
 
   return (
     <div className="card bg-base-100 shadow-sm w-96">
@@ -74,7 +75,7 @@ export const ListaCard = ({ data, isOwner = false, onEdit }: ListCardProps) => {
               </div>
             ) : null}
 
-            {!isOwner && user.rol !== "ADMIN" ? (
+            {!isOwnList && user.rol !== "ADMIN" ? (
               <div
                 className="tooltip save"
                 data-tip={saving ? "Guardando..." : liked ? "Quitar lista" : "Guardar lista"}

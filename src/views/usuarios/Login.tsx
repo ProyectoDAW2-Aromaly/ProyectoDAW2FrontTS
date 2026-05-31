@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
+import { FormError } from "../../components/FormError";
 import UserContext from "../../context/UserContext";
 import { doLogin, getUser } from "../../services/usuarios.services";
 
@@ -12,9 +13,10 @@ export default function Login() {
     password: "",
   });
 
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | string[] | undefined>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(undefined);
     setForm({
       ...form,
       [e.target.name]: e.target.value,
@@ -23,13 +25,23 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError("");
+    setError(undefined);
 
     const username = form.username.trim();
     const password = form.password.trim();
 
-    if (!username || !password) {
-      setError("El nombre y la contraseña son obligatorios.");
+    const errores: string[] = [];
+
+    if (!username) {
+      errores.push("El nombre de usuario es obligatorio.");
+    }
+
+    if (!password) {
+      errores.push("La contraseña es obligatoria.");
+    }
+
+    if (errores.length > 0) {
+      setError(errores);
       return;
     }
 
@@ -44,33 +56,36 @@ export default function Login() {
     setError(result?.mensaje || "No se ha podido iniciar sesión.");
   };
 
+  const usernameError = Boolean(error && !form.username.trim());
+  const passwordError = Boolean(error && !form.password.trim());
+
   return (
     <div className="min-h-screen relative flex items-center justify-center bg-base-200/30 transition-colors duration-500">
-      <form onSubmit={handleSubmit} className="w-sm bg-base-100 shadow-lg rounded-2xl p-6">
+      <form onSubmit={handleSubmit} noValidate className="w-sm bg-base-100 shadow-lg rounded-2xl p-6">
         <div className="card-body">
           <h1 className="font-semibold text-lg text-center mb-6">INICIAR SESIÓN</h1>
 
           <input
             name="username"
             type="text"
-            className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
+            className={`input w-full focus:outline-none mb-3 placeholder:text-base-content/50 ${usernameError ? "input-error" : ""}`}
             placeholder="Nombre de usuario"
             value={form.username}
             onChange={handleChange}
-            required
+            aria-invalid={usernameError}
           />
 
           <input
             name="password"
             type="password"
-            className="input w-full focus:outline-none mb-3 placeholder:text-base-content/50"
+            className={`input w-full focus:outline-none mb-3 placeholder:text-base-content/50 ${passwordError ? "input-error" : ""}`}
             placeholder="Contraseña"
             value={form.password}
             onChange={handleChange}
-            required
+            aria-invalid={passwordError}
           />
 
-          {error && <p className="text-error text-sm mb-3">{error}</p>}
+          <FormError message={error} />
 
           <button className="btn btn-neutral hover:btn-accent text-primary-content" type="submit">
             Iniciar sesión

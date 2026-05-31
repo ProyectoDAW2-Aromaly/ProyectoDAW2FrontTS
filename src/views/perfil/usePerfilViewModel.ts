@@ -60,6 +60,7 @@ export const usePerfilViewModel = () => {
         descripcion: string;
         foto?: string;
         archivo?: File | null;
+        quitarFoto?: boolean;
     }) => {
         try {
             setGuardarPerfil(true);
