@@ -17,7 +17,7 @@ interface Props {
     onCancelar: () => void;
 }
 
-const ITEMS_POR_PAGINA = 6;
+const ITEMS_POR_PAGINA = 4;
 
 export default function MisListas({
     listas,
@@ -31,17 +31,16 @@ export default function MisListas({
 }: Props) {
 
     const [paginaListas, setPaginaListas] = useState(1);
-    
-        const listasPaginadas = listas.slice(
-            (paginaListas - 1) * ITEMS_POR_PAGINA,
-            paginaListas * ITEMS_POR_PAGINA
-        );
 
+    const listasPaginadas = listas.slice(
+        (paginaListas - 1) * ITEMS_POR_PAGINA,
+        paginaListas * ITEMS_POR_PAGINA
+    );
 
     return (
         <div>
             <div className="flex items-center justify-between">
-                <h2 className="card-title">Mis listas</h2>
+                <h2 className="card-title mb-2">Mis listas</h2>
                 <span className="text-sm opacity-70">{listas?.length || 0} listas</span>
             </div>
 
@@ -50,7 +49,7 @@ export default function MisListas({
             ) : (
                 <>
                     <div className="flex flex-wrap gap-12 mb-10">
-                        {listas.map((lista) => (
+                        {listasPaginadas.map((lista) => (
                             <ListaCard
                                 key={lista.id}
                                 data={buildProfileListCard(lista)}
@@ -70,19 +69,19 @@ export default function MisListas({
                                         key={`manage-${lista.id}`}
                                         lista={lista}
                                         loading={manegarListaId === lista.id}
-                                        onSave={async (data) => onGuardar(lista.id, data)} // * No sé si está bien
-                                        onDelete={async () => onBorrar(lista.id)} // * No sé si está bien
+                                        onSave={async (data) => onGuardar(lista.id, data)}
+                                        onDelete={async () => onBorrar(lista.id)}
                                         onCancel={onCancelar}
                                     />
                                 ))}
                         </div>
                     )}
-                        <Paginacion
-                            totalItems={listas.length}
-                            itemsPorPagina={ITEMS_POR_PAGINA}
-                            paginaActual={paginaListas}
-                            handleCambiarPagina={setPaginaListas}
-                        />
+                    <Paginacion
+                        totalItems={listas.length}
+                        itemsPorPagina={ITEMS_POR_PAGINA}
+                        paginaActual={paginaListas}
+                        handleCambiarPagina={setPaginaListas}
+                    />
                 </>
             )}
         </div>

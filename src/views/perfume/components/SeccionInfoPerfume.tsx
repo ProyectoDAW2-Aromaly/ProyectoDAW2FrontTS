@@ -172,13 +172,13 @@ export const SeccionInfoPerfume = ({
                     ) : null}
                 </div>
 
-                <div className="divider">Descripcion</div>
+                <div className="divider">Descripción</div>
                 <p>
                     {perfume.descripcion}
                     <br />
                     <br />
                 </p>
-                <div className="divider">Informacion general</div>
+                <div className="divider">Información general</div>
                 <h5>
                     <span>Familia olfativa:</span>
                     {perfume.familiasOlfativas.map((familia, index) => (
@@ -186,7 +186,7 @@ export const SeccionInfoPerfume = ({
                     ))}
                 </h5>
                 <h5 className="flex items-center">
-                    Genero
+                    Género:
                     <figure>
                         <img src={getGeneroImagen(perfume.genero)} alt="Icono de genero" className="w-5 ml-2 icon-theme-aware" />
                     </figure>

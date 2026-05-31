@@ -21,6 +21,7 @@ export default function TablaAdmin({ perfumes, perfumistas, vistaActual, onCambi
         (paginaPerfumes - 1) * ITEMS_POR_PAGINA,
         paginaPerfumes * ITEMS_POR_PAGINA
     );
+    
     const perfumistasPaginados = perfumistas.slice(
         (paginaPerfumistas - 1) * ITEMS_POR_PAGINA,
         paginaPerfumistas * ITEMS_POR_PAGINA
@@ -81,11 +82,9 @@ export default function TablaAdmin({ perfumes, perfumistas, vistaActual, onCambi
                                                 </div>
                                                 <div>
                                                     <div className="font-bold">{perfume.nombre}</div>
-                                                    {/* <div className="text-sm opacity-50">ID {perfume.id}</div> */}
                                                 </div>
                                             </div>
                                         </td>
-                                        {/* <td>{getNombre(perfume.marca, "Sin marca")}</td> */}
                                         <th>
                                             <Link to={`/perfume/${perfume.id}`} className="btn btn-ghost btn-xs">Detalles</Link>
                                         </th>
@@ -130,7 +129,6 @@ export default function TablaAdmin({ perfumes, perfumistas, vistaActual, onCambi
                                                 </div>
                                                 <div>
                                                     <div className="font-bold">{perfumista.nombre}</div>
-                                                    {/* <div className="text-sm opacity-50">ID {perfumista.id}</div> */}
                                                 </div>
                                             </div>
                                         </td>

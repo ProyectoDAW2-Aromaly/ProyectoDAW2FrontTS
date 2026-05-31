@@ -1,14 +1,26 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { PerfumeCard } from "../../components/PerfumeCard";
 import { getListDetail } from "../../services/listas.services";
 import { IListaDetalle } from "../../interfaces/IListas";
+import Paginacion from "../../components/Paginacion";
+
+const ITEMS_POR_PAGINA = 12;
 
 export default function ListDetailPage() {
     const { idLista } = useParams();
     const [lista, setLista] = useState<IListaDetalle | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+
+    const [paginaPerfumes, setPaginaPerfumes] = useState(1);
+
+    const perfumesPaginados = lista?.perfumes.slice(
+        (paginaPerfumes - 1) * ITEMS_POR_PAGINA,
+        paginaPerfumes * ITEMS_POR_PAGINA
+    );
 
     useEffect(() => {
         const loadLista = async () => {
@@ -45,7 +57,7 @@ export default function ListDetailPage() {
         return (
             <div className="mx-auto max-w-4xl px-4 mt-25">
                 <div className="alert alert-error">{error || "No se pudo cargar la lista"}</div>
-                <Link to="/listas" className="btn mt-4">Volver a listas</Link>
+                <Link to="/listas" className="btn my-4">Ir a listas</Link>
             </div>
         );
     }
@@ -54,10 +66,17 @@ export default function ListDetailPage() {
         <div className="mx-auto max-w-7xl px-4 mt-25 mb-20">
             <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <Link to="/listas" className="link text-sm">Volver a listas</Link>
+                    <Link to="/listas" className="link text-sm">Ir a listas</Link>
+                    <span> - </span>
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="link text-sm"
+                    >
+                        Volver a la página anterior
+                    </button>
                     <h1 className="text-4xl font-semibold mt-3">{lista.nombre}</h1>
                     <p className="opacity-70 mt-2">
-                        Lista de {lista.creadorUsername} - {lista.totalPerfumes} perfumes - {lista.esPublica ? "Publica" : "Privada"}
+                        Lista de {lista.creadorUsername} - {lista.totalPerfumes} perfumes - {lista.esPublica ? "Pública" : "Privada"}
                     </p>
                 </div>
             </div>
@@ -65,12 +84,21 @@ export default function ListDetailPage() {
             {lista.perfumes.length === 0 ? (
                 <p className="opacity-70">Esta lista todavía no tiene perfumes.</p>
             ) : (
-                <div className="flex flex-wrap gap-12">
-                    {lista.perfumes.map((perfume) => (
-                        <PerfumeCard key={perfume.id} data={perfume} />
-                    ))}
-                </div>
+                <>
+                    <div className="flex flex-wrap gap-12 mb-10">
+                        {perfumesPaginados?.map((perfume) => (
+                            <PerfumeCard key={perfume.id} data={perfume} />
+                        ))}
+                    </div>
+                    <Paginacion
+                        totalItems={lista.perfumes.length}
+                        itemsPorPagina={ITEMS_POR_PAGINA}
+                        paginaActual={paginaPerfumes}
+                        handleCambiarPagina={setPaginaPerfumes}
+                    />
+                </>
             )}
+
         </div>
     );
 }
