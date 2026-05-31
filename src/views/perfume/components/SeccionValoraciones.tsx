@@ -17,10 +17,7 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
         <div className="card bg-base-100 shadow-sm w-auto">
             <div className="flex flex-col md:flex-row">
                 <div className="card-body w-full md:w-1/2">
-                    <div className="flex justify-between">
-                        <h2 className="card-title">Tu valoración</h2>
-                        <button className="btn btn-neutral hover:hover:btn-accent text-primary-content">Guardar</button>
-                    </div>
+                    <h2 className="card-title">Tu valoración</h2>
                     {user ? (
                         <>
                             <div>
@@ -86,27 +83,38 @@ export const SeccionValoraciones = ({ user, valoracion, onNumberChange, onSeason
                                 </div>
                             </div>
 
-                            <div>
-                                <div className="flex w-40 mt-5 mb-2">
-                                    <img src="/perfume-info/icons/rating/star-icon.svg" alt="Logo puntuacion general estrella" className="w-5 icon-theme-aware mr-2" />
-                                    <p>Puntuación general</p>
-                                </div>
-                                <div className="w-full relative">
-                                    <div className="rating flex gap-0.5">
-                                        {[1, 2, 3, 4, 5].map((star) => (
-                                            <input
-                                                key={star}
-                                                type="radio"
-                                                name="general"
-                                                className="mask mask-star-2 bg-orange-400 hover:scale-125 transition-transform duration-200"
-                                                aria-label={`${star} star`}
-                                                checked={star === valoracion.general}
-                                                onChange={() => onNumberChange("general", valoracion.general === star ? undefined : star)}
-                                            />
-                                        ))}
+                            <div className="flex justify-between items-end">
+                                <div>
+                                    <div className="flex w-40 mt-5 mb-2">
+                                        <img
+                                            src="/perfume-info/icons/rating/star-icon.svg"
+                                            alt="Logo puntuacion general estrella"
+                                            className="w-5 icon-theme-aware mr-2"
+                                        />
+                                        <p>Puntuación general</p>
+                                    </div>
+
+                                    <div className="w-full relative">
+                                        <div className="rating flex gap-0.5">
+                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                <input
+                                                    key={star}
+                                                    type="radio"
+                                                    name="general"
+                                                    className="mask mask-star-2 bg-orange-400 hover:scale-125 transition-transform duration-200"
+                                                    aria-label={`${star} star`}
+                                                    checked={star === valoracion.general}
+                                                    onChange={() => onNumberChange("general", valoracion.general === star ? undefined : star)}
+                                                />
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
+                                <button className="btn btn-neutral w-20 hover:btn-accent text-primary-content">
+                                    Guardar
+                                </button>
                             </div>
+
                         </>
                     ) : (
                         <div className="card-body">
