@@ -21,26 +21,28 @@ export default function CreateListForm({
 
     if (esUsuarioBasico) return;
 
-    const nombreLimpio = nombre.trim();
 
-    if (!nombreLimpio) {
-      setError("El nombre de la lista es obligatorio.");
-      return;
-    }
+        const nombreLimpio = nombre.trim();
+
+        if (!nombreLimpio) {
+            setError("El nombre de la lista es obligatorio.");
+            return;
+        }
 
     if (nombreLimpio.length > MAX_NOMBRE_LISTA_LENGTH) {
       setError(`El nombre de la lista no puede superar ${MAX_NOMBRE_LISTA_LENGTH} caracteres.`);
       return;
     }
 
-    try {
-      await onCreate({ nombre: nombreLimpio, esPublica });
-      setNombre("");
-      setEsPublica(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "No se pudo crear la lista.");
-    }
-  };
+
+        try {
+            await onCreate({ nombre: nombreLimpio, esPublica });
+            setNombre("");
+            setEsPublica(true);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "No se pudo crear la lista.");
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit} className="card bg-base-100 shadow-sm">
@@ -72,8 +74,9 @@ export default function CreateListForm({
             onChange={(e) => setEsPublica(e.target.checked)}
             disabled={esUsuarioBasico}
           />
-          <span className="label-text">Lista publica</span>
+          <span className="label-text">Lista pública</span>
         </label>
+
 
                 <FormError message={error} />
 

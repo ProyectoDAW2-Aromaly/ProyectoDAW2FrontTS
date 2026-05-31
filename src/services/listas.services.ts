@@ -82,7 +82,7 @@ export function getMyListsForPerfume(idPerfume: number): Promise<IListaPerfumeOp
 }
 
 export function getPublicLists(): Promise<IListas[]> {
-	return customFetch<ListsResponse<IBackendPublicList>>("/publicas", "No se pudieron obtener las listas publicas")
+	return customFetch<ListsResponse<IBackendPublicList>>("/publicas", "No se pudieron obtener las listas públicas")
 		.then((data) => (data.result.listas ?? []).map(mapPublicList));
 }
 

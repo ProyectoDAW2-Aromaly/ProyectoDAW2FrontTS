@@ -98,7 +98,7 @@ const doLogin = async (user: ILoginUser) => {
 	} catch (err) {
 		return {
 			status: 401,
-			mensaje: err instanceof Error ? err.message : "Error al iniciar sesion",
+			mensaje: err instanceof Error ? err.message : "Error al iniciar sesión",
 		};
 	}
 };

@@ -17,7 +17,7 @@ export const SeccionPiramide = ({ notas }: { notas: INota[] }) => {
 
     return (
         <>
-            <h1 className="text-2xl text-center mb-10 mt-10">PIRAMIDE OLFATIVA</h1>
+            <h1 className="text-2xl text-center mb-10 mt-10">PIRÁMIDE OLFATIVA</h1>
             <div className="flex flex-wrap gap-12">
                 {Object.entries(grupoNotas).map(([tipo, notasTipo]) => (
                     <div className="card bg-base-100 shadow-sm w-96" key={tipo}>

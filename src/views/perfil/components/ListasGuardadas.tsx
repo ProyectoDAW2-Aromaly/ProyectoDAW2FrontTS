@@ -24,7 +24,7 @@ export default function ListasGuardadas({ listas, buildSavedListCard }: Props) {
 
         <div className="pt-10">
             <div className="flex items-center justify-between">
-                <h2 className="card-title">Listas guardadas</h2>
+                <h2 className="card-title mb-2">Listas guardadas</h2>
                 <span className="text-sm opacity-70">{listas?.length || 0} listas</span>
             </div>
 

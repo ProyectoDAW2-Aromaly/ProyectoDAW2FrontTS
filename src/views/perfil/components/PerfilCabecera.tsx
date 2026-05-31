@@ -25,7 +25,7 @@ export default function PerfilCabecera({ usuario, mostrarEditar, onEditarPerfil 
                             <img
                                 src={usuario?.rol === "ADMIN" ? "/user/icons/admin-icon.svg" : "/user/icons/crown-1.svg"}
                                 alt={usuario?.rol === "ADMIN" ? "Icono admin" : "Icono premium corona"}
-                                className="pointer-events-none absolute -bottom-0.5 -right-0.5 z-10 h-8 w-8 drop-shadow-md"
+                                className="pointer-events-none absolute -top-5 w-10 h-10 -rotate-22 drop-shadow-md"
                             />
                         )}
                     </div>
@@ -35,7 +35,7 @@ export default function PerfilCabecera({ usuario, mostrarEditar, onEditarPerfil 
                         <p className="text-sm opacity-70">{usuario?.email}</p>
                         <div className="badge badge-xs badge-soft badge-neutral mt-2">{usuario?.rol}</div>
                         <p className="mt-4 whitespace-pre-line">
-                            {usuario?.descripcion || "Este usuario no tiene descripcion."}
+                            {usuario?.descripcion || "Este usuario no tiene descripción."}
                         </p>
                     </div>
 
