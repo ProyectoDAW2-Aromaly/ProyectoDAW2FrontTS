@@ -67,7 +67,7 @@ export const mapPerfumeFromBackend = (perfume: IPerfumeBackend): IPerfume => ({
     coleccion: perfume.coleccion ?? "",
     descripcion: perfume.descripcion ?? "",
     genero: perfume.genero as TGenero,
-    yearSalida: perfume.fechaLanzamiento ?? "",
+    fechaLanzamiento: perfume.fechaLanzamiento ?? "",
 
     perfumistas: perfume.perfumistas?.map(mapPerfumista) ?? [],
     familiasOlfativas: mapFamilias(perfume.familiasOlfativas),

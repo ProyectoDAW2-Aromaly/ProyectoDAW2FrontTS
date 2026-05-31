@@ -203,7 +203,7 @@ export const SeccionInfoPerfume = ({
                         </Link>
                     ))}
                 </h5>
-                <h5>Fecha de lanzamiento: {perfume.yearSalida}</h5>
+                <h5>Fecha de lanzamiento: {perfume.fechaLanzamiento}</h5>
                 {perfume.coleccion ? (
                     <h5>
                         Coleccion:
