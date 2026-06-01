@@ -8,9 +8,9 @@ export default function ScrollToTop() {
         window.scrollTo({
             top: 0,
             left: 0,
-            behavior: "auto"
+            behavior: "auto" // Sin animación
         })
-    }, [pathname]);
+    }, [pathname]); // Se ejecuta en cada cambio de página
 
-    return null;
+    return null; // Porque solo ejecuta lógica, nada visual
 }

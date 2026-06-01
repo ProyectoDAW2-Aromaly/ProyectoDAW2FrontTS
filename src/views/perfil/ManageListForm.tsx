@@ -2,77 +2,77 @@ import { useState } from "react";
 import { IManageListFormProps } from "../../interfaces/IPerfil";
 
 export default function ManageListForm({ lista, loading, userRol, onSave, onDelete, onCancel }: IManageListFormProps) {
-  const [nombre, setNombre] = useState(lista.nombre);
-  const [esPublica, setEsPublica] = useState(lista.esPublica);
-  const [error, setError] = useState("");
-  const puedeBorrarLista = userRol !== "BASICO";
+	const [nombre, setNombre] = useState(lista.nombre);
+	const [esPublica, setEsPublica] = useState(lista.esPublica);
+	const [error, setError] = useState("");
+	const puedeBorrarLista = userRol !== "BASICO";
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		setError("");
 
-    if (!nombre.trim()) {
-      setError("El nombre es obligatorio");
-      return;
-    }
+		if (!nombre.trim()) {
+			setError("El nombre es obligatorio");
+			return;
+		}
 
-    try {
-      await onSave({ nombre, esPublica });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "No se ha podido guardar");
-    }
-  };
+		try {
+			await onSave({ nombre, esPublica });
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "No se ha podido guardar");
+		}
+	};
 
-  const handleDelete = async () => {
-    setError("");
-    try {
-      await onDelete();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "No se ha podido borrar");
-    }
-  };
+	const handleDelete = async () => {
+		setError("");
+		try {
+			await onDelete();
+		} catch (err) {
+			setError(err instanceof Error ? err.message : "No se ha podido borrar");
+		}
+	};
 
-  return (
-    <form id="formulario-lista" onSubmit={handleSubmit} className="card bg-base-100 shadow-sm mb-10">
-      <div className="card-body">
-        <h3 className="card-title">{lista.nombre}</h3>
+	return (
+		<form id="formulario-lista" onSubmit={handleSubmit} className="card bg-base-100 shadow-sm mb-10">
+			<div className="card-body">
+				<h3 className="card-title">{lista.nombre}</h3>
 
-        <label className="label text-neutral font-semibold">Nombre</label>
-        <input
-          type="text"
-          className="input w-full"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-        />
+				<label className="label text-neutral font-semibold">Nombre</label>
+				<input
+					type="text"
+					className="input w-full"
+					value={nombre}
+					onChange={(e) => setNombre(e.target.value)}
+				/>
 
-        <label className="label cursor-pointer justify-start gap-3 mt-2">
-          <input
-            type="checkbox"
-            className="checkbox"
-            checked={esPublica}
-            onChange={(e) => setEsPublica(e.target.checked)}
-          />
-          <span className="label-text">Lista pública</span>
-        </label>
+				<label className="label cursor-pointer justify-start gap-3 mt-2">
+					<input
+						type="checkbox"
+						className="checkbox"
+						checked={esPublica}
+						onChange={(e) => setEsPublica(e.target.checked)}
+					/>
+					<span className="label-text">Lista pública</span>
+				</label>
 
-        <p className="text-sm opacity-70">{lista.totalPerfumes} perfumes</p>
+				<p className="text-sm opacity-70">{lista.totalPerfumes} perfumes</p>
 
-        {error && <p className="text-error text-sm">{error}</p>}
+				{error && <p className="text-error text-sm">{error}</p>}
 
-        <div className="flex gap-3 justify-end mt-3">
-          <button type="button" className="btn" onClick={onCancel} disabled={loading}>
-            Cancelar
-          </button>
-          {puedeBorrarLista && (
-            <button type="button" className="btn btn-error btn-outline" onClick={handleDelete} disabled={loading}>
-              Borrar
-            </button>
-          )}
-          <button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
-            {loading ? "Guardando..." : "Guardar"}
-          </button>
-        </div>
-      </div>
-    </form>
-  );
+				<div className="flex gap-3 justify-end mt-3">
+					<button type="button" className="btn" onClick={onCancel} disabled={loading}>
+						Cancelar
+					</button>
+					{puedeBorrarLista && (
+						<button type="button" className="btn btn-error btn-outline" onClick={handleDelete} disabled={loading}>
+							Borrar
+						</button>
+					)}
+					<button type="submit" className="btn btn-neutral hover:hover:btn-accent text-primary-content" disabled={loading}>
+						{loading ? "Guardando..." : "Guardar"}
+					</button>
+				</div>
+			</div>
+		</form>
+	);
 }

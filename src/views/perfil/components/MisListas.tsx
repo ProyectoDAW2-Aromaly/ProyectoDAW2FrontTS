@@ -33,13 +33,19 @@ export default function MisListas({
     onCancelar,
 }: Props) {
 
+    // Guarda la página actual
     const [paginaListas, setPaginaListas] = useState(1);
+
     const formularioEditarRef = useRef<HTMLDivElement | null>(null);
-    
-        const listasPaginadas = listas.slice(
-            (paginaListas - 1) * ITEMS_POR_PAGINA,
-            paginaListas * ITEMS_POR_PAGINA
-        );
+
+    // Cortamos los datos para la paginación
+    const listasPaginadas = listas.slice(
+        // pagina actual (3) -  1 = 2 || 2 * 6 = 12 (inicio)
+        (paginaListas - 1) * ITEMS_POR_PAGINA,
+        // 3 * 6 = 18 (final)
+        paginaListas * ITEMS_POR_PAGINA
+        // listas.slice(12, 18) → devuelve 12, 13, 14, 15, 16 y 17 (no 18)
+    );
 
     useEffect(() => {
         if (editarListaId === null) return;

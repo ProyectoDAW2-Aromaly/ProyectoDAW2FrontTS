@@ -49,6 +49,7 @@ export const useFormularioPerfumistaViewModel = () => {
         }
     };
 
+    // Cuando cambie el id, si está vacío, solo una vez al montar
     useEffect(() => {
         cargarDatos();
     }, [id]);
@@ -65,6 +66,7 @@ export const useFormularioPerfumistaViewModel = () => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0]
             setArchivo(file);
+            // Crea una url temporal para mostar la imagen antes de subirla
             setPreviewFoto(URL.createObjectURL(file));
         }
     }
@@ -88,7 +90,7 @@ export const useFormularioPerfumistaViewModel = () => {
         const erroresActuales = validacion()
         // Sacamos los valores de las propiedades del objeto en un array
         const valoresErrores = Object.values(erroresActuales)
-        // SI alguno/s (some) cumplen con la condicion que se pone dentro, da true. Si da true es que hay algun error.
+        // Si alguno/s (some) cumplen con la condicion que se pone dentro, da true. Si da true es que hay algun error.
         if (valoresErrores.some(valor => valor !== "" && valor !== undefined)) return;
 
         setGuardando(true);
@@ -97,23 +99,29 @@ export const useFormularioPerfumistaViewModel = () => {
         try {
             const formData = new FormData();
 
+            // solamente los datos, se convierte a JSON, sin foto
             formData.append("perfumista", JSON.stringify({
                 ...formulario
             }));
 
+            // Si ha seleccionado el archivo, se añade como foto
             if (archivo) {
                 formData.append("foto", archivo);
             }
+
             let tempId = id;
 
+            // comprobación editar/crear
             if (esModoEdicion) {
+                // id! = El id 100% existe
                 await editarPerfumista(id!, formData);
             } else {
                 const perfumistaCreado = await crearPerfumista(formData);
+                // Si es nuevo, lo crea y devuelve id
                 tempId = perfumistaCreado.id;
             }
 
-
+            // Para navegar a la página del perfumista
             navigate("/perfumista/" + tempId);
 
         } catch (err) {

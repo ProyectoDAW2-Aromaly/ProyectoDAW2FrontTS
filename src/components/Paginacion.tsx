@@ -6,12 +6,15 @@ interface IPaginacion {
 }
 
 export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, handleCambiarPagina }: IPaginacion) {
+    // 13 items / 6 items por página = 2,16 = 3 paginas
     const paginas = Math.ceil(totalItems / itemsPorPagina);
 
     return <div className="join flex justify-center mb-10">
+        {/* Para la primera página */}
         <button
             className={`join-item btn ${(paginaActual === 1 || totalItems === 0) && "btn-disabled"}`}
-            onClick={() => handleCambiarPagina(1)}>
+            onClick={() => handleCambiarPagina(1)}
+        >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
                 <title>arrow-skip-back</title>
                 <g id="Layer_2" data-name="Layer 2">
@@ -25,6 +28,7 @@ export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, h
                 </g>
             </svg>
         </button>
+        {/* Página anterior = paginaActual - 1 */}
         <button
             className={`join-item btn ${(paginaActual === 1 || totalItems === 0) && "btn-disabled"}`}
             onClick={() => handleCambiarPagina(paginaActual - 1)}
@@ -41,9 +45,14 @@ export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, h
                 </g>
             </svg>
         </button>
+
+        {/* Página actual */}
         <button className="join-item btn btn-primary">{paginaActual}</button>
+
+        {/* Comprueba en los dos que la página actual no sea la última y que no haya items, si no disabled */}
         <button
             className={`join-item btn ${(paginaActual === paginas || totalItems === 0) && "btn-disabled"}`}
+            // Página siguiente
             onClick={() => handleCambiarPagina(paginaActual + 1)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
@@ -58,8 +67,10 @@ export default function Paginacion({ totalItems, itemsPorPagina, paginaActual, h
                 </g>
             </svg>
         </button>
+
         <button
             className={`join-item btn ${(paginaActual === paginas || totalItems === 0) && "btn-disabled"}`}
+            // páginas = última página
             onClick={() => handleCambiarPagina(paginas)}
         >
             <svg width="20px" height="20px" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
