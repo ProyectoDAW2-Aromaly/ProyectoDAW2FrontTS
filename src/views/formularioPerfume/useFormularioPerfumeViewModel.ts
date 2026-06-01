@@ -130,7 +130,7 @@ export const useFormularioPerfumeViewModel = () => {
         const familiaError = (formulario.familiasOlfativas?.length ?? 0) === 0;
         const fotoError = !archivo && !formulario.foto;
         const generoError = formulario.genero.trim() === "";
-        const fechaLanzamientoError = formulario.fechaLanzamiento?.trim() === "" || fecha < 1800 || fecha > new Date().getFullYear();
+        const fechaLanzamientoError = formulario.fechaLanzamiento?.toString().trim() === "" || fecha < 1800 || fecha > new Date().getFullYear();
 
         const nuevosErroresCampos = {
             nombre: nombreError ? "El nombre no debe estar vacío." : undefined,
